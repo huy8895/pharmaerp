@@ -9,12 +9,25 @@ export default {
   head: {
     title: 'PhamarERP',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: ''},
+      {name: 'format-detection', content: 'telephone=no'},
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
+    style: [
+      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/libs/dropzone/dropzone.css'},
+      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/bootstrap.min.css'},
+      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/icons.min.css'},
+      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/app.min.css'},
+      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/custom.min.css'},
+    ],
+    script: [
+      {src: '/velzon/assets/js/plugins.js'},
+      {src: '/velzon/assets/libs/dropzone/dropzone-min.js'},
+      {src: '/velzon/assets/js/layout.js'},
+      {src: '/velzon/assets/js/app.js'},
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -30,8 +43,6 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -62,8 +73,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  generate: {
-    dir: '../src/main/resources/public',
-  },
 }
