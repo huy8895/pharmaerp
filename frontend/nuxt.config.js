@@ -9,16 +9,41 @@ export default {
   head: {
     title: 'PhamarERP',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: ''},
+      {name: 'format-detection', content: 'telephone=no'},
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
+    style: [],
+    script: [
+      {src: '/velzon/assets/js/plugins.js'},
+      {src: '/velzon/assets/libs/dropzone/dropzone-min.js'},
+      {src: '/velzon/assets/js/layout.js'},
+      {src: '/velzon/assets/js/app.js'},
+    ],
+    htmlAttrs: {
+      // Theme customize
+      'data-layout': 'horizontal',
+      'data-layout-mode': 'light',
+      'data-layout-width': 'fluid',
+      'data-layout-position': 'fixed',
+      'data-topbar': 'light',
+      'data-sidebar-size': 'lg',
+      'data-layout-style': 'default',
+      'data-sidebar': 'light',
+      'data-sidebar-image': 'none',
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    "~/static/velzon/assets/libs/dropzone/dropzone.css",
+    "~/static/velzon/assets/css/bootstrap.min.css",
+    "~/static/velzon/assets/css/icons.min.css",
+    "~/static/velzon/assets/css/app_fix.min.css",
+    "~/static/velzon/assets/css/custom.min.css",
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -30,8 +55,6 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -62,8 +85,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  generate: {
-    dir: '../src/main/resources/public',
-  },
 }
