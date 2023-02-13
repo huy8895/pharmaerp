@@ -15,23 +15,35 @@ export default {
       {name: 'format-detection', content: 'telephone=no'},
     ],
     link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
-    style: [
-      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/libs/dropzone/dropzone.css'},
-      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/bootstrap.min.css'},
-      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/icons.min.css'},
-      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/app.min.css'},
-      {rel: 'stylesheet', type: 'text/css', href: '/velzon/assets/css/custom.min.css'},
-    ],
+    style: [],
     script: [
       {src: '/velzon/assets/js/plugins.js'},
       {src: '/velzon/assets/libs/dropzone/dropzone-min.js'},
       {src: '/velzon/assets/js/layout.js'},
       {src: '/velzon/assets/js/app.js'},
-    ]
+    ],
+    htmlAttrs: {
+      // Theme customize
+      'data-layout': 'horizontal',
+      'data-layout-mode': 'light',
+      'data-layout-width': 'fluid',
+      'data-layout-position': 'fixed',
+      'data-topbar': 'light',
+      'data-sidebar-size': 'lg',
+      'data-layout-style': 'default',
+      'data-sidebar': 'light',
+      'data-sidebar-image': 'none',
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    "~/static/velzon/assets/libs/dropzone/dropzone.css",
+    "~/static/velzon/assets/css/bootstrap.min.css",
+    "~/static/velzon/assets/css/icons.min.css",
+    "~/static/velzon/assets/css/app_fix.min.css",
+    "~/static/velzon/assets/css/custom.min.css",
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
