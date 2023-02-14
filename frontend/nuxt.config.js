@@ -17,10 +17,23 @@ export default {
     link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
     style: [],
     script: [
+      {src: '/velzon/assets/libs/bootstrap/js/bootstrap.bundle.min.js'},
+      {src: '/velzon/assets/libs/simplebar/simplebar.min.js'},
+      {src: '/velzon/assets/libs/node-waves/waves.min.js'},
+      {src: '/velzon/assets/libs/feather-icons/feather.min.js'},
+      {src: '/velzon/assets/js/pages/plugins/lord-icon-2.1.0.js'},
+
       {src: '/velzon/assets/js/plugins.js'},
       {src: '/velzon/assets/libs/dropzone/dropzone-min.js'},
       {src: '/velzon/assets/js/layout.js'},
       {src: '/velzon/assets/js/app.js'},
+
+      {src: '/velzon/assets/libs/list.js/list.min.js'},
+      {src: '/velzon/assets/libs/list.pagination.js/list.pagination.min.js'},
+      {src: '/velzon/assets/libs/apexcharts/apexcharts.min.js'},
+      {src: '/velzon/assets/libs/gridjs/gridjs.umd.js'},
+      {src: '/velzon/assets/libs/jsvectormap/js/jsvectormap.min.js'},
+      {src: '/velzon/assets/libs/jsvectormap/maps/world-merc.js'},
     ],
     htmlAttrs: {
       // Theme customize
@@ -38,6 +51,8 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    "~/static/velzon/assets/libs/jsvectormap/css/jsvectormap.min.css",
+    "~/static/velzon/assets/libs/gridjs/theme/mermaid.min.css",
     "~/static/velzon/assets/libs/dropzone/dropzone.css",
     "~/static/velzon/assets/css/bootstrap.min.css",
     "~/static/velzon/assets/css/icons.min.css",

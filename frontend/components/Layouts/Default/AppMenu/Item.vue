@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 
 import {IMenuItem} from "~/utils/models/other";
-import {ref} from "vue";
 
 const props = defineProps<{
   item: IMenuItem
