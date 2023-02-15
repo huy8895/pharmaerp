@@ -5,10 +5,11 @@ import DKSPACE.PhamarERP.auth.dto.login.LoginReqDto;
 import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterReqDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterResDto;
-import DKSPACE.PhamarERP.auth.service.AuthenticationService;
+import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
+import DKSPACE.PhamarERP.auth.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +28,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public RegisterResDto register(RegisterReqDto dto) {
-
+        userRepository.findByEmail(dto.getEmail())
+                      .ifPresent((user) -> {
+                          throw new UserAlreadyExistException("Username Already Exist");
+                      });
 
         final User user = User.builder()
                               .firstname(dto.getFirstname())
@@ -46,18 +50,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public LoginResDto login(LoginReqDto dto) {
-        authenticationManager.authenticate(
+        final var authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         dto.getEmail(),
                         dto.getPassword()
                 )
         );
-        final var user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow();
 
-        final var token = jwtService.generateToken(user);
+        final var token = jwtService.generateToken((User) authenticate.getPrincipal());
         return LoginResDto.builder()
-                             .token(token)
-                             .build();
+                          .token(token)
+                          .build();
     }
 }
