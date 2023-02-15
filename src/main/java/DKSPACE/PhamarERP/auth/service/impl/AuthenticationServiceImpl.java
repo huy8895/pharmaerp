@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.service.impl;
 
 import DKSPACE.PhamarERP.auth.config.JwtService;
 import DKSPACE.PhamarERP.auth.dto.login.LoginReqDto;
+import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterReqDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterResDto;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
@@ -44,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public RegisterResDto login(LoginReqDto dto) {
+    public LoginResDto login(LoginReqDto dto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         dto.getEmail(),
@@ -55,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow();
 
         final var token = jwtService.generateToken(user);
-        return RegisterResDto.builder()
+        return LoginResDto.builder()
                              .token(token)
                              .build();
     }

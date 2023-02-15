@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.controller;
 
 
 import DKSPACE.PhamarERP.auth.dto.login.LoginReqDto;
+import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterReqDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterResDto;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
@@ -27,7 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<RegisterResDto> login(@RequestBody LoginReqDto dto){
+    public ResponseEntity<LoginResDto> login(@RequestBody LoginReqDto dto){
         log.info("AuthenticationController getDetail...");
         return ResponseEntity.ok(service.login(dto));
     }
