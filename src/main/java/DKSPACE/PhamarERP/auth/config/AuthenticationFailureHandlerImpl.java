@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
-public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
+public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler,AuthenticationEntryPoint {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response, AuthenticationException exception)
@@ -33,6 +33,16 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         response.getWriter().write(mapper.writeValueAsString(of));
     }
 
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+        final var of = Map.of("status", "FALSE", "message", "access denied");
+        log.error(exception.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        response.setStatus(HttpStatus.FORBIDDEN.value());
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(mapper.writeValueAsString(of));
+    }
 
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
