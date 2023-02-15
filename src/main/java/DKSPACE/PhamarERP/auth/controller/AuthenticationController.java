@@ -23,13 +23,13 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResDto> register(@RequestBody RegisterReqDto dto){
-        log.info("AuthenticationController getDetail...");
+        log.info("AuthenticationController start api /api/auth/register:  {}", dto);
         return ResponseEntity.ok(service.register(dto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResDto> login(@RequestBody LoginReqDto dto){
-        log.info("AuthenticationController getDetail...");
+        log.info("AuthenticationController start api /api/auth/login:  {}", dto);
         return ResponseEntity.ok(service.login(dto));
     }
 
