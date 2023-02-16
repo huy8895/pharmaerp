@@ -10,12 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.io.IOException;
 import java.util.Map;
 
-@RestControllerAdvice
 @Slf4j
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler,AuthenticationEntryPoint {
     @Override
@@ -41,8 +39,6 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(mapper.writeValueAsString(of));
     }
-
-
 }
 
 

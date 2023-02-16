@@ -29,4 +29,9 @@ public class LocalResolverConfig {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
+    @Bean
+    public I18NMessageResolver i18nMessageResolver(){
+        return new I18NMessageResolver(this.messageSource());
+    }
 }
