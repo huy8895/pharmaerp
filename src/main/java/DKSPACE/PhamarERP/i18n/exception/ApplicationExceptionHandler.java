@@ -1,11 +1,10 @@
 package DKSPACE.PhamarERP.i18n.exception;
 
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
+import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class ApplicationExceptionHandler {
-    private final MessageSource messageSource;
+    private final I18NMessageResolver i18NMessageResolver;
 
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -78,21 +77,18 @@ public class ApplicationExceptionHandler {
             MethodArgumentNotValidException exception,
             @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         ApiResponse<?> apiResponse = new ApiResponse<>();
-        List<ErrorDTO> errors = new ArrayList<>();
-        exception.getBindingResult()
-                 .getFieldErrors()
-                 .forEach(error -> {
-                     ErrorDTO errorDT0 = new ErrorDTO(error.getField(), this.getMessageLocale(error.getDefaultMessage()));
-                     errors.add(errorDT0);
-                 });
+        List<ErrorDTO> errors =
+                exception.getBindingResult()
+                         .getFieldErrors()
+                         .stream()
+                         .map(error -> ErrorDTO.builder()
+                                               .field(error.getField())
+                                               .errorMessage(i18NMessageResolver.convertMessage(error.getDefaultMessage()))
+                                               .build())
+                         .collect(Collectors.toList());
 
         apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);
         return apiResponse;
-    }
-
-    private String getMessageLocale(String code) {
-        final var locale = LocaleContextHolder.getLocale();
-        return messageSource.getMessage(code, null, locale);
     }
 }
