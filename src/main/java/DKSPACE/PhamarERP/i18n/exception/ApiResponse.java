@@ -17,6 +17,16 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
     private ApiResponseStatus status;
+    private String message;
+    private String code;
     private List<ErrorDTO> errors;
     private T results;
+
+    public ApiResponse(ApiResponseStatus status,
+                       String message,
+                       String code) {
+        this.status = status;
+        this.message = message;
+        this.code = code;
+    }
 }

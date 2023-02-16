@@ -11,6 +11,10 @@ import java.util.Locale;
 
 @Configuration
 public class LocalResolverConfig {
+
+    /**
+     * header param: Accept-Language (ex: vn, en)
+     */
     @Bean
     public LocaleResolver localeResolver(){
         final var localeResolver =  new AcceptHeaderLocaleResolver();

@@ -1,16 +1,18 @@
 package DKSPACE.PhamarERP.i18n.dto;
 
 
+import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class CategoryDto {
 
-  @NotEmpty(message = "validation.message.NotEmpty")
+  @NotNull(message = ValidateCode.NOT_NULL)
   private String name;
 
-  @NotEmpty(message = "validation.message.NotEmpty")
+  @NotEmpty(message = ValidateCode.NOT_EMPTY)
   private String type;
 
 }
