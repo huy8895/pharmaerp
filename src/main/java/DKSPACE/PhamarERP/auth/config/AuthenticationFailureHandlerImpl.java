@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.auth.config;
 
 
+import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,34 +12,39 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Slf4j
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler,AuthenticationEntryPoint {
+    private final I18NMessageResolver messageResolver;
+    public AuthenticationFailureHandlerImpl(I18NMessageResolver messageResolver) {
+        this.messageResolver = messageResolver;
+    }
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
-        final var of = Map.of("status", "FALSE", "message", "unauthorized");
-        log.error(exception.getMessage());
-        ObjectMapper mapper = new ObjectMapper();
+        log.error("onAuthenticationFailure {}", exception.getMessage());
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(of));
+        ObjectMapper mapper = new ObjectMapper();
+        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
+        response.getWriter().write(mapper.writeValueAsString(apiResponse));
     }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        final var of = Map.of("status", "FALSE", "message", "access denied");
         log.error(exception.getMessage());
         ObjectMapper mapper = new ObjectMapper();
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(of));
+        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
+        response.getWriter().write(mapper.writeValueAsString(apiResponse));
     }
 }
 

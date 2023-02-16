@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.auth.config;
 
+import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final I18NMessageResolver messageResolver;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -41,6 +43,6 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPointImpl(){
-        return new AuthenticationFailureHandlerImpl();
+        return new AuthenticationFailureHandlerImpl(messageResolver);
     }
 }

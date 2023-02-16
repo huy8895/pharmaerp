@@ -1,7 +1,11 @@
 package DKSPACE.PhamarERP.i18n.enums;
 
 public enum ApiResponseInfo {
-    USER_ALREADY_EXIST("error.message.USER_ALREADY_EXIST"),
+    USER_ALREADY_EXIST("error.message.UserAlreadyExist"),
+    UNAUTHORIZED("error.message.Unauthorized"),
+    BAD_CREDENTIALS("error.message.BadCredentials"),
+    BAD_REQUEST("error.message.BadRequest"),
+    INTERNAL_SERVER_ERROR("error.message.InternalServerError"),
     ;
 
     private final String i18NMessageCode;

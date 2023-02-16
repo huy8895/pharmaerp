@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.i18n.exception;
 
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,33 +25,27 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class ApplicationExceptionHandler {
-    private final I18NMessageResolver i18NMessageResolver;
+    private final I18NMessageResolver messageResolver;
 
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Object handleUnauthorized(AuthenticationException exception) {
+    public ApiResponse<?> handleUnauthorized(AuthenticationException exception) {
         log.error("handleUnauthorized: {}", exception.getMessage());
-        final var of = Map.of("status", "FALSE", "message", "unauthorized");
-        log.error(exception.getMessage());
-        return of;
+        return messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Object handleException(Throwable exception) {
+    public ApiResponse<?> handleException(Throwable exception) {
         log.error("handleException: {}", exception.getMessage());
-        final var of = Map.of("status", "FALSE", "message", "internal server error");
-        log.error(exception.getMessage());
-        return  of;
+        return messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Object handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
         log.error("handleException: {}", exception.getMessage());
-        final var of = Map.of("status", "FALSE", "message", "BAD_REQUEST");
-        log.error(exception.getMessage());
-        return  of;
+        return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
@@ -59,16 +54,16 @@ public class ApplicationExceptionHandler {
         log.error("handleBadCredentialsException: {}", exception.getMessage());
         final var of = Map.of("status", "FALSE", "message", "bad credentials");
         log.error(exception.getMessage());
-        return  of;
+        return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
     }
 
     @ExceptionHandler(UserAlreadyExistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Object handleUserAlreadyExistException(UserAlreadyExistException exception) {
+    public ApiResponse<?> handleUserAlreadyExistException(UserAlreadyExistException exception) {
         log.error("handleUserAlreadyExistException: {}", exception.getMessage());
         final var of = Map.of("status", "FALSE", "message", "user already exist");
         log.error(exception.getMessage());
-        return  of;
+        return messageResolver.generateApiResponse(ApiResponseInfo.USER_ALREADY_EXIST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -83,7 +78,7 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getField())
-                                               .errorMessage(i18NMessageResolver.convertMessage(error.getDefaultMessage()))
+                                               .errorMessage(messageResolver.convertMessage(error.getDefaultMessage()))
                                                .build())
                          .collect(Collectors.toList());
 
