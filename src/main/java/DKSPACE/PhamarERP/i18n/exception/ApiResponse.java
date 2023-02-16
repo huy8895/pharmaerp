@@ -32,19 +32,12 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> ok(@Nullable T body) {
         return ApiResponse.<T>builder()
                           .status(ApiResponseStatus.SUCCESS)
+                          .results(body)
                           .build();
     }
 
     private static String getI18nMessageCheckNull(ApiResponseInfo responseInfo, I18NMessageResolver messageResolver) {
         return messageResolver != null ? messageResolver.convertMessage(responseInfo.getI18NMessageCode()) : responseInfo.name();
-    }
-
-    public static ApiResponse<?> authenticationFail(ApiResponseInfo responseInfo, @Nullable I18NMessageResolver messageResolver) {
-        final var i18nMessage = getI18nMessageCheckNull(responseInfo, messageResolver);
-        return ApiResponse.builder()
-                          .status(ApiResponseStatus.FAILED)
-                          .message(i18nMessage)
-                          .build();
     }
 
     public static ApiResponse<?> failed(ApiResponseInfo responseInfo, @Nullable I18NMessageResolver messageResolver) {
