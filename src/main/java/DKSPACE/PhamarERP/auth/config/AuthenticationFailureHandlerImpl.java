@@ -27,7 +27,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
-        log.error("onAuthenticationFailure {}", exception.getMessage());
+        log.error("AuthenticationFailureHandlerImpl onAuthenticationFailure: path: {}, error: {}", request.getRequestURI(), exception.getMessage());
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -38,7 +38,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        log.error(exception.getMessage());
+        log.error("AuthenticationFailureHandlerImpl commence: path: {}, error: {}", request.getRequestURI(), exception.getMessage());
         ObjectMapper mapper = new ObjectMapper();
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType("application/json");
