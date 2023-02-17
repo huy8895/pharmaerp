@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.basecrud.sample;
+package DKSPACE.PhamarERP.master_data.sample;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDService;
 
