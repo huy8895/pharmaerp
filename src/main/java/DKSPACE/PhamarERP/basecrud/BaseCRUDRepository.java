@@ -9,5 +9,5 @@ import java.util.Optional;
 @NoRepositoryBean
 public interface BaseCRUDRepository<E extends BaseCRUDEntity, ID> extends JpaRepository<E, ID> ,
         JpaSpecificationExecutor<E> {
-    Optional<E> findByIdAndDeletedFlagFalse(Long Id);
+    Optional<E> findByIdAndDeletedFlagFalse(ID Id);
 }

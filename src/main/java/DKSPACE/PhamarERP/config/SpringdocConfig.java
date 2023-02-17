@@ -22,23 +22,34 @@ public class SpringdocConfig {
                 new Server().url("dev-server:8080"));
 
         final var info = new Info().title("DKSPACE.PhamarERP")
-                                          .version("1.0.0")
-                                          .description("documentation for api");
+                                   .version("1.0.0")
+                                   .description("documentation for api");
+
         final var components = new Components()
                 .addSecuritySchemes("bearer-key",
-                        new SecurityScheme().type(SecurityScheme.Type.HTTP)
-                                            .scheme("bearer")
-                                            .bearerFormat("JWT"));
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT"));
         return new OpenAPI().info(info)
                             .servers(servers)
                             .components(components);
     }
 
     @Bean
-    public GroupedOpenApi productApi() {
+    public GroupedOpenApi authApi() {
         String[] paths = {"/api/auth/**"};
         return GroupedOpenApi.builder()
                              .group("Auth")
+                             .pathsToMatch(paths)
+                             .build();
+    }
+
+    @Bean
+    public GroupedOpenApi sampleApi() {
+        String[] paths = {"/api/sample/**"};
+        return GroupedOpenApi.builder()
+                             .group("Sample")
                              .pathsToMatch(paths)
                              .build();
     }
