@@ -1,5 +1,5 @@
 <script>
-localStorage.setItem("rightbar_isopen", true);
+localStorage.setItem("rightbar_isopen", false);
 import { layoutMethods, layoutComputed } from "@/state/helpers";
 import { SimpleBar } from "simplebar-vue3";
 /**
@@ -505,39 +505,6 @@ export default {
                   </label>
                 </div>
                 <h5 class="fs-13 text-center mt-2">Horizontal</h5>
-              </b-col>
-              <b-col cols="4">
-                <div class="form-check card-radio">
-                  <input id="customizer-layout03" name="data-layout" type="radio" value="twocolumn"
-                    class="form-check-input" v-model="layoutType" />
-                  <label class="form-check-label p-0 avatar-md w-100" for="customizer-layout03">
-                    <span class="d-flex gap-1 h-100">
-                      <span class="flex-shrink-0">
-                        <span class="bg-light d-flex h-100 flex-column gap-1">
-                          <span class="d-block p-1 bg-soft-primary mb-2"></span>
-                          <span class="d-block p-1 pb-0 bg-soft-primary"></span>
-                          <span class="d-block p-1 pb-0 bg-soft-primary"></span>
-                          <span class="d-block p-1 pb-0 bg-soft-primary"></span>
-                        </span>
-                      </span>
-                      <span class="flex-shrink-0">
-                        <span class="bg-light d-flex h-100 flex-column gap-1 p-1">
-                          <span class="d-block p-1 px-2 pb-0 bg-soft-primary"></span>
-                          <span class="d-block p-1 px-2 pb-0 bg-soft-primary"></span>
-                          <span class="d-block p-1 px-2 pb-0 bg-soft-primary"></span>
-                          <span class="d-block p-1 px-2 pb-0 bg-soft-primary"></span>
-                        </span>
-                      </span>
-                      <span class="flex-grow-1">
-                        <span class="d-flex h-100 flex-column">
-                          <span class="bg-light d-block p-1"></span>
-                          <span class="bg-light d-block p-1 mt-auto"></span>
-                        </span>
-                      </span>
-                    </span>
-                  </label>
-                </div>
-                <h5 class="fs-13 text-center mt-2">Two Column</h5>
               </b-col>
             </b-row>
 
