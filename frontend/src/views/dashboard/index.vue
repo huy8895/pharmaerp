@@ -2,11 +2,11 @@
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
-import JobWidgets from "./job-widgets.vue";
-import FeaturedCompanies from "./featured-companies.vue";
-import ApplicationsStatistic from "./applications-statistic.vue";
-import RecomendedJobs from "./recomended-jobs.vue";
-import RecentApplicants from "./recent-applicants.vue";
+import JobWidgets from "./components/job-widgets.vue";
+import FeaturedCompanies from "./components/featured-companies.vue";
+import ApplicationsStatistic from "./components/applications-statistic.vue";
+import RecomendedJobs from "./components/recomended-jobs.vue";
+import RecentApplicants from "./components/recent-applicants.vue";
 
 export default {
   page: {
