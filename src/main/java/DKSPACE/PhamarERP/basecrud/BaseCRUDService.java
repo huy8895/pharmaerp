@@ -3,6 +3,8 @@ package DKSPACE.PhamarERP.basecrud;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BaseCRUDService<E extends BaseCRUDEntity> {
     /**
      * Save a baseCRUDEntity.
@@ -51,5 +53,6 @@ public interface BaseCRUDService<E extends BaseCRUDEntity> {
      * @param id the id of the entity.
      */
     void hardDelete(Long id);
-    
+
+    List<E> saveAll(List<E> entity);
 }

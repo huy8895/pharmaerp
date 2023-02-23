@@ -165,7 +165,7 @@ public class ExcelHelperImpl implements ExcelHelper {
         try (Workbook workbook = getWorkbook(excelFilePath);
              ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             // Create sheet
-            Sheet sheet = workbook.createSheet("sheet_name"); // Create sheet with sheet name
+            Sheet sheet = workbook.createSheet(eClass.getName()); // Create sheet with sheet name
 
             int rowIndex = 0;
 

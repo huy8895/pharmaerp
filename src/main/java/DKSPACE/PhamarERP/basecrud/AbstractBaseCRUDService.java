@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extends BaseCRUDRepository<E, Long>> implements BaseCRUDService<E> {
@@ -59,5 +60,11 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     public void hardDelete(Long id) {
         log.info("hardDelete id : {}", id);
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<E> saveAll(List<E> list) {
+        log.info("saveAll id : {}", list);
+        return repository.saveAll(list);
     }
 }
