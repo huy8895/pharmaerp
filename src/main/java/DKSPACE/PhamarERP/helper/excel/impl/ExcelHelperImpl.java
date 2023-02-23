@@ -155,6 +155,31 @@ public class ExcelHelperImpl implements ExcelHelper {
         return writeExcel(list, "xls", eClass);
     }
 
+    @Override
+    public <E> byte[] exportTemplate(List<E> list, Class<E> eClass) {
+        return exportTemplate(list, "xls", eClass);
+    }
+
+    private <E> byte[] exportTemplate(List<E> list, String excelFilePath, Class<E> eClass) {
+        try (Workbook workbook = getWorkbook(excelFilePath);
+             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            // Create sheet
+            Sheet sheet = workbook.createSheet("sheet_name"); // Create sheet with sheet name
+
+            int rowIndex = 0;
+
+            // Write header
+            String[] ignoreFields = {"id", "createdAt", "updatedAt", "deletedAl"};
+            this.writeHeaderIgnoreColumn(sheet, rowIndex, eClass, ignoreFields);
+            workbook.write(bos);
+            return bos.toByteArray();
+
+        } catch (Exception e) {
+            log.error("error export ", e);
+            throw new ServerException(ApiResponseInfo.ERROR_EXPORT_FILE);
+        }
+    }
+
     private <E> byte[] writeExcel(List<E> list, String excelFilePath, Class<E> eClass) {
         try (Workbook workbook = getWorkbook(excelFilePath);
              ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
@@ -230,6 +255,21 @@ public class ExcelHelperImpl implements ExcelHelper {
         Row row = sheet.createRow(rowIndex);
 
         for (CellDTO cellDTO : cellDTOS) {
+            row.createCell(cellDTO.getIndex())
+               .setCellValue(cellDTO.getFieldName());
+        }
+    }
+
+    private <E> void writeHeaderIgnoreColumn(Sheet sheet, int rowIndex, Class<E> eClass, String... ignores) {
+        Set<String> ignoresField = Set.of(ignores);
+        // create CellStyle
+        CellStyle cellStyle = createStyleForHeader(sheet);
+        List<CellDTO> cellDTOS = this.getCellHeader(eClass);
+        // Create row
+        Row row = sheet.createRow(rowIndex);
+
+        for (CellDTO cellDTO : cellDTOS) {
+            if (ignoresField.contains(cellDTO.getFieldName())) continue;;
             row.createCell(cellDTO.getIndex())
                .setCellValue(cellDTO.getFieldName());
         }

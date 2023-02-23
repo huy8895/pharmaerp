@@ -8,6 +8,8 @@ public interface ExcelHelper {
     <E> List<E> readFile(MultipartFile file, Class<E> eClass);
     <E> byte[] writeFile(List<E> list, Class<E> eClass);
 
+    <E> byte[] exportTemplate(List<E> list, Class<E> eClass);
+
     default <E> List<CellDTO> getCellHeader(Class<E> eClass) {
         return ReflectUtils.generateCellHeader(eClass);
     }
