@@ -9,7 +9,7 @@ public enum ApiResponseInfo {
     INVALID_EXCEL_FILE("error.message.InvalidExcelFile"),
     ERROR_EXPORT_FILE("error.message.ErrorExportFile"),
 
-    ;
+    NO_VALUE_PRESENT("error.message.NoValuePresent");
 
     private final String i18NMessageCode;
 

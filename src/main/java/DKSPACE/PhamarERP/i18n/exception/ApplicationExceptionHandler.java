@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -38,6 +39,13 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleException(Throwable exception) {
         log.error("handleException: {}", exception.getMessage());
         return messageResolver.generateApiResponse(ApiResponseInfo.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleNoValuePresent(NoSuchElementException exception) {
+        log.error("handleNoValuePresent: {}", exception.getMessage());
+        return messageResolver.generateApiResponse(ApiResponseInfo.NO_VALUE_PRESENT);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
