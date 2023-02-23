@@ -29,9 +29,9 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
         return ResponseEntity.ok(service.save(entity));
     }
 
-    @PostMapping("/save-all")
-    public ResponseEntity<List<E>> saveAll(@RequestBody @Valid List<E> entity) {
-        return ResponseEntity.ok(service.saveAll(entity));
+    @PostMapping("/save-list")
+    public ResponseEntity<List<E>> saveList(@RequestBody @Valid List<E> entity) {
+        return ResponseEntity.ok(service.saveList(entity));
     }
 
     @GetMapping("/{id}")
@@ -56,7 +56,7 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
                              .build();
     }
 
-    @GetMapping("/export-template")
+    @GetMapping("/export-template-import")
     public ResponseEntity<byte[]> exportTemplate() {
         return ResponseEntity.status(HttpStatus.OK)
                              .headers(this.getHttpHeaders("-template-" + this.entity.getSimpleName()))

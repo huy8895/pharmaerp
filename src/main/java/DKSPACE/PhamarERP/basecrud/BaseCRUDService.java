@@ -54,5 +54,5 @@ public interface BaseCRUDService<E extends BaseCRUDEntity> {
      */
     void hardDelete(Long id);
 
-    List<E> saveAll(List<E> entity);
+    List<E> saveList(List<E> entity);
 }

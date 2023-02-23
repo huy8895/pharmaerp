@@ -63,7 +63,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     }
 
     @Override
-    public List<E> saveAll(List<E> list) {
+    public List<E> saveList(List<E> list) {
         log.info("saveAll id : {}", list);
         return repository.saveAll(list);
     }
