@@ -1,11 +1,14 @@
 package DKSPACE.PhamarERP.auth.config;
 
+import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,16 +22,28 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailService;
+    private final I18NMessageResolver messageResolver;
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request,
                                     @NotNull HttpServletResponse response,
                                     @NotNull FilterChain filterChain) throws ServletException, IOException {
 
+        try {
+            this.filter(request, response, filterChain);
+        } catch (Exception e){
+            log.info("JwtAuthenticationFilter error doFilterInternal: ", e);
+            messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED, response);
+        }
+    }
+
+    private void filter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
         final String jwtToken = getJWTFromRequest(request);
         if (jwtToken == null) {
             filterChain.doFilter(request, response);
@@ -54,7 +69,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-
     }
 
     private String getJWTFromRequest(HttpServletRequest request) {

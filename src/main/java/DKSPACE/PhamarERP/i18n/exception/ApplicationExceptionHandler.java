@@ -43,7 +43,7 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Object handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
-        log.error("handleException: {}", exception.getMessage());
+        log.error("handleHttpMessageNotReadableException: {}", exception.getMessage());
         return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
     }
 
