@@ -6,6 +6,9 @@ public enum ApiResponseInfo {
     BAD_CREDENTIALS("error.message.BadCredentials"),
     BAD_REQUEST("error.message.BadRequest"),
     INTERNAL_SERVER_ERROR("error.message.InternalServerError"),
+    INVALID_EXCEL_FILE("error.message.InvalidExcelFile"),
+    ERROR_EXPORT_FILE("error.message.ErrorExportFile"),
+
     ;
 
     private final String i18NMessageCode;
