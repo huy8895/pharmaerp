@@ -9,12 +9,6 @@
     }
 }
 
-.navbar-show{
-    .vertical-overlay{
-        display: block;
-    }
-}
-
 // helper
 
 .section {
@@ -69,6 +63,11 @@
                 &:hover,
                 &.active,
                 &:focus {
+                    color: $success !important;
+                }
+            }
+            &.active {
+                .nav-link {
                     color: $success !important;
                 }
             }
@@ -134,7 +133,7 @@
 }
 
 .bg-overlay-pattern {
-    background-image: url("~@/assets/images/landing/bg-pattern.png");
+    background-image: url("../../images/landing/bg-pattern.png");
     background-color: transparent;
     background-position: center;
     background-size: cover;

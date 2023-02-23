@@ -19,7 +19,7 @@
     width: 307.875px;
     box-sizing: border-box;
     touch-action: manipulation;
-    background: var(--#{$prefix}choices-bg) !important;
+    background: var(--#{$prefix}choices-bg);
     box-shadow: 1px 0 0 $border-color, -1px 0 0 $border-color, 0 1px 0 $border-color, 0 -1px 0 $border-color, 0 3px 13px rgba(0, 0, 0, 0.08);
 
     &.open,
@@ -152,10 +152,10 @@
         bottom: 100%;
     }
     &.arrowTop::before {
-        border-bottom-color: $primary !important;
+        border-bottom-color: $primary;
     }
     &.arrowTop::after {
-        border-bottom-color: $primary !important;
+        border-bottom-color: $primary;
     }
 
     &.arrowBottom::before,
@@ -163,10 +163,10 @@
         top: 100%;
     }
     &.arrowBottom::before {
-        border-top-color: $primary !important;
+        border-top-color: $primary;
     }
     &.arrowBottom::after {
-        border-top-color: $primary !important;
+        border-top-color: $primary;
     }
     &:focus {
         outline: 0;

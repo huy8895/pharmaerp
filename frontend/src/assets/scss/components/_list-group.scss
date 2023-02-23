@@ -6,10 +6,6 @@
 @each $color,
 $value in $theme-colors {
     .list-group-fill-#{$color} {
-        background-color: $value;
-        border-color: $value;
-        color: $white;
-
         .list-group-item {
             &.active {
                 background-color: $value !important;

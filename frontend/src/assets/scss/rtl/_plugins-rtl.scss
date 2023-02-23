@@ -210,53 +210,39 @@ html {
     left: auto;
 }
 
+// nouislider
 
-// rangeslider
-
-.slider-txt-dir-rtl.slider-horizontal .slider-handle{
-    right: calc(var(--slider-handle-width, 16px)/2*-1) !important;
-    left: auto !important; 
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
+    right: 0 !important;
+    left: auto;
 }
 
-// select plugin
-.multiselect-multiple-label, .multiselect-placeholder, .multiselect-single-label{
-    left: auto !important;
-    right: 0;
-    padding-right: var(--ms-px,.875rem) !important;
-    padding-left: calc(1.25rem + var(--ms-px, .875rem)*3) !important;
-}
-
-.multiselect-search{
-    padding-right: var(--ms-px,.875rem);
-}
-
-// data-option-flag
-[data-option-flag-name], [data-option-flag-img-name]{
-    &::before{
-        right: auto;
-        left: 0.9rem;
+.nested-sortable-handle{
+    .handle{
+        right: 0;
+    }
+    .list-group-item{
+        padding-right: 42px;
     }
 }
 
-[data-option-flag-img-name]{
-    .flag-input{
-        background-position: top 8px right 12px;
-        padding-right: 45px;
-        padding-left: $input-padding-x;
-    }
-}
-// input-step
-.input-step {
-    input{
-        text-align: center;
-    }
+// ck editable
+
+.ck.ck-editor__editable_inline[dir=ltr] {
+    text-align: right!important;
 }
 
-// toggle switch
-.toggle-on{
-    justify-content: flex-end !important;
+.ql-editor {
+    text-align: right;
 }
 
-.toggle-off{
-    justify-content: flex-start !important;
+//apexchart
+
+.apexcharts-legend-marker{
+    margin-left : 3px;
+}
+
+.apexcharts-legend-text {
+    padding-right: 15px;
+    margin-right: -15px;
 }

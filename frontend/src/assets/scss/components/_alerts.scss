@@ -71,7 +71,7 @@
     background-color: var(--#{$prefix}card-bg-custom);
     border-color: $border-color;
     border-top: 2px solid;
-    color: var(--#{$variable-prefix}body-color);
+    color: var(--#{$prefix}body-color);
 }
 
 //alert additional example
@@ -195,6 +195,6 @@
 }
 
 .alert-outline.alert-dark{
-    color: var(--#{$variable-prefix}dark);
+    color: var(--#{$prefix}dark);
 }
    

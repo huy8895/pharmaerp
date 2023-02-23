@@ -5,7 +5,7 @@
 .bookmark-icon {
     .btn {
         color: $text-muted;
-        background-color: var(--#{$prefix}light) !important;
+        background-color: var(--#{$prefix}light);
         box-shadow: $box-shadow;
         font-size: $font-size-base;
         &:hover,
@@ -80,7 +80,7 @@
 
 //
 .nft-hero {
-    background-image: url('~@/assets/images/nft/bg-home.jpg');
+    // background-image: url('../../images/nft/bg-home.jpg');
     background-size: cover;
     background-position: bottom;
     padding: 222px 0 150px 0;

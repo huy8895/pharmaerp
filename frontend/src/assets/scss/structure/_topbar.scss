@@ -39,16 +39,6 @@
         .dropdown-menu.show {
             top: 13px !important;
         }
-        .notification-actions {
-            display: none;
-            position: absolute;
-            background-color: $dropdown-bg;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 7px;
-            border-top: 1px solid $border-color;
-        }
     }
 
     .btn-topbar {
@@ -62,7 +52,7 @@
     }
 
     .user-name-text {
-        color: var(--#{$variable-prefix}gray-700);
+        color: var(--#{$prefix}gray-700);
     }
 }
 
@@ -175,7 +165,7 @@
     text-align: center;
     padding: 15px 0 9px;
     border: 1px solid transparent;
-    color: $dropdown-link-color;
+    color: var(--#{$prefix}dropdown-link-color);
 
     img {
         height: 24px;
@@ -189,7 +179,7 @@
     }
 
     &:hover {
-        background-color: $dropdown-link-hover-bg;
+        background-color: var(--#{$prefix}dropdown-link-hover-bg);
     }
 }
 
@@ -346,7 +336,7 @@
 [data-layout="horizontal"] {
     #page-topbar {
         left: 0;
-        border-bottom: 1px solid var(--#{$variable-prefix}gray-300);
+        border-bottom: 1px solid var(--#{$prefix}gray-300);
 
         @media (min-width: 1024.1px) {
             &.topbar-shadow {

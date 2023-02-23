@@ -2,7 +2,6 @@
 // _layouts-rtl.scss
 //
 
-
 .navbar-menu {
     .navbar-nav {
         .nav-link {
@@ -10,10 +9,14 @@
                 margin-right: auto;
                 margin-left: -2px;
             }
+            svg {
+                margin-left: 0.665rem;
+            }
         }
 
         .nav-link[data-bs-toggle=collapse] {
             &:after {
+                margin-right: auto;
                 left: 18px;
                 right: auto;
             }
@@ -37,61 +40,6 @@
         }
     }
 }
-
-.topbar-badge {
-    left: 9px !important;
-    right: auto !important;
-}
-
-.hamburger-icon{
-    span{
-        left: auto;
-        right: 0;
-    }
-    
-    &.open{
-        transform: rotate(90deg);
-        span{
-            &:nth-child(1){
-                left: auto;
-                right: 1px;
-                transform: rotate(-90deg);
-            }
-
-            &:nth-child(2){
-                left: auto;
-                right: 3px;
-                transform: rotate(-45deg);
-            }
-
-            &:nth-child(3){
-                left: auto;
-                right: 9px;
-                transform: rotate(45deg);
-            }
-        }
-    }
-}
-
-.navbar-nav {
-    padding-right: 0;
-}
-
-[data-layout="horizontal"] {
-    .navbar-menu {
-        .navbar-nav {
-            .nav-link[data-bs-toggle=collapse] {
-                &:after {
-                    margin-right: auto;
-                    left: 18px;
-                    right: auto;
-                    transform: rotate(179deg);
-                }
-            }
-        }
-    }
-}
-
 
 .vertical-overlay {
     right: 0;
@@ -185,14 +133,10 @@
                     }
                 }
             }
-
-            >li {
-                &:nth-of-type(2) {
-                    >.nav-link.menu-link {
-                        padding-right: 0;
-                        padding-left: $horizontal-menu-item-padding-x;
-                    }
-                }
+            .vertical-sidebar-enable .app-menu {
+                margin-left: auto !important;
+                z-index: 1004;
+                margin-right: 0 !important;
             }
         }
     }
@@ -255,10 +199,6 @@
             }
         }
     }
-}
-
-.navbar-menu .navbar-nav .nav-link[data-bs-toggle=collapse]:after {
-    transform: rotate(180deg);
 }
 
 // Two Column Layouts 
@@ -493,8 +433,6 @@
 }
 
 
-    
-
 @media (min-width:768px) {
     #page-topbar {
         right: 250px;
@@ -614,7 +552,6 @@
     [data-layout=vertical] {
         .app-menu {
             margin-right: -100%;
-            margin-left: 0 !important;
         }
 
         &[data-sidebar-size=sm-hover] {
@@ -663,12 +600,6 @@
         .main-content {
             margin-right: 0;
         }
-    }
-}
-
-.vertical-sidebar-enable{
-    .app-menu{
-        margin-right: 0 !important;
     }
 }
 
@@ -837,17 +768,15 @@
     }
 }
 
-[data-layout="vertical"][data-sidebar="dark"][data-sidebar-size="sm"],  [data-layout="vertical"][data-sidebar-size="sm"]{
-    .navbar-menu .navbar-nav .nav-sm .nav-link:after{
-        transform: rotate(180deg) !important;
-    }
+
+.navbar-menu .navbar-nav .nav-link[data-bs-toggle=collapse]:after {
+    transform: rotate(179deg);
 }
 
 
-// [dir=rtl] .navbar-menu .navbar-nav .nav-link[data-bs-toggle=collapse]:after {
-//     transform: rotate(-180deg)
-// }
-
-// [dir=rtl] .navbar-menu .navbar-nav .nav-link[data-bs-toggle=collapse][aria-expanded=true]:after {
-//     transform: rotate(-270deg)
-// }
+.vertical-sidebar-enable {
+    .app-menu {
+        margin-left: auto !important;
+        margin-right: 0 !important;
+    }
+}

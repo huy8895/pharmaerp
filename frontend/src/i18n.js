@@ -1,50 +1,62 @@
-import { createI18n } from 'vue-i18n';
+import i18n from "i18next";
+import detector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
 
-/**
- * Load locale messages
- *
- * The loaded `JSON` locale messages is pre-compiled by `@intlify/vue-i18n-loader`, which is integrated into `vue-cli-plugin-i18n`.
- * See: https://github.com/intlify/vue-i18n-loader#rocket-i18n-resource-pre-compilation
- */
-function loadLocaleMessages() {
-  const locales = require.context('./lang', true, /[A-Za-z0-9-_,\s]+\.json$/i);
-  const messages = {};
-  locales.keys().forEach((key) => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      messages[locale] = locales(key);
-    }
-  });
-  return messages;
+import translationGr from "./locales/gr.json";
+import translationIT from "./locales/it.json";
+import translationRS from "./locales/ru.json";
+import translationSP from "./locales/sp.json";
+import translationENG from "./locales/en.json";
+import translationCN from "./locales/ch.json";
+import translationFR from "./locales/fr.json";
+import translationAR from "./locales/ar.json";
+
+// the translations
+const resources = {
+  gr: {
+    translation: translationGr,
+  },
+  it: {
+    translation: translationIT,
+  },
+  rs: {
+    translation: translationRS,
+  },
+  sp: {
+    translation: translationSP,
+  },
+  en: {
+    translation: translationENG,
+  },
+  cn: {
+    translation: translationCN,
+  },
+  fr: {
+    translation: translationFR,
+  },
+  ar: {
+    translation: translationAR,
+  },
+};
+
+const language = localStorage.getItem("I18N_LANGUAGE");
+if (!language) {
+  localStorage.setItem("I18N_LANGUAGE", "en");
 }
 
-const setDateTimeFormats = {
-  short: {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  },
-  long: {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-    hour: 'numeric',
-    minute: 'numeric',
-  },
-};
+i18n
+  .use(detector)
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    resources,
+    lng: localStorage.getItem("I18N_LANGUAGE") || "en",
+    fallbackLng: "en", // use en if detected lng is not available
 
-const dateTimeFormats = {
-  en: setDateTimeFormats,
-  es: setDateTimeFormats,
-  de: setDateTimeFormats,
-  'en-GB': setDateTimeFormats,
-};
+    keySeparator: false, // we do not use keys in form messages.welcome
 
-export default createI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || 'en',
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-  messages: loadLocaleMessages(),
-  dateTimeFormats,
-});
+    interpolation: {
+      escapeValue: false, // react already safes from xss
+    },
+  });
+
+export default i18n;

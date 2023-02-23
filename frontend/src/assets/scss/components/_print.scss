@@ -8,6 +8,7 @@
     .right-bar,
     .page-title-box,
     .navbar-header,
+    .app-menu,
     .footer,
     #back-to-top {
         display: none !important;
@@ -23,6 +24,7 @@
 
     .card{
         border: 0;
+        box-shadow: none !important;
     }
 
     .invoice-details{

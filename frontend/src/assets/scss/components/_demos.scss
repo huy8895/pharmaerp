@@ -32,12 +32,12 @@
 
 // Icon demo ( Demo only )
 .icon-demo-content {
-    color: var(--#{$variable-prefix}gray-500);
+    color: var(--#{$prefix}gray-500);
 
     i {
         font-size: 24px;
         margin-right: 10px;
-        color: var(--#{$variable-prefix}gray-600);
+        color: var(--#{$prefix}gray-600);
         transition: all 0.4s;
         vertical-align: middle;
     }
@@ -52,9 +52,7 @@
         margin-top: 24px;
 
         &:hover {
-
-            i,
-            svg {
+            i, svg {
                 color: $primary;
                 transform: scale(1.5);
             }
@@ -76,42 +74,40 @@
 
 // customizer switch
 
-.img-switch {
-    .card-radio {
+.img-switch{
+    .card-radio{
         .form-check-input {
             display: none;
-
+    
             &:checked+.form-check-label {
-                &::before {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    background-color: rgba($primary, 0.5);
-                }
-
-                &::after {
-                    content: '\eb80';
-                    font-family: "remixicon";
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translateY(-50%) translateX(-50%);
-                    font-size: 18px;
-                    color: $white;
-                }
+            &::before{
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: rgba($primary, 0.5);
             }
+            &::after{
+                content: '\eb80';
+                font-family: "remixicon";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateY(-50%) translateX(-50%);
+                font-size: 18px;
+                color: $white;
+            }
+        }
         }
     }
 }
 
-[data-bs-target="#collapseBgGradient"] {
-    &.active {
+[data-bs-target="#collapseBgGradient"]{
+    &.active{
         border-color: $primary !important;
-
-        &::before {
+        &::before{
             content: "\eb80";
             font-family: remixicon;
             position: absolute;
@@ -123,18 +119,17 @@
     }
 }
 
-[data-layout-mode="dark"] {
-    .colorscheme-cardradio {
-        .form-check-label {
-            background-color: var(--#{$variable-prefix}dark);
+[data-layout-mode="dark"]{
+    .colorscheme-cardradio{
+        .form-check-label{
+            background-color: var(--#{$prefix}dark);
         }
-
-        .bg-light {
-            background-color: rgba(var(--#{$variable-prefix}light-rgb), 0.1) !important;
+        .bg-light{
+            background-color: rgba(var(--#{$prefix}light-rgb), 0.1)!important;
         }
 
         .bg-soft-light {
-            background-color: rgba(var(--#{$variable-prefix}dark-rgb), .1) !important;
+            background-color: rgba(var(--#{$prefix}dark-rgb),.1)!important;
         }
 
         .dark{

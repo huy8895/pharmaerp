@@ -79,7 +79,7 @@
   }
 
   //choices 
-  .choices, .flatpickr-calendar, .ck, .ql-toolbar, .select2-container, .menu-dropdown, .multiselect-dropdown{
+  .choices, .flatpickr-calendar, .ck, .ql-toolbar, .select2-container, .menu-dropdown{
     --#{$prefix}choices-bg:                        #{$white};
     --#{$prefix}choices-link-color:                #{$gray-900};
     --#{$prefix}choices-link-hover-bg:             #{$gray-100};

@@ -14,7 +14,7 @@
         border-left: 3px solid;
         
         &.blockquote-outline{
-            background-color: $card-bg !important;
+            background-color: var(--#{$prefix}card-bg-custom) !important;
             border: 1px solid;
             border-left: 3px solid;
         }
@@ -51,18 +51,18 @@ $value in $theme-colors {
 .custom-blockquote{
     &.blockquote{
         &.blockquote-dark{
-            color: var(--#{$variable-prefix}dark);
-            border-color: var(--#{$variable-prefix}dark);
-            background-color: rgba(var(--#{$variable-prefix}dark-rgb), 0.15);
+            color: var(--#{$prefix}dark);
+            border-color: var(--#{$prefix}dark);
+            background-color: rgba(var(--#{$prefix}dark-rgb), 0.15);
             .blockquote-footer {
-                color: var(--#{$variable-prefix}dark);
+                color: var(--#{$prefix}dark);
             }
         }
         &.blockquote-outline{
             &.blockquote-dark{
-                border-color: var(--#{$variable-prefix}dark);
+                border-color: var(--#{$prefix}dark);
                 .blockquote-footer {
-                    color: var(--#{$variable-prefix}dark);
+                    color: var(--#{$prefix}dark);
                 }
             }
         }

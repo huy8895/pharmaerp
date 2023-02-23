@@ -16,8 +16,7 @@
     background-color: transparent;
 }
 
-@each $color,
-$value in $theme-colors {
+@each $color, $value in $theme-colors {
     .badge-outline-#{$color} {
         @include badge-variant-outline($value);
     }
@@ -26,12 +25,11 @@ $value in $theme-colors {
 // badge outline
 
 .badge-outline {
-    background-color: $card-bg;
+    background-color: var(--#{$prefix}card-bg-custom);
     border: 1px solid;
 }
 
-@each $color,
-$value in $theme-colors {
+@each $color, $value in $theme-colors {
     .badge-soft-#{$color} {
         @include badge-variant-soft($value);
     }
@@ -62,7 +60,6 @@ $value in $theme-colors {
 .badge-label {
     margin-left: 8px;
     position: relative;
-
     &:before {
         content: "";
         position: absolute;
@@ -72,6 +69,19 @@ $value in $theme-colors {
         top: 0;
     }
 }
+
+// [data-layout-mode="dark"]{
+//     .badge{
+//         &.bg-dark{
+//             background-color: var(--#{$prefix}light) !important;
+//         }
+
+//         &.bg-light{
+//             background-color: var(--#{$prefix}dark) !important;
+//             color: var(--#{$prefix}light) !important;
+//         }
+//     }
+// }
 
 //Badge Gradient Style
 $gradients: ();

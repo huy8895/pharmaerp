@@ -116,7 +116,7 @@
         .nav-link  {
             color: rgba($white, 0.6);
             &.active {
-                background-color: var(--#{$variable-prefix}dropdown-bg);
+                background-color: var(--#{$prefix}dropdown-bg);
             }
             &:hover {
                 color: $white;

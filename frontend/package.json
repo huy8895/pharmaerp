@@ -1,99 +1,167 @@
 {
-  "name": "velzon",
-  "version": "2.2.0",
+  "name": "saas-velzon-react",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^35.4.0",
-    "@ckeditor/ckeditor5-vue": "^4.0.1",
-    "@fullcalendar/bootstrap": "^6.0.2",
-    "@fullcalendar/core": "^6.0.2",
-    "@fullcalendar/daygrid": "^6.0.2",
-    "@fullcalendar/interaction": "^6.0.2",
-    "@fullcalendar/list": "^6.0.2",
-    "@fullcalendar/timegrid": "^6.0.2",
-    "@fullcalendar/vue3": "^6.0.2",
-    "@j-t-mcc/vue3-chartjs": "^1.3.0",
-    "@popperjs/core": "^2.11.6",
+    "@ckeditor/ckeditor5-build-classic": "^32.0.0",
+    "@ckeditor/ckeditor5-react": "^4.0.0",
+    "@fullcalendar/bootstrap": "^5.11.0",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
+    "@fullcalendar/list": "^5.11.0",
+    "@fullcalendar/react": "^5.11.1",
     "@simonwep/pickr": "^1.8.2",
-    "@vue-leaflet/vue-leaflet": "^0.7.0",
-    "@vueform/multiselect": "^2.5.8",
-    "@vueform/slider": "^2.1.6",
-    "@vueform/toggle": "^2.1.3",
-    "@vuelidate/core": "^2.0.0",
-    "@vuelidate/validators": "^2.0.0",
-    "@zhuowenli/vue-feather-icons": "^5.0.2",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.3",
+    "@testing-library/user-event": "^13.5.0",
+    "@vtaits/react-color-picker": "^0.1.2",
     "aos": "^2.3.4",
-    "apexcharts": "^3.36.3",
-    "axios": "^1.2.2",
-    "bootstrap": "^5.2.3",
-    "bootstrap-vue-3": "^0.4.15",
-    "chart.js": "^4.1.1",
-    "click-outside-vue3": "^4.0.1",
-    "core-js": "^3.27.1",
-    "echarts": "^5.4.1",
-    "feather-icons": "^4.29.0",
-    "firebase": "^9.15.0",
-    "gridjs-vue": "^5.0.4",
-    "highlight.js": "^11.7.0",
-    "leaflet": "^1.9.3",
-    "lottie-web": "^5.10.1",
-    "maska": "^1.5.0",
-    "moment": "^2.29.4",
-    "node-sass": "8.0.0",
-    "particles.vue3": "^2.7.1",
-    "prismjs": "^1.29.0",
-    "sass-loader": "^13.2.0",
-    "simplebar": "^5.3.9",
-    "simplebar-vue3": "^0.1.5",
-    "sweetalert2": "^11.6.16",
-    "swiper": "^8.4.5",
-    "vue": "3.2.45",
-    "vue-draggable-next": "^2.1.1",
-    "vue-feather": "^2.0.0",
-    "vue-flatpickr-component": "^11.0.1",
-    "vue-i18n": "^9.2.2",
-    "vue-prismjs": "^1.2.0",
-    "vue-router": "4.1.6",
-    "vue3-apexcharts": "^1.4.1",
-    "vue3-count-to": "^1.1.2",
-    "vue3-echarts": "^1.1.0",
-    "vue3-google-map": "^0.15.0",
-    "vuevectormap": "^1.1.0",
-    "vuex": "^4.1.0",
-    "yarn": "^1.22.19"
+    "apexcharts": "^3.33.1",
+    "axios": "^0.26.0",
+    "axios-mock-adapter": "^1.20.0",
+    "bootstrap": "5.2.1",
+    "chart.js": "^2.9.4",
+    "cleave.js": "^1.6.0",
+    "echarts": "^5.3.0",
+    "echarts-for-react": "^3.0.2",
+    "emoji-picker-react": "^3.5.1",
+    "eslint": "^8.9.0",
+    "feather-icons-react": "^0.5.0",
+    "filepond": "^4.30.3",
+    "filepond-plugin-image-exif-orientation": "^1.0.11",
+    "filepond-plugin-image-preview": "^4.6.10",
+    "firebase": "^9.6.7",
+    "formik": "^2.2.9",
+    "google-maps-react": "^2.0.6",
+    "gridjs": "^5.0.2",
+    "gridjs-react": "^5.0.2",
+    "i18next": "^21.6.11",
+    "i18next-browser-languagedetector": "^6.1.3",
+    "leaflet": "^1.7.1",
+    "list.js": "^2.3.1",
+    "lord-icon-element": "^3.3.3",
+    "lottie-web": "^5.8.1",
+    "metismenujs": "^1.3.1",
+    "node-sass": "^7.0.1",
+    "nouislider-react": "^3.4.1",
+    "prismjs": "^1.26.0",
+    "quill": "^1.3.7",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.3.9",
+    "react-chartjs-2": "^2.11.1",
+    "react-color": "^2.19.3",
+    "react-countdown": "^2.3.2",
+    "react-countup": "^6.1.1",
+    "react-csv": "^2.2.2",
+    "react-data-table-component": "^7.5.2",
+    "react-dom": "^18.0.0",
+    "react-drag-listview": "^0.1.9",
+    "react-dragula": "^1.1.17",
+    "react-dropzone": "^12.0.1",
+    "react-dual-listbox": "^2.2.0",
+    "react-facebook-login": "^4.1.1",
+    "react-filepond": "^7.1.1",
+    "react-flatpickr": "^3.10.7",
+    "react-google-login": "^5.2.2",
+    "react-i18next": "^11.15.3",
+    "react-image-lightbox": "^5.1.4",
+    "react-jvectormap": "^0.0.16",
+    "react-leaflet": "^4.0.2",
+    "react-masonry-component": "^6.3.0",
+    "react-masonry-css": "^1.0.16",
+    "react-meta-tags": "^1.0.1",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-quilljs": "^1.2.17",
+    "react-rangeslider": "^2.2.0",
+    "react-rating": "^2.0.5",
+    "react-redux": "^7.2.6",
+    "react-responsive-carousel": "^3.2.22",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.0",
+    "react-scrollspy": "^3.4.3",
+    "react-select": "^5.2.2",
+    "react-shepherd": "^3.3.6",
+    "react-switch": "^6.0.0",
+    "react-table": "^7.7.0",
+    "react-toastify": "^8.1.1",
+    "reactstrap": "^9.0.1",
+    "redux": "^4.1.2",
+    "redux-saga": "^1.1.3",
+    "remixicon-react": "^1.0.0",
+    "save": "^2.4.0",
+    "simplebar-react": "^2.3.6",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.0.6",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
-  "devDependencies": {
-    "@achrinza/node-ipc": "^10.1.7",
-    "@vue/cli-plugin-babel": "~5.0.8",
-    "@vue/cli-plugin-eslint": "~5.0.8",
-    "@vue/cli-service": "~5.0.8",
-    "@vue/compiler-sfc": "^3.2.45",
-    "@babel/eslint-parser": "^7.19.1",
-    "eslint": "^8.31.0",
-    "eslint-plugin-vue": "^7.0.0"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build --max_old_space_size=8000 build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write \"**/*.{js,jsx,json,md,html,css,less,scss}\""
   },
-  "resolutions": {
-    "autoprefixer": "10.4.5"
+  "babelOptions": {
+    "presets": [
+      "@babel/preset-react"
+    ]
   },
   "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
     "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "react-app"
     ],
-    "rules": {}
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": false,
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "globals": {
+      "$": true
+    },
+    "settings": {
+      "react": {
+        "version": "^17.0.1"
+      }
+    },
+    "rules": {
+      "semi": 0,
+      "react/no-unescaped-entities": 0,
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "no-unused-vars": "off",
+      "no-extra-boolean-cast": 0
+    }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "moment": "2.29.1",
+    "autoprefixer": "10.4.5"
+  },
+  "devDependencies": {
+    "babel-plugin-prismjs": "^2.1.0"
+  }
 }

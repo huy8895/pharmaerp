@@ -85,13 +85,13 @@ $value in $theme-colors {
 }
 
 .card-light{
-    background-color: var(--#{$variable-prefix}light);
+    background-color: var(--#{$prefix}light);
     .card-header, .card-footer{
-        color: var(--#{$variable-prefix}body-color) !important;
-        background-color: rgba(var(--#{$variable-prefix}dark-rgb), 0.1);
+        color: var(--#{$prefix}body-color) !important;
+        background-color: rgba(var(--#{$prefix}dark-rgb), 0.1);
     }
     .card-title, .card-text { 
-        color: var(--#{$variable-prefix}body-color) !important;
+        color: var(--#{$prefix}body-color) !important;
     }
 }
 
@@ -108,7 +108,7 @@ $value in $theme-colors {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(var(--#{$variable-prefix}light-rgb), 0.6);
+    background-color: rgba(var(--#{$prefix}light-rgb), 0.6);
     z-index: 9999;
 }
 

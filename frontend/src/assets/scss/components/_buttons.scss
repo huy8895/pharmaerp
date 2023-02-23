@@ -10,10 +10,10 @@ a {
 
 .btn {
     box-shadow: $element-shadow;
+    &:hover, &.active, &:focus, &:active, &.show, &:first-child:active {
+        border-color: transparent;
+    }
 }
-
-.btn.show,
-.btn:first-child:active,
 :not(.btn-check)+.btn:active {
     border-color: transparent;
 }
@@ -53,19 +53,24 @@ a {
 // Soft Buttons
 // 
 
+@mixin button-variant-soft($bg) {
+    color: $bg;
+    background-color: rgba($bg, 0.1);
+    border-color: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $white !important;
+        background-color: $bg !important;
+        border-color: transparent;
+    }
+}
+
 @each $color,
 $value in $theme-colors {
     .btn-soft-#{$color} {
-        --#{$prefix}btn-color: #{$value};
-        --#{$prefix}btn-bg: #{rgba($value, .1)};
-        --#{$prefix}btn-border-color: transparent;
-        --#{$prefix}btn-hover-color: #{$white};
-        --#{$prefix}btn-hover-bg: #{shade-color($value, 10%)};
-        --#{$prefix}btn-hover-border-color: transparent;
-        --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($value)};
-        --#{$prefix}btn-active-color: var(--#{$prefix}btn-hover-color);
-        --#{$prefix}btn-active-bg: #{shade-color($value, 20%)};
-        --#{$prefix}btn-active-border-color: transparent;
+        @include button-variant-soft($value);
     }
 }
 
@@ -73,19 +78,23 @@ $value in $theme-colors {
 // Ghost Buttons
 // 
 
+@mixin button-variant-ghost($bg) {
+    color: $bg;
+    border-color: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $bg !important;
+        background-color: rgba($bg, 0.1) !important;
+        border-color: transparent !important;
+    }
+}
+
 @each $color,
 $value in $theme-colors {
     .btn-ghost-#{$color} {
-        --#{$prefix}btn-color: #{$value};
-        --#{$prefix}btn-bg: transparent;
-        --#{$prefix}btn-border-color: transparent;
-        --#{$prefix}btn-hover-color: #{$value};
-        --#{$prefix}btn-hover-bg: #{rgba($value, .1)};
-        --#{$prefix}btn-hover-border-color: transparent;
-        --#{$prefix}btn-focus-shadow-rgb: #{to-rgb($value)};
-        --#{$prefix}btn-active-color: #{$value};
-        --#{$prefix}btn-active-bg: #{rgba($value, .1)};
-        --#{$prefix}btn-active-border-color: transparent;
+        @include button-variant-ghost($value);
     }
 }
 
@@ -176,8 +185,7 @@ $value in $theme-colors {
 
         &:hover,
         &:focus,
-        &:active,
-        &:focus-visible {
+        &:active {
             color: $bg;
             background-color: rgba($bg, 0.1);
         }
@@ -303,8 +311,7 @@ $value in $theme-colors {
 
         &:hover,
         &:focus,
-        &:active,
-        &:focus-visible {
+        &:active {
             color: var(--#{$prefix}dark);
             background-color: rgba(var(--#{$prefix}light-rgb), 0.5);
         }
@@ -315,8 +322,7 @@ $value in $theme-colors {
 
         &:hover,
         &:focus,
-        &:active,
-        &:focus-visible {
+        &:active {
             color: var(--#{$prefix}dark);
             background-color: rgba(var(--#{$prefix}dark-rgb), 0.1);
         }

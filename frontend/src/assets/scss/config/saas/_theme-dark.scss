@@ -121,7 +121,7 @@
   }
 
   //choices 
-  .choices, .flatpickr-calendar, .ck, .ql-toolbar, .select2-container, .menu-dropdown, .multiselect-dropdown {
+  .choices, .flatpickr-calendar, .ck, .ql-toolbar, .select2-container, .menu-dropdown {
     --#{$prefix}choices-bg:                          #{lighten($gray-200, 3.5%)};
     --#{$prefix}choices-link-color:                  #{$gray-500};
     --#{$prefix}choices-link-hover-bg:               #{lighten($gray-300, 2%)};
