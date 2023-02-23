@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
+import java.util.List;
+
 @Slf4j
 public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extends BaseCRUDRepository<E, Long>> implements BaseCRUDService<E> {
     protected final R repository;
@@ -39,7 +42,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public E findOne(Long id) {
         log.info("findOne id : {}", id);
-        return repository.findByIdAndDeletedFlagFalse(id)
+        return repository.findByIdAndDeletedAtIsNull(id)
                          .orElseThrow();
     }
 
@@ -48,7 +51,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
         log.info("softDelete id : {}", id);
         repository.findById(id)
                 .ifPresent(e -> {
-                    e.setDeletedFlag(true);
+                    e.setDeletedAt(new Date());
                     repository.save(e);
                 });
     }
@@ -57,5 +60,11 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     public void hardDelete(Long id) {
         log.info("hardDelete id : {}", id);
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<E> saveList(List<E> list) {
+        log.info("saveAll id : {}", list);
+        return repository.saveAll(list);
     }
 }

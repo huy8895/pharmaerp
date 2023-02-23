@@ -13,7 +13,6 @@ import java.util.Date;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Slf4j
 @MappedSuperclass
 public class BaseCRUDEntity {
     @Id
@@ -27,15 +26,15 @@ public class BaseCRUDEntity {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "deleted_flag")
-    private boolean deletedFlag;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @PrePersist
     public void onPrePersist() {
         final Date now = new Date();
         this.setCreatedAt(now);
         this.setUpdatedAt(now);
-        this.deletedFlag = false;
+        this.deletedAt = null;
     }
 
     @PreUpdate

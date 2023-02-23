@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.master_data.sample;
 
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDController;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/sample")
 public class SampleController extends AbstractBaseCRUDController<SampleEntity, SampleService> {
-
     protected SampleController(SampleService service) {
-        super(service);
+        super(service, SampleEntity.class);
     }
 }
