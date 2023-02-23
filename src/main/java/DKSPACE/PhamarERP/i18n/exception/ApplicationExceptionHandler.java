@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +47,13 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleNoValuePresent(NoSuchElementException exception) {
         log.error("handleNoValuePresent: {}", exception.getMessage());
         return messageResolver.generateApiResponse(ApiResponseInfo.NO_VALUE_PRESENT);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException exception) {
+        log.error("handleMaxUploadSizeExceededException: {}", exception.getMessage());
+        return messageResolver.generateApiResponse(ApiResponseInfo.MAX_UPLOAD_SIZE_EXCEEDED);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
