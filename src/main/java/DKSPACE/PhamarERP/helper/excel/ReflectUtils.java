@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -16,7 +13,8 @@ public final class ReflectUtils {
     private ReflectUtils() {
     }
 
-    public static <E> List<CellDTO> generateCellDTO(E entity) {
+    public static <E> List<CellDTO> generateCellDTO(E entity, String... ignoreFields) {
+        Set<String> ignoreFieldNames = Set.of(ignoreFields);
         Class<?> aClass = entity.getClass();
         Class<?> superclass = aClass.getSuperclass();
 
@@ -34,6 +32,7 @@ public final class ReflectUtils {
                 declaredField.setAccessible(true);
                 Object value = declaredField.get(entity);
                 String fieldName = declaredField.getName();
+                if (ignoreFieldNames.contains(fieldName)) continue;
                 if (value != null) {
                     cellDTOS.add(CellDTO.builder()
                                         .index(index.getAndIncrement())
@@ -51,7 +50,8 @@ public final class ReflectUtils {
     }
 
 
-    public static <E> List<CellDTO> generateCellHeader(Class<E> aClass) {
+    public static <E> List<CellDTO> generateCellHeader(Class<E> aClass, String... ignoreFields) {
+        Set<String> ignoreFieldNames = Set.of(ignoreFields);
         Class<?> superclass = aClass.getSuperclass();
         List<Field> allField = new ArrayList<>();
         if (superclass != null) {
@@ -65,6 +65,7 @@ public final class ReflectUtils {
             for (Field declaredField : allField) {
                 declaredField.setAccessible(true);
                 String fieldName = declaredField.getName();
+                if (ignoreFieldNames.contains(fieldName)) continue;
                 cellDTOS.add(CellDTO.builder()
                                     .index(index.getAndIncrement())
                                     .fieldName(fieldName)
