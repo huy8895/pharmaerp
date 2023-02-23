@@ -33,13 +33,14 @@ public final class ReflectUtils {
                 Object value = declaredField.get(entity);
                 String fieldName = declaredField.getName();
                 if (ignoreFieldNames.contains(fieldName)) continue;
+                CellDTO cellDTO = CellDTO.builder()
+                                         .index(index.getAndIncrement())
+                                         .fieldName(fieldName)
+                                         .build();
                 if (value != null) {
-                    cellDTOS.add(CellDTO.builder()
-                                        .index(index.getAndIncrement())
-                                        .value(value.toString())
-                                        .fieldName(fieldName)
-                                        .build());
+                    cellDTO.setValue(value.toString());
                 }
+                cellDTOS.add(cellDTO);
             }
         } catch (Exception e) {
             log.error("error getCellDTO: {}", e.getMessage());
