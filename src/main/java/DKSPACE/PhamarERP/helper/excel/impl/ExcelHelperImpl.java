@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class ExcelHelperImpl implements ExcelHelper {
+    protected static final String[] IGNORE_FIELDS_EXPORT = {"id", "createdAt", "updatedAt", "deletedAt"};
     private static CellStyle cellStyleFormatNumber = null;
 
 
@@ -156,11 +157,11 @@ public class ExcelHelperImpl implements ExcelHelper {
     }
 
     @Override
-    public <E> byte[] exportTemplate(List<E> list, Class<E> eClass) {
-        return exportTemplate(list, "xls", eClass);
+    public <E> byte[] exportTemplate( Class<E> eClass) {
+        return exportTemplate("xls",eClass);
     }
 
-    private <E> byte[] exportTemplate(List<E> list, String excelFilePath, Class<E> eClass) {
+    private <E> byte[] exportTemplate( String excelFilePath, Class<E> eClass) {
         try (Workbook workbook = getWorkbook(excelFilePath);
              ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             // Create sheet
@@ -169,8 +170,7 @@ public class ExcelHelperImpl implements ExcelHelper {
             int rowIndex = 0;
 
             // Write header
-            String[] ignoreFields = {"id", "createdAt", "updatedAt", "deletedAl"};
-            this.writeHeaderIgnoreColumn(sheet, rowIndex, eClass, ignoreFields);
+            this.writeHeaderIgnoreColumn(sheet, rowIndex, eClass, IGNORE_FIELDS_EXPORT);
             workbook.write(bos);
             return bos.toByteArray();
 
@@ -197,7 +197,7 @@ public class ExcelHelperImpl implements ExcelHelper {
                 // Create row
                 Row row = sheet.createRow(rowIndex);
                 // Write data on row
-                writeBook(element, row);
+                this.writeBook(element, row);
                 rowIndex++;
             }
 
@@ -261,15 +261,13 @@ public class ExcelHelperImpl implements ExcelHelper {
     }
 
     private <E> void writeHeaderIgnoreColumn(Sheet sheet, int rowIndex, Class<E> eClass, String... ignores) {
-        Set<String> ignoresField = Set.of(ignores);
         // create CellStyle
         CellStyle cellStyle = createStyleForHeader(sheet);
-        List<CellDTO> cellDTOS = this.getCellHeader(eClass);
+        List<CellDTO> cellDTOS = this.getCellHeader(eClass, IGNORE_FIELDS_EXPORT);
         // Create row
         Row row = sheet.createRow(rowIndex);
 
         for (CellDTO cellDTO : cellDTOS) {
-            if (ignoresField.contains(cellDTO.getFieldName())) continue;;
             row.createCell(cellDTO.getIndex())
                .setCellValue(cellDTO.getFieldName());
         }
