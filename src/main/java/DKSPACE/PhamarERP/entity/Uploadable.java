@@ -2,7 +2,16 @@ package DKSPACE.PhamarERP.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.Accessors;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
 @Entity
 @Table(name = "uploadables")
 public class Uploadable {
@@ -12,6 +21,7 @@ public class Uploadable {
     @MapsId("genUploadId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "gen_upload_id", nullable = false)
+    @ToString.Exclude
     private GenUpload genUpload;
 
     @Size(max = 45)

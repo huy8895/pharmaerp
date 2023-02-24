@@ -3,9 +3,18 @@ package DKSPACE.PhamarERP.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.time.Instant;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
 @Entity
 @Table(name = "privileges")
 public class Privilege {

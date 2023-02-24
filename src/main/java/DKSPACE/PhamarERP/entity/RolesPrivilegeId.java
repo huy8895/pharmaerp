@@ -30,4 +30,7 @@ public class RolesPrivilegeId implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(privilegeId, roleId);
+    }
 }

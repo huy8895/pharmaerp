@@ -4,12 +4,21 @@ import DKSPACE.PhamarERP.auth.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
 @Entity
 @Table(name = "user_profiles", indexes = {
         @Index(name = "user_id_UNIQUE", columnList = "user_id", unique = true)
@@ -24,6 +33,7 @@ public class UserProfile {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @Column(name = "gender")

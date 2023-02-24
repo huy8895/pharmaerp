@@ -82,27 +82,32 @@ public class User implements UserDetails {
     private Instant deletedAt;
 
     @OneToMany(mappedBy = "creator")
+    @ToString.Exclude
     private Set<Contract> contracts = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "user")
     private Contract contract;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<UserCours> userCourses = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "user")
     private UserProfile userProfile;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<UserCertificate> userCertificates = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private Set<UserActivity> userActivities = new LinkedHashSet<>();
 
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ToString.Exclude
     private Set<DKSPACE.PhamarERP.entity.Role> roles = new LinkedHashSet<>();
 
     @Override

@@ -4,12 +4,21 @@ import DKSPACE.PhamarERP.auth.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
 @Entity
 @Table(name = "contracts", indexes = {
         @Index(name = "rhrtfgfg_idx", columnList = "gen_officer_level_id"),
@@ -28,35 +37,41 @@ public class Contract {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "creator_id", nullable = false)
+    @ToString.Exclude
     private User creator;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "contract_type_id", nullable = false)
+    @ToString.Exclude
     private ContractType contractType;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "gen_work_location_id", nullable = false)
+    @ToString.Exclude
     private GenWorkLocation genWorkLocation;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "gen_officer_level_id", nullable = false)
+    @ToString.Exclude
     private GenOfficerLevel genOfficerLevel;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "gen_job_title_id", nullable = false)
+    @ToString.Exclude
     private GenJobTitle genJobTitle;
 
     @Size(max = 45)
