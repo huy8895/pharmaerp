@@ -24,11 +24,11 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "contracts", indexes = {
-        @Index(name = "rhrtfgfg_idx", columnList = "gen_officer_level_id"),
-        @Index(name = "yhvbhgj_idx", columnList = "gen_work_location_id"),
-        @Index(name = "dfhfuy_idx", columnList = "gen_job_title_id"),
+        @Index(name = "idx_gen_officer_level_id", columnList = "gen_officer_level_id"),
+        @Index(name = "idx_gen_work_location_id", columnList = "gen_work_location_id"),
+        @Index(name = "idx_gen_job_title_id", columnList = "gen_job_title_id"),
         @Index(name = "user_id_UNIQUE", columnList = "user_id", unique = true),
-        @Index(name = "fsgfh_idx", columnList = "creator_id")
+        @Index(name = "idx_creator_id", columnList = "creator_id")
 })
 public class Contract extends BaseCRUDEntity {
     @NotNull(message = ValidateCode.NOT_NULL)
@@ -83,7 +83,7 @@ public class Contract extends BaseCRUDEntity {
     /**
      * Thời hạn (tháng)
      */
-    @Column(name = "duration", columnDefinition = "INT UNSIGNED")
+    @Column(name = "duration")
     private Long duration;
 
     @Column(name = "start_date")

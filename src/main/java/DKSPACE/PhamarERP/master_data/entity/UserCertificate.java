@@ -23,7 +23,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_certificates", indexes = {
-        @Index(name = "sdgdsfgf_idx", columnList = "user_id")
+        @Index(name = "idx_user_id", columnList = "user_id")
 })
 public class UserCertificate extends BaseCRUDEntity {
 

@@ -23,7 +23,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_activities", indexes = {
-        @Index(name = "fdjhhkuyk_idx", columnList = "user_id")
+        @Index(name = "idx_user_id", columnList = "user_id")
 })
 public class UserActivity extends BaseCRUDEntity {
 
