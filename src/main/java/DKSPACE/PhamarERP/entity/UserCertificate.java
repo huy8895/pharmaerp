@@ -11,7 +11,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
 import java.util.Objects;
 
 @Getter
@@ -26,10 +25,6 @@ import java.util.Objects;
         @Index(name = "sdgdsfgf_idx", columnList = "user_id")
 })
 public class UserCertificate extends BaseCRUDEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -62,21 +57,12 @@ public class UserCertificate extends BaseCRUDEntity {
     @Column(name = "link")
     private String link;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         UserCertificate that = (UserCertificate) o;
-        return id != null && Objects.equals(id, that.id);
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
