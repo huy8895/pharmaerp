@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -21,26 +21,25 @@ public class BaseCRUDEntity {
     private Long id;
 
     @Column(name = "created_at", updatable = false)
-    private Date createdAt;
+    private Instant createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Instant updatedAt;
 
     @Column(name = "deleted_at")
-    private Date deletedAt;
+    private Instant deletedAt;
 
     @PrePersist
     public void onPrePersist() {
-        final Date now = new Date();
-        this.setCreatedAt(now);
-        this.setUpdatedAt(now);
+        this.setCreatedAt(Instant.now());
+        this.setUpdatedAt(Instant.now());
         this.deletedAt = null;
     }
 
     @PreUpdate
     public void onPreUpdate(){
         final Date now = new Date();
-        this.setUpdatedAt(now);
+        this.setUpdatedAt(Instant.now());
     }
 
     @Override
