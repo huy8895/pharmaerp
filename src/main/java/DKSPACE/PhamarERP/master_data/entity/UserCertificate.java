@@ -42,6 +42,9 @@ public class UserCertificate extends BaseCRUDEntity {
     @Column(name = "organization")
     private String organization;
 
+    /**
+     * Chứng chỉ không có ngày hết hạn, Nếu bằng 0, thì phải nhập start_date và end_date
+     */
     @Column(name = "has_no_expiration_date")
     private Boolean hasNoExpirationDate;
 

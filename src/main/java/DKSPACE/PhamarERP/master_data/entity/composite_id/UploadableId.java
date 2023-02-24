@@ -15,6 +15,9 @@ public class UploadableId implements Serializable {
     @Column(name = "gen_upload_id", nullable = false)
     private Long genUploadId;
 
+    /**
+     * id của đối tượng
+     */
     @NotNull
     @Column(name = "object_id", nullable = false)
     private Long objectId;

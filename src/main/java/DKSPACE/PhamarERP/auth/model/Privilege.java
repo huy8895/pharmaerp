@@ -28,11 +28,17 @@ public class Privilege extends BaseCRUDEntity {
     @Column(name = "`group`", nullable = false, length = 100)
     private String group;
 
+    /**
+     * Tên hiển thị của đặc quyền để người dùng hiểu.
+     */
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * Trường này để khi mình check xem nó có đặc quyền này không.
+     */
     @Size(max = 255)
     @NotNull
     @Column(name = "`key`", nullable = false)

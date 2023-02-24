@@ -34,6 +34,11 @@ public class UserProfile extends BaseCRUDEntity {
     @ToString.Exclude
     private User user;
 
+    /**
+     * 0: female
+     * 1: male
+     * 2: lgbt
+     */
     @Column(name = "gender")
     private Boolean gender;
 
@@ -48,17 +53,29 @@ public class UserProfile extends BaseCRUDEntity {
     @Column(name = "permanent_address")
     private String permanentAddress;
 
+    /**
+     * Số CMND/CCCD/Hộ chiếu
+     */
     @Size(max = 45)
     @Column(name = "id_card_number", length = 45)
     private String idCardNumber;
 
+    /**
+     * Ngày cấp CMND/CCCD/Hộ chiếu
+     */
     @Column(name = "id_card_issuance_date")
     private LocalDate idCardIssuanceDate;
 
+    /**
+     * Nơi cấp
+     */
     @Size(max = 255)
     @Column(name = "id_card_issuance_where")
     private String idCardIssuanceWhere;
 
+    /**
+     * Mã số thuế thu nhập
+     */
     @Size(max = 45)
     @Column(name = "tax_code", length = 45)
     private String taxCode;

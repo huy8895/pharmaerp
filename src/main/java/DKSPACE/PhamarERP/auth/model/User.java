@@ -46,6 +46,10 @@ public class User implements UserDetails {
     @Column(name = "phone_number", length = 45)
     private String phoneNumber;
 
+    /**
+     * Loại người dùng, cái này cần thêm để phân loại theo phòng ban.
+     * Ví dụ: QA, QC, R&D, BOD, IPC, Sale, HR, Accountant, IT ....
+     */
     @Size(max = 45)
     @NotNull
     @Column(name = "type", nullable = false, length = 45)

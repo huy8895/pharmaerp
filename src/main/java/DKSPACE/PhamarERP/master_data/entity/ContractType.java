@@ -27,6 +27,9 @@ public class ContractType extends BaseCRUDEntity {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
+    /**
+     * Có xác định thời hạn hay không
+     */
     @NotNull
     @Column(name = "is_determine_deadline", nullable = false)
     private Boolean isDetermineDeadline = false;

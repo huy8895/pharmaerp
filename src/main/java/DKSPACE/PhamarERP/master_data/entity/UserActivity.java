@@ -42,6 +42,9 @@ public class UserActivity extends BaseCRUDEntity {
     @Column(name = "participating_position")
     private String participatingPosition;
 
+    /**
+     * Tôi vẫn đang hoạt động trong tổ chức này, Nếu bằng 0, thì phải nhập start_date và end_date
+     */
     @Column(name = "is_current_active")
     private Boolean isCurrentActive;
 

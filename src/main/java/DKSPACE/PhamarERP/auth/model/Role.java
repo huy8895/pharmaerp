@@ -32,6 +32,9 @@ public class Role extends BaseCRUDEntity {
     @Column(name = "`describe`")
     private String describe;
 
+    /**
+     * Default là 1 thì sẽ không được sửa
+     */
     @NotNull
     @Column(name = "is_default", nullable = false)
     private Boolean isDefault = false;

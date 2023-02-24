@@ -71,11 +71,17 @@ public class Contract extends BaseCRUDEntity {
     @ToString.Exclude
     private GenJobTitle genJobTitle;
 
+    /**
+     * Mã số hợp đồng
+     */
     @Size(max = 45)
     @NotNull
     @Column(name = "contract_code", nullable = false, length = 45)
     private String contractCode;
 
+    /**
+     * Thời hạn (tháng)
+     */
     @Column(name = "duration", columnDefinition = "INT UNSIGNED")
     private Long duration;
 
@@ -85,6 +91,10 @@ public class Contract extends BaseCRUDEntity {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    /**
+     * 'Draft, To confirm, To review, Approved, Running, Pending, Expired, Liquidated, Rejected
+     * Dự thảo, Để xác nhận, Để xem xét, Đã phê duyệt, Đang chạy, Đang chờ xử lý, Đã hết hạn, Đã thanh lý, Bị từ chối'
+     */
     @Size(max = 45)
     @NotNull
     @Column(name = "status", nullable = false, length = 45)
