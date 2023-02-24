@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
@@ -21,10 +21,10 @@ import java.util.Objects;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "user_activities", indexes = {
-        @Index(name = "fdjhhkuyk_idx", columnList = "user_id")
+@Table(name = "user_courses", indexes = {
+        @Index(name = "user_cor_idx", columnList = "user_id")
 })
-public class UserActivity extends BaseCRUDEntity {
+public class UserCours extends BaseCRUDEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,15 +35,12 @@ public class UserActivity extends BaseCRUDEntity {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "organization", nullable = false)
-    private String organization;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Size(max = 255)
-    @Column(name = "participating_position")
-    private String participatingPosition;
-
-    @Column(name = "is_current_active")
-    private Boolean isCurrentActive;
+    @Column(name = "organization")
+    private String organization;
 
     @Size(max = 45)
     @Column(name = "start_date", length = 45)
@@ -60,13 +57,12 @@ public class UserActivity extends BaseCRUDEntity {
     @Size(max = 255)
     @Column(name = "link")
     private String link;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UserActivity that = (UserActivity) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
+        UserCours userCours = (UserCours) o;
+        return getId() != null && Objects.equals(getId(), userCours.getId());
     }
 
     @Override

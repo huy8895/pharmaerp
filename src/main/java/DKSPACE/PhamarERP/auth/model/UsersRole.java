@@ -1,5 +1,6 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.auth.model;
 
+import DKSPACE.PhamarERP.auth.model.composite_id.UsersRoleId;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -14,12 +15,17 @@ import org.hibernate.annotations.OnDeleteAction;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "roles_privileges", indexes = {
-        @Index(name = "role_fk_idx", columnList = "role_id")
-})
-public class RolesPrivilege {
+@Table(name = "users_roles")
+public class UsersRole {
     @EmbeddedId
-    private RolesPrivilegeId id;
+    private UsersRoleId id;
+
+    @MapsId("userId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
+    private User user;
 
     @MapsId("roleId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -27,13 +33,6 @@ public class RolesPrivilege {
     @JoinColumn(name = "role_id", nullable = false)
     @ToString.Exclude
     private Role role;
-
-    @MapsId("privilegeId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "privilege_id", nullable = false)
-    @ToString.Exclude
-    private Privilege privilege;
 
 
 }

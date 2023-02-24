@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.Column;

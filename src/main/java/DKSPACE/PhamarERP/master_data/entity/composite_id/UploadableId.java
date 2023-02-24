@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.master_data.entity.composite_id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

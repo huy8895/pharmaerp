@@ -1,7 +1,9 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.auth.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -18,22 +20,23 @@ import java.util.Objects;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "gen_job_titles", indexes = {
-        @Index(name = "name_UNIQUE", columnList = "name", unique = true)
-})
-public class GenJobTitle extends BaseCRUDEntity {
+@Table(name = "privileges")
+public class Privilege extends BaseCRUDEntity {
 
     @Size(max = 100)
     @NotNull
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "`group`", nullable = false, length = 100)
+    private String group;
+
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "salary")
-    private Long salary;
-
-    @Lob
-    @Column(name = "`describe`")
-    private String describe;
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "`key`", nullable = false)
+    private String key;
 
     @NotNull
     @Column(name = "is_active", nullable = false)
@@ -43,8 +46,8 @@ public class GenJobTitle extends BaseCRUDEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        GenJobTitle that = (GenJobTitle) o;
-        return getId() != null && Objects.equals(getId(), that.getId());
+        Privilege privilege = (Privilege) o;
+        return getId() != null && Objects.equals(getId(), privilege.getId());
     }
 
     @Override

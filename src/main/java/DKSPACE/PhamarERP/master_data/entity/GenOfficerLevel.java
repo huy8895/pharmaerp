@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
@@ -18,10 +18,10 @@ import java.util.Objects;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "gen_work_locations", indexes = {
+@Table(name = "gen_officer_levels", indexes = {
         @Index(name = "name_UNIQUE", columnList = "name", unique = true)
 })
-public class GenWorkLocation extends BaseCRUDEntity {
+public class GenOfficerLevel extends BaseCRUDEntity {
 
     @Size(max = 100)
     @NotNull
@@ -40,7 +40,7 @@ public class GenWorkLocation extends BaseCRUDEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        GenWorkLocation that = (GenWorkLocation) o;
+        GenOfficerLevel that = (GenOfficerLevel) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
 

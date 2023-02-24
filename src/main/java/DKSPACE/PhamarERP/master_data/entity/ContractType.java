@@ -1,9 +1,7 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -20,34 +18,33 @@ import java.util.Objects;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "privileges")
-public class Privilege extends BaseCRUDEntity {
-
+@Table(name = "contract_types", indexes = {
+        @Index(name = "name_UNIQUE", columnList = "name", unique = true)
+})
+public class ContractType extends BaseCRUDEntity {
     @Size(max = 100)
     @NotNull
-    @Column(name = "`group`", nullable = false, length = 100)
-    private String group;
-
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Size(max = 255)
     @NotNull
-    @Column(name = "`key`", nullable = false)
-    private String key;
+    @Column(name = "is_determine_deadline", nullable = false)
+    private Boolean isDetermineDeadline = false;
 
     @NotNull
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
+    @Lob
+    @Column(name = "`describe`")
+    private String describe;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Privilege privilege = (Privilege) o;
-        return getId() != null && Objects.equals(getId(), privilege.getId());
+        ContractType that = (ContractType) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override

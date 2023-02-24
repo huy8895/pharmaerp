@@ -1,5 +1,7 @@
-package DKSPACE.PhamarERP.entity;
+package DKSPACE.PhamarERP.auth.model;
 
+import DKSPACE.PhamarERP.master_data.entity.GenUpload;
+import DKSPACE.PhamarERP.master_data.entity.composite_id.UploadableId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;

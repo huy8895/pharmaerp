@@ -6,7 +6,6 @@ import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterReqDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterResDto;
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
-import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
@@ -33,12 +32,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                           throw new UserAlreadyExistException("Username Already Exist");
                       });
 
+        // TODO: 24/2/2023
         final User user = User.builder()
-                              .firstname(dto.getFirstname())
-                              .lastname(dto.getLastname())
+//                              .firstname(dto.getFirstname())
+//                              .lastname(dto.getLastname())
                               .email(dto.getEmail())
                               .password(passwordEncoder.encode(dto.getPassword()))
-                              .role(Role.USER)
+//                              .role(Role.USER)
                               .build();
 
         userRepository.save(user);

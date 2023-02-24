@@ -1,13 +1,12 @@
 package DKSPACE.PhamarERP.auth.model;
 
-import DKSPACE.PhamarERP.entity.*;
+import DKSPACE.PhamarERP.master_data.entity.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
@@ -101,7 +100,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
-    private Set<DKSPACE.PhamarERP.entity.Role> roles = new LinkedHashSet<>();
+    private Set<Role> roles = new LinkedHashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
