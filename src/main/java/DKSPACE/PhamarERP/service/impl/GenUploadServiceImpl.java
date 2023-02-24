@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,28 +29,38 @@ public class GenUploadServiceImpl implements GenUploadService {
             throw new ClientException(ApiResponseInfo.BAD_REQUEST);
         }
 
-        byte[] compress = FileUtils.compress(file);
+        byte[] data = getBytes(file);
         final String originalFilename = file.getOriginalFilename();
         GenUpload upload = GenUpload.builder()
                                     .contentType(contentType)
-                                    .data(compress)
+                                    .data(data)
                                     .originalName(originalFilename)
                                     .fileName(FileUtils.generateFileName(originalFilename))
-                                    .size((float) compress.length)
+                                    .size((float) data.length)
                                     .extension(StringUtils.getFilenameExtension(originalFilename))
                                     .build();
         GenUpload saveUpload = repository.save(upload);
-        return getGenUploadDto(saveUpload);
+        return getGenUploadDto(saveUpload, new byte[]{});
     }
 
-    private GenUploadDto getGenUploadDto(GenUpload saveUpload) {
+    private byte[] getBytes(MultipartFile file) {
+        byte[] compress = new byte[0];
+        try {
+            compress = file.getBytes();
+        } catch (IOException e) {
+            throw new ClientException(ApiResponseInfo.BAD_REQUEST);
+        }
+        return compress;
+    }
+
+    private GenUploadDto getGenUploadDto(GenUpload saveUpload, byte[] data) {
         return GenUploadDto.builder()
                            .id(saveUpload.getId())
                            .originalName(saveUpload.getOriginalName())
                            .fileName(saveUpload.getFileName())
                            .extension(saveUpload.getExtension())
                            .contentType(saveUpload.getContentType())
-                           .data(saveUpload.getData())
+                           .data(data)
                            .size(saveUpload.getSize())
                            .build();
     }
@@ -58,7 +70,6 @@ public class GenUploadServiceImpl implements GenUploadService {
     public GenUploadDto download(Long id) {
         final GenUpload upload = repository.findById(id)
                                         .orElseThrow();
-        upload.setData(FileUtils.decompress(upload.getData()));
-        return getGenUploadDto(upload);
+        return getGenUploadDto(upload, upload.getData());
     }
 }
