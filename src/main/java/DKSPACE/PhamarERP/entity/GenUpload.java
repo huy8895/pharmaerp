@@ -1,12 +1,17 @@
 package DKSPACE.PhamarERP.entity;
 
-import jakarta.persistence.*;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 
-import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -19,11 +24,7 @@ import java.time.Instant;
 @Table(name = "gen_uploads", indexes = {
         @Index(name = "original_name_UNIQUE", columnList = "original_name", unique = true)
 })
-public class GenUpload {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class GenUpload extends BaseCRUDEntity {
 
     @Size(max = 255)
     @NotNull
@@ -53,14 +54,16 @@ public class GenUpload {
     @Column(name = "size", nullable = false)
     private Float size;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        GenUpload genUpload = (GenUpload) o;
+        return getId() != null && Objects.equals(getId(), genUpload.getId());
+    }
 
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
-
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
