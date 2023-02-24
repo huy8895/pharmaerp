@@ -1,13 +1,15 @@
 package DKSPACE.PhamarERP.entity;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 
-import java.time.Instant;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -19,11 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Role extends BaseCRUDEntity {
 
     @Size(max = 255)
     @NotNull
@@ -42,15 +40,6 @@ public class Role {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
     @ManyToMany
     @JoinTable(name = "roles_privileges",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -58,5 +47,16 @@ public class Role {
     @ToString.Exclude
     private Set<Privilege> privileges = new LinkedHashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Role role = (Role) o;
+        return getId() != null && Objects.equals(getId(), role.getId());
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

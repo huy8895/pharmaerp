@@ -1,15 +1,17 @@
 package DKSPACE.PhamarERP.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -22,11 +24,7 @@ import java.time.Instant;
 @Table(name = "user_activities", indexes = {
         @Index(name = "fdjhhkuyk_idx", columnList = "user_id")
 })
-public class UserActivity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class UserActivity extends BaseCRUDEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -63,14 +61,16 @@ public class UserActivity {
     @Column(name = "link")
     private String link;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        UserActivity that = (UserActivity) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
+    }
 
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
-
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

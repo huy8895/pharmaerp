@@ -1,15 +1,18 @@
 package DKSPACE.PhamarERP.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -22,7 +25,7 @@ import java.time.Instant;
 @Table(name = "user_certificates", indexes = {
         @Index(name = "sdgdsfgf_idx", columnList = "user_id")
 })
-public class UserCertificate {
+public class UserCertificate extends BaseCRUDEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -68,5 +71,16 @@ public class UserCertificate {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        UserCertificate that = (UserCertificate) o;
+        return id != null && Objects.equals(id, that.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

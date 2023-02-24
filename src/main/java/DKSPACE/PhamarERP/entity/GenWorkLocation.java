@@ -1,12 +1,14 @@
 package DKSPACE.PhamarERP.entity;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 
-import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -19,11 +21,7 @@ import java.time.Instant;
 @Table(name = "gen_work_locations", indexes = {
         @Index(name = "name_UNIQUE", columnList = "name", unique = true)
 })
-public class GenWorkLocation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class GenWorkLocation extends BaseCRUDEntity {
 
     @Size(max = 100)
     @NotNull
@@ -38,14 +36,16 @@ public class GenWorkLocation {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        GenWorkLocation that = (GenWorkLocation) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
+    }
 
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
-
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

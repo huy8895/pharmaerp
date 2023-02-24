@@ -1,12 +1,16 @@
 package DKSPACE.PhamarERP.entity;
 
-import jakarta.persistence.*;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 
-import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -17,11 +21,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Entity
 @Table(name = "privileges")
-public class Privilege {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Privilege extends BaseCRUDEntity {
 
     @Size(max = 100)
     @NotNull
@@ -42,14 +42,16 @@ public class Privilege {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Privilege privilege = (Privilege) o;
+        return getId() != null && Objects.equals(getId(), privilege.getId());
+    }
 
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
-
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

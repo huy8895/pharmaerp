@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,7 +23,7 @@ import java.time.Instant;
 @Table(name = "user_courses", indexes = {
         @Index(name = "user_cor_idx", columnList = "user_id")
 })
-public class UserCours {
+public class UserCours extends BaseCRUDEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
