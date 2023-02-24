@@ -2,15 +2,14 @@ package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
+import org.hibernate.usertype.UserTypeLegacyBridge;
 
 import java.util.Objects;
 
@@ -49,6 +48,7 @@ public class GenUpload extends BaseCRUDEntity {
 
     @NotNull(message = ValidateCode.NOT_NULL)
     @Column(name = "data", nullable = false)
+    @Lob
     private byte[] data;
 
     @NotNull(message = ValidateCode.NOT_NULL)
