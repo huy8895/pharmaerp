@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,41 +31,41 @@ import java.util.Objects;
         @Index(name = "fsgfh_idx", columnList = "creator_id")
 })
 public class Contract extends BaseCRUDEntity {
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
     private User user;
 
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "creator_id", nullable = false)
     @ToString.Exclude
     private User creator;
 
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "contract_type_id", nullable = false)
     @ToString.Exclude
     private ContractType contractType;
 
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "gen_work_location_id", nullable = false)
     @ToString.Exclude
     private GenWorkLocation genWorkLocation;
 
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "gen_officer_level_id", nullable = false)
     @ToString.Exclude
     private GenOfficerLevel genOfficerLevel;
 
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "gen_job_title_id", nullable = false)
@@ -75,7 +76,7 @@ public class Contract extends BaseCRUDEntity {
      * Mã số hợp đồng
      */
     @Size(max = 45)
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @Column(name = "contract_code", nullable = false, length = 45)
     private String contractCode;
 
@@ -96,7 +97,7 @@ public class Contract extends BaseCRUDEntity {
      * Dự thảo, Để xác nhận, Để xem xét, Đã phê duyệt, Đang chạy, Đang chờ xử lý, Đã hết hạn, Đã thanh lý, Bị từ chối'
      */
     @Size(max = 45)
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @Column(name = "status", nullable = false, length = 45)
     private String status;
 

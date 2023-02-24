@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,18 +24,18 @@ import java.util.Objects;
 })
 public class ContractType extends BaseCRUDEntity {
     @Size(max = 100)
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     /**
      * Có xác định thời hạn hay không
      */
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @Column(name = "is_determine_deadline", nullable = false)
     private Boolean isDetermineDeadline = false;
 
-    @NotNull
+    @NotNull(message = ValidateCode.NOT_NULL)
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
