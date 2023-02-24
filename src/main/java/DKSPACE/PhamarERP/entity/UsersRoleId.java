@@ -2,7 +2,6 @@ package DKSPACE.PhamarERP.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.Hibernate;
 
@@ -20,21 +19,6 @@ public class UsersRoleId implements Serializable {
     @Column(name = "role_id", nullable = false)
     private Long roleId;
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -46,8 +30,4 @@ public class UsersRoleId implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(roleId, userId);
-    }
-
 }

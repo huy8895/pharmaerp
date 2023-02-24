@@ -24,28 +24,5 @@ public class RolesPrivilege {
     @JoinColumn(name = "privilege_id", nullable = false)
     private Privilege privilege;
 
-    public RolesPrivilegeId getId() {
-        return id;
-    }
-
-    public void setId(RolesPrivilegeId id) {
-        this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Privilege getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(Privilege privilege) {
-        this.privilege = privilege;
-    }
 
 }

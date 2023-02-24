@@ -2,7 +2,6 @@ package DKSPACE.PhamarERP.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.Hibernate;
 
@@ -20,21 +19,6 @@ public class UploadableId implements Serializable {
     @Column(name = "object_id", nullable = false)
     private Long objectId;
 
-    public Long getGenUploadId() {
-        return genUploadId;
-    }
-
-    public void setGenUploadId(Long genUploadId) {
-        this.genUploadId = genUploadId;
-    }
-
-    public Long getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(Long objectId) {
-        this.objectId = objectId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -46,8 +30,4 @@ public class UploadableId implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(genUploadId, objectId);
-    }
-
 }
