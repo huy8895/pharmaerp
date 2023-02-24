@@ -29,21 +29,14 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "firstname")
-    private String firstname;
-
-    @Column(name = "lastname")
-    private String lastname;
-
-    @Column(name = "email")
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "email", nullable = false, length = 100)
     private String email;
-
-    @Column(name = "password")
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "password", nullable = false, length = 45)
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Role role;
 
     @Size(max = 50)
     @NotNull
