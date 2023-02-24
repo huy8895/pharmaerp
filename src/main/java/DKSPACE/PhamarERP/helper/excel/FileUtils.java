@@ -3,10 +3,12 @@ package DKSPACE.PhamarERP.helper.excel;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
@@ -61,8 +63,20 @@ public final class FileUtils {
 
 
 
-    public static String generateFileName(MultipartFile file) {
+    //fileName = md5(originalName)
+    public static String generateFileName(String originalFilename) {
+        log.info("generateFileName ");
+        if (originalFilename == null) {
+            return "";
+        }
 
-        return null;
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] md5Digest = md5.digest(originalFilename.getBytes("UTF-8"));
+            return new String(Hex.encodeHex(md5Digest));
+        } catch (Exception e) {
+            log.error("error generateFileName : ", e);
+            throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);
+        }
     }
 }

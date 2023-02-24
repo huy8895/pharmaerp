@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.service.impl;
 
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
+import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import DKSPACE.PhamarERP.master_data.dto.GenUploadDto;
 import DKSPACE.PhamarERP.master_data.entity.GenUpload;
 import DKSPACE.PhamarERP.repository.GenUploadRepository;
@@ -19,18 +21,22 @@ public class GenUploadServiceImpl implements GenUploadService {
 
     @Override
     public GenUploadDto upload(MultipartFile file) {
+        final String contentType = file.getContentType();
+        if (contentType == null){
+            log.error("error upload contentType == null");
+            throw new ClientException(ApiResponseInfo.BAD_REQUEST);
+        }
 
-        String contentType = file.getContentType();
-        if (contentType == null) throw new RuntimeException("UploadServiceImpl upload invalid contenty");
         byte[] compress = FileUtils.compress(file);
+        final String originalFilename = file.getOriginalFilename();
         GenUpload upload = GenUpload.builder()
-                                   .contentType(contentType)
-                                   .data(compress)
-                                   .originalName(file.getOriginalFilename())
-                                   .fileName(FileUtils.generateFileName(file))
-                                   .size((float) compress.length)
-                                   .extension(StringUtils.getFilenameExtension(file.getOriginalFilename()))
-                                   .build();
+                                    .contentType(contentType)
+                                    .data(compress)
+                                    .originalName(originalFilename)
+                                    .fileName(FileUtils.generateFileName(originalFilename))
+                                    .size((float) compress.length)
+                                    .extension(StringUtils.getFilenameExtension(originalFilename))
+                                    .build();
         GenUpload saveUpload = repository.save(upload);
         return getGenUploadDto(saveUpload);
     }
