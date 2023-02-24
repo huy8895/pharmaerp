@@ -1,15 +1,17 @@
 package DKSPACE.PhamarERP.auth.model;
 
+import DKSPACE.PhamarERP.entity.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.time.Instant;
+import java.util.*;
 
 @Getter
 @Setter
@@ -42,6 +44,66 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "username", nullable = false, length = 50)
+    private String username;
+
+    @Size(max = 45)
+    @Column(name = "phone_number", length = 45)
+    private String phoneNumber;
+
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "type", nullable = false, length = 45)
+    private String type;
+
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "first_name", nullable = false, length = 45)
+    private String firstName;
+
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "last_name", nullable = false, length = 45)
+    private String lastName;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
+
+    @OneToMany(mappedBy = "creator")
+    private Set<Contract> contracts = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "user")
+    private Contract contract;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserCours> userCourses = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "user")
+    private UserProfile userProfile;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserCertificate> userCertificates = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserActivity> userActivities = new LinkedHashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<DKSPACE.PhamarERP.entity.Role> roles = new LinkedHashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
