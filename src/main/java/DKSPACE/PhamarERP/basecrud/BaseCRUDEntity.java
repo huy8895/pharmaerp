@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -38,7 +37,6 @@ public class BaseCRUDEntity {
 
     @PreUpdate
     public void onPreUpdate(){
-        final Date now = new Date();
         this.setUpdatedAt(Instant.now());
     }
 
