@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -51,7 +51,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
         log.info("softDelete id : {}", id);
         repository.findById(id)
                 .ifPresent(e -> {
-                    e.setDeletedAt(Instant.now());
+                    e.setDeletedAt(LocalDateTime.now());
                     repository.save(e);
                 });
     }

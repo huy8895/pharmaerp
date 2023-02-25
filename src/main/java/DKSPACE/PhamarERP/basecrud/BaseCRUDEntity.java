@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,24 +20,25 @@ public class BaseCRUDEntity {
     private Long id;
 
     @Column(name = "created_at", updatable = false)
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    private Instant deletedAt;
+    private LocalDateTime deletedAt;
 
     @PrePersist
     public void onPrePersist() {
-        this.setCreatedAt(Instant.now());
-        this.setUpdatedAt(Instant.now());
+        LocalDateTime now = LocalDateTime.now();
+        this.setCreatedAt(now);
+        this.setUpdatedAt(now);
         this.deletedAt = null;
     }
 
     @PreUpdate
     public void onPreUpdate(){
-        this.setUpdatedAt(Instant.now());
+        this.setUpdatedAt(LocalDateTime.now());
     }
 
     @Override

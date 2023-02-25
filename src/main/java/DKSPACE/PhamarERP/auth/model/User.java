@@ -1,15 +1,16 @@
 package DKSPACE.PhamarERP.auth.model;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.master_data.entity.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.Instant;
 import java.util.*;
 
 @Getter
@@ -21,18 +22,12 @@ import java.util.*;
 @Entity
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")})
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
+public class User  extends BaseCRUDEntity implements UserDetails{
     @Size(max = 100)
     @NotNull
     @Column(name = "email", nullable = false, length = 100)
     private String email;
-    @Size(max = 45)
+    @Size(max = 255)
     @NotNull
     @Column(name = "password", nullable = false, length = 45)
     private String password;
@@ -67,15 +62,6 @@ public class User implements UserDetails {
 
     @Column(name = "is_active")
     private Boolean isActive;
-
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
 
     @OneToMany(mappedBy = "creator")
     @ToString.Exclude
@@ -147,7 +133,7 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
+        return getId() != null && Objects.equals(getId(), user.getId());
     }
 
     @Override
