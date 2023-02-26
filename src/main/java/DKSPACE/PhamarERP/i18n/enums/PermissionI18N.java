@@ -7,7 +7,7 @@ package DKSPACE.PhamarERP.i18n.enums;
 //            EXPORT,
 //            IMPORT,
 
-public enum PrivilegeI18N {
+public enum PermissionI18N {
     ;
 
     public enum ROLE implements GenerateI18NCode {

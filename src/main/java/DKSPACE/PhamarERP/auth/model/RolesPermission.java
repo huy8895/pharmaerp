@@ -1,11 +1,12 @@
 package DKSPACE.PhamarERP.auth.model;
 
-import DKSPACE.PhamarERP.auth.model.composite_id.RolesPrivilegeId;
+import DKSPACE.PhamarERP.auth.model.composite_id.RolesPermissionId;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
 
 @Getter
 @Setter
@@ -15,12 +16,13 @@ import org.hibernate.annotations.OnDeleteAction;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "roles_privileges", indexes = {
-        @Index(name = "role_fk_idx", columnList = "role_id")
+@Table(name = "roles_permissions", indexes = {
+        @Index(name = "roles_permissions_privilege_id_idx", columnList = "privilege_id"),
+        @Index(name = "roles_permissions_role_id_idx", columnList = "role_id")
 })
-public class RolesPrivilege {
+public class RolesPermission {
     @EmbeddedId
-    private RolesPrivilegeId id;
+    private RolesPermissionId id;
 
     @MapsId("roleId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -34,7 +36,5 @@ public class RolesPrivilege {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "privilege_id", nullable = false)
     @ToString.Exclude
-    private Privilege privilege;
-
-
+    private Permission privilege;
 }

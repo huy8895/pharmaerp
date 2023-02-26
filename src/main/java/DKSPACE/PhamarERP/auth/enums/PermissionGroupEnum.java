@@ -3,22 +3,22 @@ package DKSPACE.PhamarERP.auth.enums;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.i18n.enums.GenerateI18NCode;
-import DKSPACE.PhamarERP.i18n.enums.PrivilegeI18N;
+import DKSPACE.PhamarERP.i18n.enums.PermissionI18N;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public enum PrivilegeGroupEnum {
+public enum PermissionGroupEnum {
     ROLE(
             Role.class,
-            PrivilegeI18N.ROLE.values()
+            PermissionI18N.ROLE.values()
     ),
 
     USER(
             User.class,
-            PrivilegeI18N.USER.values()
+            PermissionI18N.USER.values()
             ),
 
 
@@ -30,16 +30,16 @@ public enum PrivilegeGroupEnum {
        groupEnumMap = Arrays.stream(values()).collect(Collectors.toMap(Enum::name, p -> p));
     }
 
-    private static final Map<String, PrivilegeGroupEnum> groupEnumMap;
+    private static final Map<String, PermissionGroupEnum> groupEnumMap;
     private final Class<?> entityClass;
     private final GenerateI18NCode[] values;
 
-    PrivilegeGroupEnum(Class<?> entityClass, GenerateI18NCode[] i18NCodes) {
+    PermissionGroupEnum(Class<?> entityClass, GenerateI18NCode[] i18NCodes) {
         this.entityClass = entityClass;
         this.values = i18NCodes;
     }
 
-    public Map<String, PrivilegeGroupEnum> getGroupEnumMap() {
+    public Map<String, PermissionGroupEnum> getGroupEnumMap() {
         return groupEnumMap;
     }
 

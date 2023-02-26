@@ -48,7 +48,7 @@ public class Role extends BaseCRUDEntity {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id"))
     @ToString.Exclude
-    private Set<Privilege> privileges = new LinkedHashSet<>();
+    private Set<Permission> privileges = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

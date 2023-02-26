@@ -1,9 +1,8 @@
 package DKSPACE.PhamarERP.auth.service.impl;
 
-import DKSPACE.PhamarERP.auth.enums.PrivilegeGroupEnum;
-import DKSPACE.PhamarERP.auth.model.Privilege;
-import DKSPACE.PhamarERP.auth.model.User;
-import DKSPACE.PhamarERP.auth.repository.PrivilegeRepository;
+import DKSPACE.PhamarERP.auth.enums.PermissionGroupEnum;
+import DKSPACE.PhamarERP.auth.model.Permission;
+import DKSPACE.PhamarERP.auth.repository.PermissionRepository;
 import DKSPACE.PhamarERP.auth.service.PrivilegeService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +17,25 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PrivilegeServiceImpl implements PrivilegeService {
-    private final PrivilegeRepository repository;
+public class PermissionServiceImpl implements PrivilegeService {
+    private final PermissionRepository repository;
 
     @PostConstruct
     private void setupPrivileges() {
-        List<Privilege> collect = Arrays.stream(PrivilegeGroupEnum.values())
-                                        .map(this::build)
-                                        .flatMap(Collection::stream)
-                                        .toList();
+        List<Permission> collect = Arrays.stream(PermissionGroupEnum.values())
+                                         .map(this::build)
+                                         .flatMap(Collection::stream)
+                                         .toList();
 
         repository.saveAll(collect);
         System.out.println("collect = " + collect);
         ;
     }
 
-    private List<Privilege> build(PrivilegeGroupEnum groupEnum){
+    private List<Permission> build(PermissionGroupEnum groupEnum){
         return Arrays.stream(groupEnum.getValues())
-              .map(generateI18NCode -> Privilege.builder()
+              .map(generateI18NCode -> Permission.builder()
                                                     .group(groupEnum.name())
-                                                    .name(generateI18NCode.getPrivilegeKeyName())
                                                     .key(generateI18NCode.name())
                                                     .isActive(true)
                                                     .build())
