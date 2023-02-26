@@ -325,7 +325,6 @@ DROP TABLE IF EXISTS "public"."privileges";
 CREATE TABLE "public"."privileges" (
   "id" int8 NOT NULL DEFAULT nextval('privileges_id_seq'::regclass),
   "group" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "key" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "is_active" int2 NOT NULL DEFAULT 1,
   "created_at" timestamp(6),
@@ -467,7 +466,7 @@ CREATE TABLE "public"."users" (
   "email" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "staff_code" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "phone_number" varchar(45) COLLATE "pg_catalog"."default",
-  "password" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
+  "password" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "type" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
   "first_name" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
   "last_name" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
