@@ -36,5 +36,5 @@ public class RolesPermission {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "privilege_id", nullable = false)
     @ToString.Exclude
-    private Permission privilege;
+    private Permission permission;
 }

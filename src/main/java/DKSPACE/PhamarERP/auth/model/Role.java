@@ -44,11 +44,11 @@ public class Role extends BaseCRUDEntity {
     private Boolean isActive = false;
 
     @ManyToMany
-    @JoinTable(name = "roles_privileges",
+    @JoinTable(name = "roles_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id"))
     @ToString.Exclude
-    private Set<Permission> privileges = new LinkedHashSet<>();
+    private Set<Permission> permissions = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {
