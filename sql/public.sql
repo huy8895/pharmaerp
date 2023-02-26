@@ -105,10 +105,10 @@ START 1
 CACHE 1;
 
 -- ----------------------------
--- Sequence structure for privileges_id_seq
+-- Sequence structure for permissions_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."privileges_id_seq";
-CREATE SEQUENCE "public"."privileges_id_seq" 
+DROP SEQUENCE IF EXISTS "public"."permissions_id_seq";
+CREATE SEQUENCE "public"."permissions_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -319,11 +319,11 @@ CREATE TABLE "public"."gen_work_locations" (
 ;
 
 -- ----------------------------
--- Table structure for privileges
+-- Table structure for permissions
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."privileges";
-CREATE TABLE "public"."privileges" (
-  "id" int8 NOT NULL DEFAULT nextval('privileges_id_seq'::regclass),
+DROP TABLE IF EXISTS "public"."permissions";
+CREATE TABLE "public"."permissions" (
+  "id" int8 NOT NULL DEFAULT nextval('permissions_id_seq'::regclass),
   "group" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "key" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "is_active" int2 NOT NULL DEFAULT 1,
@@ -350,10 +350,10 @@ CREATE TABLE "public"."roles" (
 ;
 
 -- ----------------------------
--- Table structure for roles_privileges
+-- Table structure for roles_permissions
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."roles_privileges";
-CREATE TABLE "public"."roles_privileges" (
+DROP TABLE IF EXISTS "public"."roles_permissions";
+CREATE TABLE "public"."roles_permissions" (
   "role_id" int8 NOT NULL,
   "privilege_id" int8 NOT NULL
 )
@@ -546,9 +546,9 @@ SELECT setval('"public"."gen_work_locations_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."privileges_id_seq"
-OWNED BY "public"."privileges"."id";
-SELECT setval('"public"."privileges_id_seq"', 1, false);
+ALTER SEQUENCE "public"."permissions_id_seq"
+OWNED BY "public"."permissions"."id";
+SELECT setval('"public"."permissions_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -676,9 +676,9 @@ ALTER TABLE "public"."gen_uploads" ADD CONSTRAINT "pk_gen_uploads" PRIMARY KEY (
 ALTER TABLE "public"."gen_work_locations" ADD CONSTRAINT "pk_gen_work_locations" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table privileges
+-- Primary Key structure for table permissions
 -- ----------------------------
-ALTER TABLE "public"."privileges" ADD CONSTRAINT "pk_privileges" PRIMARY KEY ("id");
+ALTER TABLE "public"."permissions" ADD CONSTRAINT "pk_permissions" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table roles
@@ -686,19 +686,19 @@ ALTER TABLE "public"."privileges" ADD CONSTRAINT "pk_privileges" PRIMARY KEY ("i
 ALTER TABLE "public"."roles" ADD CONSTRAINT "pk_roles" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Indexes structure for table roles_privileges
+-- Indexes structure for table roles_permissions
 -- ----------------------------
-CREATE INDEX "roles_privileges_privilege_id_idx" ON "public"."roles_privileges" USING btree (
+CREATE INDEX "roles_permissions_privilege_id_idx" ON "public"."roles_permissions" USING btree (
   "privilege_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE INDEX "roles_privileges_role_id_idx" ON "public"."roles_privileges" USING btree (
+CREATE INDEX "roles_permissions_role_id_idx" ON "public"."roles_permissions" USING btree (
   "role_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
--- Primary Key structure for table roles_privileges
+-- Primary Key structure for table roles_permissions
 -- ----------------------------
-ALTER TABLE "public"."roles_privileges" ADD CONSTRAINT "pk_roles_privileges" PRIMARY KEY ("role_id", "privilege_id");
+ALTER TABLE "public"."roles_permissions" ADD CONSTRAINT "pk_roles_permissions" PRIMARY KEY ("role_id", "privilege_id");
 
 -- ----------------------------
 -- Primary Key structure for table uploadables
@@ -784,10 +784,10 @@ ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_gen_work_location_id"
 ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_user_id" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
--- Foreign Keys structure for table roles_privileges
+-- Foreign Keys structure for table roles_permissions
 -- ----------------------------
-ALTER TABLE "public"."roles_privileges" ADD CONSTRAINT "privilege_fk" FOREIGN KEY ("privilege_id") REFERENCES "public"."privileges" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."roles_privileges" ADD CONSTRAINT "role_fk_p" FOREIGN KEY ("role_id") REFERENCES "public"."roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."roles_permissions" ADD CONSTRAINT "privilege_fk" FOREIGN KEY ("privilege_id") REFERENCES "public"."permissions" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."roles_permissions" ADD CONSTRAINT "role_fk_p" FOREIGN KEY ("role_id") REFERENCES "public"."roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table uploadables
