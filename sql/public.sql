@@ -6,7 +6,6 @@
  Source Server Version : 140005
  Source Host           : localhost:5432
  Source Catalog        : postgres
- Source Schema         : public
 
  Target Server Type    : PostgreSQL
  Target Server Version : 140005
@@ -17,10 +16,21 @@
 
 
 -- ----------------------------
+-- Sequence structure for setting_themes_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "setting_themes_id_seq";
+CREATE SEQUENCE "setting_themes_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for activity_logs_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."activity_logs_id_seq";
-CREATE SEQUENCE "public"."activity_logs_id_seq" 
+DROP SEQUENCE IF EXISTS "activity_logs_id_seq";
+CREATE SEQUENCE "activity_logs_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -30,8 +40,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for contract_types_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."contract_types_id_seq";
-CREATE SEQUENCE "public"."contract_types_id_seq" 
+DROP SEQUENCE IF EXISTS "contract_types_id_seq";
+CREATE SEQUENCE "contract_types_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -41,8 +51,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for contracts_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."contracts_id_seq";
-CREATE SEQUENCE "public"."contracts_id_seq" 
+DROP SEQUENCE IF EXISTS "contracts_id_seq";
+CREATE SEQUENCE "contracts_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -52,8 +62,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for gen_departments_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."gen_departments_id_seq";
-CREATE SEQUENCE "public"."gen_departments_id_seq" 
+DROP SEQUENCE IF EXISTS "gen_departments_id_seq";
+CREATE SEQUENCE "gen_departments_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -63,8 +73,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for gen_job_titles_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."gen_job_titles_id_seq";
-CREATE SEQUENCE "public"."gen_job_titles_id_seq" 
+DROP SEQUENCE IF EXISTS "gen_job_titles_id_seq";
+CREATE SEQUENCE "gen_job_titles_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -74,8 +84,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for gen_officer_levels_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."gen_officer_levels_id_seq";
-CREATE SEQUENCE "public"."gen_officer_levels_id_seq" 
+DROP SEQUENCE IF EXISTS "gen_officer_levels_id_seq";
+CREATE SEQUENCE "gen_officer_levels_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -85,8 +95,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for gen_uploads_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."gen_uploads_id_seq";
-CREATE SEQUENCE "public"."gen_uploads_id_seq" 
+DROP SEQUENCE IF EXISTS "gen_uploads_id_seq";
+CREATE SEQUENCE "gen_uploads_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -96,8 +106,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for gen_work_locations_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."gen_work_locations_id_seq";
-CREATE SEQUENCE "public"."gen_work_locations_id_seq" 
+DROP SEQUENCE IF EXISTS "gen_work_locations_id_seq";
+CREATE SEQUENCE "gen_work_locations_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -107,8 +117,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for permissions_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."permissions_id_seq";
-CREATE SEQUENCE "public"."permissions_id_seq" 
+DROP SEQUENCE IF EXISTS "permissions_id_seq";
+CREATE SEQUENCE "permissions_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -118,8 +128,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for roles_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."roles_id_seq";
-CREATE SEQUENCE "public"."roles_id_seq" 
+DROP SEQUENCE IF EXISTS "roles_id_seq";
+CREATE SEQUENCE "roles_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -129,8 +139,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for user_activities_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."user_activities_id_seq";
-CREATE SEQUENCE "public"."user_activities_id_seq" 
+DROP SEQUENCE IF EXISTS "user_activities_id_seq";
+CREATE SEQUENCE "user_activities_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -140,8 +150,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for user_certificates_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."user_certificates_id_seq";
-CREATE SEQUENCE "public"."user_certificates_id_seq" 
+DROP SEQUENCE IF EXISTS "user_certificates_id_seq";
+CREATE SEQUENCE "user_certificates_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -151,8 +161,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for user_courses_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."user_courses_id_seq";
-CREATE SEQUENCE "public"."user_courses_id_seq" 
+DROP SEQUENCE IF EXISTS "user_courses_id_seq";
+CREATE SEQUENCE "user_courses_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -162,8 +172,8 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for user_profiles_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."user_profiles_id_seq";
-CREATE SEQUENCE "public"."user_profiles_id_seq" 
+DROP SEQUENCE IF EXISTS "user_profiles_id_seq";
+CREATE SEQUENCE "user_profiles_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -173,38 +183,67 @@ CACHE 1;
 -- ----------------------------
 -- Sequence structure for users_id_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."users_id_seq";
-CREATE SEQUENCE "public"."users_id_seq" 
+DROP SEQUENCE IF EXISTS "users_id_seq";
+CREATE SEQUENCE "users_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
 START 1
 CACHE 1;
 
+
+
+-- ----------------------------
+-- Table structure for setting_themes
+-- ----------------------------
+DROP TABLE IF EXISTS "setting_themes";
+CREATE TABLE "setting_themes" (
+  "id" int8 NOT NULL DEFAULT nextval('setting_themes_id_seq'::regclass),
+  "user_id" int8 NOT NULL,
+  "layout" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'vertical',
+  "color_scheme" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'light',
+  "topbar_color" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'light',
+  "sidebar_color" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'light',
+  "sidebar_img" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'none',
+  "preloader" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'enable',
+  "created_at" timestamp(6),
+  "updated_at" timestamp(6),
+  "deleted_at" timestamp(6)
+)
+;
+
+COMMENT ON COLUMN "setting_themes"."layout" is 'vertical,horizontal,twocolumn; 3 giá trị này phải là lowercase';
+COMMENT ON COLUMN "setting_themes"."color_scheme" is 'light,dark; 2 giá trị này phải là lowercase';
+COMMENT ON COLUMN "setting_themes"."topbar_color" is 'light,dark; 2 giá trị này phải là lowercase';
+COMMENT ON COLUMN "setting_themes"."sidebar_color" is 'light,dark,gradient; 3 giá trị này phải là lowercase';
+COMMENT ON COLUMN "setting_themes"."sidebar_img" is 'none,img-1,img-2,img-3,img-4,img-n; n giá trị này phải là lowercase; ảnh là có sẵn';
+COMMENT ON COLUMN "setting_themes"."preloader" is 'enable,disable; 2 giá trị này phải là lowercase';
+
 -- ----------------------------
 -- Table structure for activity_logs
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."activity_logs";
-CREATE TABLE "public"."activity_logs" (
+DROP TABLE IF EXISTS "activity_logs";
+CREATE TABLE "activity_logs" (
   "id" int8 NOT NULL DEFAULT nextval('activity_logs_id_seq'::regclass),
+  "user_id" int8,
   "ip" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
-  "user-agent" text COLLATE "pg_catalog"."default",
+  "user_agent" text COLLATE "pg_catalog"."default",
   "request" text COLLATE "pg_catalog"."default",
   "response" text COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
-  "deleted_at" timestamp(6),
-  "user_id" int8
+  "deleted_at" timestamp(6)
 )
 ;
 
 -- ----------------------------
 -- Table structure for contract_types
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."contract_types";
-CREATE TABLE "public"."contract_types" (
+DROP TABLE IF EXISTS "contract_types";
+CREATE TABLE "contract_types" (
   "id" int8 NOT NULL DEFAULT nextval('contract_types_id_seq'::regclass),
-  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "is_determine_deadline" int2 NOT NULL DEFAULT 0,
   "is_active" int2 NOT NULL DEFAULT 1,
   "describe" text COLLATE "pg_catalog"."default",
@@ -217,8 +256,8 @@ CREATE TABLE "public"."contract_types" (
 -- ----------------------------
 -- Table structure for contracts
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."contracts";
-CREATE TABLE "public"."contracts" (
+DROP TABLE IF EXISTS "contracts";
+CREATE TABLE "contracts" (
   "id" int8 NOT NULL DEFAULT nextval('contracts_id_seq'::regclass),
   "user_id" int8 NOT NULL,
   "creator_id" int8 NOT NULL,
@@ -239,13 +278,16 @@ CREATE TABLE "public"."contracts" (
 )
 ;
 
+COMMENT ON COLUMN "contracts"."status" is 'Draft, To confirm, To review, Approved, Running, Pending, Expired, Liquidated, Rejected\nDự thảo, để xác nhận, xem xét, phê duyệt, chạy, chờ xử lý, hết hạn, bị thanh lý, bị từ chối';
+
 -- ----------------------------
 -- Table structure for gen_departments
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."gen_departments";
-CREATE TABLE "public"."gen_departments" (
+DROP TABLE IF EXISTS "gen_departments";
+CREATE TABLE "gen_departments" (
   "id" int8 NOT NULL DEFAULT nextval('gen_departments_id_seq'::regclass),
-  "name" varchar(255) COLLATE "pg_catalog"."default",
+  "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
   "is_active" int2 NOT NULL DEFAULT 1,
   "created_at" timestamp(6),
@@ -257,10 +299,11 @@ CREATE TABLE "public"."gen_departments" (
 -- ----------------------------
 -- Table structure for gen_job_titles
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."gen_job_titles";
-CREATE TABLE "public"."gen_job_titles" (
+DROP TABLE IF EXISTS "gen_job_titles";
+CREATE TABLE "gen_job_titles" (
   "id" int8 NOT NULL DEFAULT nextval('gen_job_titles_id_seq'::regclass),
-  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "salary" int8,
   "describe" text COLLATE "pg_catalog"."default",
   "is_active" int2 NOT NULL DEFAULT 1,
@@ -273,10 +316,11 @@ CREATE TABLE "public"."gen_job_titles" (
 -- ----------------------------
 -- Table structure for gen_officer_levels
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."gen_officer_levels";
-CREATE TABLE "public"."gen_officer_levels" (
+DROP TABLE IF EXISTS "gen_officer_levels";
+CREATE TABLE "gen_officer_levels" (
   "id" int8 NOT NULL DEFAULT nextval('gen_officer_levels_id_seq'::regclass),
-  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
   "is_active" int2 NOT NULL DEFAULT 1,
   "created_at" timestamp(6),
@@ -288,8 +332,8 @@ CREATE TABLE "public"."gen_officer_levels" (
 -- ----------------------------
 -- Table structure for gen_uploads
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."gen_uploads";
-CREATE TABLE "public"."gen_uploads" (
+DROP TABLE IF EXISTS "gen_uploads";
+CREATE TABLE "gen_uploads" (
   "id" int8 NOT NULL DEFAULT nextval('gen_uploads_id_seq'::regclass),
   "original_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "file_name" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
@@ -306,10 +350,11 @@ CREATE TABLE "public"."gen_uploads" (
 -- ----------------------------
 -- Table structure for gen_work_locations
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."gen_work_locations";
-CREATE TABLE "public"."gen_work_locations" (
+DROP TABLE IF EXISTS "gen_work_locations";
+CREATE TABLE "gen_work_locations" (
   "id" int8 NOT NULL DEFAULT nextval('gen_work_locations_id_seq'::regclass),
-  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
   "is_active" int2 NOT NULL DEFAULT 1,
   "created_at" timestamp(6),
@@ -321,8 +366,8 @@ CREATE TABLE "public"."gen_work_locations" (
 -- ----------------------------
 -- Table structure for permissions
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."permissions";
-CREATE TABLE "public"."permissions" (
+DROP TABLE IF EXISTS "permissions";
+CREATE TABLE "permissions" (
   "id" int8 NOT NULL DEFAULT nextval('permissions_id_seq'::regclass),
   "group" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "key" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -336,10 +381,11 @@ CREATE TABLE "public"."permissions" (
 -- ----------------------------
 -- Table structure for roles
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."roles";
-CREATE TABLE "public"."roles" (
+DROP TABLE IF EXISTS "roles";
+CREATE TABLE "roles" (
   "id" int8 NOT NULL DEFAULT nextval('roles_id_seq'::regclass),
-  "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
   "is_default" int2 NOT NULL DEFAULT 0,
   "is_active" int2 NOT NULL DEFAULT 1,
@@ -352,18 +398,18 @@ CREATE TABLE "public"."roles" (
 -- ----------------------------
 -- Table structure for roles_permissions
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."roles_permissions";
-CREATE TABLE "public"."roles_permissions" (
+DROP TABLE IF EXISTS "roles_permissions";
+CREATE TABLE "roles_permissions" (
   "role_id" int8 NOT NULL,
-  "privilege_id" int8 NOT NULL
+  "permission_id" int8 NOT NULL
 )
 ;
 
 -- ----------------------------
 -- Table structure for uploadables
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."uploadables";
-CREATE TABLE "public"."uploadables" (
+DROP TABLE IF EXISTS "uploadables";
+CREATE TABLE "uploadables" (
   "gen_upload_id" int8 NOT NULL,
   "object_id" int8 NOT NULL,
   "object_type" varchar(45) COLLATE "pg_catalog"."default",
@@ -375,8 +421,8 @@ CREATE TABLE "public"."uploadables" (
 -- ----------------------------
 -- Table structure for user_activities
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."user_activities";
-CREATE TABLE "public"."user_activities" (
+DROP TABLE IF EXISTS "user_activities";
+CREATE TABLE "user_activities" (
   "id" int8 NOT NULL DEFAULT nextval('user_activities_id_seq'::regclass),
   "user_id" int8 NOT NULL,
   "organization" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -395,8 +441,8 @@ CREATE TABLE "public"."user_activities" (
 -- ----------------------------
 -- Table structure for user_certificates
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."user_certificates";
-CREATE TABLE "public"."user_certificates" (
+DROP TABLE IF EXISTS "user_certificates";
+CREATE TABLE "user_certificates" (
   "id" int8 NOT NULL DEFAULT nextval('user_certificates_id_seq'::regclass),
   "user_id" int8 NOT NULL,
   "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -414,8 +460,8 @@ CREATE TABLE "public"."user_certificates" (
 -- ----------------------------
 -- Table structure for user_courses
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."user_courses";
-CREATE TABLE "public"."user_courses" (
+DROP TABLE IF EXISTS "user_courses";
+CREATE TABLE "user_courses" (
   "id" int8 NOT NULL DEFAULT nextval('user_courses_id_seq'::regclass),
   "user_id" int8 NOT NULL,
   "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -433,8 +479,8 @@ CREATE TABLE "public"."user_courses" (
 -- ----------------------------
 -- Table structure for user_profiles
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."user_profiles";
-CREATE TABLE "public"."user_profiles" (
+DROP TABLE IF EXISTS "user_profiles";
+CREATE TABLE "user_profiles" (
   "id" int8 NOT NULL DEFAULT nextval('user_profiles_id_seq'::regclass),
   "user_id" int8 NOT NULL,
   "gender" int2,
@@ -459,8 +505,8 @@ CREATE TABLE "public"."user_profiles" (
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."users";
-CREATE TABLE "public"."users" (
+DROP TABLE IF EXISTS "users";
+CREATE TABLE "users" (
   "id" int8 NOT NULL DEFAULT nextval('users_id_seq'::regclass),
   "username" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
   "email" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
@@ -480,8 +526,8 @@ CREATE TABLE "public"."users" (
 -- ----------------------------
 -- Table structure for users_roles
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."users_roles";
-CREATE TABLE "public"."users_roles" (
+DROP TABLE IF EXISTS "users_roles";
+CREATE TABLE "users_roles" (
   "user_id" int8 NOT NULL,
   "role_id" int8 NOT NULL
 )
@@ -490,332 +536,387 @@ CREATE TABLE "public"."users_roles" (
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."activity_logs_id_seq"
-OWNED BY "public"."activity_logs"."id";
-SELECT setval('"public"."activity_logs_id_seq"', 1, false);
+ALTER SEQUENCE "setting_themes_id_seq"
+OWNED BY "setting_themes"."id";
+SELECT setval('"setting_themes_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."contract_types_id_seq"
-OWNED BY "public"."contract_types"."id";
-SELECT setval('"public"."contract_types_id_seq"', 1, false);
+ALTER SEQUENCE "activity_logs_id_seq"
+OWNED BY "activity_logs"."id";
+SELECT setval('"activity_logs_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."contracts_id_seq"
-OWNED BY "public"."contracts"."id";
-SELECT setval('"public"."contracts_id_seq"', 1, false);
+ALTER SEQUENCE "contract_types_id_seq"
+OWNED BY "contract_types"."id";
+SELECT setval('"contract_types_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."gen_departments_id_seq"
-OWNED BY "public"."gen_departments"."id";
-SELECT setval('"public"."gen_departments_id_seq"', 1, false);
+ALTER SEQUENCE "contracts_id_seq"
+OWNED BY "contracts"."id";
+SELECT setval('"contracts_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."gen_job_titles_id_seq"
-OWNED BY "public"."gen_job_titles"."id";
-SELECT setval('"public"."gen_job_titles_id_seq"', 1, false);
+ALTER SEQUENCE "gen_departments_id_seq"
+OWNED BY "gen_departments"."id";
+SELECT setval('"gen_departments_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."gen_officer_levels_id_seq"
-OWNED BY "public"."gen_officer_levels"."id";
-SELECT setval('"public"."gen_officer_levels_id_seq"', 1, false);
+ALTER SEQUENCE "gen_job_titles_id_seq"
+OWNED BY "gen_job_titles"."id";
+SELECT setval('"gen_job_titles_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."gen_uploads_id_seq"
-OWNED BY "public"."gen_uploads"."id";
-SELECT setval('"public"."gen_uploads_id_seq"', 1, false);
+ALTER SEQUENCE "gen_officer_levels_id_seq"
+OWNED BY "gen_officer_levels"."id";
+SELECT setval('"gen_officer_levels_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."gen_work_locations_id_seq"
-OWNED BY "public"."gen_work_locations"."id";
-SELECT setval('"public"."gen_work_locations_id_seq"', 1, false);
+ALTER SEQUENCE "gen_uploads_id_seq"
+OWNED BY "gen_uploads"."id";
+SELECT setval('"gen_uploads_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."permissions_id_seq"
-OWNED BY "public"."permissions"."id";
-SELECT setval('"public"."permissions_id_seq"', 1, false);
+ALTER SEQUENCE "gen_work_locations_id_seq"
+OWNED BY "gen_work_locations"."id";
+SELECT setval('"gen_work_locations_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."roles_id_seq"
-OWNED BY "public"."roles"."id";
-SELECT setval('"public"."roles_id_seq"', 1, false);
+ALTER SEQUENCE "permissions_id_seq"
+OWNED BY "permissions"."id";
+SELECT setval('"permissions_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."user_activities_id_seq"
-OWNED BY "public"."user_activities"."id";
-SELECT setval('"public"."user_activities_id_seq"', 1, false);
+ALTER SEQUENCE "roles_id_seq"
+OWNED BY "roles"."id";
+SELECT setval('"roles_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."user_certificates_id_seq"
-OWNED BY "public"."user_certificates"."id";
-SELECT setval('"public"."user_certificates_id_seq"', 1, false);
+ALTER SEQUENCE "user_activities_id_seq"
+OWNED BY "user_activities"."id";
+SELECT setval('"user_activities_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."user_courses_id_seq"
-OWNED BY "public"."user_courses"."id";
-SELECT setval('"public"."user_courses_id_seq"', 1, false);
+ALTER SEQUENCE "user_certificates_id_seq"
+OWNED BY "user_certificates"."id";
+SELECT setval('"user_certificates_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."user_profiles_id_seq"
-OWNED BY "public"."user_profiles"."id";
-SELECT setval('"public"."user_profiles_id_seq"', 1, false);
+ALTER SEQUENCE "user_courses_id_seq"
+OWNED BY "user_courses"."id";
+SELECT setval('"user_courses_id_seq"', 1, false);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."users_id_seq"
-OWNED BY "public"."users"."id";
-SELECT setval('"public"."users_id_seq"', 1, false);
+ALTER SEQUENCE "user_profiles_id_seq"
+OWNED BY "user_profiles"."id";
+SELECT setval('"user_profiles_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "users_id_seq"
+OWNED BY "users"."id";
+SELECT setval('"users_id_seq"', 1, false);
+
+-- ----------------------------
+-- Indexes structure for table setting_themes
+-- ----------------------------
+CREATE INDEX "setting_themes_user_id_idx" ON "setting_themes" USING btree (
+  "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+);
+
+-- ----------------------------
+-- Primary Key structure for table setting_themes
+-- ----------------------------
+ALTER TABLE "setting_themes" ADD CONSTRAINT "setting_themes_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table activity_logs
 -- ----------------------------
-CREATE INDEX "activity_logs_user_id_idx" ON "public"."activity_logs" USING btree (
+CREATE INDEX "activity_logs_user_id_idx" ON "activity_logs" USING btree (
   "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table activity_logs
 -- ----------------------------
-ALTER TABLE "public"."activity_logs" ADD CONSTRAINT "activity_logs_pkey" PRIMARY KEY ("id");
+ALTER TABLE "activity_logs" ADD CONSTRAINT "activity_logs_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table contract_types
 -- ----------------------------
-CREATE UNIQUE INDEX "name_unique" ON "public"."contract_types" USING btree (
-  "name" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+CREATE UNIQUE INDEX "name_vi_unique" ON "contract_types" USING btree (
+  "name_vi" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
+CREATE UNIQUE INDEX "name_en_unique" ON "contract_types" USING btree (
+  "name_en" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table contract_types
 -- ----------------------------
-ALTER TABLE "public"."contract_types" ADD CONSTRAINT "pk_contract_types" PRIMARY KEY ("id");
+ALTER TABLE "contract_types" ADD CONSTRAINT "pk_contract_types" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table contracts
 -- ----------------------------
-CREATE INDEX "contracts_contract_type_id_idx" ON "public"."contracts" USING btree (
+CREATE INDEX "contracts_contract_type_id_idx" ON "contracts" USING btree (
   "contract_type_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE INDEX "contracts_creator_id_idx" ON "public"."contracts" USING btree (
+CREATE INDEX "contracts_creator_id_idx" ON "contracts" USING btree (
   "creator_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE INDEX "contracts_gen_job_title_id_idx" ON "public"."contracts" USING btree (
+CREATE INDEX "contracts_gen_job_title_id_idx" ON "contracts" USING btree (
   "gen_job_title_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE INDEX "contracts_gen_officer_level_id_idx" ON "public"."contracts" USING btree (
+CREATE INDEX "contracts_gen_officer_level_id_idx" ON "contracts" USING btree (
   "gen_officer_level_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE INDEX "contracts_gen_work_location_id_idx" ON "public"."contracts" USING btree (
+CREATE INDEX "contracts_gen_work_location_id_idx" ON "contracts" USING btree (
   "gen_work_location_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE UNIQUE INDEX "contracts_user_id_unique" ON "public"."contracts" USING btree (
+CREATE UNIQUE INDEX "contracts_user_id_unique" ON "contracts" USING btree (
   "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table contracts
 -- ----------------------------
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "pk_contracts" PRIMARY KEY ("id");
+ALTER TABLE "contracts" ADD CONSTRAINT "pk_contracts" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table gen_departments
 -- ----------------------------
-ALTER TABLE "public"."gen_departments" ADD CONSTRAINT "gen_departments_pkey" PRIMARY KEY ("id");
+ALTER TABLE "gen_departments" ADD CONSTRAINT "gen_departments_pkey" PRIMARY KEY ("id");
+
+CREATE UNIQUE INDEX "gen_departments_name_vi_unique" ON "gen_departments" USING btree (
+  "name_vi" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
+CREATE UNIQUE INDEX "gen_departments_name_en_unique" ON "gen_departments" USING btree (
+  "name_en" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
 
 -- ----------------------------
 -- Primary Key structure for table gen_job_titles
 -- ----------------------------
-ALTER TABLE "public"."gen_job_titles" ADD CONSTRAINT "pk_gen_job_titles" PRIMARY KEY ("id");
+ALTER TABLE "gen_job_titles" ADD CONSTRAINT "pk_gen_job_titles" PRIMARY KEY ("id");
+
+CREATE UNIQUE INDEX "gen_job_titles_name_vi_unique" ON "gen_departments" USING btree (
+  "name_vi" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
+CREATE UNIQUE INDEX "gen_job_titles_name_en_unique" ON "gen_departments" USING btree (
+  "name_en" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
 
 -- ----------------------------
 -- Primary Key structure for table gen_officer_levels
 -- ----------------------------
-ALTER TABLE "public"."gen_officer_levels" ADD CONSTRAINT "pk_gen_officer_levels" PRIMARY KEY ("id");
+ALTER TABLE "gen_officer_levels" ADD CONSTRAINT "pk_gen_officer_levels" PRIMARY KEY ("id");
+
+CREATE UNIQUE INDEX "gen_officer_levels_name_vi_unique" ON "gen_departments" USING btree (
+  "name_vi" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
+CREATE UNIQUE INDEX "gen_officer_levels_name_en_unique" ON "gen_departments" USING btree (
+  "name_en" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
 
 -- ----------------------------
 -- Indexes structure for table gen_uploads
 -- ----------------------------
-CREATE UNIQUE INDEX "original_name_unique" ON "public"."gen_uploads" USING btree (
+CREATE UNIQUE INDEX "original_name_unique" ON "gen_uploads" USING btree (
   "original_name" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table gen_uploads
 -- ----------------------------
-ALTER TABLE "public"."gen_uploads" ADD CONSTRAINT "pk_gen_uploads" PRIMARY KEY ("id");
+ALTER TABLE "gen_uploads" ADD CONSTRAINT "pk_gen_uploads" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table gen_work_locations
 -- ----------------------------
-ALTER TABLE "public"."gen_work_locations" ADD CONSTRAINT "pk_gen_work_locations" PRIMARY KEY ("id");
+ALTER TABLE "gen_work_locations" ADD CONSTRAINT "pk_gen_work_locations" PRIMARY KEY ("id");
+
+CREATE UNIQUE INDEX "gen_work_locations_name_vi_unique" ON "gen_departments" USING btree (
+  "name_vi" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
+CREATE UNIQUE INDEX "gen_work_locations_name_en_unique" ON "gen_departments" USING btree (
+  "name_en" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
+);
 
 -- ----------------------------
 -- Primary Key structure for table permissions
 -- ----------------------------
-ALTER TABLE "public"."permissions" ADD CONSTRAINT "pk_permissions" PRIMARY KEY ("id");
+ALTER TABLE "permissions" ADD CONSTRAINT "pk_permissions" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table roles
 -- ----------------------------
-ALTER TABLE "public"."roles" ADD CONSTRAINT "pk_roles" PRIMARY KEY ("id");
+ALTER TABLE "roles" ADD CONSTRAINT "pk_roles" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table roles_permissions
 -- ----------------------------
-CREATE INDEX "roles_permissions_privilege_id_idx" ON "public"."roles_permissions" USING btree (
-  "privilege_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+CREATE INDEX "roles_permissions_permission_id_idx" ON "roles_permissions" USING btree (
+  "permission_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
-CREATE INDEX "roles_permissions_role_id_idx" ON "public"."roles_permissions" USING btree (
+CREATE INDEX "roles_permissions_role_id_idx" ON "roles_permissions" USING btree (
   "role_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table roles_permissions
 -- ----------------------------
-ALTER TABLE "public"."roles_permissions" ADD CONSTRAINT "pk_roles_permissions" PRIMARY KEY ("role_id", "privilege_id");
+ALTER TABLE "roles_permissions" ADD CONSTRAINT "pk_roles_permissions" PRIMARY KEY ("role_id", "permission_id");
 
 -- ----------------------------
 -- Primary Key structure for table uploadables
 -- ----------------------------
-ALTER TABLE "public"."uploadables" ADD CONSTRAINT "pk_uploadables" PRIMARY KEY ("gen_upload_id", "object_id");
+ALTER TABLE "uploadables" ADD CONSTRAINT "pk_uploadables" PRIMARY KEY ("gen_upload_id", "object_id");
 
 -- ----------------------------
 -- Indexes structure for table user_activities
 -- ----------------------------
-CREATE INDEX "user_activities_user_id_idx" ON "public"."user_activities" USING btree (
+CREATE INDEX "user_activities_user_id_idx" ON "user_activities" USING btree (
   "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table user_activities
 -- ----------------------------
-ALTER TABLE "public"."user_activities" ADD CONSTRAINT "pk_user_activities" PRIMARY KEY ("id");
+ALTER TABLE "user_activities" ADD CONSTRAINT "pk_user_activities" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table user_certificates
 -- ----------------------------
-CREATE INDEX "user_certificates_user_id_idx" ON "public"."user_certificates" USING btree (
+CREATE INDEX "user_certificates_user_id_idx" ON "user_certificates" USING btree (
   "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table user_certificates
 -- ----------------------------
-ALTER TABLE "public"."user_certificates" ADD CONSTRAINT "pk_user_certificates" PRIMARY KEY ("id");
+ALTER TABLE "user_certificates" ADD CONSTRAINT "pk_user_certificates" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table user_courses
 -- ----------------------------
-CREATE INDEX "user_courses_user_id_idx" ON "public"."user_courses" USING btree (
+CREATE INDEX "user_courses_user_id_idx" ON "user_courses" USING btree (
   "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table user_courses
 -- ----------------------------
-ALTER TABLE "public"."user_courses" ADD CONSTRAINT "pk_user_courses" PRIMARY KEY ("id");
+ALTER TABLE "user_courses" ADD CONSTRAINT "pk_user_courses" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table user_profiles
 -- ----------------------------
-ALTER TABLE "public"."user_profiles" ADD CONSTRAINT "pk_user_profiles" PRIMARY KEY ("id");
+ALTER TABLE "user_profiles" ADD CONSTRAINT "pk_user_profiles" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table users
 -- ----------------------------
-CREATE UNIQUE INDEX "email_unique" ON "public"."users" USING btree (
+CREATE UNIQUE INDEX "email_unique" ON "users" USING btree (
   "email" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
-CREATE UNIQUE INDEX "username_unique" ON "public"."users" USING btree (
+CREATE UNIQUE INDEX "username_unique" ON "users" USING btree (
   "username" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table users
 -- ----------------------------
-ALTER TABLE "public"."users" ADD CONSTRAINT "pk_users" PRIMARY KEY ("id");
+ALTER TABLE "users" ADD CONSTRAINT "pk_users" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table users_roles
 -- ----------------------------
-CREATE INDEX "role_fk" ON "public"."users_roles" USING btree (
+CREATE INDEX "role_fk" ON "users_roles" USING btree (
   "role_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
 
 -- ----------------------------
 -- Primary Key structure for table users_roles
 -- ----------------------------
-ALTER TABLE "public"."users_roles" ADD CONSTRAINT "pk_users_roles" PRIMARY KEY ("user_id", "role_id");
+ALTER TABLE "users_roles" ADD CONSTRAINT "pk_users_roles" PRIMARY KEY ("user_id", "role_id");
 
 -- ----------------------------
 -- Foreign Keys structure for table contracts
 -- ----------------------------
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_contract_type_id" FOREIGN KEY ("contract_type_id") REFERENCES "public"."contract_types" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_creator_id" FOREIGN KEY ("creator_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_gen_job_title_id" FOREIGN KEY ("gen_job_title_id") REFERENCES "public"."gen_job_titles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_gen_officer_level_id" FOREIGN KEY ("gen_officer_level_id") REFERENCES "public"."gen_officer_levels" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_gen_work_location_id" FOREIGN KEY ("gen_work_location_id") REFERENCES "public"."gen_work_locations" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."contracts" ADD CONSTRAINT "contracts_user_id" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_contract_type_id" FOREIGN KEY ("contract_type_id") REFERENCES "contract_types" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_creator_id" FOREIGN KEY ("creator_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_gen_job_title_id" FOREIGN KEY ("gen_job_title_id") REFERENCES "gen_job_titles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_gen_officer_level_id" FOREIGN KEY ("gen_officer_level_id") REFERENCES "gen_officer_levels" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_gen_work_location_id" FOREIGN KEY ("gen_work_location_id") REFERENCES "gen_work_locations" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contracts" ADD CONSTRAINT "contracts_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table roles_permissions
 -- ----------------------------
-ALTER TABLE "public"."roles_permissions" ADD CONSTRAINT "privilege_fk" FOREIGN KEY ("privilege_id") REFERENCES "public"."permissions" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."roles_permissions" ADD CONSTRAINT "role_fk_p" FOREIGN KEY ("role_id") REFERENCES "public"."roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "roles_permissions" ADD CONSTRAINT "permission_fk" FOREIGN KEY ("permission_id") REFERENCES "permissions" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "roles_permissions" ADD CONSTRAINT "role_fk_p" FOREIGN KEY ("role_id") REFERENCES "roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table uploadables
 -- ----------------------------
-ALTER TABLE "public"."uploadables" ADD CONSTRAINT "uploadables_gen_upload_id" FOREIGN KEY ("gen_upload_id") REFERENCES "public"."gen_uploads" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "uploadables" ADD CONSTRAINT "uploadables_gen_upload_id" FOREIGN KEY ("gen_upload_id") REFERENCES "gen_uploads" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table user_activities
 -- ----------------------------
-ALTER TABLE "public"."user_activities" ADD CONSTRAINT "user_activities_user_id" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "user_activities" ADD CONSTRAINT "user_activities_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table user_certificates
 -- ----------------------------
-ALTER TABLE "public"."user_certificates" ADD CONSTRAINT "user_certificates_user_id" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "user_certificates" ADD CONSTRAINT "user_certificates_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table user_courses
 -- ----------------------------
-ALTER TABLE "public"."user_courses" ADD CONSTRAINT "user_courses_user_id" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "user_courses" ADD CONSTRAINT "user_courses_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table user_profiles
 -- ----------------------------
-ALTER TABLE "public"."user_profiles" ADD CONSTRAINT "user_profiles_user_id" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "user_profiles" ADD CONSTRAINT "user_profiles_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
 -- Foreign Keys structure for table users_roles
 -- ----------------------------
-ALTER TABLE "public"."users_roles" ADD CONSTRAINT "role_fk" FOREIGN KEY ("role_id") REFERENCES "public"."roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "public"."users_roles" ADD CONSTRAINT "user_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "users_roles" ADD CONSTRAINT "role_fk" FOREIGN KEY ("role_id") REFERENCES "roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "users_roles" ADD CONSTRAINT "user_fk" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- ----------------------------
+-- Foreign Keys structure for table setting_themes
+-- ----------------------------
+ALTER TABLE "setting_themes" ADD CONSTRAINT "setting_themes_user_id" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
