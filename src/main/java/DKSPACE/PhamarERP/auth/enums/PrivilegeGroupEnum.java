@@ -12,7 +12,8 @@ interface hasPrivileges {
 
 
 public enum PrivilegeGroupEnum {
-    Role("Phân quyền", MapUtils.<PrivilegeKeyEnum, String>build().put(
+    Role(PrivilegeGroupName.Role,
+         MapUtils.<PrivilegeKeyEnum, String>build().put(
             UPDATE,"chỉnh sửa"
     ).ok()),
 
@@ -21,7 +22,14 @@ public enum PrivilegeGroupEnum {
     ;
 
 
-    PrivilegeGroupEnum(String groupName, Map<PrivilegeKeyEnum, String> map) {
+    PrivilegeGroupEnum(PrivilegeGroupName groupName, Map<PrivilegeKeyEnum, String> map) {
 
+    }
+
+    enum PrivilegeGroupName{
+        Role("");
+
+        PrivilegeGroupName(String i18nMsgCode) {
+        }
     }
 }
