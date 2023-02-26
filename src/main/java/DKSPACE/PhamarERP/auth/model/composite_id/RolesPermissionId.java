@@ -20,21 +20,21 @@ public class RolesPermissionId implements Serializable {
     private Long roleId;
 
     @NotNull
-    @Column(name = "privilege_id", nullable = false)
-    private Long privilegeId;
+    @Column(name = "permission_id", nullable = false)
+    private Long permissionId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         RolesPermissionId entity = (RolesPermissionId) o;
-        return Objects.equals(this.privilegeId, entity.privilegeId) &&
+        return Objects.equals(this.permissionId, entity.permissionId) &&
                 Objects.equals(this.roleId, entity.roleId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(privilegeId, roleId);
+        return Objects.hash(permissionId, roleId);
     }
 
 }

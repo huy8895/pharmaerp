@@ -48,6 +48,10 @@ public enum PermissionGroupEnum {
     }
 
     public String getGroupNameI18NCode() {
-        return GenerateI18NCode.PRIVILEGE_GROUP_PREFIX.concat(this.name().toLowerCase());
+        return "permission".concat(this.name().toLowerCase());
+    }
+
+    public static void main(String[] args) {
+
     }
 }

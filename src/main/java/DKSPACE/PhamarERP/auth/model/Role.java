@@ -46,7 +46,7 @@ public class Role extends BaseCRUDEntity {
     @ManyToMany
     @JoinTable(name = "roles_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id"))
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
     @ToString.Exclude
     private Set<Permission> permissions = new LinkedHashSet<>();
 

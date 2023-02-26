@@ -17,7 +17,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @AllArgsConstructor
 @Entity
 @Table(name = "roles_permissions", indexes = {
-        @Index(name = "roles_permissions_privilege_id_idx", columnList = "privilege_id"),
+        @Index(name = "roles_permissions_permission_id_idx", columnList = "permission_id"),
         @Index(name = "roles_permissions_role_id_idx", columnList = "role_id")
 })
 public class RolesPermission {
@@ -31,10 +31,10 @@ public class RolesPermission {
     @ToString.Exclude
     private Role role;
 
-    @MapsId("privilegeId")
+    @MapsId("permissionId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "privilege_id", nullable = false)
+    @JoinColumn(name = "permission_id", nullable = false)
     @ToString.Exclude
     private Permission permission;
 }

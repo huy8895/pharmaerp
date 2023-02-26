@@ -3,7 +3,7 @@ package DKSPACE.PhamarERP.auth.service.impl;
 import DKSPACE.PhamarERP.auth.enums.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.auth.repository.PermissionRepository;
-import DKSPACE.PhamarERP.auth.service.PrivilegeService;
+import DKSPACE.PhamarERP.auth.service.PermissionService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PermissionServiceImpl implements PrivilegeService {
+public class PermissionServiceImpl implements PermissionService {
     private final PermissionRepository repository;
 
     @PostConstruct
-    private void setupPrivileges() {
+    private void setupPermissions() {
         List<Permission> collect = Arrays.stream(PermissionGroupEnum.values())
                                          .map(this::build)
                                          .flatMap(Collection::stream)

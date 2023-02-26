@@ -1,5 +1,5 @@
 package DKSPACE.PhamarERP.auth.service;
 
-public interface PrivilegeService {
+public interface PermissionService {
     Object getAll();
 }

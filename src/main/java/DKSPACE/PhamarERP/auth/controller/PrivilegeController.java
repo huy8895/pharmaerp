@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.auth.controller;
 
-import DKSPACE.PhamarERP.auth.service.PrivilegeService;
+import DKSPACE.PhamarERP.auth.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/privileges")
+@RequestMapping("/api/permissions")
 @RequiredArgsConstructor
-public class PrivilegeController {
-    private final PrivilegeService service;
+public class permissionController {
+    private final PermissionService service;
 
     @GetMapping
     public Object getAll(){

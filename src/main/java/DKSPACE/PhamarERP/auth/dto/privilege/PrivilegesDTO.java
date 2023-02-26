@@ -1,4 +1,4 @@
-//package DKSPACE.PhamarERP.auth.dto.privilege;
+//package DKSPACE.PhamarERP.auth.dto.permission;
 //
 //import lombok.*;
 //
@@ -7,6 +7,6 @@
 //@Builder
 //@NoArgsConstructor
 //@AllArgsConstructor
-//public class PrivilegesDTO {
+//public class PermissionsDTO {
 //
 //}
