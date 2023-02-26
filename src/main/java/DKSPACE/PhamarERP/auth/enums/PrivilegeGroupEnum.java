@@ -1,35 +1,43 @@
 package DKSPACE.PhamarERP.auth.enums;
 
-import org.apache.poi.ss.formula.functions.Days;
-
-import java.util.*;
+import DKSPACE.PhamarERP.auth.model.Role;
+import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.i18n.enums.PrivilegeGroupNameI18N;
+import DKSPACE.PhamarERP.i18n.enums.PrivilegeKeyI18N;
 
 import static DKSPACE.PhamarERP.auth.enums.PrivilegeKeyEnum.*;
 
-interface hasPrivileges {
-    Map<PrivilegeKeyEnum, String> getPrivilegesMap();
-}
-
 
 public enum PrivilegeGroupEnum {
-    Role(PrivilegeGroupName.Role,
-         MapUtils.<PrivilegeKeyEnum, String>build().put(
-            UPDATE,"chỉnh sửa"
-    ).ok()),
+    ROLE(
+            Role.class,
+            PrivilegeGroupNameI18N.ROLE,
+            READ.i18n(PrivilegeKeyI18N.ROLE_CREATE),
+            UPDATE.i18n(PrivilegeKeyI18N.ROLE_CREATE),
+            DELETE.i18n(PrivilegeKeyI18N.ROLE_CREATE)
+    ),
+
+    USER(
+            User.class,
+            PrivilegeGroupNameI18N.USER,
+
+
+            ),
+
 
     //todo: i18n
 
     ;
 
 
-    PrivilegeGroupEnum(PrivilegeGroupName groupName, Map<PrivilegeKeyEnum, String> map) {
+    private final PrivilegeGroupNameI18N groupName;
+    private final PrivilegeKeyEnum[] privilegeKeyEnums;
 
+    PrivilegeGroupEnum(Class<?> eClass,
+                       PrivilegeGroupNameI18N groupName,
+                       PrivilegeKeyEnum... privilegeKeyEnums) {
+        this.groupName = groupName;
+        this.privilegeKeyEnums = privilegeKeyEnums;
     }
 
-    enum PrivilegeGroupName{
-        Role("");
-
-        PrivilegeGroupName(String i18nMsgCode) {
-        }
-    }
 }
