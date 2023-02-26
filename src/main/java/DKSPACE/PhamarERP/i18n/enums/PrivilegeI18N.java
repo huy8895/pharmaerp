@@ -11,18 +11,18 @@ public enum PrivilegeI18N {
     ;
 
     public enum ROLE implements GenerateI18NCode {
-        CREATE,
-        READ,
-        UPDATE,
-        DELETE,
+        CREATE_ROLE,
+        READ_ROLE,
+        UPDATE_ROLE,
+        DELETE_ROLE,
         ;
     }
 
     public enum USER implements GenerateI18NCode {
-        CREATE,
-        READ,
-        UPDATE,
-        DELETE,
+        CREATE_USER,
+        READ_USER,
+        UPDATE_USER,
+        DELETE_USER,
         ;
     }
 

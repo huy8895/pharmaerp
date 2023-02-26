@@ -28,6 +28,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
                                         .flatMap(Collection::stream)
                                         .toList();
 
+        repository.saveAll(collect);
         System.out.println("collect = " + collect);
         ;
     }

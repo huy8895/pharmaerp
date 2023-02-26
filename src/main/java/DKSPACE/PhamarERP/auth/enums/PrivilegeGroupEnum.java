@@ -13,13 +13,11 @@ import java.util.stream.Collectors;
 public enum PrivilegeGroupEnum {
     ROLE(
             Role.class,
-            PrivilegeI18N.ROLE.class,
             PrivilegeI18N.ROLE.values()
     ),
 
     USER(
             User.class,
-            PrivilegeI18N.USER.class,
             PrivilegeI18N.USER.values()
             ),
 
@@ -34,12 +32,10 @@ public enum PrivilegeGroupEnum {
 
     private static final Map<String, PrivilegeGroupEnum> groupEnumMap;
     private final Class<?> entityClass;
-    private final Class<? extends GenerateI18NCode> groupClass;
     private final GenerateI18NCode[] values;
 
-    PrivilegeGroupEnum(Class<?> entityClass, Class<? extends GenerateI18NCode> groupClass, GenerateI18NCode[] i18NCodes) {
+    PrivilegeGroupEnum(Class<?> entityClass, GenerateI18NCode[] i18NCodes) {
         this.entityClass = entityClass;
-        this.groupClass = groupClass;
         this.values = i18NCodes;
     }
 
@@ -52,7 +48,6 @@ public enum PrivilegeGroupEnum {
     }
 
     public String getGroupNameI18NCode() {
-        return GenerateI18NCode.PRIVILEGE_GROUP_PREFIX.concat(this.groupClass.getSimpleName()
-                                                                              .toLowerCase());
+        return GenerateI18NCode.PRIVILEGE_GROUP_PREFIX.concat(this.name().toLowerCase());
     }
 }

@@ -10,7 +10,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        generate_statistics: true
+    hibernate:
+      ddl-auto: create-drop
+  #        generate_statistics: true
   servlet:
     multipart:
       max-file-size: 20MB
