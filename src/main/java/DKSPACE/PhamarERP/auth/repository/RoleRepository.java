@@ -1,11 +1,11 @@
 package DKSPACE.PhamarERP.auth.repository;
 
 import DKSPACE.PhamarERP.auth.model.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDRepository;
 
 import java.util.Set;
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends BaseCRUDRepository<Role, Long> {
 
     Set<Role> findAllByNameEn(String roleName);
 }
