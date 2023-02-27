@@ -14,7 +14,7 @@ import FeatherIcon from "feather-icons-react";
 import {
     getProjectList as onGetProjectList,
     deleteProjectList as onDeleteProjectList,
-} from "../../../store/actions";
+} from "../store/backup/layouts/action";
 
 const List = () => {
     const dispatch = useDispatch();

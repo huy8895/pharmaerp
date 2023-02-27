@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // action
-import { registerUser, apiError,resetRegisterFlag } from "../../store/actions";
+import { registerUser, apiError,resetRegisterFlag } from "store/actions";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

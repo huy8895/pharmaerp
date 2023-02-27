@@ -26,7 +26,7 @@ import { invoiceWidgets } from "../../common/data/invoiceList";
 import {
   getInvoices as onGetInvoices,
   deleteInvoice as onDeleteInvoice,
-} from "../../store/actions";
+} from "store/backup/layouts/action";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

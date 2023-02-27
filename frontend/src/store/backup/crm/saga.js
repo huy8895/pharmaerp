@@ -64,7 +64,7 @@ import {
   addNewLead,
   updateLead,
   deleteLead
-} from "../../helpers/fakebackend_helper";
+} from "helpers/fakebackend_helper";
 
 function* getContacts() {
   try {

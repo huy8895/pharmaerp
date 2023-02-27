@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 // Front
-import Layout from "./layouts/reducer";
+import Layout from "./backup/layouts/reducer";
 
 // Authentication
 import Login from "./auth/login/reducer";
@@ -10,64 +10,64 @@ import ForgetPassword from "./auth/forgetpwd/reducer";
 import Profile from "./auth/profile/reducer";
 
 //Calendar
-import Calendar from "./calendar/reducer";
+import Calendar from "./backup/calendar/reducer";
 //Chat
-import chat from "./chat/reducer";
+import chat from "./backup/chat/reducer";
 //Ecommerce
-import Ecommerce from "./ecommerce/reducer";
+import Ecommerce from "./backup/ecommerce/reducer";
 
 //Project
-import Projects from "./projects/reducer";
+import Projects from "./backup/projects/reducer";
 
 // Tasks
-import Tasks from "./tasks/reducer";
+import Tasks from "./backup/tasks/reducer";
 //Form advanced
-import changeNumber from "./formAdvanced/reducer";
+import changeNumber from "./backup/formAdvanced/reducer";
 
 //Crypto
-import Crypto from "./crypto/reducer";
+import Crypto from "./backup/crypto/reducer";
 
 //TicketsList
-import Tickets from "./tickets/reducer";
+import Tickets from "./backup/tickets/reducer";
 //Crm
-import Crm from "./crm/reducer";
+import Crm from "./backup/crm/reducer";
 
 //Invoice
-import Invoice from "./invoice/reducer";
+import Invoice from "./backup/invoice/reducer";
 
 //Mailbox
-import Mailbox from "./mailbox/reducer";
+import Mailbox from "./backup/mailbox/reducer";
 
 // Dashboard Analytics
-import DashboardAnalytics from "./dashboardAnalytics/reducer";
+import DashboardAnalytics from "./backup/dashboardAnalytics/reducer";
 
 // Dashboard CRM
-import DashboardCRM from "./dashboardCRM/reducer";
+import DashboardCRM from "./backup/dashboardCRM/reducer";
 
 // Dashboard Ecommerce
-import DashboardEcommerce from "./dashboardEcommerce/reducer";
+import DashboardEcommerce from "./backup/dashboardEcommerce/reducer";
 
 // Dashboard Cryto
-import DashboardCrypto from "./dashboardCrypto/reducer";
+import DashboardCrypto from "./backup/dashboardCrypto/reducer";
 
 // Dashboard Cryto
-import DashboardProject from "./dashboardProject/reducer";
+import DashboardProject from "./backup/dashboardProject/reducer";
 
 // Dashboard NFT
-import DashboardNFT from "./dashboardNFT/reducer";
+import DashboardNFT from "./backup/dashboardNFT/reducer";
 
 // Pages > Team
-import Team from "./team/reducer";
+import Team from "./backup/team/reducer";
 
 // File Manager
-import FileManager from "./fileManager/reducer";
+import FileManager from "./backup/fileManager/reducer";
 
 // To do
-import Todos from "./todos/reducer";
+import Todos from "./backup/todos/reducer";
 //Jobs
-import Jobs from "./job/reducer";
+import Jobs from "./backup/job/reducer";
 //API Key
-import APIKey from "./apikey/reducer";
+import APIKey from "./backup/apikey/reducer";
 const rootReducer = combineReducers({
   // public
   Layout,

@@ -31,7 +31,7 @@ import { ToastContainer } from 'react-toastify';
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { getMailDetails, deleteMail } from '../../store/actions';
+import { getMailDetails, deleteMail } from 'store/backup/layouts/action';
 
 const EmailToolbar = () => {
 

@@ -17,7 +17,7 @@ import {
     updateFile as onupdateFile,
     deleteFile as onDeleteFile,
     addNewFile as onAddNewFile
-} from "../../store/actions";
+} from "store/backup/layouts/action";
 
 // Formik
 import * as  Yup from "yup";

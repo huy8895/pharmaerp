@@ -21,7 +21,7 @@ import {
     deleteTeamData as onDeleteTeamData,
     addTeamData as onAddTeamData,
     updateTeamData as onUpdateTeamData
-} from "../../../store/actions";
+} from "../store/backup/layouts/action";
 
 // Formik
 import * as Yup from "yup";

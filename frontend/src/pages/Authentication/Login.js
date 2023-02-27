@@ -16,14 +16,14 @@ import { GoogleLogin } from "react-google-login";
 // import TwitterLogin from "react-twitter-auth"
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 // actions
-import { loginUser, socialLogin, resetLoginFlag } from "../../store/actions";
+import { loginUser, socialLogin, resetLoginFlag } from 'store/auth/login/actions';
 
 import logoLight from "../../assets/images/logo-light.png";
 //Import config
-import { facebook, google } from "../../config";
-import withRouter from "../../Components/Common/withRouter";
-//import images
+import { facebook, google } from 'config';
 
+import withRouter from "Components/Common/withRouter";
+//import images
 const Login = (props) => {
     const dispatch = useDispatch();
     const { user, errorMsg, loading, error } = useSelector(state => ({

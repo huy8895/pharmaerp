@@ -47,7 +47,7 @@ import {
   deleteEvent as onDeleteEvent,
   updateEvent as onUpdateEvent,
   resetCalendar,
-} from "../../store/actions";
+} from "store/backup/layouts/action";
 
 const Calender = () => {
   const dispatch = useDispatch();

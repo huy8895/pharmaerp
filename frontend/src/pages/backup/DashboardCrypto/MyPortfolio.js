@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { useSelector, useDispatch } from "react-redux";
-import { getPortfolioChartsData } from '../../store/actions';
+import { getPortfolioChartsData } from 'store/backup/layouts/action';
 
 //import Images
 import btc from "../../assets/images/svg/crypto-icons/btc.svg";

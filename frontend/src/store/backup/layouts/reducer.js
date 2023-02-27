@@ -24,7 +24,7 @@ import {
   leftSidebarViewTypes,
   leftSidebarImageTypes,
   preloaderTypes,
-} from "../../Components/constants/layout";
+} from "Components/constants/layout";
 
 const INIT_STATE = {
   layoutType: layoutTypes.HORIZONTAL,
