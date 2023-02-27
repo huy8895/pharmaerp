@@ -23,11 +23,6 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role extends BaseCRUDEntity {
 
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
-
     @Lob
     @Column(name = "`describe`")
     private String describe;
@@ -49,6 +44,16 @@ public class Role extends BaseCRUDEntity {
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
     @ToString.Exclude
     private Set<Permission> permissions = new LinkedHashSet<>();
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_vi", nullable = false, length = 100)
+    private String nameVi;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_en", nullable = false, length = 100)
+    private String nameEn;
 
     @Override
     public boolean equals(Object o) {

@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -91,6 +90,11 @@ public class User  extends BaseCRUDEntity implements UserDetails{
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
     private Set<Role> roles = new LinkedHashSet<>();
+
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "staff_code", nullable = false, length = 20)
+    private String staffCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

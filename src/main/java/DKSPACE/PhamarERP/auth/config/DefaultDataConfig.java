@@ -52,7 +52,8 @@ public class DefaultDataConfig {
                    .type(SYSTEM_ADMIN)
                    .username(ADMIN)
                    .firstName(ADMIN)
-                   .roles(roleRepository.findAllByName(RoleEnum.ROLE_ADMIN.name()))
+                   .roles(roleRepository.findAllByNameEn(RoleEnum.ROLE_ADMIN.name()))
+                   .staffCode(ADMIN)
                    .build();
     }
     private void setupRole(List<Permission> permissions) {
@@ -72,7 +73,8 @@ public class DefaultDataConfig {
         Role defaultRole = Role.builder()
                                .isDefault(true)
                                .isActive(true)
-                               .name(roleEnum.name())
+                               .nameEn(roleEnum.name())
+                               .nameVi(roleEnum.getNameVi())
                                .build();
 
         if (roleEnum.equals(RoleEnum.ROLE_ADMIN)){
