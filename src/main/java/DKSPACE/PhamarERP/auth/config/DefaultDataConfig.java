@@ -103,6 +103,6 @@ public class DefaultDataConfig {
                                                            .key(generateI18NCode.name())
                                                            .isActive(true)
                                                            .build())
-                        .collect(Collectors.toList());
+                        .toList();
     }
 }
