@@ -1,8 +1,8 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

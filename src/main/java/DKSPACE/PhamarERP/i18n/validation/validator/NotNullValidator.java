@@ -11,6 +11,10 @@ public class NotNullValidator implements ConstraintValidator<NotNull, Object> {
      */
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
-        return object != null;
+        if (object == null) return false;
+        if (object instanceof CharSequence charSequence) {
+            return charSequence.toString().trim().length() > 0;
+        }
+        return true;
     }
 }

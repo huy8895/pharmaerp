@@ -1,9 +1,9 @@
 package DKSPACE.PhamarERP.master_data.entity.composite_id;
 
 import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
+import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
