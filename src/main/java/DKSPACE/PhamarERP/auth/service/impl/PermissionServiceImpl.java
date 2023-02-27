@@ -60,7 +60,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     private PermissionsDTO mapToDTO(Permission permission){
-        PermissionGroupEnum groupEnum = getGroupEnum(permission.getGroup());
+        PermissionGroupEnum groupEnum = PermissionGroupEnum.from(permission.getGroup());
         return PermissionsDTO.builder()
                              .id(permission.getId())
                              .group(permission.getGroup())
@@ -73,15 +73,13 @@ public class PermissionServiceImpl implements PermissionService {
     private String getKeyName(PermissionGroupEnum groupEnum, String key) {
         GenerateI18NCode i18NCode = groupEnum.getKey(key);
         if (i18NCode == null) return null;
+        System.out.println( i18NCode.getI18NCodeForKey());
         return messageResolver.convertMessage(i18NCode.getI18NCodeForKey());
+//        return i18NCode.getI18NCodeForKey();
     }
 
     private String getGroupName(PermissionGroupEnum groupEnum) {
         if (groupEnum == null) return "";
         return messageResolver.convertMessage(groupEnum.getGroupNameI18NCode());
-    }
-
-    private PermissionGroupEnum getGroupEnum(String group) {
-        return PermissionGroupEnum.from(group);
     }
 }

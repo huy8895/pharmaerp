@@ -59,9 +59,6 @@ public enum PermissionGroupEnum {
         return "permission.group.".concat(this.name().toLowerCase());
     }
 
-    public static void main(String[] args) {
-        PermissionGroupEnum.groupEnumMap.get("USER")
-    }
 
     public List<GenerateI18NCode> getKeys() {
         return this.keys;

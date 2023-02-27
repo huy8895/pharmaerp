@@ -2,8 +2,6 @@ package DKSPACE.PhamarERP.i18n.enums;
 
 public interface GenerateI18NCode {
 
-    String permission_GROUP_PREFIX = "permission";
-
     default String getI18NCodeForKey() {
         String groupNamePrefix = getI18NCodeForGroup();
         return groupNamePrefix + "." + this.name().toLowerCase();
@@ -11,7 +9,7 @@ public interface GenerateI18NCode {
 
     //permission.user
     default String getI18NCodeForGroup() {
-        return "permission".concat(GenerateI18NCode.this.getClass()
+        return "permission.".concat(GenerateI18NCode.this.getClass()
                                                                   .getSimpleName()
                                                                   .toLowerCase());
     }
