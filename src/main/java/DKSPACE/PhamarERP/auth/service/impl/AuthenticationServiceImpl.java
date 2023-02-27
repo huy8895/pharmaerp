@@ -45,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         userRepository.save(user);
         final var token = jwtService.generateToken(user);
         return RegisterResDto.builder()
-                             .token(token)
+                             .token(token.getToken())
                              .build();
     }
 
@@ -58,9 +58,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
         );
 
-        final var token = jwtService.generateToken((User) authenticate.getPrincipal());
+        final var jwtTokenDTO = jwtService.generateToken((User) authenticate.getPrincipal());
         return LoginResDto.builder()
-                          .token(token)
+                          .token(jwtTokenDTO.getToken())
+                          .roles(jwtTokenDTO.getRoles())
+                          .permissions(jwtTokenDTO.getPermissions())
+                          .expirationIn(jwtTokenDTO.getExpirationIn())
                           .build();
     }
 }
