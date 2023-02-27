@@ -2,7 +2,10 @@ package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -19,9 +22,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "gen_job_titles", indexes = {
-        @Index(name = "name_UNIQUE", columnList = "name", unique = true)
-})
+@Table(name = "gen_job_titles")
 public class GenJobTitle extends BaseCRUDEntity {
 
     @Column(name = "salary")
