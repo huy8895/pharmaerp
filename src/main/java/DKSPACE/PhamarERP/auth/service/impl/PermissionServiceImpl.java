@@ -1,12 +1,11 @@
 package DKSPACE.PhamarERP.auth.service.impl;
 
 import DKSPACE.PhamarERP.auth.dto.permission.PermissionsDTO;
-import DKSPACE.PhamarERP.auth.enums.PermissionGroupEnum;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.auth.repository.PermissionRepository;
 import DKSPACE.PhamarERP.auth.service.PermissionService;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
-import DKSPACE.PhamarERP.i18n.enums.GenerateI18NCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,14 +39,14 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     private String getKeyName(PermissionGroupEnum groupEnum, String key) {
-        GenerateI18NCode i18NCode = groupEnum.getKey(key);
+        final var i18NCode = groupEnum.getKey(key);
         if (i18NCode == null) return null;
-        System.out.println( i18NCode.getI18NCodeForKey());
-        return messageResolver.convertMessage(i18NCode.getI18NCodeForKey());
+        System.out.println( i18NCode.getI18nCode());
+        return messageResolver.convertMessage(i18NCode.getI18nCode());
     }
 
     private String getGroupName(PermissionGroupEnum groupEnum) {
         if (groupEnum == null) return "";
-        return messageResolver.convertMessage(groupEnum.getGroupNameI18NCode());
+        return messageResolver.convertMessage(groupEnum.getI18nCode());
     }
 }

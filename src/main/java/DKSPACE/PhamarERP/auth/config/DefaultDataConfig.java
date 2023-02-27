@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.auth.config;
 
-import DKSPACE.PhamarERP.auth.enums.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.enums.RoleEnum;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
@@ -101,9 +101,9 @@ public class DefaultDataConfig {
     private List<Permission> buildPermission(PermissionGroupEnum groupEnum) {
         return groupEnum.getKeys()
                         .stream()
-                        .map(generateI18NCode -> Permission.builder()
+                        .map(keyEnum -> Permission.builder()
                                                            .group(groupEnum.name())
-                                                           .key(generateI18NCode.name())
+                                                           .key(keyEnum.name())
                                                            .isActive(true)
                                                            .build())
                         .toList();

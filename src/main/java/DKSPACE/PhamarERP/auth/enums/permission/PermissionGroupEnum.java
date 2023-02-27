@@ -1,29 +1,30 @@
-package DKSPACE.PhamarERP.auth.enums;
+package DKSPACE.PhamarERP.auth.enums.permission;
 
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
-import DKSPACE.PhamarERP.i18n.enums.GenerateI18NCode;
-import DKSPACE.PhamarERP.i18n.enums.PermissionI18N;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum.*;
+
 
 public enum PermissionGroupEnum {
     ROLE(
             Role.class,
-            PermissionI18N.ROLE.values()
+            "permission.group.role",
+            CREATE_ROLE,
+            UPDATE_ROLE
     ),
 
     USER(
             User.class,
-            PermissionI18N.USER.values()
+            "permission.group.user",
+            CREATE_USER,
+            UPDATE_USER
             ),
-
-
-    //todo: i18n
 
     ;
 
@@ -33,11 +34,13 @@ public enum PermissionGroupEnum {
 
     private static final Map<String, PermissionGroupEnum> groupEnumMap;
     private final Class<?> entityClass;
-    private final List<GenerateI18NCode> keys;
+    private final String i18nCode;
+    private final List<PermissionKeyEnum> keys;
 
-    PermissionGroupEnum(Class<?> entityClass, GenerateI18NCode[] i18NCodes) {
+    PermissionGroupEnum(Class<?> entityClass, String i18nCode, PermissionKeyEnum... permissionKeyEnums) {
         this.entityClass = entityClass;
-        this.keys = List.of(i18NCodes);
+        this.i18nCode = i18nCode;
+        this.keys = List.of(permissionKeyEnums);
     }
 
     public static PermissionGroupEnum from(String groupName) {
@@ -48,19 +51,18 @@ public enum PermissionGroupEnum {
         return groupEnumMap;
     }
 
-    public GenerateI18NCode getKey(String key) {
+    public PermissionKeyEnum getKey(String key) {
         return this.keys.stream()
                         .filter(i18NCode -> i18NCode.name().equals(key))
                         .findFirst()
                         .orElse(null);
     }
 
-    public String getGroupNameI18NCode() {
-        return "permission.group.".concat(this.name().toLowerCase());
+    public List<PermissionKeyEnum> getKeys() {
+        return this.keys;
     }
 
-
-    public List<GenerateI18NCode> getKeys() {
-        return this.keys;
+    public String getI18nCode() {
+        return i18nCode;
     }
 }
