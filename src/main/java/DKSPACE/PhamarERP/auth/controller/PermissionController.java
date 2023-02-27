@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/permissions")
 @RequiredArgsConstructor
-public class permissionController {
+public class PermissionController {
     private final PermissionService service;
 
     @GetMapping
