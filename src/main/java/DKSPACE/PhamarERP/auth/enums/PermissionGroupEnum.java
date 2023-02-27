@@ -6,6 +6,7 @@ import DKSPACE.PhamarERP.i18n.enums.GenerateI18NCode;
 import DKSPACE.PhamarERP.i18n.enums.PermissionI18N;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,26 +33,37 @@ public enum PermissionGroupEnum {
 
     private static final Map<String, PermissionGroupEnum> groupEnumMap;
     private final Class<?> entityClass;
-    private final GenerateI18NCode[] values;
+    private final List<GenerateI18NCode> keys;
 
     PermissionGroupEnum(Class<?> entityClass, GenerateI18NCode[] i18NCodes) {
         this.entityClass = entityClass;
-        this.values = i18NCodes;
+        this.keys = List.of(i18NCodes);
+    }
+
+    public static PermissionGroupEnum from(String groupName) {
+        return groupEnumMap.get(groupName);
     }
 
     public Map<String, PermissionGroupEnum> getGroupEnumMap() {
         return groupEnumMap;
     }
 
-    public GenerateI18NCode[] getValues() {
-        return values;
+    public GenerateI18NCode getKey(String key) {
+        return this.keys.stream()
+                        .filter(i18NCode -> i18NCode.name().equals(key))
+                        .findFirst()
+                        .orElse(null);
     }
 
     public String getGroupNameI18NCode() {
-        return "permission".concat(this.name().toLowerCase());
+        return "permission.group.".concat(this.name().toLowerCase());
     }
 
     public static void main(String[] args) {
+        PermissionGroupEnum.groupEnumMap.get("USER")
+    }
 
+    public List<GenerateI18NCode> getKeys() {
+        return this.keys;
     }
 }

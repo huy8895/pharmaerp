@@ -4,12 +4,13 @@ public interface GenerateI18NCode {
 
     String permission_GROUP_PREFIX = "permission";
 
-    default String getPermissionKeyName() {
-        String groupNamePrefix = getGroupName();
+    default String getI18NCodeForKey() {
+        String groupNamePrefix = getI18NCodeForGroup();
         return groupNamePrefix + "." + this.name().toLowerCase();
     }
 
-    default String getGroupName() {
+    //permission.user
+    default String getI18NCodeForGroup() {
         return "permission".concat(GenerateI18NCode.this.getClass()
                                                                   .getSimpleName()
                                                                   .toLowerCase());
