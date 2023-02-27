@@ -55,7 +55,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Object getAll() {
         return repository.findAll()
                          .stream()
-                         .map(permission -> mapToDTO(permission))
+                         .map(this::mapToDTO)
                          .toList();
     }
 
@@ -75,7 +75,6 @@ public class PermissionServiceImpl implements PermissionService {
         if (i18NCode == null) return null;
         System.out.println( i18NCode.getI18NCodeForKey());
         return messageResolver.convertMessage(i18NCode.getI18NCodeForKey());
-//        return i18NCode.getI18NCodeForKey();
     }
 
     private String getGroupName(PermissionGroupEnum groupEnum) {
