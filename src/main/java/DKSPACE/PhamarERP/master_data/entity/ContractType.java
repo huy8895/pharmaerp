@@ -23,10 +23,6 @@ import java.util.Objects;
         @Index(name = "name_UNIQUE", columnList = "name", unique = true)
 })
 public class ContractType extends BaseCRUDEntity {
-    @Size(max = 100)
-    @NotNull(message = ValidateCode.NOT_NULL)
-    @Column(name = "name", nullable = false, length = 100)
-    private String name;
 
     /**
      * Có xác định thời hạn hay không
@@ -42,6 +38,16 @@ public class ContractType extends BaseCRUDEntity {
     @Lob
     @Column(name = "`describe`")
     private String describe;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_vi", nullable = false, length = 100)
+    private String nameVi;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_en", nullable = false, length = 100)
+    private String nameEn;
 
     @Override
     public boolean equals(Object o) {

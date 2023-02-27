@@ -37,6 +37,16 @@ public class GenWorkLocation extends BaseCRUDEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_vi", nullable = false, length = 100)
+    private String nameVi;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_en", nullable = false, length = 100)
+    private String nameEn;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

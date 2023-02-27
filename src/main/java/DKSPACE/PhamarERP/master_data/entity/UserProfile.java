@@ -85,6 +85,22 @@ public class UserProfile extends BaseCRUDEntity {
     @Column(name = "note")
     private String note;
 
+    @Size(max = 255)
+    @Column(name = "bank_name")
+    private String bankName;
+
+    @Size(max = 20)
+    @Column(name = "bank_account_number", length = 20)
+    private String bankAccountNumber;
+
+    @Size(max = 100)
+    @Column(name = "bank_account_name", length = 100)
+    private String bankAccountName;
+
+    @Size(max = 255)
+    @Column(name = "bank_branch")
+    private String bankBranch;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

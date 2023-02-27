@@ -1,20 +1,27 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 
-import java.time.Instant;
+import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
 @Entity
 @Table(name = "gen_departments")
-public class GenDepartment {
-    @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class GenDepartment extends BaseCRUDEntity {
 
     @Size(max = 255)
     @Column(name = "name")
@@ -27,69 +34,26 @@ public class GenDepartment {
     @Column(name = "is_active", nullable = false)
     private Short isActive;
 
-    @Column(name = "created_at")
-    private Instant createdAt;
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_vi", nullable = false, length = 100)
+    private String nameVi;
 
-    @Column(name = "updated_at")
-    private Instant updatedAt;
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name_en", nullable = false, length = 100)
+    private String nameEn;
 
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        GenDepartment that = (GenDepartment) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
-    public Short getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Short isActive) {
-        this.isActive = isActive;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(Instant deletedAt) {
-        this.deletedAt = deletedAt;
-    }
-
 }
