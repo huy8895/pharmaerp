@@ -8,9 +8,13 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -98,8 +102,9 @@ public class User  extends BaseCRUDEntity implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(role.name())); todo: set list roles
-        return List.of();
+        return getRoles().stream()
+                         .map(role -> new SimpleGrantedAuthority(role.getNameEn()))
+                         .toList();
     }
 
     @Override
