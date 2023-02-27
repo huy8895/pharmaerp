@@ -14,191 +14,12 @@
  Date: 26/02/2023 15:03:08
 */
 
-
--- ----------------------------
--- Sequence structure for setting_themes_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "setting_themes_id_seq";
-CREATE SEQUENCE "setting_themes_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for activity_logs_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "activity_logs_id_seq";
-CREATE SEQUENCE "activity_logs_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for contract_types_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "contract_types_id_seq";
-CREATE SEQUENCE "contract_types_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for contracts_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "contracts_id_seq";
-CREATE SEQUENCE "contracts_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for gen_departments_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "gen_departments_id_seq";
-CREATE SEQUENCE "gen_departments_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for gen_job_titles_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "gen_job_titles_id_seq";
-CREATE SEQUENCE "gen_job_titles_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for gen_officer_levels_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "gen_officer_levels_id_seq";
-CREATE SEQUENCE "gen_officer_levels_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for gen_uploads_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "gen_uploads_id_seq";
-CREATE SEQUENCE "gen_uploads_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for gen_work_locations_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "gen_work_locations_id_seq";
-CREATE SEQUENCE "gen_work_locations_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for permissions_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "permissions_id_seq";
-CREATE SEQUENCE "permissions_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for roles_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "roles_id_seq";
-CREATE SEQUENCE "roles_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for user_activities_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "user_activities_id_seq";
-CREATE SEQUENCE "user_activities_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for user_certificates_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "user_certificates_id_seq";
-CREATE SEQUENCE "user_certificates_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for user_courses_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "user_courses_id_seq";
-CREATE SEQUENCE "user_courses_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for user_profiles_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "user_profiles_id_seq";
-CREATE SEQUENCE "user_profiles_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
--- ----------------------------
--- Sequence structure for users_id_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "users_id_seq";
-CREATE SEQUENCE "users_id_seq" 
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
-START 1
-CACHE 1;
-
-
-
 -- ----------------------------
 -- Table structure for setting_themes
 -- ----------------------------
 DROP TABLE IF EXISTS "setting_themes";
 CREATE TABLE "setting_themes" (
-  "id" int8 NOT NULL DEFAULT nextval('setting_themes_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8 NOT NULL,
   "layout" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'vertical',
   "color_scheme" varchar(20) COLLATE "pg_catalog"."default" NOT NULL DEFAULT 'light',
@@ -224,7 +45,7 @@ COMMENT ON COLUMN "setting_themes"."preloader" is 'enable,disable; 2 giá trị 
 -- ----------------------------
 DROP TABLE IF EXISTS "activity_logs";
 CREATE TABLE "activity_logs" (
-  "id" int8 NOT NULL DEFAULT nextval('activity_logs_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8,
   "ip" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "user_agent" text COLLATE "pg_catalog"."default",
@@ -241,11 +62,11 @@ CREATE TABLE "activity_logs" (
 -- ----------------------------
 DROP TABLE IF EXISTS "contract_types";
 CREATE TABLE "contract_types" (
-  "id" int8 NOT NULL DEFAULT nextval('contract_types_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-  "is_determine_deadline" int2 NOT NULL DEFAULT 0,
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_determine_deadline" boolean NOT NULL DEFAULT false,
+  "is_active" boolean NOT NULL DEFAULT true,
   "describe" text COLLATE "pg_catalog"."default",
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
@@ -258,7 +79,7 @@ CREATE TABLE "contract_types" (
 -- ----------------------------
 DROP TABLE IF EXISTS "contracts";
 CREATE TABLE "contracts" (
-  "id" int8 NOT NULL DEFAULT nextval('contracts_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8 NOT NULL,
   "creator_id" int8 NOT NULL,
   "contract_type_id" int8 NOT NULL,
@@ -285,11 +106,11 @@ COMMENT ON COLUMN "contracts"."status" is 'Draft, To confirm, To review, Approve
 -- ----------------------------
 DROP TABLE IF EXISTS "gen_departments";
 CREATE TABLE "gen_departments" (
-  "id" int8 NOT NULL DEFAULT nextval('gen_departments_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_active" boolean NOT NULL DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -301,12 +122,12 @@ CREATE TABLE "gen_departments" (
 -- ----------------------------
 DROP TABLE IF EXISTS "gen_job_titles";
 CREATE TABLE "gen_job_titles" (
-  "id" int8 NOT NULL DEFAULT nextval('gen_job_titles_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "salary" int8,
   "describe" text COLLATE "pg_catalog"."default",
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_active" boolean NOT NULL DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -318,11 +139,11 @@ CREATE TABLE "gen_job_titles" (
 -- ----------------------------
 DROP TABLE IF EXISTS "gen_officer_levels";
 CREATE TABLE "gen_officer_levels" (
-  "id" int8 NOT NULL DEFAULT nextval('gen_officer_levels_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_active" boolean NOT NULL DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -334,7 +155,7 @@ CREATE TABLE "gen_officer_levels" (
 -- ----------------------------
 DROP TABLE IF EXISTS "gen_uploads";
 CREATE TABLE "gen_uploads" (
-  "id" int8 NOT NULL DEFAULT nextval('gen_uploads_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "original_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "file_name" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
   "extension" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
@@ -352,11 +173,11 @@ CREATE TABLE "gen_uploads" (
 -- ----------------------------
 DROP TABLE IF EXISTS "gen_work_locations";
 CREATE TABLE "gen_work_locations" (
-  "id" int8 NOT NULL DEFAULT nextval('gen_work_locations_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_active" boolean NOT NULL DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -368,10 +189,10 @@ CREATE TABLE "gen_work_locations" (
 -- ----------------------------
 DROP TABLE IF EXISTS "permissions";
 CREATE TABLE "permissions" (
-  "id" int8 NOT NULL DEFAULT nextval('permissions_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "group" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "key" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_active" boolean NOT NULL DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -383,12 +204,12 @@ CREATE TABLE "permissions" (
 -- ----------------------------
 DROP TABLE IF EXISTS "roles";
 CREATE TABLE "roles" (
-  "id" int8 NOT NULL DEFAULT nextval('roles_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "name_vi" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "name_en" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "describe" text COLLATE "pg_catalog"."default",
-  "is_default" int2 NOT NULL DEFAULT 0,
-  "is_active" int2 NOT NULL DEFAULT 1,
+  "is_default" boolean NOT NULL DEFAULT false,
+  "is_active" boolean NOT NULL DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -423,11 +244,11 @@ CREATE TABLE "uploadables" (
 -- ----------------------------
 DROP TABLE IF EXISTS "user_activities";
 CREATE TABLE "user_activities" (
-  "id" int8 NOT NULL DEFAULT nextval('user_activities_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8 NOT NULL,
   "organization" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "participating_position" varchar(255) COLLATE "pg_catalog"."default",
-  "is_current_active" int2 DEFAULT 0,
+  "is_current_active" boolean DEFAULT false,
   "start_date" varchar(45) COLLATE "pg_catalog"."default",
   "end_date" varchar(45) COLLATE "pg_catalog"."default",
   "describe" text COLLATE "pg_catalog"."default",
@@ -443,11 +264,11 @@ CREATE TABLE "user_activities" (
 -- ----------------------------
 DROP TABLE IF EXISTS "user_certificates";
 CREATE TABLE "user_certificates" (
-  "id" int8 NOT NULL DEFAULT nextval('user_certificates_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8 NOT NULL,
   "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "organization" varchar(255) COLLATE "pg_catalog"."default",
-  "has_no_expiration_date" int2 DEFAULT 1,
+  "has_no_expiration_date" boolean DEFAULT true,
   "start_date" varchar(45) COLLATE "pg_catalog"."default",
   "end_date" varchar(45) COLLATE "pg_catalog"."default",
   "link" varchar(255) COLLATE "pg_catalog"."default",
@@ -462,7 +283,7 @@ CREATE TABLE "user_certificates" (
 -- ----------------------------
 DROP TABLE IF EXISTS "user_courses";
 CREATE TABLE "user_courses" (
-  "id" int8 NOT NULL DEFAULT nextval('user_courses_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8 NOT NULL,
   "name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "organization" varchar(255) COLLATE "pg_catalog"."default",
@@ -481,7 +302,7 @@ CREATE TABLE "user_courses" (
 -- ----------------------------
 DROP TABLE IF EXISTS "user_profiles";
 CREATE TABLE "user_profiles" (
-  "id" int8 NOT NULL DEFAULT nextval('user_profiles_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "user_id" int8 NOT NULL,
   "gender" int2,
   "dob" date,
@@ -507,7 +328,7 @@ CREATE TABLE "user_profiles" (
 -- ----------------------------
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users" (
-  "id" int8 NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+  "id" bigserial NOT NULL,
   "username" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
   "email" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "staff_code" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
@@ -516,7 +337,7 @@ CREATE TABLE "users" (
   "type" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
   "first_name" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
   "last_name" varchar(45) COLLATE "pg_catalog"."default" NOT NULL,
-  "is_active" int2 DEFAULT 1,
+  "is_active" boolean DEFAULT true,
   "created_at" timestamp(6),
   "updated_at" timestamp(6),
   "deleted_at" timestamp(6)
@@ -532,118 +353,6 @@ CREATE TABLE "users_roles" (
   "role_id" int8 NOT NULL
 )
 ;
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "setting_themes_id_seq"
-OWNED BY "setting_themes"."id";
-SELECT setval('"setting_themes_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "activity_logs_id_seq"
-OWNED BY "activity_logs"."id";
-SELECT setval('"activity_logs_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "contract_types_id_seq"
-OWNED BY "contract_types"."id";
-SELECT setval('"contract_types_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "contracts_id_seq"
-OWNED BY "contracts"."id";
-SELECT setval('"contracts_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "gen_departments_id_seq"
-OWNED BY "gen_departments"."id";
-SELECT setval('"gen_departments_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "gen_job_titles_id_seq"
-OWNED BY "gen_job_titles"."id";
-SELECT setval('"gen_job_titles_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "gen_officer_levels_id_seq"
-OWNED BY "gen_officer_levels"."id";
-SELECT setval('"gen_officer_levels_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "gen_uploads_id_seq"
-OWNED BY "gen_uploads"."id";
-SELECT setval('"gen_uploads_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "gen_work_locations_id_seq"
-OWNED BY "gen_work_locations"."id";
-SELECT setval('"gen_work_locations_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "permissions_id_seq"
-OWNED BY "permissions"."id";
-SELECT setval('"permissions_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "roles_id_seq"
-OWNED BY "roles"."id";
-SELECT setval('"roles_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "user_activities_id_seq"
-OWNED BY "user_activities"."id";
-SELECT setval('"user_activities_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "user_certificates_id_seq"
-OWNED BY "user_certificates"."id";
-SELECT setval('"user_certificates_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "user_courses_id_seq"
-OWNED BY "user_courses"."id";
-SELECT setval('"user_courses_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "user_profiles_id_seq"
-OWNED BY "user_profiles"."id";
-SELECT setval('"user_profiles_id_seq"', 1, false);
-
--- ----------------------------
--- Alter sequences owned by
--- ----------------------------
-ALTER SEQUENCE "users_id_seq"
-OWNED BY "users"."id";
-SELECT setval('"users_id_seq"', 1, false);
 
 -- ----------------------------
 -- Indexes structure for table setting_themes
