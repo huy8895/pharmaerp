@@ -66,14 +66,14 @@ public class User  extends BaseCRUDEntity implements UserDetails{
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<Contract> contracts = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "user")
     private Contract contract;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<UserCours> userCourses = new LinkedHashSet<>();
 
@@ -84,7 +84,7 @@ public class User  extends BaseCRUDEntity implements UserDetails{
     @ToString.Exclude
     private Set<UserCertificate> userCertificates = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<UserActivity> userActivities = new LinkedHashSet<>();
 

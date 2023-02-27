@@ -23,13 +23,7 @@ import java.util.Objects;
 @Accessors(chain = true)
 @AllArgsConstructor
 @Entity
-@Table(name = "contracts", indexes = {
-        @Index(name = "idx_gen_officer_level_id", columnList = "gen_officer_level_id"),
-        @Index(name = "idx_gen_work_location_id", columnList = "gen_work_location_id"),
-        @Index(name = "idx_gen_job_title_id", columnList = "gen_job_title_id"),
-        @Index(name = "user_id_UNIQUE", columnList = "user_id", unique = true),
-        @Index(name = "idx_creator_id", columnList = "creator_id")
-})
+@Table(name = "contracts")
 public class Contract extends BaseCRUDEntity {
     @NotNull(message = ValidateCode.NOT_NULL)
     @OneToOne(fetch = FetchType.LAZY, optional = false)
