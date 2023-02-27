@@ -87,9 +87,10 @@ public class DefaultDataConfig {
                                         .flatMap(Collection::stream)
                                         .collect(Collectors.toSet());;
 
-        if (!permissionRepository.findAll().isEmpty()) {
+        List<Permission> permissionAll = permissionRepository.findAll();
+        if (!permissionAll.isEmpty()) {
             log.info("Permission already import");
-            return List.of();
+            return permissionAll;
         }
         log.info("setupPermissions = " + collect);
         return permissionRepository.saveAll(collect);
