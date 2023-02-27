@@ -1,10 +1,10 @@
 package DKSPACE.PhamarERP.auth.model;
 
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.i18n.validation.NotNull;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -26,12 +26,14 @@ public class Permission extends BaseCRUDEntity {
     @Size(max = 100)
     @NotNull
     @Column(name = "\"group\"", nullable = false, length = 100)
-    private String group;
+    @Enumerated(EnumType.STRING)
+    private PermissionGroupEnum group;
 
     @Size(max = 255)
     @NotNull
     @Column(name = "key", nullable = false)
-    private String key;
+    @Enumerated(EnumType.STRING)
+    private PermissionKeyEnum key;
 
     @NotNull
     @Column(name = "is_active", nullable = false)

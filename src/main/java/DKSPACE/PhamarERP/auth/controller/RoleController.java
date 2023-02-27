@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.auth.controller;
 
+import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import jakarta.validation.Valid;
@@ -20,12 +21,29 @@ public class RoleController {
     private final RoleService service;
 
     @GetMapping
-    public ResponseEntity<List<Role>> listRoles() {
-        return ResponseEntity.ok(service.findAll(Pageable.unpaged()).getContent());
+    public ResponseEntity<Object> listRoles() {
+        return ResponseEntity.ok(service.listRoles(Pageable.unpaged()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Role> detailRole(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findOne(id));
     }
 
     @PostMapping
     public ResponseEntity<Role> createRole(@RequestBody @Valid Role role) {
         return ResponseEntity.ok(service.createRole(role));
+    }
+
+    @PutMapping
+    public ResponseEntity<Role> updateRole(@RequestBody @Valid Role role) {
+        return ResponseEntity.ok(service.partialUpdate(role));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Role> deleteRole(@PathVariable Long id) {
+        service.softDelete(id);
+        return ResponseEntity.noContent()
+                             .build();
     }
 }

@@ -28,24 +28,24 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public JwtTokenDTO generateToken(User user){
+    public JwtTokenDTO generateToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
         Set<Role> roleSet = getRoles(user);
 
         List<String> permissions = getPermissions(roleSet);
 
         List<String> roles = roleSet.stream()
-                                  .map(Role::getNameEn)
-                                  .toList();
+                                    .map(Role::getNameEn)
+                                    .toList();
 
         claims.put("roles", roles);
         claims.put("permissions", permissions);
         String token = generateToken(claims, user);
         return JwtTokenDTO.builder()
-                .token(token)
-                .roles(roles)
-                .permissions(permissions)
-                .expirationIn(EXPIRATION_TOKEN)
+                          .token(token)
+                          .roles(roles)
+                          .permissions(permissions)
+                          .expirationIn(EXPIRATION_TOKEN)
                           .build();
     }
 
@@ -58,14 +58,15 @@ public class JwtService {
 
     private List<String> getPermissions(Set<Role> roleSet) {
         return roleSet.stream()
-                                          .map(Role::getPermissions)
-                                          .flatMap(Collection::stream)
-                                          .filter(Permission::getIsActive)
-                                          .map(Permission::getKey)
-                                          .toList();
+                      .map(Role::getPermissions)
+                      .flatMap(Collection::stream)
+                      .filter(Permission::getIsActive)
+                      .map(Permission::getKey)
+                      .map(Enum::name)
+                      .toList();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
@@ -86,21 +87,23 @@ public class JwtService {
                    .setSubject(userDetails.getUsername())
                    .setIssuedAt(new Date(System.currentTimeMillis()))
                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TOKEN))
-                   .signWith( getSignInKey(), SignatureAlgorithm.HS256)
+                   .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                    .compact();
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsTFunction){
+    public <T> T extractClaim(String token, Function<Claims, T> claimsTFunction) {
         final Claims claims = extractAllClaims(token);
         return claimsTFunction.apply(claims);
-    };
+    }
 
-    private Claims extractAllClaims(String token){
+    ;
+
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+                   .setSigningKey(getSignInKey())
+                   .build()
+                   .parseClaimsJws(token)
+                   .getBody();
     }
 
     private Key getSignInKey() {

@@ -102,8 +102,8 @@ public class DefaultDataConfig {
         return groupEnum.getKeys()
                         .stream()
                         .map(keyEnum -> Permission.builder()
-                                                           .group(groupEnum.name())
-                                                           .key(keyEnum.name())
+                                                           .group(groupEnum)
+                                                           .key(keyEnum)
                                                            .isActive(true)
                                                            .build())
                         .toList();

@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PermissionsDTO {
+public class PermissionDTO {
     private Long id;
     private String group;
     private String groupName;
