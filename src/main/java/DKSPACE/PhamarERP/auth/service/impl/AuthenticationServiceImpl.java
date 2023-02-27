@@ -9,7 +9,6 @@ import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,33 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-    public static final String ADMIN = "admin";
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    @PostConstruct
-    private void setupUserAndRole() {
-        User admin = buildAdminUser();
-        userRepository.findByEmail(ADMIN)
-                      .ifPresentOrElse(user -> {
-                                           admin.setId(user.getId());
-                                           this.userRepository.save(admin);
-                                       },
-                                       () -> this.userRepository.save(admin));
-    }
-
-    private User buildAdminUser() {
-        return User.builder()
-                   .email(ADMIN)
-                   .password(passwordEncoder.encode(ADMIN))
-                   .lastName(ADMIN)
-                   .type("SYSTEM_ADMIN")
-                   .username(ADMIN)
-                   .firstName(ADMIN)
-                   .build();
-    }
 
     @Override
     public RegisterResDto register(RegisterReqDto dto) {

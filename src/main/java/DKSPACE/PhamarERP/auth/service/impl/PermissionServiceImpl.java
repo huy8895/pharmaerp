@@ -7,15 +7,9 @@ import DKSPACE.PhamarERP.auth.repository.PermissionRepository;
 import DKSPACE.PhamarERP.auth.service.PermissionService;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.GenerateI18NCode;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,32 +18,7 @@ public class PermissionServiceImpl implements PermissionService {
     private final PermissionRepository repository;
     private final I18NMessageResolver messageResolver;
 
-    @PostConstruct
-    private void setupPermissions() {
-        List<Permission> collect = Arrays.stream(PermissionGroupEnum.values())
-                                         .map(this::build)
-                                         .flatMap(Collection::stream)
-                                         .toList();
 
-        if (!repository.findAll().isEmpty()) {
-            log.info("Permission already import");
-            return;
-        }
-        repository.saveAll(collect);
-        System.out.println("collect = " + collect);
-        ;
-    }
-
-    private List<Permission> build(PermissionGroupEnum groupEnum) {
-        return groupEnum.getKeys()
-                        .stream()
-                        .map(generateI18NCode -> Permission.builder()
-                                                           .group(groupEnum.name())
-                                                           .key(generateI18NCode.name())
-                                                           .isActive(true)
-                                                           .build())
-                        .collect(Collectors.toList());
-    }
 
     @Override
     public Object getAll() {
