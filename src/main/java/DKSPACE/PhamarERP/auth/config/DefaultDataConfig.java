@@ -30,11 +30,13 @@ public class DefaultDataConfig {
 
     @PostConstruct
     private void initAuthDefaultData(){
+        log.info("initAuthDefaultData");
         List<Permission> permissions = this.setupPermissions();
         this.setupRole(permissions);
         this.setupUserAndRole();
     }
     private void setupUserAndRole() {
+        log.info("setupUserAdmin");
         User admin = buildAdminUser();
         userRepository.findByEmail(ADMIN)
                       .ifPresentOrElse(user -> {
@@ -57,6 +59,7 @@ public class DefaultDataConfig {
                    .build();
     }
     private void setupRole(List<Permission> permissions) {
+        log.info("setupRole");
         Set<Role> rolesDefault = Arrays.stream(RoleEnum.values())
                                        .map(roleEnum -> this.buildRole(permissions, roleEnum))
                                        .collect(Collectors.toSet());
@@ -84,6 +87,7 @@ public class DefaultDataConfig {
     }
 
     private List<Permission> setupPermissions() {
+        log.info("setupPermissions");
         Set<Permission> collect = Arrays.stream(PermissionGroupEnum.values())
                                         .map(this::buildPermission)
                                         .flatMap(Collection::stream)
