@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.auth.service.impl;
 
+import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
-import DKSPACE.PhamarERP.auth.mapper.PermissionMapper;
 import DKSPACE.PhamarERP.auth.mapper.RoleMapper;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.repository.RoleRepository;
@@ -23,15 +23,10 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
     }
 
     @Override
-    public Role createRole(Role baseCRUDEntity) {
-        Role role = Role.builder()
-        		.describe(baseCRUDEntity.getDescribe())
-        		.isDefault(false)
-        		.isActive(true)
-        		.permissions(baseCRUDEntity.getPermissions())
-        		.nameVi(baseCRUDEntity.getNameVi())
-        		.nameEn(baseCRUDEntity.getNameEn())
-        		.build();
+    public Role createRole(RoleCreateDTO roleReqDto) {
+        Role role = roleMapper.toEntity(roleReqDto);
+        role.setIsActive(true);
+        role.setIsDefault(false);
         return repository.save(role);
     }
 

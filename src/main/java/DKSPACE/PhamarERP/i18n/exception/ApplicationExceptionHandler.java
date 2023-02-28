@@ -4,6 +4,7 @@ import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -108,6 +109,25 @@ public class ApplicationExceptionHandler {
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getField())
                                                .errorMessage(messageResolver.convertMessage(error.getDefaultMessage()))
+                                               .build())
+                         .collect(Collectors.toList());
+
+        apiResponse.setStatus(ApiResponseStatus.FAILED);
+        apiResponse.setErrors(errors);
+        return apiResponse;
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ApiResponse<?> handleConstraintViolationException(
+            ConstraintViolationException exception) {
+        log.error("handleConstraintViolationException exception: ", exception);
+        ApiResponse<?> apiResponse = new ApiResponse<>();
+       var errors =         exception.getConstraintViolations()
+                         .stream()
+                         .map(error -> ErrorDTO.builder()
+                                               .field(error.getPropertyPath().toString())
+                                               .errorMessage(messageResolver.convertMessage(error.getMessage()))
                                                .build())
                          .collect(Collectors.toList());
 

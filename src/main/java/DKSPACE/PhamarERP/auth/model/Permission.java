@@ -5,7 +5,6 @@ import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
@@ -23,13 +22,11 @@ import java.util.Objects;
 @Table(name = "permissions")
 public class Permission extends BaseCRUDEntity {
 
-    @Size(max = 100)
     @NotNull
     @Column(name = "\"group\"", nullable = false, length = 100)
     @Enumerated(EnumType.STRING)
     private PermissionGroupEnum group;
 
-    @Size(max = 255)
     @NotNull
     @Column(name = "key", nullable = false)
     @Enumerated(EnumType.STRING)

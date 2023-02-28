@@ -5,12 +5,16 @@ import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PermissionMapper implements BaseMapper<PermissionDTO, Permission> {
+public class PermissionMapper  {
     private final I18NMessageResolver messageResolver;
-    @Override
     public PermissionDTO toDTO(Permission entity) {
         return PermissionDTO.builder()
                             .id(entity.getId())
@@ -21,9 +25,16 @@ public class PermissionMapper implements BaseMapper<PermissionDTO, Permission> {
                             .build();
     }
 
-    @Override
-    public Permission toEntity(PermissionDTO dto) {
-        // do nothing
-        return null;
+    public Set<Permission> toEntity(List<Long> permissionsId) {
+        if (CollectionUtils.isEmpty(permissionsId)) {
+            return Set.of();
+        }
+        return permissionsId.stream()
+                     .map(id -> {
+                         Permission permission = new Permission();
+                         permission.setId(id);
+                         return permission;
+                     })
+                     .collect(Collectors.toSet());
     }
 }

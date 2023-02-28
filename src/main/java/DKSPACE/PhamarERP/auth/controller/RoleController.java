@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.auth.controller;
 
-import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import jakarta.validation.Valid;
@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @Slf4j
@@ -31,8 +29,8 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<Role> createRole(@RequestBody @Valid Role role) {
-        return ResponseEntity.ok(service.createRole(role));
+    public ResponseEntity<Role> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
+        return ResponseEntity.ok(service.createRole(roleReqDto));
     }
 
     @PutMapping
