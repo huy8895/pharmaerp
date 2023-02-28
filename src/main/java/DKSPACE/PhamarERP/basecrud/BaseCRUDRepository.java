@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface BaseCRUDRepository<E extends BaseCRUDEntity, ID> extends JpaRepository<E, ID> ,
         JpaSpecificationExecutor<E> {
     Optional<E> findByIdAndDeletedAtIsNull(ID id);
-    Page<E> findAllByDeletedAtIsNotNull(@Param("pageable") Pageable pageable);
+    Page<E> findAllByDeletedAtIsNull(@Param("pageable") Pageable pageable);
 }
