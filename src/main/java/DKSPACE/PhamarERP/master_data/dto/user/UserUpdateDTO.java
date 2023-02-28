@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.user;
 
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -11,4 +12,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 public class UserUpdateDTO {
+    @Size(max = 10)
+    private String testSize;
 }

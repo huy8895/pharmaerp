@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Slf4j
 public final class ReflectUtils {
@@ -81,7 +80,13 @@ public final class ReflectUtils {
     }
 
     public static <E> List<Field> getAllField(Class<E> aClass) {
-        return List.of(aClass.getFields());
+        Class<?> superclass = aClass.getSuperclass();
+        List<Field> allField = new ArrayList<>();
+        if (superclass != null) {
+            allField.addAll(List.of(superclass.getDeclaredFields()));
+        }
+        allField.addAll(List.of(aClass.getDeclaredFields()));
+        return allField;
     }
 
     public static <E> List<Method> getAllSetterMethod(Class<E> aClass) {
@@ -89,4 +94,21 @@ public final class ReflectUtils {
                      .filter(method -> method.getName().startsWith("set"))
                      .toList();
     }
+
+    public static  <O, F> F getValue(O obj, String fieldName, Class<F> fClass){
+        try {
+            Field field = getAllField(obj.getClass()).stream()
+                                                     .filter(field1 -> field1.getName()
+                                                                             .equals(fieldName))
+                                                     .findFirst()
+                                                     .orElseThrow();
+            return (F) field.get(obj);
+        } catch (Exception e) {
+            log.error("getValue error: {} {}", e.getClass(), e.getMessage());
+            return null;
+        }
+    }
+
+//    obj.getclass() =>
+//    class org.springframework.validation.beanvalidation.SpringValidatorAdapter$ViolationFieldError
 }

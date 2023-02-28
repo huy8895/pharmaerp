@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.i18n.exception;
 
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
+import DKSPACE.PhamarERP.helper.excel.ReflectUtils;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -112,19 +114,27 @@ public class ApplicationExceptionHandler {
             MethodArgumentNotValidException exception,
             @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         ApiResponse<?> apiResponse = new ApiResponse<>();
+
+
         List<ErrorDTO> errors =
                 exception.getBindingResult()
                          .getFieldErrors()
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getField())
-                                               .errorMessage(messageResolver.convertMessage(error.getDefaultMessage()))
+                                               .errorMessage(this.resolver(error))
                                                .build())
                          .collect(Collectors.toList());
 
         apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);
         return apiResponse;
+    }
+
+    //exception.getBindingResult().getFieldErrors().get(0).source.messageTemplate
+    private String resolver(FieldError error) {
+        Object source = ReflectUtils.getValue(error, "source", Object.class);
+        return "null";
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
