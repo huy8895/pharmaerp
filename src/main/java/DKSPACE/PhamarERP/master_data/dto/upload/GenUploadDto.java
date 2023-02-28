@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.master_data.dto;
+package DKSPACE.PhamarERP.master_data.dto.upload;
 
 import lombok.*;
 

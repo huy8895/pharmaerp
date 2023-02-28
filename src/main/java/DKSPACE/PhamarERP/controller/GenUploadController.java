@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.controller;
 
-import DKSPACE.PhamarERP.master_data.dto.GenUploadDto;
+import DKSPACE.PhamarERP.master_data.dto.upload.GenUploadDto;
 import DKSPACE.PhamarERP.service.GenUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
