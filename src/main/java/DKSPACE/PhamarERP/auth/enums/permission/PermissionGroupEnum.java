@@ -16,7 +16,10 @@ public enum PermissionGroupEnum implements HasI18NCode{
             Role.class,
             "permission.group.role",
             CREATE_ROLE,
-            UPDATE_ROLE
+            UPDATE_ROLE,
+            LIST_ROLE,
+            DELETE_ROLE,
+            DETAIL_ROLE
     ),
 
     USER(
