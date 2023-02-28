@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 
 public interface RoleService extends BaseCRUDService<Role> {
-    Role createRole(@Valid RoleCreateDTO role);
+    RoleDTO createRole(@Valid RoleCreateDTO role);
 
     Object listRoles(Pageable unpaged);
 

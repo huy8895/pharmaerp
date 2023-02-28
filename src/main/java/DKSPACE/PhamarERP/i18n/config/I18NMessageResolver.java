@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.i18n.config;
 
+import DKSPACE.PhamarERP.auth.enums.permission.HasI18NCode;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ApiResponse;
 import DKSPACE.PhamarERP.i18n.validation.NotNull;
@@ -17,6 +18,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class I18NMessageResolver {
     private final MessageSource messageSource;
+
+    public String convertMessage(HasI18NCode hasI18NCode) {
+        if (hasI18NCode == null) return "";
+        return this.convertMessage(hasI18NCode.getI18nCode());
+    }
 
     public String convertMessage(String code) {
         if (code == null) return "";

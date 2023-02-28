@@ -19,24 +19,35 @@ import org.springframework.web.bind.annotation.*;
 public class RoleController {
     private final RoleService service;
 
+    /**
+     * 1. Danh sách quyền - List Role
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Object> listRoles() {
         return ResponseEntity.ok(service.listRoles(Pageable.unpaged()));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
-        return ResponseEntity.ok(service.detailRole(id));
-    }
 
+    /**
+     * 2. Tạo mới quyền - Create Role
+     */
     @PostMapping
-    public ResponseEntity<Role> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
+    public ResponseEntity<RoleDTO> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
         return ResponseEntity.ok(service.createRole(roleReqDto));
     }
 
+    /**
+     * 3. Cập nhật quyền - Update Role
+     */
     @PutMapping
     public ResponseEntity<Role> updateRole(@RequestBody @Valid Role role) {
         return ResponseEntity.ok(service.partialUpdate(role));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
+        return ResponseEntity.ok(service.detailRole(id));
     }
 
     @DeleteMapping("/{id}")

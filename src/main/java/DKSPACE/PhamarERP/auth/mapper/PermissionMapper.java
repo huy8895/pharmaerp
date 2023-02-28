@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.auth.mapper;
 
 import DKSPACE.PhamarERP.auth.dto.permission.PermissionDTO;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,11 +21,21 @@ public class PermissionMapper  {
     public PermissionDTO toDTO(Permission entity) {
         return PermissionDTO.builder()
                             .id(entity.getId())
-                            .group(entity.getGroup().name())
-                            .groupName(messageResolver.convertMessage(entity.getGroup().getI18nCode()))
-                            .key(entity.getKey().name())
-                            .keyName(messageResolver.convertMessage(entity.getKey().getI18nCode()))
+                            .group(Optional.ofNullable(entity.getGroup())
+                                           .map(PermissionGroupEnum::name)
+                                           .orElse(null))
+                            .groupName(messageResolver.convertMessage(entity.getGroup()))
+                            .key(Optional.ofNullable(entity.getKey())
+                                         .map(PermissionKeyEnum::name)
+                                         .orElse(null))
+                            .keyName(messageResolver.convertMessage(entity.getKey()))
                             .build();
+    }
+
+    public List<PermissionDTO> toDTOList(Set<Permission> entity) {
+        return entity.stream()
+                     .map(this::toDTO)
+                     .toList();
     }
 
     public Set<Permission> toEntity(List<Long> permissionsId) {

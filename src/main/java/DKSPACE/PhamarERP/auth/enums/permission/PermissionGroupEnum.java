@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum.*;
 
 
-public enum PermissionGroupEnum {
+public enum PermissionGroupEnum implements HasI18NCode{
     ROLE(
             Role.class,
             "permission.group.role",
@@ -62,6 +62,7 @@ public enum PermissionGroupEnum {
         return this.keys;
     }
 
+    @Override
     public String getI18nCode() {
         return i18nCode;
     }

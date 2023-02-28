@@ -23,11 +23,11 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
     }
 
     @Override
-    public Role createRole(RoleCreateDTO roleReqDto) {
-        Role role = roleMapper.toEntity(roleReqDto);
-        role.setIsActive(true);
-        role.setIsDefault(false);
-        return repository.save(role);
+    public RoleDTO createRole(RoleCreateDTO roleReqDto) {
+        Role newRole = roleMapper.toEntity(roleReqDto);
+        newRole.setIsActive(true);
+        newRole.setIsDefault(false);
+        return roleMapper.toDTO(super.save(newRole));
     }
 
     @Override

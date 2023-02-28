@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.auth.enums.permission;
 
-public enum PermissionKeyEnum {
+public enum PermissionKeyEnum implements HasI18NCode{
     CREATE_ROLE("permission.role.create_role"),
     UPDATE_ROLE("permission.role.update_role"),
 
