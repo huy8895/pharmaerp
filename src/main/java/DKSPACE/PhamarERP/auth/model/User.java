@@ -2,7 +2,6 @@ package DKSPACE.PhamarERP.auth.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.i18n.validation.NotNull;
-import DKSPACE.PhamarERP.master_data.entity.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -65,28 +64,6 @@ public class User  extends BaseCRUDEntity implements UserDetails{
 
     @Column(name = "is_active")
     private Boolean isActive;
-
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Set<Contract> contracts = new LinkedHashSet<>();
-
-    @OneToOne(mappedBy = "user")
-    private Contract contract;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Set<UserCours> userCourses = new LinkedHashSet<>();
-
-    @OneToOne(mappedBy = "user")
-    private UserProfile userProfile;
-
-    @OneToMany(mappedBy = "user")
-    @ToString.Exclude
-    private Set<UserCertificate> userCertificates = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private Set<UserActivity> userActivities = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",

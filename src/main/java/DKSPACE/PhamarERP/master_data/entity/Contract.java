@@ -25,21 +25,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "contracts")
 public class Contract extends BaseCRUDEntity {
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull()
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
     private User user;
 
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull()
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "creator_id", nullable = false)
     @ToString.Exclude
     private User creator;
 
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull()
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "contract_type_id", nullable = false)
     @ToString.Exclude
