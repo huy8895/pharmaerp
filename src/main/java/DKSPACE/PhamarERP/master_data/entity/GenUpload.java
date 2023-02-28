@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import DKSPACE.PhamarERP.i18n.constants.ValidateCode;
 import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -25,31 +24,31 @@ import java.util.Objects;
 public class GenUpload extends BaseCRUDEntity {
 
     @Size(max = 255)
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull
     @Column(name = "original_name", nullable = false)
     private String originalName;
 
     @Size(max = 45)
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull
     @Column(name = "file_name", nullable = false, length = 45)
     private String fileName;
 
     @Size(max = 10)
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull
     @Column(name = "extension", nullable = false, length = 10)
     private String extension;
 
     @Size(max = 255)
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull
     @Column(name = "content_type", nullable = false)
     private String contentType;
 
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull
     @Column(name = "data", nullable = false)
     @Lob
     private byte[] data;
 
-    @NotNull(message = ValidateCode.NOT_NULL)
+    @NotNull
     @Column(name = "size", nullable = false)
     private Float size;
 
