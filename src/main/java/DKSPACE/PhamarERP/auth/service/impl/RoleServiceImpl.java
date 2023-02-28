@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.service.impl;
 
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.mapper.RoleMapper;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.repository.RoleRepository;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 @Slf4j
 @Service
@@ -53,5 +56,15 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
         }
 
         super.softDelete(id);
+    }
+
+    @Override
+    public RoleDTO updateRole(RoleUpdateDTO role) {
+        Role entity = roleMapper.toEntity(role);
+        final var permissionsNew = entity.getPermissions();
+        entity.setPermissions(Collections.emptySet());
+        Role roleUpdatePermission = super.partialUpdate(entity);
+        roleUpdatePermission.setPermissions(permissionsNew);
+        return roleMapper.toDTO(super.save(roleUpdatePermission));
     }
 }

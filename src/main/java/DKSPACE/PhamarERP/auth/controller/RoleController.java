@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import jakarta.validation.Valid;
@@ -41,13 +42,8 @@ public class RoleController {
      * 3. Cập nhật quyền - Update Role
      */
     @PutMapping
-    public ResponseEntity<Role> updateRole(@RequestBody @Valid Role role) {
-        return ResponseEntity.ok(service.partialUpdate(role));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
-        return ResponseEntity.ok(service.detailRole(id));
+    public ResponseEntity<RoleDTO> updateRole(@RequestBody @Valid RoleUpdateDTO role) {
+        return ResponseEntity.ok(service.updateRole(role));
     }
 
     /**
@@ -59,5 +55,10 @@ public class RoleController {
         service.deleteRole(id);
         return ResponseEntity.noContent()
                              .build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
+        return ResponseEntity.ok(service.detailRole(id));
     }
 }

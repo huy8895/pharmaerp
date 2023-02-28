@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.mapper;
 
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,16 @@ public class RoleMapper {
         		.nameVi(roleReqDto.getNameVi())
         		.nameEn(roleReqDto.getNameEn())
         		.build();
+    }
+
+    public Role toEntity(RoleUpdateDTO roleReqDto) {
+        Role role = Role.builder()
+                         .describe(roleReqDto.getDescribe())
+                         .permissions(permissionMapper.toEntity(roleReqDto.getPermissionsId()))
+                         .nameVi(roleReqDto.getNameVi())
+                         .nameEn(roleReqDto.getNameEn())
+                         .build();
+        role.setId(roleReqDto.getId());
+        return role;
     }
 }

@@ -1,5 +1,7 @@
 package DKSPACE.PhamarERP.basecrud;
 
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
+import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,10 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public E partialUpdate(E baseCRUDEntity) {
         log.info("baseCRUDEntity : {}", baseCRUDEntity);
+        if (baseCRUDEntity.getId() == null){
+            log.error("The given id must not be null");
+            throw new ClientException(ApiResponseInfo.BAD_REQUEST);
+        }
         return repository
                 .findById(baseCRUDEntity.getId())
                 .map(existingProduct -> {

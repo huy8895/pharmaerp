@@ -41,6 +41,7 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiResponse<?> handleException(Throwable exception) {
         log.error("handleException: {}", exception.getMessage());
+        log.error("handleException class: {}", exception.getClass());
         return messageResolver.generateApiResponse(ApiResponseInfo.INTERNAL_SERVER_ERROR);
     }
 
