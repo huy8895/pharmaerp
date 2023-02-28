@@ -28,7 +28,7 @@ import BreadCrumb from "Components/Common/BreadCrumb";
 import { isEmpty } from "lodash";
 
 // Import Images
-import dummyImg from "../../assets/images/users/user-dummy-img.jpg";
+import dummyImg from "assets/images/users/user-dummy-img.jpg";
 
 //Import actions
 import {
@@ -592,10 +592,28 @@ const CrmLeads = () => {
                     )}
                   </div>
 
-                  <Modal id="showModal" isOpen={modal} toggle={toggle} centered>
-                    <ModalHeader className="bg-light p-3" toggle={toggle}>
+                  <Modal
+                    id="showModal"
+                    isOpen={modal}
+                    toggle={toggle}
+                    size="xl"
+                    className="modal-fullscreen"
+                    modalClassName="fadeInRight"
+                  >
+                    {/* <ModalHeader className="bg-light p-3" toggle={toggle}>
                       {!!isEdit ? "Edit Lead" : "Add Lead"}
-                    </ModalHeader>
+                    </ModalHeader> */}
+                    <div className="side-panel-labels" onClick={toggle}>
+                      <div className="side-panel-label">
+                        <div className="side-panel-label-icon-box">
+                          <button
+                            type="button"
+                            className="btn-close float-end fs-11"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                      </div>
+                    </div>
                     <Form
                       className="tablelist-form"
                       onSubmit={(e) => {
