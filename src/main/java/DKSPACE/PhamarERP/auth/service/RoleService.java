@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.auth.service;
 
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDService;
 import jakarta.validation.Valid;
@@ -10,4 +11,6 @@ public interface RoleService extends BaseCRUDService<Role> {
     Role createRole(@Valid RoleCreateDTO role);
 
     Object listRoles(Pageable unpaged);
+
+    RoleDTO detailRole(Long id);
 }

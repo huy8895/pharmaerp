@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import jakarta.validation.Valid;
@@ -24,8 +25,8 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> detailRole(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findOne(id));
+    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
+        return ResponseEntity.ok(service.detailRole(id));
     }
 
     @PostMapping

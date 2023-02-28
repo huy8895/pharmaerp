@@ -38,13 +38,6 @@ public class Role extends BaseCRUDEntity {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
-    @ManyToMany
-    @JoinTable(name = "roles_permissions",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    @ToString.Exclude
-    private Set<Permission> permissions = new LinkedHashSet<>();
-
     @Size(max = 100)
     @NotNull
     @Column(name = "name_vi", nullable = false, length = 100)
@@ -54,6 +47,13 @@ public class Role extends BaseCRUDEntity {
     @NotNull
     @Column(name = "name_en", nullable = false, length = 100)
     private String nameEn;
+
+    @ManyToMany
+    @JoinTable(name = "roles_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    @ToString.Exclude
+    private Set<Permission> permissions = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

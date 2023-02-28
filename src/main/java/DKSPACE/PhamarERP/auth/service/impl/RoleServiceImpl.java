@@ -35,4 +35,9 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
         return repository.findAll(unpaged)
                          .map(roleMapper::toDTO);
     }
+    @Override
+    public RoleDTO detailRole(Long id) {
+        Role one = super.findOne(id);
+        return roleMapper.toDTO(one);
+    }
 }
