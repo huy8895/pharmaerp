@@ -13,4 +13,6 @@ public interface RoleService extends BaseCRUDService<Role> {
     Object listRoles(Pageable unpaged);
 
     RoleDTO detailRole(Long id);
+
+    void deleteRole(Long id);
 }

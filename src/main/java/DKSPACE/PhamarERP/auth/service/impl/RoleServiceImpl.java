@@ -7,6 +7,8 @@ import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.repository.RoleRepository;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
+import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,5 +43,15 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
     public RoleDTO detailRole(Long id) {
         Role one = super.findOne(id);
         return roleMapper.toDTO(one);
+    }
+
+    @Override
+    public void deleteRole(Long id) {
+        boolean isAssigned = repository.existsByRoleIdJoinUsersRole(id);
+        if (isAssigned){
+            throw new ClientException(ApiResponseInfo.ROLE_ALREADY_ASSIGN);
+        }
+
+        super.softDelete(id);
     }
 }

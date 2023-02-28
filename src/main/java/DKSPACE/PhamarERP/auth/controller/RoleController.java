@@ -50,9 +50,13 @@ public class RoleController {
         return ResponseEntity.ok(service.detailRole(id));
     }
 
+    /**
+     * - Xóa quyền: chỉ cho phép xóa khi quyền assign cho ai.
+     * @param id roleId
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Role> deleteRole(@PathVariable Long id) {
-        service.softDelete(id);
+        service.deleteRole(id);
         return ResponseEntity.noContent()
                              .build();
     }
