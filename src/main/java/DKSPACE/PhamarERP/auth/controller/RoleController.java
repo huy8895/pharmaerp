@@ -51,7 +51,7 @@ public class RoleController {
     }
 
     /**
-     * - Xóa quyền: chỉ cho phép xóa khi quyền assign cho ai.
+     * 4 - Xóa quyền: chỉ cho phép xóa khi quyền assign cho ai.
      * @param id roleId
      */
     @DeleteMapping("/{id}")
