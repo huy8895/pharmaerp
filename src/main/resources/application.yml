@@ -1,0 +1,12 @@
+application:
+  # Spring Security specific configuration
+  security:
+      # security key (this key should be unique for your application, and kept secret)
+    authentication:
+      jwt: # JHipster specific JWT implementation
+        secret: 12345
+        token-validity-in-seconds: 86400 # Token is valid 24 hours
+
+spring:
+  profiles:
+    active: local
