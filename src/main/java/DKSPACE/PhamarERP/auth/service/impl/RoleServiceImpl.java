@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepository> implements RoleService {
     private final RoleMapper roleMapper;
+
     protected RoleServiceImpl(RoleRepository repository,
                               RoleMapper roleMapper) {
         super(repository);
@@ -32,9 +33,10 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
 
     @Override
     public Page<RoleDTO> listRoles(Pageable unpaged) {
-        return repository.findAll(unpaged)
-                         .map(roleMapper::toDTO);
+        return super.findAll(unpaged)
+                    .map(roleMapper::toDTO);
     }
+
     @Override
     public RoleDTO detailRole(Long id) {
         Role one = super.findOne(id);

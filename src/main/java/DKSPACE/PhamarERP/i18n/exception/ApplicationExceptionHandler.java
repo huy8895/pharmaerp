@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -86,6 +87,14 @@ public class ApplicationExceptionHandler {
         log.error("handleClientException: {}", exception.getMessage());
         log.error(exception.getMessage());
         return messageResolver.generateApiResponse(exception.getApiResponseInfo());
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleMethodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
+        log.error("handleMethodNotSupportedException: {}", exception.getClass());
+        log.error(exception.getMessage());
+        return messageResolver.generateApiResponse(ApiResponseInfo.METHOD_NOT_SUPPORTED);
     }
 
     @ExceptionHandler(ServerException.class)

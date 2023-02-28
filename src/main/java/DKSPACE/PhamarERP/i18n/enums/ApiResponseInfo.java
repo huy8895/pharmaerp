@@ -12,7 +12,7 @@ public enum ApiResponseInfo {
     NO_VALUE_PRESENT("error.message.NoValuePresent"),
     MAX_UPLOAD_SIZE_EXCEEDED("error.message.MaxUploadSizeExceeded"),
 
-    ;
+    METHOD_NOT_SUPPORTED("error.message.MethodNotSupported");
 
     private final String i18NMessageCode;
 

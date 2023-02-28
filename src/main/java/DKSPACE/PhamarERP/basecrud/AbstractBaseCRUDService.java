@@ -36,7 +36,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public Page<E> findAll(Pageable pageable) {
         log.info("findAll pageable : {}", pageable);
-        return repository.findAll(pageable);
+        return repository.findAllByDeletedAtIsNotNull(pageable);
     }
 
     @Override
