@@ -49,11 +49,9 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public void softDelete(Long id) {
         log.info("softDelete id : {}", id);
-        repository.findById(id)
-                .ifPresent(e -> {
-                    e.setDeletedAt(LocalDateTime.now());
-                    repository.save(e);
-                });
+        E entity = this.findOne(id);
+        entity.setDeletedAt(LocalDateTime.now());
+        repository.save(entity);
     }
 
     @Override
