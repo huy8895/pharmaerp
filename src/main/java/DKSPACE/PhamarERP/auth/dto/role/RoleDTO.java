@@ -8,7 +8,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A DTO for the {@link DKSPACE.PhamarERP.auth.model.Role} entity

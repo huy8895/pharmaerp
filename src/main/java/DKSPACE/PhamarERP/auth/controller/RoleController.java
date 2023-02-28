@@ -8,6 +8,7 @@ import DKSPACE.PhamarERP.auth.service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class RoleController {
      * @return
      */
     @GetMapping
-    public ResponseEntity<Object> listRoles() {
-        return ResponseEntity.ok(service.listRoles(Pageable.unpaged()));
+    public ResponseEntity<Object> listRoles(@ParameterObject Pageable pageable) {
+        return ResponseEntity.ok(service.listRoles(pageable));
     }
 
 
@@ -57,6 +58,10 @@ public class RoleController {
                              .build();
     }
 
+    /**
+     * 5 xem chi tiết role, để trả data role + permission cho FE hiển thị
+     * @param id roleId
+     */
     @GetMapping("/{id}")
     public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
         return ResponseEntity.ok(service.detailRole(id));
