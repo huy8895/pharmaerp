@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
@@ -112,15 +111,17 @@ public class ApplicationExceptionHandler {
             MethodArgumentNotValidException exception,
             @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         ApiResponse<?> apiResponse = new ApiResponse<>();
+
+
         List<ErrorDTO> errors =
                 exception.getBindingResult()
                          .getFieldErrors()
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getField())
-                                               .errorMessage(messageResolver.convertMessage(error.getDefaultMessage()))
+                                               .errorMessage(error.getDefaultMessage())
                                                .build())
-                         .collect(Collectors.toList());
+                         .toList();
 
         apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);
@@ -137,9 +138,9 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getPropertyPath().toString())
-                                               .errorMessage(messageResolver.convertMessage(error.getMessage()))
+                                               .errorMessage(error.getMessage())
                                                .build())
-                         .collect(Collectors.toList());
+                         .toList();
 
         apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);

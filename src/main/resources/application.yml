@@ -1,11 +1,15 @@
 application:
-  # Spring Security specific configuration
-  security:
-      # security key (this key should be unique for your application, and kept secret)
-    authentication:
-      jwt: # JHipster specific JWT implementation
-        secret: 12345
-        token-validity-in-seconds: 86400 # Token is valid 24 hours
+  jwt:
+    #https://www.allkeysgenerator.com/
+    secret-key: 7336763979244226452948404D6251655468576D5A7134743777217A25432A46
+    expiration-token: 86400000  #miliseconds = 1Day
+  admin:
+    email: supperadmin@gmail.com
+    username: supperadmin
+    password: DKSpace@2022
+    staff-code: DEFAULT
+    lastname: Admin
+    firstname: Supper
 
 spring:
   profiles:

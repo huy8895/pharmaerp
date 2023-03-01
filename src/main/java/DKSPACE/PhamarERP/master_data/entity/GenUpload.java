@@ -1,8 +1,8 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;

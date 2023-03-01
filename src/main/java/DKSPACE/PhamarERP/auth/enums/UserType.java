@@ -5,7 +5,7 @@ package DKSPACE.PhamarERP.auth.enums;
  * Ví dụ: QA, QC, R&D, BOD, IPC, Sale, HR, Accountant, IT ....
  */
 public enum UserType {
-    ADMIN,
+    SUPER_ADMIN,
     QA,
     QC,
     R_D,

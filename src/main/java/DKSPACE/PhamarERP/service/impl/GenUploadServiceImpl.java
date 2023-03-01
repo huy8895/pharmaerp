@@ -3,7 +3,7 @@ package DKSPACE.PhamarERP.service.impl;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ClientException;
-import DKSPACE.PhamarERP.master_data.dto.GenUploadDto;
+import DKSPACE.PhamarERP.master_data.dto.upload.GenUploadDto;
 import DKSPACE.PhamarERP.master_data.entity.GenUpload;
 import DKSPACE.PhamarERP.repository.GenUploadRepository;
 import DKSPACE.PhamarERP.service.GenUploadService;

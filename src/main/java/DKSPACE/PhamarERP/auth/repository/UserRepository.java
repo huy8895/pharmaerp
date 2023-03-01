@@ -1,11 +1,11 @@
 package DKSPACE.PhamarERP.auth.repository;
 
 import DKSPACE.PhamarERP.auth.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends BaseCRUDRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 }

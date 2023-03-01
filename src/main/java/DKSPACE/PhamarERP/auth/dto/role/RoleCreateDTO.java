@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.auth.dto.role;
 
-import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 

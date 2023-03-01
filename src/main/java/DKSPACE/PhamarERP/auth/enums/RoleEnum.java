@@ -1,17 +1,23 @@
 package DKSPACE.PhamarERP.auth.enums;
 
 public enum RoleEnum {
-    ROLE_ADMIN("Quản trị viên"),
-    ROLE_USER("Người dùng");
+    HR("Nhân sự", "HR"),
+    ;
 
     private final String nameVi;
+    private final String nameEn;
 
-    RoleEnum(String nameVi) {
+    RoleEnum(String nameVi, String nameEn) {
         this.nameVi = nameVi;
+        this.nameEn = nameEn;
     }
 
 
     public String getNameVi() {
         return nameVi;
+    }
+
+    public String getNameEn() {
+        return nameEn;
     }
 }
