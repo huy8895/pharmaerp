@@ -15,6 +15,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -45,8 +47,8 @@ public class SecuredAspect {
 	}
 
 	private boolean hasPermission(String jwtFromRequest, JoinPoint joinPoint) {
-		String[] permissionsOfUser = jwtService.extractClaim(jwtFromRequest,
-													   claims -> claims.get("permissions", String[].class));
+		var permissionsOfUser = jwtService.extractClaim(jwtFromRequest,
+													   claims -> claims.get("permissions", ArrayList.class));
 		return Stream.of(this.getPermissions(joinPoint))
 					 .anyMatch(permissionKeyEnum -> Set.of(permissionsOfUser)
 											 .contains(permissionKeyEnum.name()));
