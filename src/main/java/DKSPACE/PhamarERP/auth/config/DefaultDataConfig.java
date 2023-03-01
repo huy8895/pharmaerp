@@ -16,7 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,15 +33,16 @@ public class DefaultDataConfig {
     private final AdminConfig adminConfig;
 
     @PostConstruct
-    private void initAuthDefaultData(){
+    private void initAuthDefaultData() {
         log.info("initAuthDefaultData");
-        List<Permission> permissions = this.setupPermissions();
-        this.setupRole(permissions);
+        this.setupPermissions();
+        this.setupDefaultRole();
         this.setupUserAndRole();
     }
+
     private void setupUserAndRole() {
         log.info("setupUserAdmin");
-        User admin = buildAdminUser();
+        User admin = buildSuperAdminUser();
         userRepository.findByEmail(admin.getEmail())
                       .ifPresentOrElse(user -> {
                                            admin.setId(user.getId());
@@ -47,44 +51,43 @@ public class DefaultDataConfig {
                                        () -> this.userRepository.save(admin));
     }
 
-    private User buildAdminUser() {
+    private User buildSuperAdminUser() {
 
         return User.builder()
                    .email(adminConfig.email())
                    .password(passwordEncoder.encode(adminConfig.password()))
                    .lastName(adminConfig.lastname())
                    .type(UserType.SUPER_ADMIN)
+                   .isActive(true)
                    .username(adminConfig.username())
                    .firstName(adminConfig.firstname())
                    .staffCode(adminConfig.staffCode())
                    .build();
     }
-    private void setupRole(List<Permission> permissions) {
-        log.info("setupRole");
+
+    private void setupDefaultRole() {
+        log.info("setupDefaultRole");
         Set<Role> rolesDefault = Arrays.stream(RoleEnum.values())
-                                       .map(roleEnum -> this.buildRole(permissions, roleEnum))
+                                       .map(this::buildRole)
                                        .collect(Collectors.toSet());
 
-        if (!roleRepository.findAll().isEmpty()) {
+        if (!roleRepository.findAll()
+                           .isEmpty()) {
             log.info("Role already import");
             return;
         }
+
         roleRepository.saveAll(rolesDefault);
-        log.info("setupRole = " + rolesDefault);
+        log.info("setupDefaultRole = " + rolesDefault);
     }
 
-    private Role buildRole(List<Permission> permissions, RoleEnum roleEnum) {
-        Role defaultRole = Role.builder()
-                               .isDefault(true)
-                               .isActive(true)
-                               .nameEn(roleEnum.name())
-                               .nameVi(roleEnum.getNameVi())
-                               .build();
-
-        if (roleEnum.equals(RoleEnum.ROLE_ADMIN)){
-            defaultRole.setPermissions(new HashSet<>(permissions));
-        }
-        return defaultRole;
+    private Role buildRole(RoleEnum roleEnum) {
+        return Role.builder()
+                   .isDefault(true)
+                   .isActive(true)
+                   .nameEn(roleEnum.getNameEn())
+                   .nameVi(roleEnum.getNameVi())
+                   .build();
     }
 
     private List<Permission> setupPermissions() {
@@ -92,7 +95,7 @@ public class DefaultDataConfig {
         Set<Permission> collect = Arrays.stream(PermissionGroupEnum.values())
                                         .map(this::buildPermission)
                                         .flatMap(Collection::stream)
-                                        .collect(Collectors.toSet());;
+                                        .collect(Collectors.toSet());
 
         List<Permission> permissionAll = permissionRepository.findAll();
         if (!permissionAll.isEmpty()) {
@@ -107,10 +110,10 @@ public class DefaultDataConfig {
         return groupEnum.getKeys()
                         .stream()
                         .map(keyEnum -> Permission.builder()
-                                                           .group(groupEnum)
-                                                           .key(keyEnum)
-                                                           .isActive(true)
-                                                           .build())
+                                                  .group(groupEnum)
+                                                  .key(keyEnum)
+                                                  .isActive(true)
+                                                  .build())
                         .toList();
     }
 }
