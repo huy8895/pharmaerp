@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.i18n.exception;
 
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
-import DKSPACE.PhamarERP.helper.excel.ReflectUtils;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +22,6 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
@@ -122,19 +119,13 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getField())
-                                               .errorMessage(this.resolver(error))
+                                               .errorMessage(error.getDefaultMessage())
                                                .build())
-                         .collect(Collectors.toList());
+                         .toList();
 
         apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);
         return apiResponse;
-    }
-
-    //exception.getBindingResult().getFieldErrors().get(0).source.messageTemplate
-    private String resolver(FieldError error) {
-        Object source = ReflectUtils.getValue(error, "source", Object.class);
-        return "null";
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -147,9 +138,9 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getPropertyPath().toString())
-                                               .errorMessage(messageResolver.convertMessage(error.getMessage()))
+                                               .errorMessage(error.getMessage())
                                                .build())
-                         .collect(Collectors.toList());
+                         .toList();
 
         apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);

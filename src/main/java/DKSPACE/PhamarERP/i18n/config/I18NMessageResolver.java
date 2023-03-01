@@ -1,22 +1,26 @@
 package DKSPACE.PhamarERP.i18n.config;
 
 import DKSPACE.PhamarERP.auth.enums.permission.HasI18NCode;
+import DKSPACE.PhamarERP.helper.excel.ReflectUtils;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ApiResponse;
-import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Slf4j
 @RequiredArgsConstructor
 public class I18NMessageResolver {
+    public static final String LANGUAGE_VN = "vn";
     private final MessageSource messageSource;
 
     public String convertMessage(HasI18NCode hasI18NCode) {
@@ -43,5 +47,26 @@ public class I18NMessageResolver {
         final var apiResponse = this.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
         response.getWriter().write(mapper.writeValueAsString(apiResponse));
         return ApiResponse.failed(responseInfo, this);
+    }
+
+    public String resolverMessageTemplate(FieldError error, Locale locale) {
+        if (LANGUAGE_VN.equals(locale.getDisplayLanguage())){
+            try {
+                return error.getDefaultMessage();
+            } catch (Exception e){
+                log.error("error resolverMessageTemplate {} {}", e.getClass(), e.getMessage());
+                return error.getDefaultMessage();
+            }
+        }
+        return error.getDefaultMessage();
+    }
+
+    //exception.getBindingResult().getFieldErrors().get(0).source.messageTemplate
+    //messageTemplate = {jakarta.validation.constraints.Size.message}
+    private String getDefaultErrorCode(FieldError error) {
+        Object source = ReflectUtils.getValue(error, "source", Object.class);
+        String messageTemplate = ReflectUtils.getValue(source, "messageTemplate", String.class);
+        if (messageTemplate == null || messageTemplate.length() < 2) return "";
+        return messageTemplate.substring(1, messageTemplate.length() - 1);
     }
 }

@@ -2,11 +2,11 @@ package DKSPACE.PhamarERP.auth.config;
 
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
-import DKSPACE.PhamarERP.i18n.validation.NotNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

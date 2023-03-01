@@ -79,13 +79,14 @@ public final class ReflectUtils {
         return cellDTOS;
     }
 
-    public static <E> List<Field> getAllField(Class<E> aClass) {
-        Class<?> superclass = aClass.getSuperclass();
+    public static List<Field> getAllField(Class<?> aClass) {
         List<Field> allField = new ArrayList<>();
-        if (superclass != null) {
+        while (aClass.getSuperclass() != null) {
+            var superclass = aClass.getSuperclass();
             allField.addAll(List.of(superclass.getDeclaredFields()));
+            allField.addAll(List.of(aClass.getDeclaredFields()));
+            aClass = superclass;
         }
-        allField.addAll(List.of(aClass.getDeclaredFields()));
         return allField;
     }
 
@@ -102,6 +103,7 @@ public final class ReflectUtils {
                                                                              .equals(fieldName))
                                                      .findFirst()
                                                      .orElseThrow();
+            field.setAccessible(true);
             return (F) field.get(obj);
         } catch (Exception e) {
             log.error("getValue error: {} {}", e.getClass(), e.getMessage());
