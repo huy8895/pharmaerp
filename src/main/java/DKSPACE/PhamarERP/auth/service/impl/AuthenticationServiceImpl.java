@@ -6,7 +6,6 @@ import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterReqDto;
 import DKSPACE.PhamarERP.auth.dto.register.RegisterResDto;
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
-import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
@@ -26,6 +25,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
     @Override
     public RegisterResDto register(RegisterReqDto dto) {
         userRepository.findByEmail(dto.getEmail())
@@ -33,18 +33,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                           throw new UserAlreadyExistException("Username Already Exist");
                       });
 
+        // TODO: 24/2/2023
         final User user = User.builder()
-                              .firstname(dto.getFirstname())
-                              .lastname(dto.getLastname())
+//                              .firstname(dto.getFirstname())
+//                              .lastname(dto.getLastname())
                               .email(dto.getEmail())
                               .password(passwordEncoder.encode(dto.getPassword()))
-                              .role(Role.USER)
+//                              .role(Role.USER)
                               .build();
 
         userRepository.save(user);
         final var token = jwtService.generateToken(user);
         return RegisterResDto.builder()
-                             .token(token)
+                             .token(token.getToken())
                              .build();
     }
 
@@ -57,9 +58,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
         );
 
-        final var token = jwtService.generateToken((User) authenticate.getPrincipal());
+        final var jwtTokenDTO = jwtService.generateToken((User) authenticate.getPrincipal());
         return LoginResDto.builder()
-                          .token(token)
+                          .token(jwtTokenDTO.getToken())
+                          .roles(jwtTokenDTO.getRoles())
+                          .permissions(jwtTokenDTO.getPermissions())
+                          .expirationIn(jwtTokenDTO.getExpirationIn())
                           .build();
     }
 }

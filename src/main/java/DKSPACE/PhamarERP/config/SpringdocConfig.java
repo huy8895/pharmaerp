@@ -54,5 +54,12 @@ public class SpringdocConfig {
                              .build();
     }
 
-
+    @Bean
+    public GroupedOpenApi allApi() {
+        String[] paths = {"/api/**"};
+        return GroupedOpenApi.builder()
+                             .group("All")
+                             .pathsToMatch(paths)
+                             .build();
+    }
 }
