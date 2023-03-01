@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.auth.config;
 
+import DKSPACE.PhamarERP.auth.config.properties.JwtConfig;
 import DKSPACE.PhamarERP.auth.dto.jwt.JwtTokenDTO;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.auth.model.Role;
@@ -9,6 +10,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
-
-    //https://www.allkeysgenerator.com/
-    private static final String SECRET_KEY = "34743777217A25432A462D4A614E645267556B58703273357538782F413F4428";
-    public static final int EXPIRATION_TOKEN = 1000 * 60 * 60 * 24; //1DAY
+    private final JwtConfig jwtConfig;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -45,7 +45,7 @@ public class JwtService {
                           .token(token)
                           .roles(roles)
                           .permissions(permissions)
-                          .expirationIn(EXPIRATION_TOKEN)
+                          .expirationIn(jwtConfig.expirationToken())
                           .build();
     }
 
@@ -86,7 +86,7 @@ public class JwtService {
                    .setClaims(extraClaims)
                    .setSubject(userDetails.getUsername())
                    .setIssuedAt(new Date(System.currentTimeMillis()))
-                   .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TOKEN))
+                   .setExpiration(new Date(System.currentTimeMillis() + jwtConfig.expirationToken()))
                    .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                    .compact();
     }
@@ -107,7 +107,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtConfig.secretKey());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

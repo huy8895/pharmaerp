@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.user;
 
-import DKSPACE.PhamarERP.i18n.validation.NotNull;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.Accessors;

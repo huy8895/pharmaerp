@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.auth.model;
 
+import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -47,10 +48,10 @@ public class User  extends BaseCRUDEntity implements UserDetails{
      * Loại người dùng, cái này cần thêm để phân loại theo phòng ban.
      * Ví dụ: QA, QC, R&D, BOD, IPC, Sale, HR, Accountant, IT ....
      */
-    @Size(max = 45)
     @NotNull
     @Column(name = "type", nullable = false, length = 45)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private UserType type;
 
     @Size(max = 45)
     @NotNull

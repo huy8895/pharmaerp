@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.auth.config;
 
+import DKSPACE.PhamarERP.auth.config.properties.AdminConfig;
 import DKSPACE.PhamarERP.auth.enums.RoleEnum;
+import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.auth.model.Role;
@@ -21,12 +23,11 @@ import java.util.stream.Collectors;
 @Configuration
 @RequiredArgsConstructor
 public class DefaultDataConfig {
-    public static final String SYSTEM_ADMIN = "SYSTEM_ADMIN";
     private final UserRepository userRepository;
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
-    public static final String ADMIN = "admin";
     private final PasswordEncoder passwordEncoder;
+    private final AdminConfig adminConfig;
 
     @PostConstruct
     private void initAuthDefaultData(){
@@ -38,7 +39,7 @@ public class DefaultDataConfig {
     private void setupUserAndRole() {
         log.info("setupUserAdmin");
         User admin = buildAdminUser();
-        userRepository.findByEmail(ADMIN)
+        userRepository.findByEmail(admin.getEmail())
                       .ifPresentOrElse(user -> {
                                            admin.setId(user.getId());
                                            this.userRepository.save(admin);
@@ -47,15 +48,15 @@ public class DefaultDataConfig {
     }
 
     private User buildAdminUser() {
+
         return User.builder()
-                   .email(ADMIN)
-                   .password(passwordEncoder.encode(ADMIN))
-                   .lastName(ADMIN)
-                   .type(SYSTEM_ADMIN)
-                   .username(ADMIN)
-                   .firstName(ADMIN)
-                   .roles(roleRepository.findAllByNameEn(RoleEnum.ROLE_ADMIN.name()))
-                   .staffCode(ADMIN)
+                   .email(adminConfig.email())
+                   .password(passwordEncoder.encode(adminConfig.password()))
+                   .lastName(adminConfig.lastname())
+                   .type(UserType.SUPER_ADMIN)
+                   .username(adminConfig.username())
+                   .firstName(adminConfig.firstname())
+                   .staffCode(adminConfig.staffCode())
                    .build();
     }
     private void setupRole(List<Permission> permissions) {
