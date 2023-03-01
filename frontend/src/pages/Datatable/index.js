@@ -52,7 +52,7 @@ import ItemTable from "./ItemTable";
 
 // Formik
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { FormikProvider, useFormik } from "formik";
 
 import Loader from "Components/Common/Loader";
 import { toast, ToastContainer } from "react-toastify";
@@ -116,7 +116,11 @@ const CrmLeads = () => {
     { label: "Partner", value: "Partner" },
   ];
 
-  const onClickSubmit = () => {};
+  const onClickSubmit = (e) => {
+    e.preventDefault();
+    validation.handleSubmit();
+    return false;
+  };
 
   const toggle = useCallback(() => {
     if (modal) {
@@ -175,43 +179,47 @@ const CrmLeads = () => {
       score: Yup.string().required("Please Enter Score"),
       phone: Yup.string().required("Please Enter Phone"),
       location: Yup.string().required("Please Enter Location"),
-      // date: Yup.string().required("Please Enter Date"),
+      tags: Yup.string().required("Please Enter Date"),
+      date: Yup.string().required("Please Enter Date"),
     }),
     onSubmit: (values) => {
-      if (isEdit) {
-        const updateLead = {
-          _id: lead ? lead._id : 0,
-          // img: values.img,
-          name: values.name,
-          company: values.company,
-          score: values.score,
-          phone: values.phone,
-          location: values.location,
-          date: date,
-          tags: assignTag,
-        };
-        // update Company
-        dispatch(onUpdateLead(updateLead));
-        validation.resetForm();
-      } else {
-        const newLead = {
-          _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
-          // img: values["img"],
-          name: values["name"],
-          company: values["company"],
-          score: values["score"],
-          phone: values["phone"],
-          location: values["location"],
-          date: date,
-          tags: assignTag,
-        };
-        // save new Lead
-        dispatch(onAddNewLead(newLead));
-        validation.resetForm();
-      }
-      toggle();
+      console.log("values: ", values);
+      // if (isEdit) {
+      //   const updateLead = {
+      //     _id: lead ? lead._id : 0,
+      //     // img: values.img,
+      //     name: values.name,
+      //     company: values.company,
+      //     score: values.score,
+      //     phone: values.phone,
+      //     location: values.location,
+      //     date: date,
+      //     tags: assignTag,
+      //   };
+      //   // update Company
+      //   dispatch(onUpdateLead(updateLead));
+      //   validation.resetForm();
+      // } else {
+      //   const newLead = {
+      //     _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
+      //     // img: values["img"],
+      //     name: values["name"],
+      //     company: values["company"],
+      //     score: values["score"],
+      //     phone: values["phone"],
+      //     location: values["location"],
+      //     date: date,
+      //     tags: assignTag,
+      //   };
+      //   // save new Lead
+      //   dispatch(onAddNewLead(newLead));
+      //   validation.resetForm();
+      // }
+      // toggle();
     },
   });
+  
+  console.log(validation, '#####validation');
 
   // Update Data
   const handleLeadClick = useCallback(
@@ -480,8 +488,8 @@ const CrmLeads = () => {
     setDate(joinDate);
   };
 
-  document.title = "Leads | Velzon - React Admin & Dashboard Template";
-
+  document.title = "Khánh Louis";
+console.log(validation.touched.tags && validation.errors.tags, '###########');
   return (
     <React.Fragment>
       <div className="page-content">
@@ -607,7 +615,7 @@ const CrmLeads = () => {
                   <BaseModal ref={showFormRef} onClickSubmit={onClickSubmit}>
                     <Input type="hidden" id="id-field" />
                     <Row className="g-3">
-                      <Col lg={12}>
+                      <Col lg={6}>
                         <div className="text-center">
                           <div className="position-relative d-inline-block">
                             <div className="position-absolute bottom-0 end-0">
@@ -855,9 +863,9 @@ const CrmLeads = () => {
                             className="form-control"
                             placeholder="Select a date"
                             options={{
-                              altInput: true,
-                              altFormat: "d M, Y",
-                              dateFormat: "d M, Y",
+                              enableTime: false,
+                              dateFormat: "d/m/Y",
+                              locale: "vn"
                             }}
                             onChange={(e) => dateformate(e)}
                             value={validation.values.date || ""}

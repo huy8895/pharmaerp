@@ -5,9 +5,8 @@ import {
   Label,
   ModalFooter,
   Modal,
-  Form,
+  Button,
 } from "reactstrap";
-import PropTypes from "prop-types";
 
 const BaseModal = (props, ref) => {
   const [modal, setModal] = useState(false);
@@ -48,30 +47,21 @@ const BaseModal = (props, ref) => {
       <ModalBody>{props.children}</ModalBody>
       <ModalFooter>
         <div className="hstack gap-2 justify-content-end">
-          <button
-            type="button"
-            className="btn btn-light"
+          <Button
+            color="light"
             onClick={() => {
               setModal(false);
             }}
           >
-            {" "}
-            Close{" "}
-          </button>
-          <button type="submit" className="btn btn-success" id="add-btn">
-            {"Tạo form"}
-          </button>
+            Close
+          </Button>
+          <Button color="primary" onClick={props.onClickSubmit}>
+            Save changes
+          </Button>
         </div>
       </ModalFooter>
     </Modal>
   );
 };
-
-// BaseModal.propTypes = {
-//   isHeader: PropTypes.bool,
-//   title: PropTypes.string,
-//   children: PropTypes.node.isRequired,
-//   // onClickSubmit: PropTypes.func.isRequired
-// };
 
 export default forwardRef(BaseModal);
