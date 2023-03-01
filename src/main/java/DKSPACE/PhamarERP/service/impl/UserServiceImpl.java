@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.service.impl;
 
+import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
@@ -27,8 +28,24 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     }
 
     @Override
-    public Object createUser(UserCreateDTO dto) {
-        return null;
+    public User createUser(UserCreateDTO dto) {
+        User user = buildUser(dto);
+        return user;
+
+    }
+
+    private User buildUser(UserCreateDTO dto) {
+        return User.builder()
+                   .email(dto.getEmail())
+                   .password(dto.getPassword())
+                   .username(dto.getUsername())
+                   .phoneNumber(dto.getPhoneNumber())
+                   .type(UserType.valueOf(dto.getType()))
+                   .firstName(dto.getFirstName())
+                   .lastName(dto.getLastName())
+                   .isActive(dto.getIsActive())
+                   .staffCode(dto.getStaffCode())
+                   .build();
     }
 
     @Override

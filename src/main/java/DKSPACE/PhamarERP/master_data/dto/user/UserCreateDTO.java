@@ -1,5 +1,7 @@
 package DKSPACE.PhamarERP.master_data.dto.user;
 
+import DKSPACE.PhamarERP.auth.enums.UserType;
+import DKSPACE.PhamarERP.i18n.validation.UserTypeSubset;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -37,6 +39,7 @@ public class UserCreateDTO {
 
     @Size(max = 45)
     @NotNull
+    @UserTypeSubset(noneOf = UserType.SUPER_ADMIN)
     private String type;
 
     @Size(max = 45)

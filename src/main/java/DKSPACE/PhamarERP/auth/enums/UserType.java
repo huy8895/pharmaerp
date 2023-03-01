@@ -14,5 +14,5 @@ public enum UserType {
     SALE,
     HR,
     ACCOUNTANT,
-    IT
+    IT;
 }
