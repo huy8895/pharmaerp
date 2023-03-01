@@ -4,11 +4,14 @@ import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
+import DKSPACE.PhamarERP.mapper.UserMapper;
 import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
+import DKSPACE.PhamarERP.master_data.dto.user.UserResDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
 import DKSPACE.PhamarERP.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepository> implements UserService {
 
-    protected UserServiceImpl(UserRepository repository) {
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    protected UserServiceImpl(UserRepository repository,
+                              UserMapper userMapper,
+                              PasswordEncoder passwordEncoder) {
         super(repository);
+        this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -28,22 +37,21 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     }
 
     @Override
-    public User createUser(UserCreateDTO dto) {
+    public UserResDTO createUser(UserCreateDTO dto) {
         User user = buildUser(dto);
-        return user;
-
+        return userMapper.toDTO(super.save(user));
     }
 
     private User buildUser(UserCreateDTO dto) {
         return User.builder()
                    .email(dto.getEmail())
-                   .password(dto.getPassword())
+                   .password(passwordEncoder.encode(dto.getPassword().trim()))
                    .username(dto.getUsername())
                    .phoneNumber(dto.getPhoneNumber())
                    .type(UserType.valueOf(dto.getType()))
                    .firstName(dto.getFirstName())
                    .lastName(dto.getLastName())
-                   .isActive(dto.getIsActive())
+                   .isActive(true)
                    .staffCode(dto.getStaffCode())
                    .build();
     }

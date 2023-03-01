@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.master_data.dto.user;
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.i18n.validation.UserTypeSubset;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -17,13 +18,10 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @AllArgsConstructor
 public class UserCreateDTO {
-    private Long id;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
 
     @Size(max = 100)
     @NotNull
+    @Email
     private String email;
 
     @Size(max = 100)
@@ -49,8 +47,6 @@ public class UserCreateDTO {
     @Size(max = 45)
     @NotNull
     private String lastName;
-
-    private Boolean isActive;
 
     @Size(max = 20)
     @NotNull
