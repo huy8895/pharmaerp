@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface HasPermission {
-    PermissionKeyEnum[] permissions() default {};
+    PermissionKeyEnum[] value() default {};
 }

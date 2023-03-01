@@ -27,7 +27,7 @@ public class RoleController {
      * 1. Danh sách quyền - List Role
      */
     @GetMapping
-    @HasPermission(permissions = PermissionKeyEnum.LIST_ROLE)
+    @HasPermission(PermissionKeyEnum.LIST_ROLE)
     public ResponseEntity<Object> listRoles(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(service.listRoles(pageable));
     }
@@ -37,7 +37,7 @@ public class RoleController {
      * 2. Tạo mới quyền - Create Role
      */
     @PostMapping
-    @HasPermission(permissions = PermissionKeyEnum.CREATE_ROLE)
+    @HasPermission(PermissionKeyEnum.CREATE_ROLE)
     public ResponseEntity<RoleDTO> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
         return ResponseEntity.ok(service.createRole(roleReqDto));
     }
@@ -46,7 +46,7 @@ public class RoleController {
      * 3. Cập nhật quyền - Update Role
      */
     @PutMapping
-    @HasPermission(permissions = PermissionKeyEnum.UPDATE_ROLE)
+    @HasPermission(PermissionKeyEnum.UPDATE_ROLE)
     public ResponseEntity<RoleDTO> updateRole(@RequestBody @Valid RoleUpdateDTO role) {
         return ResponseEntity.ok(service.updateRole(role));
     }
@@ -56,7 +56,7 @@ public class RoleController {
      * @param id roleId
      */
     @DeleteMapping("/{id}")
-    @HasPermission(permissions = PermissionKeyEnum.DELETE_ROLE)
+    @HasPermission(PermissionKeyEnum.DELETE_ROLE)
     public ResponseEntity<Role> deleteRole(@PathVariable Long id) {
         service.deleteRole(id);
         return ResponseEntity.noContent()
@@ -68,7 +68,7 @@ public class RoleController {
      * @param id roleId
      */
     @GetMapping("/{id}")
-    @HasPermission(permissions = PermissionKeyEnum.DETAIL_ROLE)
+    @HasPermission(PermissionKeyEnum.DETAIL_ROLE)
     public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
         return ResponseEntity.ok(service.detailRole(id));
     }

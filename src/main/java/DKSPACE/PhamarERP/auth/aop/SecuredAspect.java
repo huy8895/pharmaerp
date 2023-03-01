@@ -61,7 +61,7 @@ public class SecuredAspect {
 		MethodSignature signature = (MethodSignature) j.getSignature();
 		Method method = signature.getMethod();
 		final var s = method.getAnnotation(HasPermission.class);
-		return s.permissions();
+		return s.value();
 	}
 
 }
