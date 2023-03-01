@@ -37,7 +37,7 @@ const BaseModal = (props, ref) => {
           <div className="side-panel-label-icon-box">
             <button
               type="button"
-              className="btn-close float-end fs-11"
+              className="btn-close btn-close-white float-end fs-11"
               aria-label="Close"
             ></button>
           </div>

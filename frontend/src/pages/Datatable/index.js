@@ -58,6 +58,7 @@ import Loader from "Components/Common/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BaseModal from "Components/Common/modal/BaseModal";
+import BaseForm from "Components/Common/form/BaseForm";
 
 const CrmLeads = () => {
   const dispatch = useDispatch();
@@ -174,13 +175,13 @@ const CrmLeads = () => {
       tags: (lead && lead.tags) || "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Please Enter Name"),
+      // name: Yup.string().required("Please Enter Name"),
       company: Yup.string().required("Please Enter Company"),
       score: Yup.string().required("Please Enter Score"),
       phone: Yup.string().required("Please Enter Phone"),
       location: Yup.string().required("Please Enter Location"),
-      tags: Yup.string().required("Please Enter Date"),
-      date: Yup.string().required("Please Enter Date"),
+      // tags: Yup.string().required("Please Enter Date"),
+      // date: Yup.string().required("Please Enter Date"),
     }),
     onSubmit: (values) => {
       console.log("values: ", values);
@@ -218,8 +219,6 @@ const CrmLeads = () => {
       // toggle();
     },
   });
-  
-  console.log(validation, '#####validation');
 
   // Update Data
   const handleLeadClick = useCallback(
@@ -489,7 +488,6 @@ const CrmLeads = () => {
   };
 
   document.title = "Khánh Louis";
-console.log(validation.touched.tags && validation.errors.tags, '###########');
   return (
     <React.Fragment>
       <div className="page-content">
@@ -547,9 +545,10 @@ console.log(validation.touched.tags && validation.errors.tags, '###########');
                           className="btn btn-success add-btn"
                           id="create-btn"
                           onClick={() => {
-                            setIsEdit(false);
-                            toggle();
+                            // setIsEdit(false);
+                            // toggle();
                             showFormRef.current.toggle();
+                            validation.resetForm();
                           }}
                         >
                           <i className="ri-add-line align-bottom me-1"></i> Add
@@ -613,271 +612,153 @@ console.log(validation.touched.tags && validation.errors.tags, '###########');
                   </div>
 
                   <BaseModal ref={showFormRef} onClickSubmit={onClickSubmit}>
-                    <Input type="hidden" id="id-field" />
-                    <Row className="g-3">
-                      <Col lg={6}>
-                        <div className="text-center">
-                          <div className="position-relative d-inline-block">
-                            <div className="position-absolute bottom-0 end-0">
-                              <Label
-                                htmlFor="lead-image-input"
-                                className="mb-0"
-                              >
-                                <div className="avatar-xs cursor-pointer">
-                                  <div className="avatar-title bg-light border rounded-circle text-muted">
-                                    <i className="ri-image-fill"></i>
+                    <FormikProvider value={validation}>
+                      <Input type="hidden" id="id-field" />
+                      <Row className="g-3">
+                        <Col lg={12}>
+                          <div className="text-center">
+                            <div className="position-relative d-inline-block">
+                              <div className="position-absolute bottom-0 end-0">
+                                <Label
+                                  htmlFor="lead-image-input"
+                                  className="mb-0"
+                                >
+                                  <div className="avatar-xs cursor-pointer">
+                                    <div className="avatar-title bg-light border rounded-circle text-muted">
+                                      <i className="ri-image-fill"></i>
+                                    </div>
                                   </div>
-                                </div>
-                              </Label>
-                              <Input
-                                className="form-control d-none"
-                                id="lead-image-input"
-                                type="file"
-                                accept="image/png, image/gif, image/jpeg"
-                                onChange={validation.handleChange}
-                                onBlur={validation.handleBlur}
-                                value={validation.values.img || ""}
-                                invalid={
-                                  validation.touched.img &&
-                                  validation.errors.img
-                                    ? true
-                                    : false
-                                }
-                              />
-                            </div>
-                            <div className="avatar-lg p-1">
-                              <div className="avatar-title bg-light rounded-circle">
-                                <img
-                                  src={dummyImg}
-                                  alt="dummyImg"
-                                  id="lead-img"
-                                  className="avatar-md rounded-circle object-cover"
+                                </Label>
+                                <Input
+                                  className="form-control d-none"
+                                  id="lead-image-input"
+                                  type="file"
+                                  accept="image/png, image/gif, image/jpeg"
+                                  onChange={validation.handleChange}
+                                  onBlur={validation.handleBlur}
+                                  value={validation.values.img || ""}
+                                  invalid={
+                                    validation.touched.img &&
+                                    validation.errors.img
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </div>
+                              <div className="avatar-lg p-1">
+                                <div className="avatar-title bg-light rounded-circle">
+                                  <img
+                                    src={dummyImg}
+                                    alt="dummyImg"
+                                    id="lead-img"
+                                    className="avatar-md rounded-circle object-cover"
+                                  />
+                                </div>
+                              </div>
                             </div>
+                            <h5 className="fs-13 mt-3">Lead Image</h5>
                           </div>
-                          <h5 className="fs-13 mt-3">Lead Image</h5>
-                        </div>
-                        <div>
-                          <Label htmlFor="name-field" className="form-label">
-                            Name
-                          </Label>
-                          <Input
-                            name="name"
+                          <BaseForm
                             id="customername-field"
-                            className="form-control"
-                            placeholder="Enter Name"
-                            type="text"
-                            validate={{
-                              required: { value: true },
-                            }}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            value={validation.values.name || ""}
-                            invalid={
-                              validation.touched.name && validation.errors.name
-                                ? true
-                                : false
-                            }
+                            name="name"
+                            title="Name"
+                            placeholder="Nhập name"
+                            msgerror={validation.errors.name}
                           />
-                          {validation.touched.name && validation.errors.name ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.name}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                      <Col lg={12}>
-                        <div>
-                          <Label
-                            htmlFor="company_name-field"
-                            className="form-label"
-                          >
-                            Company Name
-                          </Label>
-                          <Input
+                        </Col>
+                        <Col lg={12}>
+                          <BaseForm
+                            id="company_name-field"
                             name="company"
-                            id="company_name-field"
-                            className="form-control"
+                            title="Company"
                             placeholder="Enter Company Name"
-                            type="text"
-                            validate={{
-                              required: { value: true },
-                            }}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            value={validation.values.company || ""}
-                            invalid={
-                              validation.touched.company &&
-                              validation.errors.company
-                                ? true
-                                : false
-                            }
+                            msgerror={validation.errors.company}
                           />
-                          {validation.touched.company &&
-                          validation.errors.company ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.company}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                      <Col lg={6}>
-                        <div>
-                          <Label
-                            htmlFor="leads_score-field"
-                            className="form-label"
-                          >
-                            Leads Score
-                          </Label>
-                          <Input
+                        </Col>
+                        <Col lg={6}>
+                          <BaseForm
+                            id="score-field"
                             name="score"
-                            id="company_name-field"
-                            className="form-control"
-                            placeholder="Enter Score"
-                            type="text"
-                            validate={{
-                              required: { value: true },
-                            }}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            value={validation.values.score || ""}
-                            invalid={
-                              validation.touched.score &&
-                              validation.errors.score
-                                ? true
-                                : false
-                            }
+                            title="Score"
+                            placeholder="Enter score Name"
+                            msgerror={validation.errors.score}
                           />
-                          {validation.touched.score &&
-                          validation.errors.score ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.score}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                      <Col lg={6}>
-                        <div>
-                          <Label htmlFor="phone-field" className="form-label">
-                            Phone
-                          </Label>
-                          <Input
-                            name="phone"
+                        </Col>
+                        <Col lg={6}>
+                          <BaseForm
                             id="phone-field"
-                            className="form-control"
-                            placeholder="Enter Phone Number"
-                            type="text"
-                            validate={{
-                              required: { value: true },
-                            }}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            value={validation.values.phone || ""}
-                            invalid={
-                              validation.touched.phone &&
-                              validation.errors.phone
-                                ? true
-                                : false
-                            }
+                            name="phone"
+                            title="Phone"
+                            placeholder="Enter phone Name"
+                            msgerror={validation.errors.phone}
                           />
-                          {validation.touched.phone &&
-                          validation.errors.phone ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.phone}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                      <Col lg={12}>
-                        <div>
-                          <Label
-                            htmlFor="location-field"
-                            className="form-label"
-                          >
-                            Location
-                          </Label>
-                          <Input
-                            name="location"
+                        </Col>
+                        <Col lg={12}>
+                        <BaseForm
                             id="location-field"
-                            className="form-control"
-                            placeholder="Enter Location"
-                            type="text"
-                            validate={{
-                              required: { value: true },
-                            }}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            value={validation.values.location || ""}
-                            invalid={
-                              validation.touched.location &&
-                              validation.errors.location
-                                ? true
-                                : false
-                            }
+                            name="location"
+                            title="Location"
+                            placeholder="Enter location Name"
+                            msgerror={validation.errors.location}
                           />
-                          {validation.touched.location &&
-                          validation.errors.location ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.location}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                      <Col lg={12}>
-                        <div>
-                          <Label
-                            htmlFor="taginput-choices"
-                            className="form-label"
-                          >
-                            Tags
-                          </Label>
+                        </Col>
+                        <Col lg={12}>
+                          <div>
+                            <Label
+                              htmlFor="taginput-choices"
+                              className="form-label"
+                            >
+                              Tags
+                            </Label>
 
-                          <Select
-                            isMulti
-                            value={tag}
-                            onChange={(e) => {
-                              handlestag(e);
-                            }}
-                            className="mb-0"
-                            options={tags}
-                            id="taginput-choices"
-                          ></Select>
+                            <Select
+                              isMulti
+                              value={tag}
+                              onChange={(e) => {
+                                handlestag(e);
+                              }}
+                              className="mb-0"
+                              options={tags}
+                              id="taginput-choices"
+                            ></Select>
 
-                          {validation.touched.tags && validation.errors.tags ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.tags}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                      <Col lg={12}>
-                        <div>
-                          <Label htmlFor="date-field" className="form-label">
-                            Created Date
-                          </Label>
+                            {validation.touched.tags &&
+                            validation.errors.tags ? (
+                              <FormFeedback type="invalid">
+                                {validation.errors.tags}
+                              </FormFeedback>
+                            ) : null}
+                          </div>
+                        </Col>
+                        <Col lg={12}>
+                          <div>
+                            <Label htmlFor="date-field" className="form-label">
+                              Created Date
+                            </Label>
 
-                          <Flatpickr
-                            name="date"
-                            id="datepicker-publish-input"
-                            className="form-control"
-                            placeholder="Select a date"
-                            options={{
-                              enableTime: false,
-                              dateFormat: "d/m/Y",
-                              locale: "vn"
-                            }}
-                            onChange={(e) => dateformate(e)}
-                            value={validation.values.date || ""}
-                          />
-                          {validation.touched.date && validation.errors.date ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.date}
-                            </FormFeedback>
-                          ) : null}
-                        </div>
-                      </Col>
-                    </Row>
+                            <Flatpickr
+                              name="date"
+                              id="datepicker-publish-input"
+                              className="form-control"
+                              placeholder="Select a date"
+                              options={{
+                                enableTime: false,
+                                dateFormat: "d/m/Y",
+                                locale: "vn",
+                              }}
+                              onChange={(e) => dateformate(e)}
+                              value={validation.values.date || ""}
+                            />
+                            {validation.touched.date &&
+                            validation.errors.date ? (
+                              <FormFeedback type="invalid">
+                                {validation.errors.date}
+                              </FormFeedback>
+                            ) : null}
+                          </div>
+                        </Col>
+                      </Row>
+                    </FormikProvider>
                   </BaseModal>
 
                   {/* <Modal

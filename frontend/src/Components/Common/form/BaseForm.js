@@ -1,31 +1,39 @@
-import React, { forwardRef, useState, useImperativeHandle } from "react";
+import React from "react";
 import { Label, Input, FormFeedback } from "reactstrap";
+import { ErrorMessage, getIn, useField, useFormikContext } from "formik";
+import _ from 'lodash';
 
 const BaseForm = (props) => {
-  const { title } = props;
+  const {id, title, name, textformat, msgerror } = props;
+  const { errors, touched, handleChange, handleBlur } = useFormikContext();
+  const [field] = useField(name);
+
+
+  const isError = !!_.get(errors, name);
+  const isTouch = !!_.get(touched, name);
   return (
     <div>
       <Label htmlFor="name-field" className="form-label">
         {title}
       </Label>
       <Input
-        name="name"
-        id="customername-field"
+        name={name}
+        id={id}
         className="form-control"
-        placeholder="Enter Name"
-        type="text"
+        type={textformat || "text"}
         validate={{
           required: { value: true },
         }}
-        onChange={validation.handleChange}
-        onBlur={validation.handleBlur}
-        value={validation.values.name || ""}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        {...field}
+        {...props}
         invalid={
-          validation.touched.name && validation.errors.name ? true : false
+          isTouch && isError ? true : false
         }
       />
-      {validation.touched.name && validation.errors.name ? (
-        <FormFeedback type="invalid">{validation.errors.name}</FormFeedback>
+      {isTouch && isError ? (
+        <FormFeedback type="invalid">{props.msgerror || ""}</FormFeedback>
       ) : null}
     </div>
   );
