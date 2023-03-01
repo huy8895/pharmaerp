@@ -1,8 +1,10 @@
 package DKSPACE.PhamarERP.auth.controller;
 
+import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import jakarta.validation.Valid;
@@ -23,9 +25,9 @@ public class RoleController {
 
     /**
      * 1. Danh sách quyền - List Role
-     * @return
      */
     @GetMapping
+    @HasPermission(permissions = PermissionKeyEnum.LIST_ROLE)
     public ResponseEntity<Object> listRoles(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(service.listRoles(pageable));
     }
@@ -35,6 +37,7 @@ public class RoleController {
      * 2. Tạo mới quyền - Create Role
      */
     @PostMapping
+    @HasPermission(permissions = PermissionKeyEnum.CREATE_ROLE)
     public ResponseEntity<RoleDTO> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
         return ResponseEntity.ok(service.createRole(roleReqDto));
     }
@@ -43,6 +46,7 @@ public class RoleController {
      * 3. Cập nhật quyền - Update Role
      */
     @PutMapping
+    @HasPermission(permissions = PermissionKeyEnum.UPDATE_ROLE)
     public ResponseEntity<RoleDTO> updateRole(@RequestBody @Valid RoleUpdateDTO role) {
         return ResponseEntity.ok(service.updateRole(role));
     }
@@ -52,6 +56,7 @@ public class RoleController {
      * @param id roleId
      */
     @DeleteMapping("/{id}")
+    @HasPermission(permissions = PermissionKeyEnum.DELETE_ROLE)
     public ResponseEntity<Role> deleteRole(@PathVariable Long id) {
         service.deleteRole(id);
         return ResponseEntity.noContent()
@@ -63,6 +68,7 @@ public class RoleController {
      * @param id roleId
      */
     @GetMapping("/{id}")
+    @HasPermission(permissions = PermissionKeyEnum.DETAIL_ROLE)
     public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
         return ResponseEntity.ok(service.detailRole(id));
     }

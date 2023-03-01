@@ -10,9 +10,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.*;
@@ -28,6 +30,14 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String getJWTFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
     public JwtTokenDTO generateToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
         Set<Role> roleSet = getRoles(user);
@@ -40,6 +50,7 @@ public class JwtService {
 
         claims.put("roles", roles);
         claims.put("permissions", permissions);
+        claims.put("type", user.getType());
         String token = generateToken(claims, user);
         return JwtTokenDTO.builder()
                           .token(token)
