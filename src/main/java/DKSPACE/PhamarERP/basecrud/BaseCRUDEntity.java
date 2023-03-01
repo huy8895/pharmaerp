@@ -1,19 +1,20 @@
 package DKSPACE.PhamarERP.basecrud;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt", "deletedAt"})
 public class BaseCRUDEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,17 +22,17 @@ public class BaseCRUDEntity {
     private Long id;
 
     @Column(name = "created_at", updatable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    private Date deletedAt;
+    private LocalDateTime deletedAt;
 
     @PrePersist
     public void onPrePersist() {
-        final Date now = new Date();
+        LocalDateTime now = LocalDateTime.now();
         this.setCreatedAt(now);
         this.setUpdatedAt(now);
         this.deletedAt = null;
@@ -39,8 +40,7 @@ public class BaseCRUDEntity {
 
     @PreUpdate
     public void onPreUpdate(){
-        final Date now = new Date();
-        this.setUpdatedAt(now);
+        this.setUpdatedAt(LocalDateTime.now());
     }
 
     @Override

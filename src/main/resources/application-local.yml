@@ -1,16 +1,19 @@
 
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: ${DB_URL:jdbc:mysql://localhost/pharmaerp}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:1234}
+    url: jdbc:postgresql://localhost:5432/pharmaerp
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate:
-      ddl-auto: 'create-drop'
     show-sql: true
-    generate-ddl: true
     properties:
       hibernate:
         format_sql: true
-
+    hibernate:
+      ddl-auto: none
+  #        generate_statistics: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB

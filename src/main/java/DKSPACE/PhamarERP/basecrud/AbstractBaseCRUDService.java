@@ -1,10 +1,12 @@
 package DKSPACE.PhamarERP.basecrud;
 
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
+import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +25,10 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public E partialUpdate(E baseCRUDEntity) {
         log.info("baseCRUDEntity : {}", baseCRUDEntity);
+        if (baseCRUDEntity.getId() == null){
+            log.error("The given id must not be null");
+            throw new ClientException(ApiResponseInfo.BAD_REQUEST);
+        }
         return repository
                 .findById(baseCRUDEntity.getId())
                 .map(existingProduct -> {
@@ -36,7 +42,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public Page<E> findAll(Pageable pageable) {
         log.info("findAll pageable : {}", pageable);
-        return repository.findAll(pageable);
+        return repository.findAllByDeletedAtIsNull(pageable);
     }
 
     @Override
@@ -49,11 +55,9 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     @Override
     public void softDelete(Long id) {
         log.info("softDelete id : {}", id);
-        repository.findById(id)
-                .ifPresent(e -> {
-                    e.setDeletedAt(new Date());
-                    repository.save(e);
-                });
+        E entity = this.findOne(id);
+        entity.setDeletedAt(LocalDateTime.now());
+        repository.save(entity);
     }
 
     @Override
