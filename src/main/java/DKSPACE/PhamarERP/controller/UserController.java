@@ -28,8 +28,8 @@ public class UserController {
      - Trong API tích hợp luôn sắp xếp theo các cột (chỉ orderby theo 1 cột, mặc định ID DESC)
      **/
     @GetMapping
-    public Object getList(){
-        return service.getList();
+    public Object listUser(){
+        return service.listUser();
     }
 
     /**

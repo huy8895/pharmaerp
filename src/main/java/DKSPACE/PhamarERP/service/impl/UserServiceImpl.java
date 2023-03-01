@@ -22,7 +22,7 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
 
     @Override
-    public Object getList() {
+    public Object listUser() {
         return null;
     }
 

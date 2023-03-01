@@ -9,7 +9,7 @@ import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
 import java.util.List;
 
 public interface UserService extends BaseCRUDService<User> {
-    Object getList();
+    Object listUser();
 
     Object createUser(UserCreateDTO dto);
 
