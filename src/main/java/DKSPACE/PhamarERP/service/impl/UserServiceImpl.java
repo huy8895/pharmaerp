@@ -40,10 +40,6 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         return super.findAll(pageable);
     }
 
-    //        userRepository.findByEmail(dto.getEmail())
-    //                      .ifPresent((user) -> {
-    //                          throw new UserAlreadyExistException("Username Already Exist");
-    //                      });
     @Override
     public UserResDTO createUser(UserCreateDTO dto) {
         User user = buildUser(dto);

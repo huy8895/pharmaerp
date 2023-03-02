@@ -43,7 +43,7 @@ public class DefaultDataConfig {
     private void setupUserAndRole() {
         log.info("setupUserAdmin");
         User admin = buildSuperAdminUser();
-        userRepository.findByEmail(admin.getEmail())
+        userRepository.findByEmailOrUsername(admin.getEmail())
                       .ifPresentOrElse(user -> {
                                            admin.setId(user.getId());
                                            this.userRepository.save(admin);

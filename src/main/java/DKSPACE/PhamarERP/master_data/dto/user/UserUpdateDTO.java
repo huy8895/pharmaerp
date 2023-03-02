@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.master_data.dto.user;
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
+import DKSPACE.PhamarERP.i18n.validation.UniqueUser;
 import DKSPACE.PhamarERP.i18n.validation.UserTypeSubset;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -21,10 +22,12 @@ public class UserUpdateDTO {
     @Size(max = 100)
     @NotNull
     @Email
+    @UniqueUser("email")
     private String email;
 
     @Size(max = 50)
     @NotNull
+    @UniqueUser("username")
     private String username;
 
     @Size(max = 45)

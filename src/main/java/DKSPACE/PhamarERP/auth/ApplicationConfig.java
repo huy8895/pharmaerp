@@ -1,8 +1,6 @@
 package DKSPACE.PhamarERP.auth;
 
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +20,7 @@ public class ApplicationConfig {
     private final UserRepository userRepository;
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userRepository.findByEmail(username)
+        return username -> userRepository.findByEmailOrUsername(username)
                                          .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
