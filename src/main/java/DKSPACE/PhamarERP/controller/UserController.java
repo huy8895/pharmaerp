@@ -40,7 +40,7 @@ public class UserController {
      - Password mặc định PharmaERP@2023 -> tạo 1 const lưu cái này
      **/
     @PostMapping
-    @HasPermission(PermissionKeyEnum.CREATE_ROLE)
+    @HasPermission(PermissionKeyEnum.CREATE_USER)
     public Object createUser(@RequestBody @Valid UserCreateDTO dto){
         return service.createUser(dto);
     }
