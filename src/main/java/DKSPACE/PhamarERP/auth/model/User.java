@@ -66,7 +66,7 @@ public class User  extends BaseCRUDEntity{
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -77,8 +77,6 @@ public class User  extends BaseCRUDEntity{
     @NotNull
     @Column(name = "staff_code", nullable = false, length = 20)
     private String staffCode;
-
-
 
     @Override
     public boolean equals(Object o) {
