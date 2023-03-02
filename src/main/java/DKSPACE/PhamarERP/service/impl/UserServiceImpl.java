@@ -68,8 +68,9 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     @Override
     public Object toggleActiveUser(Long id) {
-        User one = this.findOne(id);
-        return null;
+        User user = this.findOne(id);
+        user.setIsActive(!user.getIsActive());
+        return this.save(user);
     }
 
     @Override
