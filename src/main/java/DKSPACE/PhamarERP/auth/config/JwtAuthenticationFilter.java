@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.auth.config;
 
+import DKSPACE.PhamarERP.auth.model.CustomUserDetails;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import jakarta.servlet.FilterChain;
@@ -52,13 +53,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail = jwtService.extractUsername(jwtToken);
         if (userEmail != null && SecurityContextHolder.getContext()
                                                       .getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailService.loadUserByUsername(userEmail);
+            CustomUserDetails userDetails = (CustomUserDetails) this.userDetailService.loadUserByUsername(userEmail);
 
             if (jwtService.isTokenValid(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken
                         = new UsernamePasswordAuthenticationToken(
                         userDetails,
-                        null,
+                        userDetails.getCredentials(),
                         userDetails.getAuthorities()
                 );
                 authenticationToken.setDetails(new WebAuthenticationDetails(request));

@@ -6,12 +6,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private final User user;
     private final Collection<? extends GrantedAuthority> grantedAuthorities;
+    private final Set<String> credentials;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

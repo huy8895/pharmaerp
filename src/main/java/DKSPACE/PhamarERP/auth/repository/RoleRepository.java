@@ -11,8 +11,6 @@ import java.util.Set;
 public interface RoleRepository extends BaseCRUDRepository<Role, Long> {
 
     Set<Role> findAllByNameEn(String roleName);
-    @Query("select r from Role r join UsersRole ur on ur.role = r where ur.user = :user")
-    Set<Role> findAllByUser(@Param("user") User user);
 
     @Query("select (count(r) > 0) from Role r join UsersRole ur on ur.role = r where r.id = :roleId")
     boolean existsByRoleIdJoinUsersRole(@Param("roleId") Long roleId);
