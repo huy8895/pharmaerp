@@ -60,6 +60,7 @@ import "react-toastify/dist/ReactToastify.css";
 import BaseModal from "Components/Common/modal/BaseModal";
 import BaseForm from "Components/Common/form/BaseForm";
 import BaseSelect from "Components/Common/form/BaseSelect";
+import BaseDate from "Components/Common/form/BaseDate";
 
 const CrmLeads = () => {
   const dispatch = useDispatch();
@@ -103,7 +104,6 @@ const CrmLeads = () => {
   const [isInfoDetails, setIsInfoDetails] = useState(false);
 
   const [tag, setTag] = useState([]);
-  const [assignTag, setAssignTag] = useState([]);
 
   function handlestag(tag) {
     setTag(tag);
@@ -129,9 +129,7 @@ const CrmLeads = () => {
       setLead(null);
     } else {
       setModal(true);
-      setDate(defaultdate());
       setTag([]);
-      setAssignTag([]);
     }
   }, [modal]);
 
@@ -181,46 +179,42 @@ const CrmLeads = () => {
       phone: Yup.string().required("Please Enter Phone"),
       location: Yup.string().required("Please Enter Location"),
       tags: Yup.string().required("Please Enter Date"),
-      // date: Yup.string().required("Please Enter Date"),
+      date: Yup.string().required("Please Enter Date"),
     }),
     onSubmit: (values) => {
-      console.log("values: ", values);
-      // if (isEdit) {
-      //   const updateLead = {
-      //     _id: lead ? lead._id : 0,
-      //     // img: values.img,
-      //     name: values.name,
-      //     company: values.company,
-      //     score: values.score,
-      //     phone: values.phone,
-      //     location: values.location,
-      //     date: date,
-      //     tags: assignTag,
-      //   };
-      //   // update Company
-      //   dispatch(onUpdateLead(updateLead));
-      //   validation.resetForm();
-      // } else {
-      //   const newLead = {
-      //     _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
-      //     // img: values["img"],
-      //     name: values["name"],
-      //     company: values["company"],
-      //     score: values["score"],
-      //     phone: values["phone"],
-      //     location: values["location"],
-      //     date: date,
-      //     tags: assignTag,
-      //   };
-      //   // save new Lead
-      //   dispatch(onAddNewLead(newLead));
-      //   validation.resetForm();
-      // }
-      // toggle();
+      if (isEdit) {
+        const updateLead = {
+          _id: lead ? lead._id : 0,
+          // img: values.img,
+          name: values.name,
+          company: values.company,
+          score: values.score,
+          phone: values.phone,
+          location: values.location,
+          date: values.date,
+          tags: values.tags,
+        };
+        // update Company
+        dispatch(onUpdateLead(updateLead));
+        validation.resetForm();
+      } else {
+        const newLead = {
+          _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
+          // img: values["img"],
+          name: values["name"],
+          company: values["company"],
+          score: values["score"],
+          phone: values["phone"],
+          location: values["location"],
+          date: values.date,
+          tags: values.tags,
+        };
+        // save new Lead
+        dispatch(onAddNewLead(newLead));
+        validation.resetForm();
+      }
     },
   });
-
-  console.log(validation, "#####validation");
 
   // Update Data
   const handleLeadClick = useCallback(
@@ -386,11 +380,9 @@ const CrmLeads = () => {
         Header: "Tags",
         Cell: (leads) => (
           <>
-            {leads.row.original.tags.map((item, key) => (
-              <span className="badge badge-soft-primary me-1" key={key}>
-                {item}
-              </span>
-            ))}
+            <span className="badge badge-soft-primary me-1">
+              {leads.row.original.tags}
+            </span>
           </>
         ),
       },
@@ -456,37 +448,9 @@ const CrmLeads = () => {
     [handleLeadClick, checkedAll]
   );
 
-  const defaultdate = () => {
-    let d = new Date(),
-      months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-    return (
-      d.getDate() +
-      " " +
-      months[d.getMonth()] +
-      ", " +
-      d.getFullYear()
-    ).toString();
-  };
-
-  const [date, setDate] = useState(defaultdate());
-
   const dateformate = (e) => {
-    const date = e.toString().split(" ");
-    const joinDate = (date[2] + " " + date[1] + ", " + date[3]).toString();
-    setDate(joinDate);
+    const date = moment(e[0]).format("DD-MM-YYYY");
+    validation.setFieldValue("date", date);
   };
 
   document.title = "Khánh Louis";
@@ -716,7 +680,7 @@ const CrmLeads = () => {
                           />
                         </Col>
                         <Col lg={12}>
-                          <div>
+                          {/* <div>
                             <Label htmlFor="date-field" className="form-label">
                               Created Date
                             </Label>
@@ -741,7 +705,16 @@ const CrmLeads = () => {
                                 {validation.errors.date}
                               </FormFeedback>
                             ) : null}
-                          </div>
+                          </div> */}
+                          <BaseDate
+                            name="date"
+                            title="Date"
+                            id="datepicker-publish-input"
+                            placeholder="Select a date"
+                            value={validation.values.date || ""}
+                            msgerror={validation.errors.date}
+                            handleChange={dateformate}
+                          />
                         </Col>
                       </Row>
                     </FormikProvider>

@@ -2,11 +2,11 @@ import React from "react";
 import { Label, FormFeedback } from "reactstrap";
 import { useFormikContext } from "formik";
 import _ from "lodash";
-import Select from "react-select";
+import Flatpickr from "react-flatpickr";
 
 const BaseDate = (props) => {
-  const { id, title, name, options, value, msgerror, handleChange } = props;
-  const { errors, touched } = useFormikContext();
+  const { id, title, name, placeholder, value, msgerror, handleChange } = props;
+  const { errors, touched,  } = useFormikContext();
   const isError = !!_.get(errors, name);
   const isTouch = !!_.get(touched, name);
   return (
@@ -20,12 +20,12 @@ const BaseDate = (props) => {
         className="form-control"
         placeholder={placeholder}
         options={{
-          altInput: true,
-          altFormat: "d M, Y",
-          dateFormat: "d M, Y",
+          dateFormat: "d-m-Y",
+          locale: "vn"
         }}
-        onChange={(e) => dateformate(e)}
-        value={validation.values.date || ""}
+        style={{borderColor: isTouch && isError ? 'red' : "#ced4da",}}
+        onChange={handleChange}
+        value={value}
       />
       {isTouch && isError ? (
         <FormFeedback style={{ display: "block" }} type="invalid">
