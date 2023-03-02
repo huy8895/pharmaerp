@@ -107,7 +107,7 @@ public class User  extends BaseCRUDEntity implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive;
     }
 
     @Override
