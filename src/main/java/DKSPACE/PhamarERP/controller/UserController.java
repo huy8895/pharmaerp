@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
+import DKSPACE.PhamarERP.master_data.dto.user.UserAddRolesDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
@@ -10,8 +11,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @Slf4j
@@ -69,10 +68,10 @@ public class UserController {
      5. Add role cho User
      - Thêm 1 or nhiều role cho  User
      **/
-    @PutMapping("/add-roles/{userId}")
+    @PutMapping("/add-roles")
     @HasPermission(PermissionKeyEnum.ADD_ROLES_USER)
-    public Object addRoles(@PathVariable("userId") Long userId, @RequestBody List<Long> rolesId){
-        return service.addRoles(userId, rolesId);
+    public Object addRolesUser(@RequestBody @Valid UserAddRolesDTO dto){
+        return service.updateRolesUser(dto);
     }
 
     /**

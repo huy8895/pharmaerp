@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Builder
 @Accessors(chain = true)
 @AllArgsConstructor
 public class UserUpdateDTO extends UserCreateDTO{

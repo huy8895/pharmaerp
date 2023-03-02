@@ -115,12 +115,12 @@ public class DefaultDataConfig {
 
     private List<Permission> buildPermission(PermissionGroupEnum groupEnum) {
         return groupEnum.getKeys()
-                        .stream()
-                        .map(keyEnum -> Permission.builder()
-                                                  .group(groupEnum)
-                                                  .key(keyEnum)
-                                                  .isActive(true)
-                                                  .build())
-                        .toList();
+                                   .stream()
+                                   .map(keyEnum -> Permission.builder()
+                                                         .group(groupEnum)
+                                                         .key(keyEnum)
+                                                         .isActive(true)
+                                                         .build())
+                                   .collect(Collectors.toList());
     }
 }

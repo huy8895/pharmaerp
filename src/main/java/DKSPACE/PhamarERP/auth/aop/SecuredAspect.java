@@ -16,8 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -46,11 +45,12 @@ public class SecuredAspect {
 		throw new AccessDeniedException(ApiResponseInfo.FORBIDDEN);
 	}
 
+	@SuppressWarnings("unchecked")
 	private boolean hasPermission(String jwtFromRequest, JoinPoint joinPoint) {
-		var permissionsOfUser = jwtService.extractClaim(jwtFromRequest,
+		ArrayList<String> permissionsOfUser = jwtService.extractClaim(jwtFromRequest,
 													   claims -> claims.get("permissions", ArrayList.class));
 		return Stream.of(this.getPermissions(joinPoint))
-					 .anyMatch(permissionKeyEnum -> Set.of(permissionsOfUser)
+					 .anyMatch(permissionKeyEnum -> new HashSet<>(permissionsOfUser)
 											 .contains(permissionKeyEnum.name()));
 	}
 

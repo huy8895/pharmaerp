@@ -5,16 +5,13 @@ import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
 import DKSPACE.PhamarERP.mapper.UserMapper;
-import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserResDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
+import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Collections;
 
 @Slf4j
 @Service
@@ -36,6 +33,10 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         return null;
     }
 
+    //        userRepository.findByEmail(dto.getEmail())
+    //                      .ifPresent((user) -> {
+    //                          throw new UserAlreadyExistException("Username Already Exist");
+    //                      });
     @Override
     public UserResDTO createUser(UserCreateDTO dto) {
         User user = buildUser(dto);
@@ -67,8 +68,15 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     }
 
     @Override
-    public Object addRoles(Long id, List<Long> rolesId) {
-        return null;
+    public Object updateRolesUser(UserAddRolesDTO dto) {
+
+        User currentUser = super.findOne(dto.getId());
+
+        currentUser.setRoles(Collections.emptySet());
+        User updatedUser = super.save(currentUser);
+
+        updatedUser.setRoles(userMapper.toEntity(dto).getRoles());
+        return super.save(updatedUser);
     }
 
     @Override

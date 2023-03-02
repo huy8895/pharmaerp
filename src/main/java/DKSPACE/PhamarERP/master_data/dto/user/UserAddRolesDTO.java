@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 @Accessors(chain = true)
 @AllArgsConstructor
-public class UserUpdateRolesDTO {
+public class UserAddRolesDTO {
     @NotNull
     private Long id;
 
