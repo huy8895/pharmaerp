@@ -7,9 +7,11 @@ import {
   Modal,
   Button,
 } from "reactstrap";
+import { useTranslation } from 'react-i18next';
 
 const BaseModal = (props, ref) => {
   const [modal, setModal] = useState(false);
+  const { t, i18n } = useTranslation();
 
   useImperativeHandle(ref, () => ({
     toggle,
@@ -56,7 +58,7 @@ const BaseModal = (props, ref) => {
             Close
           </Button>
           <Button color="primary" onClick={props.onClickSubmit}>
-            Save changes
+            {t('Save changes')}
           </Button>
         </div>
       </ModalFooter>
