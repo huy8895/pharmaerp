@@ -10,6 +10,8 @@ import DKSPACE.PhamarERP.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,8 +32,8 @@ public class UserController {
      **/
     @GetMapping
     @HasPermission(PermissionKeyEnum.GET_LIST_USER)
-    public Object listUser(){
-        return service.listUser();
+    public Object listUser(@ParameterObject Pageable pageable){
+        return service.listUser(pageable);
     }
 
     /**

@@ -6,9 +6,10 @@ import DKSPACE.PhamarERP.master_data.dto.user.UserAddRolesDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService extends BaseCRUDService<User> {
-    Object listUser();
+    Object listUser(Pageable pageable);
 
     Object createUser(UserCreateDTO dto);
 

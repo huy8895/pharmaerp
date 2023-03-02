@@ -1,9 +1,11 @@
 package DKSPACE.PhamarERP.mapper;
 
+import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.mapper.RoleMapper;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.master_data.dto.user.UserAddRolesDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserResDTO;
+import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +33,16 @@ public class UserMapper {
 				   .build();
 	}
 
+	public User toEntity(UserUpdateDTO dto) {
+		return User.builder()
+				   .id(dto.getId())
+				   .email(dto.getEmail())
+				   .username(dto.getUsername())
+				   .phoneNumber(dto.getPhoneNumber())
+				   .firstName(dto.getFirstName())
+				   .lastName(dto.getLastName())
+				   .staffCode(dto.getStaffCode())
+				   .type(UserType.valueOf(dto.getType()))
+				   .build();
+	}
 }

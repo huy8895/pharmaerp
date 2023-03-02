@@ -8,6 +8,7 @@ import DKSPACE.PhamarERP.mapper.UserMapper;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,8 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
 
     @Override
-    public Object listUser() {
-        return null;
+    public Object listUser(Pageable pageable) {
+        return super.findAll(pageable);
     }
 
     //        userRepository.findByEmail(dto.getEmail())
@@ -59,7 +60,8 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     @Override
     public Object updateUser(UserUpdateDTO dto) {
-        return null;
+        User userToUpdate = userMapper.toEntity(dto);
+        return super.partialUpdate(userToUpdate);
     }
 
     @Override

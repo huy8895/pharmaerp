@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Entity
+@Accessors(chain = true)
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")})
 public class User  extends BaseCRUDEntity implements UserDetails{
