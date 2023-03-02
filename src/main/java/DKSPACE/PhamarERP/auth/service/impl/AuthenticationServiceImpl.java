@@ -3,7 +3,7 @@ package DKSPACE.PhamarERP.auth.service.impl;
 import DKSPACE.PhamarERP.auth.config.JwtService;
 import DKSPACE.PhamarERP.auth.dto.login.LoginReqDto;
 import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
-import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.auth.model.CustomUserDetails;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
         );
 
-        final var jwtTokenDTO = jwtService.generateToken((User) authenticate.getPrincipal());
+        final var jwtTokenDTO = jwtService.generateToken((CustomUserDetails) authenticate.getPrincipal());
         return LoginResDto.builder()
                           .token(jwtTokenDTO.getToken())
                           .roles(jwtTokenDTO.getRoles())
