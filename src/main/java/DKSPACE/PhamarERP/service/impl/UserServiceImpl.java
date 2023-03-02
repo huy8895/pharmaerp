@@ -28,6 +28,12 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
+    public User findOne(Long id) {
+        return repository.findByIdAndDeletedAtIsNull(id)
+                         .filter(user -> !UserType.SUPER_ADMIN.equals(user.getType()))
+                         .orElseThrow();
+    }
 
     @Override
     public Object listUser(Pageable pageable) {
@@ -66,13 +72,14 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     @Override
     public Object toggleActiveUser(Long id) {
+        User one = this.findOne(id);
         return null;
     }
 
     @Override
     public Object updateRolesUser(UserAddRolesDTO dto) {
 
-        User currentUser = super.findOne(dto.getId());
+        User currentUser = this.findOne(dto.getId());
 
         currentUser.setRoles(Collections.emptySet());
         User updatedUser = super.save(currentUser);
