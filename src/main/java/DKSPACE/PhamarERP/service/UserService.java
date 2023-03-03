@@ -7,6 +7,7 @@ import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService extends BaseCRUDService<User> {
     Object listUser(Pageable pageable);
@@ -21,7 +22,9 @@ public interface UserService extends BaseCRUDService<User> {
 
     Object exportUser();
 
-    Object importUser();
+    Object importUser(MultipartFile file);
 
     Object changePassword(UserChangePasswordDTO dto);
+    
+    Object exportTemplate();
 }

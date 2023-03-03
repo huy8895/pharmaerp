@@ -14,8 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Slf4j
@@ -83,7 +85,7 @@ public class UserController {
      6. Export User
      - Export all Field ngoại trừ password
      **/
-    @GetMapping("/export-user")
+    @GetMapping("/export")
     @HasPermission(PermissionKeyEnum.EXPORT_USER)
     public Object exportUser(){
         return ResponseEntity.status(HttpStatus.OK)
@@ -97,10 +99,18 @@ public class UserController {
      - Export all Field
      - Tạo account đăng nhập được luôn, nếu cột password trống thì Pass mặc định: PharmaERP@2023
      **/
-    @GetMapping("/import-user")
+    @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @HasPermission(PermissionKeyEnum.IMPORT_USER)
-    public Object importUser(){
-        return service.importUser();
+    public Object importUser(@RequestParam("file") MultipartFile file){
+        return service.importUser(file);
+    }
+    
+    @GetMapping("/export-template-import")
+    @HasPermission(PermissionKeyEnum.IMPORT_USER)
+    public Object exportTemplate() {
+        return ResponseEntity.status(HttpStatus.OK)
+                             .headers(FileUtils.genHeadersForExport("template-user-import"))
+                             .body(service.exportTemplate());
     }
 
     /**

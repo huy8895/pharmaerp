@@ -9,16 +9,21 @@ import DKSPACE.PhamarERP.mapper.UserMapper;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepository> implements UserService {
-
+    
+    public static final String PASS_DEFAULT = "PharmaERP@2023";
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     protected final ExcelHelper excelHelper;
@@ -97,12 +102,29 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     }
 
     @Override
-    public Object importUser() {
-        return null;
+    public List<UserCreateDTO> importUser(MultipartFile file) {
+        final var userCreateDTOS = excelHelper.readFile(file, UserCreateDTO.class).stream()
+                                              .map(this::checkPasswordBlankAndSetDefault)
+                                              .collect(Collectors.toList());
+        return userCreateDTOS;
     }
-
+    
+    private UserCreateDTO checkPasswordBlankAndSetDefault(UserCreateDTO dto) {
+        final var password = dto.getPassword();
+        if (!StringUtils.isBlank(password)) {
+            dto.setPassword(password.trim());
+            return dto;
+        }
+        dto.setPassword(PASS_DEFAULT);
+        return dto;
+    }
     @Override
     public Object changePassword(UserChangePasswordDTO dto) {
         return null;
+    }
+    
+    @Override
+    public Object exportTemplate() {
+        return excelHelper.exportTemplate(UserCreateDTO.class);
     }
 }
