@@ -4,6 +4,7 @@ import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
+import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.mapper.UserMapper;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
@@ -20,12 +21,14 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    protected final ExcelHelper excelHelper;
     protected UserServiceImpl(UserRepository repository,
                               UserMapper userMapper,
-                              PasswordEncoder passwordEncoder) {
+                              PasswordEncoder passwordEncoder, ExcelHelper excelHelper) {
         super(repository);
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.excelHelper = excelHelper;
     }
 
     @Override
@@ -86,8 +89,11 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     }
 
     @Override
-    public Object exportUser() {
-        return null;
+    public byte[] exportUser() {
+        final var content = findAll(Pageable.unpaged())
+                .map(userMapper::toDTO)
+                .getContent();
+        return excelHelper.writeFile(content, UserResDTO.class);
     }
 
     @Override

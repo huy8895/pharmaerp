@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
+import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.master_data.dto.user.UserAddRolesDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
 import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -83,7 +86,10 @@ public class UserController {
     @GetMapping("/export-user")
     @HasPermission(PermissionKeyEnum.EXPORT_USER)
     public Object exportUser(){
-        return service.exportUser();
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(FileUtils.genHeadersForExport("export-user"))
+                .body(service.exportUser())
+                ;
     }
 
     /**

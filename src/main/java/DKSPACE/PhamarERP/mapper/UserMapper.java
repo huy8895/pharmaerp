@@ -14,16 +14,19 @@ import org.springframework.stereotype.Service;
 public class UserMapper {
 	private final RoleMapper roleMapper;
     public UserResDTO toDTO(User user){
-		return UserResDTO.builder()
-						 .id(user.getId())
-						 .email(user.getEmail())
-						 .username(user.getUsername())
-						 .phoneNumber(user.getPhoneNumber())
-						 .type(user.getType().name())
-						 .firstName(user.getFirstName())
-						 .lastName(user.getLastName())
-						 .staffCode(user.getStaffCode())
-						 .build();
+	    return UserResDTO.builder()
+	                     .id(user.getId())
+	                     .email(user.getEmail())
+	                     .username(user.getUsername())
+	                     .phoneNumber(user.getPhoneNumber())
+	                     .type(user.getType().name())
+	                     .firstName(user.getFirstName())
+	                     .lastName(user.getLastName())
+	                     .staffCode(user.getStaffCode())
+	                     .createdAt(String.valueOf(user.getCreatedAt()))
+	                     .updatedAt(String.valueOf(user.getUpdatedAt()))
+	                     .deletedAt(String.valueOf(user.getDeletedAt()))
+	                     .build();
     }
 
 	public User toEntity(UserAddRolesDTO dto) {
