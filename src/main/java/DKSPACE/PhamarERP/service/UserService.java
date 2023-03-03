@@ -20,8 +20,8 @@ public interface UserService extends BaseCRUDService<User> {
     Object exportUser();
 
     Object importUser(MultipartFile file);
-
-    Object changePassword(UserChangePasswordDTO dto);
+    
+    void changePassword(UserChangePasswordDTO dto);
     
     Object exportTemplate();
     

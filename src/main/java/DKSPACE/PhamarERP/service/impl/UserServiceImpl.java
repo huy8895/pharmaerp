@@ -5,8 +5,11 @@ import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
+import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import DKSPACE.PhamarERP.mapper.UserMapper;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
+import DKSPACE.PhamarERP.service.MailService;
 import DKSPACE.PhamarERP.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +31,17 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     protected final ExcelHelper excelHelper;
+    private final MailService mailService;
     protected UserServiceImpl(UserRepository repository,
                               UserMapper userMapper,
-                              PasswordEncoder passwordEncoder, ExcelHelper excelHelper) {
+                              PasswordEncoder passwordEncoder,
+                              ExcelHelper excelHelper,
+                              MailService mailService) {
         super(repository);
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.excelHelper = excelHelper;
+        this.mailService = mailService;
     }
 
     @Override
@@ -119,8 +126,14 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         return dto;
     }
     @Override
-    public Object changePassword(UserChangePasswordDTO dto) {
-        return null;
+    public void changePassword(UserChangePasswordDTO dto) {
+        if (!dto.getConfirmPassword().equals(dto.getNewPassword())){
+            throw new ClientException(ApiResponseInfo.PASSWORD_CONFIRM_NOT_MATCH);
+        }
+        
+        User user = this.findOne(dto.getId());
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        mailService.sendMailChangedPassword(user.getEmail() ,dto.getNewPassword());
     }
     
     @Override

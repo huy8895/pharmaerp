@@ -124,6 +124,7 @@ public class UserController {
     @GetMapping("/change-password")
     @HasPermission(PermissionKeyEnum.CHANGE_PASSWORD_USER)
     public Object changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
-        return service.changePassword(dto);
+        service.changePassword(dto);
+        return ResponseEntity.noContent();
     }
 }

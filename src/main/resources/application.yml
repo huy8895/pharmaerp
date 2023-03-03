@@ -14,3 +14,16 @@ application:
 spring:
   profiles:
     active: local
+
+  mail:
+    host: smtp.googlemail.com
+    port: 587
+    username: mailserver@dkspacejsc.com
+    password: RnWXg7YVquWG8rP@
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
