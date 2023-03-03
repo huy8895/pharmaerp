@@ -8,6 +8,7 @@ import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.mapper.UserMapper;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
@@ -103,10 +104,9 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     @Override
     public List<UserCreateDTO> importUser(MultipartFile file) {
-        final var userCreateDTOS = excelHelper.readFile(file, UserCreateDTO.class).stream()
-                                              .map(this::checkPasswordBlankAndSetDefault)
-                                              .collect(Collectors.toList());
-        return userCreateDTOS;
+        return excelHelper.readFile(file, UserCreateDTO.class).stream()
+                          .map(this::checkPasswordBlankAndSetDefault)
+                          .collect(Collectors.toList());
     }
     
     private UserCreateDTO checkPasswordBlankAndSetDefault(UserCreateDTO dto) {
@@ -126,5 +126,14 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     @Override
     public Object exportTemplate() {
         return excelHelper.exportTemplate(UserCreateDTO.class);
+    }
+    
+    @Override
+    public Object saveListUser(@Valid UserCreateListDTO dtos) {
+        final var users = dtos.getListUser()
+                              .stream()
+                              .map(this::buildUser)
+                              .toList();
+        return saveList(users);
     }
 }

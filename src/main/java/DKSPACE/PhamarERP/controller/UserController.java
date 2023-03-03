@@ -3,10 +3,7 @@ package DKSPACE.PhamarERP.controller;
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
-import DKSPACE.PhamarERP.master_data.dto.user.UserAddRolesDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
+import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -103,6 +100,12 @@ public class UserController {
     @HasPermission(PermissionKeyEnum.IMPORT_USER)
     public Object importUser(@RequestParam("file") MultipartFile file){
         return service.importUser(file);
+    }
+    
+    @PostMapping(value = "/save-list")
+    @HasPermission(PermissionKeyEnum.IMPORT_USER)
+    public Object saveListUser(@RequestBody @Valid UserCreateListDTO dtos){
+        return service.saveListUser(dtos);
     }
     
     @GetMapping("/export-template-import")
