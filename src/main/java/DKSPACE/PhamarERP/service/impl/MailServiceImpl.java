@@ -18,7 +18,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.LocaleResolver;
 import org.thymeleaf.context.Context;
@@ -26,6 +25,8 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 
 /**
@@ -48,20 +49,9 @@ public class MailServiceImpl implements MailService {
 	
 	private final SpringTemplateEngine templateEngine;
 	private final LocaleResolver localeResolver;
-//	private final RequestContextListener requestContextListener;
-	
+	private final Executor taskExecutor;
 	@Value("${spring.mail.username}")
 	private String fromEmail;
-	
-	//todo: test
-	@Async
-	@PostConstruct
-	public void triggerMail() throws MessagingException {
-		sendSimpleEmail("huy8895@gmail.com",
-		                "This app start up done",
-		                "This is email subject");
-		
-	}
 	
 	public void sendSimpleEmail(String toEmail,
 	                            String subject,
@@ -91,7 +81,6 @@ public class MailServiceImpl implements MailService {
 		);
 	}
 	
-	@Async
 	public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
 		log.debug(
 				"Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
@@ -110,14 +99,26 @@ public class MailServiceImpl implements MailService {
 			message.setFrom("PhamarERPProperties.getMail().getFrom()");
 			message.setSubject(subject);
 			message.setText(content, isHtml);
-			javaMailSender.send(mimeMessage);
-			log.debug("Sent email to User '{}'", to);
+			this.sentAsync(to, mimeMessage);
 		} catch (MailException | MessagingException e) {
 			log.warn("Email could not be sent to user '{}'", to, e);
 		}
 	}
 	
-	public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
+	private void sentAsync(String to, MimeMessage mimeMessage) {
+		CompletableFuture.runAsync(() -> javaMailSender.send(mimeMessage),
+		                           taskExecutor)
+				.handle((unused, throwable) -> {
+					if (throwable != null){
+						log.error("sendEmail error to: {}", to);
+						return unused;
+					}
+					log.debug("Sent email to User '{}'", to);
+					return unused;
+				});
+	}
+	
+	private void sendEmailFromTemplate(User user, String templateName, String titleKey) {
 		if (user.getEmail() == null) {
 			log.debug("Email doesn't exist for user '{}'", "user.getLogin()");
 			return;
@@ -130,7 +131,7 @@ public class MailServiceImpl implements MailService {
 		context.setVariable(BASE_URL, "getBaseUrl()");
 		String content = templateEngine.process(templateName, context);
 		String subject = messageSource.getMessage(titleKey, null, locale);
-		sendEmail(user.getEmail(), subject, content, false, true);
+		this.sendEmail(user.getEmail(), subject, content, false, true);
 	}
 	
 	@Override
@@ -140,8 +141,9 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public void sendCreationEmail(User user) {
+	public void sendCreationEmail(User user, String password) {
 		log.debug("Sending creation email to '{}'", user.getEmail());
+		user.setPassword(password);
 		this.sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title");
 	}
 	

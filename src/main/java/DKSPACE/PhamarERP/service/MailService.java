@@ -11,7 +11,7 @@ public interface MailService {
 	void sendActivationEmail(User user);
 	
 	
-	void sendCreationEmail(User user);
+	void sendCreationEmail(User user, String password);
 	
 	
 	void sendPasswordResetMail(User user);
