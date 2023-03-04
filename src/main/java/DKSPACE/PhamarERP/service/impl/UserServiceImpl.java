@@ -135,7 +135,8 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         
         User user = this.findOne(dto.getId());
         user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
-        mailService.sendMailChangedPassword(user.getEmail() ,dto.getNewPassword());
+        this.save(user);
+        mailService.sendMailChangedPassword(user ,dto.getNewPassword());
     }
     
     @Override

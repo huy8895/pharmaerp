@@ -121,10 +121,10 @@ public class UserController {
      - Form truyền lên sẽ có 2 tham số chính: pass mới, nhập lại pass mới
      - Gửi mail thông báo cho user kèm theo password raw mà họ thay đổi
      **/
-    @GetMapping("/change-password")
+    @PutMapping("/change-password")
     @HasPermission(PermissionKeyEnum.CHANGE_PASSWORD_USER)
-    public Object changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
+    public ResponseEntity<?> changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
         service.changePassword(dto);
-        return ResponseEntity.noContent();
+        return ResponseEntity.noContent().build();
     }
 }

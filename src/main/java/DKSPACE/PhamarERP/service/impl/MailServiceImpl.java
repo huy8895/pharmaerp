@@ -2,11 +2,9 @@ package DKSPACE.PhamarERP.service.impl;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.service.MailService;
-import jakarta.annotation.PostConstruct;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,15 +68,6 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public void sendMailResetPassword(String email) {
 	
-	}
-	
-	@Override
-	public void sendMailChangedPassword(String email, @NotNull String newPassword) {
-		this.sendSimpleEmail(email,
-		                     "Thông báo đổi mật khẩu thành công",
-		                     ""
-		                     
-		);
 	}
 	
 	public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
@@ -151,5 +140,12 @@ public class MailServiceImpl implements MailService {
 	public void sendPasswordResetMail(User user) {
 		log.debug("Sending password reset email to '{}'", user.getEmail());
 		this.sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+	}
+	
+	@Override
+	public void sendMailChangedPassword(User user, String newPassword) {
+		log.debug("Sending ChangedPassword email to '{}'", user.getEmail());
+		user.setPassword(newPassword);
+		this.sendEmailFromTemplate(user, "mail/successResetPasswordEmail", "email.reset.title2");
 	}
 }

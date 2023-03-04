@@ -5,7 +5,7 @@ import DKSPACE.PhamarERP.auth.model.User;
 public interface MailService {
 	void sendMailResetPassword(String email);
 	
-	void sendMailChangedPassword(String email, String newPassword);
+	void sendMailChangedPassword(User user, String newPassword);
 	
 	
 	void sendActivationEmail(User user);
