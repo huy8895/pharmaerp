@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.service.impl;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.service.MailService;
+import jakarta.annotation.PostConstruct;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.validation.constraints.NotNull;
@@ -48,9 +49,10 @@ public class MailServiceImpl implements MailService {
 	
 	//todo: test
 	@Async
+	@PostConstruct
 	public void triggerMail() throws MessagingException {
 		sendSimpleEmail("huy8895@gmail.com",
-		                "This is email body",
+		                "This app start up done",
 		                "This is email subject");
 		
 	}
@@ -99,7 +101,7 @@ public class MailServiceImpl implements MailService {
 		try {
 			MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, StandardCharsets.UTF_8.name());
 			message.setTo(to);
-			message.setFrom("jHipsterProperties.getMail().getFrom()");
+			message.setFrom("PhamarERPProperties.getMail().getFrom()");
 			message.setSubject(subject);
 			message.setText(content, isHtml);
 			javaMailSender.send(mimeMessage);
@@ -117,25 +119,28 @@ public class MailServiceImpl implements MailService {
 		}
 		Context context = new Context(this.locale);
 		context.setVariable(USER, user);
-		context.setVariable(BASE_URL, "jHipsterProperties.getMail().getBaseUrl()");
+		context.setVariable(BASE_URL, "getBaseUrl()");
 		String content = templateEngine.process(templateName, context);
 		String subject = messageSource.getMessage(titleKey, null, this.locale);
 		sendEmail(user.getEmail(), subject, content, false, true);
 	}
 	
 	@Async
+	@Override
 	public void sendActivationEmail(User user) {
 		log.debug("Sending activation email to '{}'", user.getEmail());
 		this.sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title");
 	}
 	
 	@Async
+	@Override
 	public void sendCreationEmail(User user) {
 		log.debug("Sending creation email to '{}'", user.getEmail());
 		this.sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title");
 	}
 	
 	@Async
+	@Override
 	public void sendPasswordResetMail(User user) {
 		log.debug("Sending password reset email to '{}'", user.getEmail());
 		this.sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
