@@ -5,6 +5,7 @@ import DKSPACE.PhamarERP.service.MailService;
 import jakarta.annotation.PostConstruct;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.LocaleResolver;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
@@ -42,7 +47,8 @@ public class MailServiceImpl implements MailService {
 	private final MessageSource messageSource;
 	
 	private final SpringTemplateEngine templateEngine;
-	private final Locale locale;
+	private final LocaleResolver localeResolver;
+//	private final RequestContextListener requestContextListener;
 	
 	@Value("${spring.mail.username}")
 	private String fromEmail;
@@ -111,35 +117,34 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 	
-	@Async
 	public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
 		if (user.getEmail() == null) {
 			log.debug("Email doesn't exist for user '{}'", "user.getLogin()");
 			return;
 		}
-		Context context = new Context(this.locale);
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		HttpServletRequest request = requestAttributes.getRequest();
+		Locale locale = localeResolver.resolveLocale(request);
+		Context context = new Context(locale);
 		context.setVariable(USER, user);
 		context.setVariable(BASE_URL, "getBaseUrl()");
 		String content = templateEngine.process(templateName, context);
-		String subject = messageSource.getMessage(titleKey, null, this.locale);
+		String subject = messageSource.getMessage(titleKey, null, locale);
 		sendEmail(user.getEmail(), subject, content, false, true);
 	}
 	
-	@Async
 	@Override
 	public void sendActivationEmail(User user) {
 		log.debug("Sending activation email to '{}'", user.getEmail());
 		this.sendEmailFromTemplate(user, "mail/activationEmail", "email.activation.title");
 	}
 	
-	@Async
 	@Override
 	public void sendCreationEmail(User user) {
 		log.debug("Sending creation email to '{}'", user.getEmail());
 		this.sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title");
 	}
 	
-	@Async
 	@Override
 	public void sendPasswordResetMail(User user) {
 		log.debug("Sending password reset email to '{}'", user.getEmail());

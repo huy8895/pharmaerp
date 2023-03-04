@@ -59,7 +59,9 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     @Override
     public UserResDTO createUser(UserCreateDTO dto) {
         User user = buildUser(dto);
-        return userMapper.toDTO(super.save(user));
+        User createdUser = super.save(user);
+        mailService.sendCreationEmail(createdUser);
+        return userMapper.toDTO(createdUser);
     }
 
     private User buildUser(UserCreateDTO dto) {
