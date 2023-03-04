@@ -19,17 +19,20 @@ const dataSelect = [
   { label: "Partner", value: "Partner" },
 ];
 
-function ModalCreate(props, ref) {
+const ModalCreate = (props, ref) => {
   const { validation } = props;
 
   const showModalRef = useRef(null);
   const [tag, setTag] = useState();
 
+  useImperativeHandle(ref, () => ({
+    showModal,
+  }));
+
   const showModal = () => {
     showModalRef.current.toggle();
+    validation.resetForm();
   };
-
-  useImperativeHandle(ref, () => ({}));
 
   const onClickSubmit = (e) => {
     e.preventDefault();
@@ -123,6 +126,6 @@ function ModalCreate(props, ref) {
       </FormikProvider>
     </BaseModal>
   );
-}
+};
 
 export default forwardRef(ModalCreate);

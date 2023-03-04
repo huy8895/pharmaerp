@@ -7,9 +7,10 @@ import {
   Modal,
   Button,
 } from "reactstrap";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const BaseModal = (props, ref) => {
+  const { id, title, modalClassName, size, isFullScreen } = props;
   const [modal, setModal] = useState(false);
   const { t, i18n } = useTranslation();
 
@@ -22,29 +23,31 @@ const BaseModal = (props, ref) => {
   };
   return (
     <Modal
-      id="showModal"
+      id={id}
       isOpen={modal}
       toggle={toggle}
-      size="xl"
-      className="modal-fullscreen"
-      modalClassName="fadeInRight"
+      size={size || "lg"}
+      className={isFullScreen ? "modal-fullscreen" : ""}
+      modalClassName={modalClassName || "fadeInRight"}
     >
-      {props.isHeader && (
+      {!isFullScreen && (
         <ModalHeader className="bg-light p-3" toggle={toggle}>
-          {props.title}
+          {t(title)}
         </ModalHeader>
       )}
-      <div className="side-panel-labels" onClick={toggle}>
-        <div className="side-panel-label">
-          <div className="side-panel-label-icon-box">
-            <button
-              type="button"
-              className="btn-close btn-close-white float-end fs-11"
-              aria-label="Close"
-            ></button>
+      {isFullScreen && (
+        <div className="side-panel-labels" onClick={toggle}>
+          <div className="side-panel-label">
+            <div className="side-panel-label-icon-box">
+              <button
+                type="button"
+                className="btn-close btn-close-white float-end fs-11"
+                aria-label="Close"
+              ></button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <ModalBody>{props.children}</ModalBody>
       <ModalFooter>
@@ -55,10 +58,10 @@ const BaseModal = (props, ref) => {
               setModal(false);
             }}
           >
-            Close
+            {t("Close")}
           </Button>
           <Button color="primary" onClick={props.onClickSubmit}>
-            {t('Save changes')}
+            {t("Save changes")}
           </Button>
         </div>
       </ModalFooter>

@@ -3,8 +3,10 @@ import { Label, FormFeedback } from "reactstrap";
 import { useFormikContext } from "formik";
 import _ from "lodash";
 import Flatpickr from "react-flatpickr";
+import { useTranslation } from "react-i18next";
 
 const BaseDate = (props) => {
+  const { t, i18n } = useTranslation();
   const { id, title, name, placeholder, value, msgerror, handleChange } = props;
   const { errors, touched,  } = useFormikContext();
   const isError = !!_.get(errors, name);
@@ -12,7 +14,7 @@ const BaseDate = (props) => {
   return (
     <div>
       <Label htmlFor="name-field" className="form-label">
-        {title}
+        {t(title)}
       </Label>
       <Flatpickr
         name={name}

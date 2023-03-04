@@ -57,10 +57,7 @@ import { FormikProvider, useFormik } from "formik";
 import Loader from "Components/Common/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BaseModal from "Components/Common/modal/BaseModal";
-import BaseForm from "Components/Common/form/BaseForm";
-import BaseSelect from "Components/Common/form/BaseSelect";
-import BaseDate from "Components/Common/form/BaseDate";
+import ModalCreate from "./ModalCreate";
 
 const CrmLeads = () => {
   const dispatch = useDispatch();
@@ -103,33 +100,12 @@ const CrmLeads = () => {
 
   const [isInfoDetails, setIsInfoDetails] = useState(false);
 
-  const [tag, setTag] = useState([]);
-
-  function handlestag(tag) {
-    setTag(tag);
-    validation.setFieldValue("tags", tag.value);
-  }
-
-  const tags = [
-    { label: "Exiting", value: "Exiting" },
-    { label: "Lead", value: "Lead" },
-    { label: "Long-term", value: "Long-term" },
-    { label: "Partner", value: "Partner" },
-  ];
-
-  const onClickSubmit = (e) => {
-    e.preventDefault();
-    validation.handleSubmit();
-    return false;
-  };
-
   const toggle = useCallback(() => {
     if (modal) {
       setModal(false);
       setLead(null);
     } else {
       setModal(true);
-      setTag([]);
     }
   }, [modal]);
 
@@ -213,6 +189,7 @@ const CrmLeads = () => {
         dispatch(onAddNewLead(newLead));
         validation.resetForm();
       }
+      showFormRef.current.showModal();
     },
   });
 
@@ -448,11 +425,6 @@ const CrmLeads = () => {
     [handleLeadClick, checkedAll]
   );
 
-  const dateformate = (e) => {
-    const date = moment(e[0]).format("DD-MM-YYYY");
-    validation.setFieldValue("date", date);
-  };
-
   document.title = "Khánh Louis";
   return (
     <React.Fragment>
@@ -513,8 +485,7 @@ const CrmLeads = () => {
                           onClick={() => {
                             // setIsEdit(false);
                             // toggle();
-                            showFormRef.current.toggle();
-                            validation.resetForm();
+                            showFormRef.current.showModal();
                           }}
                         >
                           <i className="ri-add-line align-bottom me-1"></i> Add
@@ -577,148 +548,7 @@ const CrmLeads = () => {
                     )}
                   </div>
 
-                  <BaseModal ref={showFormRef} onClickSubmit={onClickSubmit}>
-                    <FormikProvider value={validation}>
-                      <Input type="hidden" id="id-field" />
-                      <Row className="g-3">
-                        <Col lg={12}>
-                          <div className="text-center">
-                            <div className="position-relative d-inline-block">
-                              <div className="position-absolute bottom-0 end-0">
-                                <Label
-                                  htmlFor="lead-image-input"
-                                  className="mb-0"
-                                >
-                                  <div className="avatar-xs cursor-pointer">
-                                    <div className="avatar-title bg-light border rounded-circle text-muted">
-                                      <i className="ri-image-fill"></i>
-                                    </div>
-                                  </div>
-                                </Label>
-                                <Input
-                                  className="form-control d-none"
-                                  id="lead-image-input"
-                                  type="file"
-                                  accept="image/png, image/gif, image/jpeg"
-                                  onChange={validation.handleChange}
-                                  onBlur={validation.handleBlur}
-                                  value={validation.values.img || ""}
-                                  invalid={
-                                    validation.touched.img &&
-                                    validation.errors.img
-                                      ? true
-                                      : false
-                                  }
-                                />
-                              </div>
-                              <div className="avatar-lg p-1">
-                                <div className="avatar-title bg-light rounded-circle">
-                                  <img
-                                    src={dummyImg}
-                                    alt="dummyImg"
-                                    id="lead-img"
-                                    className="avatar-md rounded-circle object-cover"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <h5 className="fs-13 mt-3">Lead Image</h5>
-                          </div>
-                          <BaseForm
-                            id="customername-field"
-                            name="name"
-                            title="Name"
-                            placeholder="Nhập name"
-                            msgerror={validation.errors.name}
-                          />
-                        </Col>
-                        <Col lg={12}>
-                          <BaseForm
-                            id="company_name-field"
-                            name="company"
-                            title="Company"
-                            placeholder="Enter Company Name"
-                            msgerror={validation.errors.company}
-                          />
-                        </Col>
-                        <Col lg={6}>
-                          <BaseForm
-                            id="score-field"
-                            name="score"
-                            title="Score"
-                            placeholder="Enter score Name"
-                            msgerror={validation.errors.score}
-                          />
-                        </Col>
-                        <Col lg={6}>
-                          <BaseForm
-                            id="phone-field"
-                            name="phone"
-                            title="Phone"
-                            placeholder="Enter phone Name"
-                            msgerror={validation.errors.phone}
-                          />
-                        </Col>
-                        <Col lg={12}>
-                          <BaseForm
-                            id="location-field"
-                            name="location"
-                            title="Location"
-                            placeholder="Enter location Name"
-                            msgerror={validation.errors.location}
-                          />
-                        </Col>
-                        <Col lg={12}>
-                          <BaseSelect
-                            id="taginput-choices"
-                            name="tags"
-                            title="Tags"
-                            value={tag}
-                            options={tags}
-                            handleChange={handlestag}
-                            msgerror={validation.errors.tags}
-                          />
-                        </Col>
-                        <Col lg={12}>
-                          {/* <div>
-                            <Label htmlFor="date-field" className="form-label">
-                              Created Date
-                            </Label>
-
-                            <Flatpickr
-                              name="date"
-                              id="datepicker-publish-input"
-                              className="form-control"
-                              placeholder="Select a date"
-                              options={{
-                                // altInput: true,
-                                // altFormat: "d M, Y",
-                                dateFormat: "d-m-Y",
-                                locale: "vn"
-                              }}
-                              onChange={(e) => dateformate(e)}
-                              value={validation.values.date || ""}
-                            />
-                            {validation.touched.date &&
-                            validation.errors.date ? (
-                              <FormFeedback type="invalid">
-                                {validation.errors.date}
-                              </FormFeedback>
-                            ) : null}
-                          </div> */}
-                          <BaseDate
-                            name="date"
-                            title="Date"
-                            id="datepicker-publish-input"
-                            placeholder="Select a date"
-                            value={validation.values.date || ""}
-                            msgerror={validation.errors.date}
-                            handleChange={dateformate}
-                          />
-                        </Col>
-                      </Row>
-                    </FormikProvider>
-                  </BaseModal>
+                  <ModalCreate ref={showFormRef} validation={validation} />
                   <ToastContainer closeButton={false} limit={1} />
                 </CardBody>
               </Card>

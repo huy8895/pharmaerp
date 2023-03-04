@@ -1,9 +1,11 @@
 import React from "react";
 import { Label, Input, FormFeedback } from "reactstrap";
-import { ErrorMessage, getIn, useField, useFormikContext } from "formik";
+import { useField, useFormikContext } from "formik";
 import _ from 'lodash';
+import { useTranslation } from "react-i18next";
 
 const BaseForm = (props) => {
+  const { t } = useTranslation();
   const {id, title, name, textformat, msgerror } = props;
   const { errors, touched, handleChange, handleBlur } = useFormikContext();
   const [field] = useField(name);
@@ -14,7 +16,7 @@ const BaseForm = (props) => {
   return (
     <div>
       <Label htmlFor="name-field" className="form-label">
-        {title}
+        {t(title)}
       </Label>
       <Input
         name={name}
@@ -33,7 +35,7 @@ const BaseForm = (props) => {
         }
       />
       {isTouch && isError ? (
-        <FormFeedback type="invalid">{props.msgerror || ""}</FormFeedback>
+        <FormFeedback type="invalid">{msgerror || ""}</FormFeedback>
       ) : null}
     </div>
   );
