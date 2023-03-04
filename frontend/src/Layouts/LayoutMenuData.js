@@ -6,6 +6,7 @@ const Navdata = () => {
   //state data
   const [isDashboard, setIsDashboard] = useState(false);
   const [isApps, setIsApps] = useState(false);
+  const [isUsers, setIsUsers] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [isPages, setIsPages] = useState(false);
   const [isBaseUi, setIsBaseUi] = useState(false);
@@ -76,6 +77,9 @@ const Navdata = () => {
       setIsDashboard(false);
     }
     if (iscurrentState !== "Apps") {
+      setIsApps(false);
+    }
+    if (iscurrentState !== "HRM") {
       setIsApps(false);
     }
     if (iscurrentState !== "Auth") {
@@ -168,6 +172,27 @@ const Navdata = () => {
           label: "Table",
           link: "/apps-table",
           parentId: "apps",
+        },
+      ],
+    },
+    {
+      id: "hrm",
+      label: "HRM",
+      icon: "bx bx-user-circle",
+      link: "/#",
+      click: function (e) {
+        e.preventDefault();
+        setIsUsers(!isUsers);
+        setIscurrentState("HRM");
+        updateIconSidebar(e);
+      },
+      stateVariables: isUsers,
+      subItems: [
+        {
+          id: "user",
+          label: "User",
+          link: "/user",
+          parentId: "hrm",
         },
       ],
     },

@@ -11,10 +11,12 @@ import Register from "pages/Authentication/Register";
 import ForgetPasswordPage from "pages/Authentication/ForgetPassword";
 import Chat from "pages/backup/Chat";
 import Datatable from "pages/Datatable";
+import HRM from "pages/HRM";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <DashboardCrm /> },
   { path: "/apps-table", component: <Datatable /> },
+  { path: "/user", component: <HRM /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
