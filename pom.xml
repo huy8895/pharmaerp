@@ -13,11 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PhamarERP</name>
 	<description>PhamarERP project for Spring Boot</description>
-
 	<properties>
 		<java.version>19</java.version>
 		<spring-shell.version>3.0.0</spring-shell.version>
-		<jhipster-dependencies.version>7.9.3</jhipster-dependencies.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -146,11 +144,6 @@
 		</dependency>
 
 		<!--		base filter-->
-		<dependency>
-			<groupId>tech.jhipster</groupId>
-			<artifactId>jhipster-framework</artifactId>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -160,7 +153,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<!--		base filter-->
-
 
 	</dependencies>
 	<dependencyManagement>
@@ -172,17 +164,8 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>tech.jhipster</groupId>
-				<artifactId>jhipster-dependencies</artifactId>
-				<version>${jhipster-dependencies.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- jhipster-needle-maven-add-dependency-management -->
 		</dependencies>
 	</dependencyManagement>
-
 
 	<build>
 		<plugins>
