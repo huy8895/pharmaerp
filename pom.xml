@@ -145,10 +145,22 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+		<!--		base filter-->
 		<dependency>
 			<groupId>tech.jhipster</groupId>
 			<artifactId>jhipster-framework</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>6.1.7.Final</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+		<!--		base filter-->
+
 
 	</dependencies>
 	<dependencyManagement>
