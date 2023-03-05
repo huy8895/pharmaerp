@@ -145,6 +145,12 @@
 			<artifactId>hibernate-jpamodelgen</artifactId>
 			<version>6.2.0.CR3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.bardframework.crud</groupId>
+			<artifactId>crud-jhipster-filter</artifactId>
+			<version>1.3.5</version>
+		</dependency>
 		<!--		base filter-->
 
 	</dependencies>
