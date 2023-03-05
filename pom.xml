@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>19</java.version>
 		<spring-shell.version>3.0.0</spring-shell.version>
+		<version.hibernate-jpamodelgen>6.1.7.Final</version.hibernate-jpamodelgen>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -137,20 +138,12 @@
 			<version>3.12.0</version>
 		</dependency>
 
-<!--		java mail -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-
 		<!--		base filter-->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-jpamodelgen -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>6.1.7.Final</version>
-			<type>pom</type>
-			<scope>provided</scope>
+			<version>6.2.0.CR3</version>
 		</dependency>
 		<!--		base filter-->
 
