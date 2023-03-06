@@ -14,27 +14,18 @@ import {
   CardHeader,
   CardBody,
   Input,
-  ModalHeader,
-  ModalBody,
-  Label,
-  ModalFooter,
-  Modal,
-  Form,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  FormFeedback,
 } from "reactstrap";
-import Select from "react-select";
-import Flatpickr from "react-flatpickr";
+
 import * as moment from "moment";
 
 import BreadCrumb from "Components/Common/BreadCrumb";
 import { isEmpty } from "lodash";
-
-// Import Images
-import dummyImg from "assets/images/users/user-dummy-img.jpg";
+import styled from "styled-components";
+import { useTable, useBlockLayout, useResizeColumns } from "react-table";
 
 //Import actions
 import {
@@ -52,15 +43,17 @@ import ItemTable from "./ItemTable";
 
 // Formik
 import * as Yup from "yup";
-import { FormikProvider, useFormik } from "formik";
+import { useFormik } from "formik";
 
 import Loader from "Components/Common/Loader";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ModalCreate from "./ModalCreate";
+import { useTranslation } from "react-i18next";
 
 const CrmLeads = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { leads, isLeadCreated, isLeadsSuccess, error } = useSelector(
     (state) => ({
       leads: state.Crm.leads,
@@ -98,7 +91,7 @@ const CrmLeads = () => {
 
   const [modal, setModal] = useState(false);
 
-  const [isInfoDetails, setIsInfoDetails] = useState(false);
+  const modalFilterRef = useRef(null);
 
   const toggle = useCallback(() => {
     if (modal) {
@@ -130,7 +123,7 @@ const CrmLeads = () => {
   };
 
   const toggleInfo = () => {
-    setIsInfoDetails(!isInfoDetails);
+    modalFilterRef.current.showModalRef();
   };
 
   // validation
@@ -374,7 +367,7 @@ const CrmLeads = () => {
         Cell: (cellProps) => {
           return (
             <ul className="list-inline hstack gap-2 mb-0">
-              <li className="list-inline-item edit" title="Call">
+              {/* <li className="list-inline-item edit" title="Call">
                 <Link
                   to="#"
                   className="text-muted d-inline-block"
@@ -387,7 +380,7 @@ const CrmLeads = () => {
                 <Link to="#" className="text-muted d-inline-block">
                   <i className="ri-question-answer-line fs-16"></i>
                 </Link>
-              </li>
+              </li> */}
               <li className="list-inline-item" title="View">
                 <Link to="#">
                   <i className="ri-eye-fill align-bottom text-muted"></i>
@@ -476,7 +469,7 @@ const CrmLeads = () => {
                           onClick={toggleInfo}
                         >
                           <i className="ri-filter-3-line align-bottom me-1"></i>{" "}
-                          Fliters
+                          {t("Filter")}
                         </button>
                         <button
                           type="button"
@@ -488,8 +481,8 @@ const CrmLeads = () => {
                             showFormRef.current.showModal();
                           }}
                         >
-                          <i className="ri-add-line align-bottom me-1"></i> Add
-                          Leads
+                          <i className="ri-add-line align-bottom me-1"></i>{" "}
+                          {t("Add Leads")}
                         </button>
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -557,10 +550,7 @@ const CrmLeads = () => {
         </Container>
       </div>
 
-      <ItemTable
-        show={isInfoDetails}
-        onCloseClick={() => setIsInfoDetails(false)}
-      />
+      <ItemTable ref={modalFilterRef} onCloseClick={() => {}} />
     </React.Fragment>
   );
 };

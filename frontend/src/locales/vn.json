@@ -193,5 +193,9 @@
   "Level 3.1": "Cấp 3.1",
   "Level 3.2": "Cấp 3.2",
   "Save changes": "Lưu thay đổi",
-  "User": "Danh sách nhân viên"
+  "User": "Danh sách nhân viên",
+  "Clear Filter": "Làm mới bộ lọc",
+  "Filter": "Lọc",
+  "Leads Filter": "Lọc khách hàng",
+  "Add Leads": "Thêm khách hàng"
 }

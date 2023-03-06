@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Card, CardBody, Col, Container, Input, Row } from "reactstrap";
 import Select from "react-select";
 import { jobCandidates } from "common/data/appsJobs";
 import BreadCrumb from "Components/Common/BreadCrumb";
+import { useTranslation } from "react-i18next";
+import ItemFilterHRM from "./ItemFilterHRM";
 
 const CandidateGrid = () => {
+  const { t } = useTranslation();
+  const showFilterCandidate = useRef(null);
   const sortbyname = [
     {
       options: [
@@ -19,6 +23,10 @@ const CandidateGrid = () => {
       ],
     },
   ];
+
+  const toggleInfo = () => {
+    showFilterCandidate.current.showModalRef();
+  };
 
   document.title =
     "Candidates Grid View | Velzon -  Admin & Dashboard Template";
@@ -50,14 +58,14 @@ const CandidateGrid = () => {
                   <i className="ri-search-line search-icon"></i>
                 </div>
 
-                <Select
-                  className="w-md"
-                  style={{
-                    border: "1px solid rgba(0, 0, 0, 0.15)",
-                    borderRadius: "5px",
-                  }}
-                  options={sortbyname}
-                ></Select>
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  onClick={toggleInfo}
+                >
+                  <i className="ri-filter-3-line align-bottom me-1"></i>{" "}
+                  {t("Filter")}
+                </button>
               </div>
             </Col>
           </Row>
@@ -137,6 +145,7 @@ const CandidateGrid = () => {
             </Col>
           </Row>
         </Container>
+        <ItemFilterHRM ref={showFilterCandidate} />
       </div>
     </React.Fragment>
   );

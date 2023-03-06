@@ -10,7 +10,7 @@ import Flatpickr from "react-flatpickr";
 import Select from "react-select";
 import BaseFilter from "Components/Common/filter/BaseFilter";
 
-const ItemTable = ({ onCloseClick }, ref) => {
+const ItemFilterHRM = ({ onCloseClick }, ref) => {
   const showFilterRef = useRef(null);
   const [selectCountry, setselectCountry] = useState(null);
 
@@ -348,4 +348,4 @@ const ItemTable = ({ onCloseClick }, ref) => {
   );
 };
 
-export default forwardRef(ItemTable);
+export default forwardRef(ItemFilterHRM);
