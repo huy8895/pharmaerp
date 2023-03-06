@@ -8,9 +8,11 @@ import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import DKSPACE.PhamarERP.mapper.UserMapper;
+import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.MailService;
 import DKSPACE.PhamarERP.service.UserService;
+import DKSPACE.PhamarERP.service.criteria.UserQueryService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -32,16 +34,19 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     private final PasswordEncoder passwordEncoder;
     protected final ExcelHelper excelHelper;
     private final MailService mailService;
+    private final UserQueryService userQueryService;
     protected UserServiceImpl(UserRepository repository,
                               UserMapper userMapper,
                               PasswordEncoder passwordEncoder,
                               ExcelHelper excelHelper,
-                              MailService mailService) {
+                              MailService mailService,
+                              UserQueryService userQueryService) {
         super(repository);
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.excelHelper = excelHelper;
         this.mailService = mailService;
+        this.userQueryService = userQueryService;
     }
 
     @Override
@@ -52,8 +57,8 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     }
 
     @Override
-    public Object listUser(Pageable pageable) {
-        return super.findAll(pageable);
+    public Object listUser(UserCriteria userCriteria, Pageable pageable) {
+        return userQueryService.findByCriteria(userCriteria, pageable);
     }
 
     @Override

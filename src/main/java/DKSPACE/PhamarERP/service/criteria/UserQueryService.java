@@ -1,9 +1,12 @@
 package DKSPACE.PhamarERP.service.criteria;
 
+import DKSPACE.PhamarERP.auth.model.Role_;
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.helper.query.QueryService;
 import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
+import jakarta.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,9 +29,24 @@ public class UserQueryService extends QueryService<User> {
 	}
 	
 	private Specification<User> createSpecification(UserCriteria criteria) {
+		Specification<User> specification = Specification.where(null);
+		
 		if (criteria.getEmail() != null){
-//			this.buildStringSpecification(criteria.getEmail(), )
+			specification = specification.and(this.buildStringSpecification(criteria.getEmail(), User_.email));
 		}
-		return null;
+		if (criteria.getPhoneNumber() != null){
+			specification = specification.and(this.buildStringSpecification(criteria.getPhoneNumber(), User_.phoneNumber));
+		}
+		
+		if (criteria.getType() != null){
+			specification = specification.and(this.buildSpecification(criteria.getType(), User_.type));
+		}
+		
+		if (criteria.getRoleId() != null){
+			specification = specification.and(this.buildSpecification(criteria.getRoleId(), userRoot -> userRoot.join(User_.roles, JoinType.LEFT).get(
+					Role_.id)));
+		}
+		
+		return specification;
 	}
 }

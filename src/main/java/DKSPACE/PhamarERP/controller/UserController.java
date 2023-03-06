@@ -3,8 +3,10 @@ package DKSPACE.PhamarERP.controller;
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
+import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
     private final UserService service;
 
@@ -34,8 +37,9 @@ public class UserController {
      **/
     @GetMapping
     @HasPermission(PermissionKeyEnum.GET_LIST_USER)
-    public Object listUser(@ParameterObject Pageable pageable){
-        return service.listUser(pageable);
+    public Object listUser(@ParameterObject Pageable pageable,
+                           @ParameterObject UserCriteria userCriteria){
+        return service.listUser(userCriteria, pageable);
     }
 
     /**
