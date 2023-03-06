@@ -31,11 +31,15 @@ public class UserQueryService extends QueryService<User> {
 	private Specification<User> createSpecification(UserCriteria criteria) {
 		Specification<User> specification = Specification.where(null);
 		
-		if (criteria.getEmail() != null){
-			specification = specification.and(this.buildStringSpecification(criteria.getEmail(), User_.email));
-		}
-		if (criteria.getPhoneNumber() != null){
-			specification = specification.and(this.buildStringSpecification(criteria.getPhoneNumber(), User_.phoneNumber));
+		if (criteria.getSearch() != null){
+			specification =
+					specification.and(this.buildStringSpecification(criteria.getSearch(), User_.phoneNumber)
+					                      .or(this.buildStringSpecification(criteria.getSearch(), User_.email))
+					                      .or(this.buildStringSpecification(criteria.getSearch(), User_.username))
+					                      .or(this.buildStringSpecification(criteria.getSearch(), User_.staffCode))
+					                      .or(this.buildStringSpecification(criteria.getSearch(), User_.firstName))
+					                      .or(this.buildStringSpecification(criteria.getSearch(), User_.lastName))
+					);
 		}
 		
 		if (criteria.getType() != null){
@@ -45,6 +49,10 @@ public class UserQueryService extends QueryService<User> {
 		if (criteria.getRoleId() != null){
 			specification = specification.and(this.buildSpecification(criteria.getRoleId(), userRoot -> userRoot.join(User_.roles, JoinType.LEFT).get(
 					Role_.id)));
+		}
+		
+		if (criteria.getIsActive() != null){
+			specification = specification.and(this.buildSpecification(criteria.getIsActive(), User_.isActive));
 		}
 		
 		return specification;
