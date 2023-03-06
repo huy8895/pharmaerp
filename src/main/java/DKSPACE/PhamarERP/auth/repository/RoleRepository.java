@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.auth.repository;
 
 import DKSPACE.PhamarERP.auth.model.Role;
+import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

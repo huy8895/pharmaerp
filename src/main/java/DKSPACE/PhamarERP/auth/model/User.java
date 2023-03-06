@@ -6,26 +6,25 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Entity
+@Accessors(chain = true)
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")})
-public class User  extends BaseCRUDEntity implements UserDetails{
+public class User  extends BaseCRUDEntity{
     @Size(max = 100)
     @NotNull
     @Column(name = "email", nullable = false, length = 100)
@@ -33,6 +32,7 @@ public class User  extends BaseCRUDEntity implements UserDetails{
     @Size(max = 255)
     @NotNull
     @Column(name = "password", nullable = false, length = 45)
+    @ToString.Exclude
     private String password;
 
     @Size(max = 50)
@@ -66,7 +66,7 @@ public class User  extends BaseCRUDEntity implements UserDetails{
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -77,43 +77,6 @@ public class User  extends BaseCRUDEntity implements UserDetails{
     @NotNull
     @Column(name = "staff_code", nullable = false, length = 20)
     private String staffCode;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles().stream()
-                         .map(role -> new SimpleGrantedAuthority(role.getNameEn()))
-                         .toList();
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    @Override
-    public String getPassword(){
-        return password;
-    }
 
     @Override
     public boolean equals(Object o) {

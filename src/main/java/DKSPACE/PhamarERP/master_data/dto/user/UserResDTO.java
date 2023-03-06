@@ -14,10 +14,12 @@ public class UserResDTO {
     private Long id;
     private String email;
     private String username;
-    private String password;
     private String phoneNumber;
     private String type;
     private String firstName;
     private String lastName;
     private String staffCode;
+    private String createdAt;
+    private String updatedAt;
+    private String deletedAt;
 }

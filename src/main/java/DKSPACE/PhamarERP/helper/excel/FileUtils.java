@@ -4,6 +4,8 @@ import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ServerException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
@@ -78,5 +80,13 @@ public final class FileUtils {
             log.error("error generateFileName : ", e);
             throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    public static HttpHeaders genHeadersForExport(String filename) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(
+                MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"));
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename="+ filename + System.currentTimeMillis()  + ".xls");
+        return headers;
     }
 }

@@ -15,7 +15,8 @@ public enum ApiResponseInfo {
     METHOD_NOT_SUPPORTED("error.message.MethodNotSupported"),
     FORBIDDEN("error.message.Forbidden"),
 
-    ROLE_ALREADY_ASSIGN("error.message.RoleAlreadyAssign")
+    ROLE_ALREADY_ASSIGN("error.message.RoleAlreadyAssign"),
+    PASSWORD_CONFIRM_NOT_MATCH("error.message.PasswordConfirmNotMatch"),
     ;
 
     private final String i18NMessageCode;

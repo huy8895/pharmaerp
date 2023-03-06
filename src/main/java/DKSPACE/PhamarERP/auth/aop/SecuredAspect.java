@@ -1,9 +1,11 @@
 package DKSPACE.PhamarERP.auth.aop;
 
 import DKSPACE.PhamarERP.auth.config.JwtService;
+import DKSPACE.PhamarERP.auth.config.SecurityUtils;
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.exception.AccessDeniedException;
+import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +17,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -33,12 +33,12 @@ public class SecuredAspect {
 	@Before(value = "@annotation(DKSPACE.PhamarERP.auth.aop.HasPermission)")
 	public void before(JoinPoint joinPoint) {
 
-		String jwtFromRequest = jwtService.getJWTFromRequest(httpServlet);
-		if (this.isSupperAdmin(jwtFromRequest)) {
+		User currentUser = SecurityUtils.getCurrentUser();
+		if (this.isSupperAdmin(currentUser)) {
 			return;
 		}
 
-		if (this.hasPermission(jwtFromRequest, joinPoint)){
+		if (this.hasPermission(joinPoint)){
 			return;
 		}
 
@@ -46,17 +46,16 @@ public class SecuredAspect {
 		throw new AccessDeniedException(ApiResponseInfo.FORBIDDEN);
 	}
 
-	private boolean hasPermission(String jwtFromRequest, JoinPoint joinPoint) {
-		var permissionsOfUser = jwtService.extractClaim(jwtFromRequest,
-													   claims -> claims.get("permissions", ArrayList.class));
+	@SuppressWarnings("unchecked")
+	private boolean hasPermission(JoinPoint joinPoint) {
+		Set<String> permission = SecurityUtils.getPermission();
 		return Stream.of(this.getPermissions(joinPoint))
-					 .anyMatch(permissionKeyEnum -> Set.of(permissionsOfUser)
+					 .anyMatch(permissionKeyEnum -> permission
 											 .contains(permissionKeyEnum.name()));
 	}
 
-	private boolean isSupperAdmin(String jwtFromRequest) {
-		String type = jwtService.extractClaim(jwtFromRequest, claims -> claims.get("type", String.class));
-		return  UserType.SUPER_ADMIN.name().equals(type);
+	private boolean isSupperAdmin(User currentUser) {
+		return UserType.SUPER_ADMIN.equals(currentUser.getType());
 	}
 
 	public PermissionKeyEnum[] getPermissions(JoinPoint j) {

@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>19</java.version>
 		<spring-shell.version>3.0.0</spring-shell.version>
+		<version.hibernate-jpamodelgen>6.1.7.Final</version.hibernate-jpamodelgen>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -137,6 +138,20 @@
 			<version>3.12.0</version>
 		</dependency>
 
+		<!--		base filter-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-jpamodelgen -->
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>6.2.0.CR3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bardframework.crud</groupId>
+			<artifactId>crud-jhipster-filter</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<!--		base filter-->
 
 	</dependencies>
 	<dependencyManagement>
