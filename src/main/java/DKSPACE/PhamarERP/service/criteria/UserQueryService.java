@@ -7,7 +7,6 @@ import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.helper.query.QueryService;
 import DKSPACE.PhamarERP.helper.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
-import io.github.jhipster.service.filter.StringFilter;
 import jakarta.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +33,14 @@ public class UserQueryService extends QueryService<User> {
 		return SpecificationBuilder
 				.<User>builder()
 				.and(criteria.getSearch(),
-				     filter -> this.buildStringSpecification((StringFilter) filter, User_.phoneNumber)
-				                   .or(this.buildStringSpecification((StringFilter) filter, User_.email))
-				                   .or(this.buildStringSpecification((StringFilter) filter, User_.username))
-				                   .or(this.buildStringSpecification((StringFilter) filter, User_.staffCode))
-				                   .or(this.buildStringSpecification((StringFilter) filter, User_.firstName))
-				                   .or(this.buildStringSpecification((StringFilter) filter, User_.lastName)))
+				     filter -> this.buildStringSpecification(filter, User_.phoneNumber)
+				                   .or(this.buildStringSpecification(filter, User_.email))
+				                   .or(this.buildStringSpecification(filter, User_.username))
+				                   .or(this.buildStringSpecification(filter, User_.staffCode))
+				                   .or(this.buildStringSpecification(filter, User_.firstName))
+				                   .or(this.buildStringSpecification(filter, User_.lastName)))
 				.and(criteria.getType(),
-				     filter -> this.buildSpecification(filter, User_.type))
+				     userTypeFilter -> this.buildSpecification(userTypeFilter, User_.type))
 				.and(criteria.getRoleId(),
 				     longFilter -> this.buildSpecification(longFilter,
 				                                           userRoot -> userRoot.join(User_.roles, JoinType.LEFT).get(

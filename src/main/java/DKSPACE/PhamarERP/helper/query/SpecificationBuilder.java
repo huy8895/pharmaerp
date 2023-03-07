@@ -6,8 +6,8 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
-public class SpecificationBuilder<T> {
-	private final AtomicReference<Specification<T>> specification;
+public class SpecificationBuilder<ENTITY> {
+	private final AtomicReference<Specification<ENTITY>> specification;
 	
 	private SpecificationBuilder() {
 		this.specification = new AtomicReference<>(Specification.where(null));
@@ -18,14 +18,15 @@ public class SpecificationBuilder<T> {
 		return new SpecificationBuilder<>();
 	}
 	
-	public <X> SpecificationBuilder<T> and(Filter<X> filter, Function<Filter<X>, Specification<T>> function) {
+	public <FIELD_TYPE, F extends Filter<FIELD_TYPE>> SpecificationBuilder<ENTITY> and(F filter, Function<F, Specification<ENTITY>> function) {
 		if (filter != null) {
 			this.specification.getAndUpdate(current -> current.and(function.apply(filter)));
 		}
 		return this;
 	}
 	
-	public Specification<T> build() {
+	
+	public Specification<ENTITY> build() {
 		return this.specification.get();
 	}
 }
