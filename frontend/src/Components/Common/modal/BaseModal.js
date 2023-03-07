@@ -28,10 +28,11 @@ const BaseModal = (props, ref) => {
       toggle={toggle}
       size={size || "lg"}
       className={isFullScreen ? "modal-fullscreen" : ""}
-      modalClassName={modalClassName || "fadeInRight"}
+      modalClassName={modalClassName || "fadeInUp"}
+      {...props}
     >
       {!isFullScreen && (
-        <ModalHeader className="bg-light p-3" toggle={toggle}>
+        <ModalHeader className="bg-soft-info p-3" toggle={toggle}>
           {t(title)}
         </ModalHeader>
       )}

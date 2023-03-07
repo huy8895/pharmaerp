@@ -6,10 +6,14 @@ import { jobCandidates } from "common/data/appsJobs";
 import BreadCrumb from "Components/Common/BreadCrumb";
 import { useTranslation } from "react-i18next";
 import ItemFilterHRM from "./ItemFilterHRM";
+import withRouter from "Components/Common/withRouter";
+import ModalCreateCandidate from "./ModalCreateCandidate";
 
-const CandidateGrid = () => {
+const CandidateGrid = (props) => {
   const { t } = useTranslation();
   const showFilterCandidate = useRef(null);
+
+  const modalCandidateRef = useRef(null);
   const sortbyname = [
     {
       options: [
@@ -28,6 +32,14 @@ const CandidateGrid = () => {
     showFilterCandidate.current.showModalRef();
   };
 
+  const onClickDetailProfile = () => {
+    props.router.navigate("/pages-profile");
+  };
+
+  const onClickShowModalAdd = () => {
+    modalCandidateRef.current.showModal();
+  };
+
   document.title =
     "Candidates Grid View | Velzon -  Admin & Dashboard Template";
   return (
@@ -39,10 +51,13 @@ const CandidateGrid = () => {
           <Row className="g-4 mb-4">
             <Col sm="auto">
               <div>
-                <Link to="#!" className="btn btn-success">
-                  <i className="ri-add-line align-bottom me-1"></i> Add
-                  Candidate
-                </Link>
+                <button
+                  className="btn btn-success"
+                  onClick={onClickShowModalAdd}
+                >
+                  <i className="ri-add-line align-bottom me-1"></i>{" "}
+                  {t("Add Candidate")}
+                </button>
               </div>
             </Col>
             <Col className="col-sm">
@@ -74,16 +89,10 @@ const CandidateGrid = () => {
             {jobCandidates.map((item, key) => (
               <Col xxl={3} md={6} key={key}>
                 <Card>
-                  <CardBody>
+                  <CardBody onClick={onClickDetailProfile}>
                     <div className="d-flex align-items-center">
                       <div className="flex-shrink-0">
-                        {item.nickname ? (
-                          <div className="avatar-lg rounded">
-                            <div className="avatar-title border bg-light text-primary rounded text-uppercase fs-24">
-                              {item.nickname}
-                            </div>
-                          </div>
-                        ) : (
+                        {item.userImg ? (
                           <div className="avatar-lg rounded">
                             <img
                               src={item.userImg}
@@ -91,12 +100,16 @@ const CandidateGrid = () => {
                               className="member-img img-fluid d-block rounded"
                             ></img>
                           </div>
+                        ) : (
+                          <div className="avatar-lg rounded">
+                            <div className="avatar-title border bg-light text-primary rounded text-uppercase fs-24">
+                              {item.nickname}
+                            </div>
+                          </div>
                         )}
                       </div>
                       <div className="flex-grow-1 ms-3">
-                        <NavLink to="/pages-profile">
-                          <h5 className="fs-16 mb-1">{item.candidateName}</h5>
-                        </NavLink>
+                        <h5 className="fs-16 mb-1">{item.candidateName}</h5>
                         <p className="text-muted mb-2">{item.designation}</p>
                         <div className="d-flex flex-wrap gap-2 align-items-center">
                           <div className="badge text-bg-success">
@@ -145,10 +158,11 @@ const CandidateGrid = () => {
             </Col>
           </Row>
         </Container>
+        <ModalCreateCandidate ref={modalCandidateRef} />
         <ItemFilterHRM ref={showFilterCandidate} />
       </div>
     </React.Fragment>
   );
 };
 
-export default CandidateGrid;
+export default withRouter(CandidateGrid);

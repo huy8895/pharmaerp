@@ -7,6 +7,7 @@ const Navdata = () => {
   const [isDashboard, setIsDashboard] = useState(false);
   const [isApps, setIsApps] = useState(false);
   const [isUsers, setIsUsers] = useState(false);
+  const [isCrm, setIsCrm] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [isPages, setIsPages] = useState(false);
   const [isBaseUi, setIsBaseUi] = useState(false);
@@ -80,7 +81,10 @@ const Navdata = () => {
       setIsApps(false);
     }
     if (iscurrentState !== "HRM") {
-      setIsApps(false);
+      setIsUsers(false);
+    }
+    if (iscurrentState !== "CRM") {
+      setIsCRM(false);
     }
     if (iscurrentState !== "Auth") {
       setIsAuth(false);
@@ -193,6 +197,45 @@ const Navdata = () => {
           label: "User",
           link: "/user",
           parentId: "hrm",
+        },
+      ],
+    },
+    {
+      id: "crm",
+      label: "CRM",
+      icon: "bx bx-user-circle",
+      link: "/#",
+      click: function (e) {
+        e.preventDefault();
+        setIsCRM(!isCrm);
+        setIscurrentState("CRM");
+        updateIconSidebar(e);
+      },
+      stateVariables: isCrm,
+      subItems: [
+        {
+          id: "deals",
+          label: "Deals",
+          link: "/deals",
+          parentId: "crm",
+        },
+        {
+          id: "leads",
+          label: "Leads",
+          link: "/leads",
+          parentId: "crm",
+        },
+        {
+          id: "companies",
+          label: "Companies",
+          link: "/companies",
+          parentId: "crm",
+        },
+        {
+          id: "contacts",
+          label: "Contacts",
+          link: "/contacts",
+          parentId: "crm",
         },
       ],
     },

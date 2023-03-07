@@ -62,7 +62,7 @@ const CrmLeads = () => {
       error: state.Crm.error,
     })
   );
-
+    console.log(leads, '##############')
   const showFormRef = useRef(null);
 
   useEffect(() => {
@@ -126,65 +126,7 @@ const CrmLeads = () => {
     modalFilterRef.current.showModalRef();
   };
 
-  // validation
-  const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
-    enableReinitialize: true,
-
-    initialValues: {
-      // img: (lead && lead.img) || '',
-      name: (lead && lead.name) || "",
-      company: (lead && lead.company) || "",
-      score: (lead && lead.score) || "",
-      phone: (lead && lead.phone) || "",
-      location: (lead && lead.location) || "",
-      date: (lead && lead.date) || "",
-      tags: (lead && lead.tags) || "",
-    },
-    validationSchema: Yup.object({
-      name: Yup.string().required("Please Enter Name"),
-      company: Yup.string().required("Please Enter Company"),
-      score: Yup.string().required("Please Enter Score"),
-      phone: Yup.string().required("Please Enter Phone"),
-      location: Yup.string().required("Please Enter Location"),
-      tags: Yup.string().required("Please Enter Date"),
-      date: Yup.string().required("Please Enter Date"),
-    }),
-    onSubmit: (values) => {
-      if (isEdit) {
-        const updateLead = {
-          _id: lead ? lead._id : 0,
-          // img: values.img,
-          name: values.name,
-          company: values.company,
-          score: values.score,
-          phone: values.phone,
-          location: values.location,
-          date: values.date,
-          tags: values.tags,
-        };
-        // update Company
-        dispatch(onUpdateLead(updateLead));
-        validation.resetForm();
-      } else {
-        const newLead = {
-          _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
-          // img: values["img"],
-          name: values["name"],
-          company: values["company"],
-          score: values["score"],
-          phone: values["phone"],
-          location: values["location"],
-          date: values.date,
-          tags: values.tags,
-        };
-        // save new Lead
-        dispatch(onAddNewLead(newLead));
-        validation.resetForm();
-      }
-      showFormRef.current.showModal();
-    },
-  });
+  
 
   // Update Data
   const handleLeadClick = useCallback(
@@ -541,7 +483,7 @@ const CrmLeads = () => {
                     )}
                   </div>
 
-                  <ModalCreate ref={showFormRef} validation={validation} />
+                  <ModalCreate ref={showFormRef} lead={lead} />
                   <ToastContainer closeButton={false} limit={1} />
                 </CardBody>
               </Card>
