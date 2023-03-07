@@ -198,5 +198,9 @@
   "Filter": "Filter",
   "Leads Filter": "Leads Filter",
   "Add Leads": "Add Leads",
-  "Add Candidate": "Add Candidate"
+  "Add Candidate": "Add Candidate",
+  "Machines Manager": "Machines Manager",
+  "Supplies Manager": "Supplies Manager",
+  "Supplier Manager": "Supplier Manager",
+  "Factory Manager": "Factory Manager"
 }

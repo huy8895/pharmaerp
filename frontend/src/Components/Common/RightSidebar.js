@@ -19,7 +19,7 @@ import {
     changeSidebarImageType,
     changePreLoader
     // resetValue
-} from "store/backup/layouts/action";
+} from "store/layouts/action";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from 'react-router-dom';
 

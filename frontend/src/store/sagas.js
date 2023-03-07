@@ -5,7 +5,7 @@ import AuthSaga from "./auth/login/saga";
 import ForgetSaga from "./auth/forgetpwd/saga";
 import ProfileSaga from "./auth/profile/saga";
 
-import LayoutSaga from "./backup/layouts/saga";
+import LayoutSaga from "./layouts/saga";
 import chatSaga from "./backup/chat/saga";
 import projectSaga from "./backup/projects/saga";
 import taskSaga from "./backup/tasks/saga";
@@ -13,7 +13,7 @@ import cryptoSaga from "./backup/crypto/saga";
 import ticketsSaga from "./backup/tickets/saga";
 import calendarSaga from "./backup/calendar/saga";
 import ecommerceSaga from "./backup/ecommerce/saga";
-import crmSaga from "./backup/crm/saga";
+import crmSaga from "./crm/saga";
 import invoiceSaga from "./backup/invoice/saga";
 import dashboardAnalyticsSaga from "./backup/dashboardAnalytics/saga";
 import dashboardCrmSaga from "./backup/dashboardCRM/saga";

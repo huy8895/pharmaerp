@@ -36,7 +36,7 @@ import {
 
     getProjects as onGetProjects,
     addNewProject as onAddNewProject,
-} from "store/backup/layouts/action";
+} from "store/layouts/action";
 
 const Status = ({ status }) => {
     switch (status) {

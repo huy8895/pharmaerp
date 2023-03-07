@@ -33,17 +33,13 @@ import {
   addNewLead as onAddNewLead,
   updateLead as onUpdateLead,
   deleteLead as onDeleteLead,
-} from "store/backup/crm/action";
+} from "store/crm/action";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from "Components/Common/TableContainer";
 import DeleteModal from "Components/Common/DeleteModal";
 import ItemTable from "./ItemTable";
-
-// Formik
-import * as Yup from "yup";
-import { useFormik } from "formik";
 
 import Loader from "Components/Common/Loader";
 import { toast, ToastContainer } from "react-toastify";
@@ -62,7 +58,6 @@ const CrmLeads = () => {
       error: state.Crm.error,
     })
   );
-    console.log(leads, '##############')
   const showFormRef = useRef(null);
 
   useEffect(() => {

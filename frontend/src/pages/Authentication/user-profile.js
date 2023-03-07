@@ -24,7 +24,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import avatar from "../../assets/images/users/avatar-1.jpg";
 // actions
-import { editProfile, resetProfileFlag } from "store/backup/layouts/action";
+import { editProfile, resetProfileFlag } from "store/layouts/action";
 
 const UserProfile = () => {
   const dispatch = useDispatch();

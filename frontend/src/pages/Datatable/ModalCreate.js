@@ -1,5 +1,5 @@
 import BaseDate from "Components/Common/form/BaseDate";
-import BaseForm from "Components/Common/form/BaseForm";
+import BaseInput from "Components/Common/form/BaseInput";
 import BaseSelect from "Components/Common/form/BaseSelect";
 import BaseModal from "Components/Common/modal/BaseModal";
 import { FormikProvider, useFormik } from "formik";
@@ -121,7 +121,7 @@ const ModalCreate = (props, ref) => {
         <Input type="hidden" id="id-field" />
         <Row className="g-3">
           <Col lg={12}>
-            <BaseForm
+            <BaseInput
               id="customername-field"
               name="name"
               title="Name"
@@ -130,7 +130,7 @@ const ModalCreate = (props, ref) => {
             />
           </Col>
           <Col lg={12}>
-            <BaseForm
+            <BaseInput
               id="company_name-field"
               name="company"
               title="Company"
@@ -139,7 +139,7 @@ const ModalCreate = (props, ref) => {
             />
           </Col>
           <Col lg={6}>
-            <BaseForm
+            <BaseInput
               id="score-field"
               name="score"
               title="Score"
@@ -148,7 +148,7 @@ const ModalCreate = (props, ref) => {
             />
           </Col>
           <Col lg={6}>
-            <BaseForm
+            <BaseInput
               id="phone-field"
               name="phone"
               title="Phone"
@@ -157,7 +157,7 @@ const ModalCreate = (props, ref) => {
             />
           </Col>
           <Col lg={12}>
-            <BaseForm
+            <BaseInput
               id="location-field"
               name="location"
               title="Location"

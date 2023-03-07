@@ -38,7 +38,7 @@ import {
   addNewContact as onAddNewContact,
   updateContact as onUpdateContact,
   deleteContact as onDeleteContact,
-} from "store/backup/layouts/action";
+} from "store/layouts/action";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from "../../Components/Common/TableContainer";

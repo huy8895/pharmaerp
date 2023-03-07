@@ -5,7 +5,7 @@ const Navdata = () => {
   const history = useNavigate();
   //state data
   const [isDashboard, setIsDashboard] = useState(false);
-  const [isApps, setIsApps] = useState(false);
+  const [isManagerProduct, setIsManagerProduct] = useState(false);
   const [isUsers, setIsUsers] = useState(false);
   const [isCrm, setIsCrm] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
@@ -77,8 +77,8 @@ const Navdata = () => {
     if (iscurrentState !== "Dashboard") {
       setIsDashboard(false);
     }
-    if (iscurrentState !== "Apps") {
-      setIsApps(false);
+    if (iscurrentState !== "ProductionManager") {
+      setIsManagerProduct(false);
     }
     if (iscurrentState !== "HRM") {
       setIsUsers(false);
@@ -127,7 +127,9 @@ const Navdata = () => {
     history,
     iscurrentState,
     isDashboard,
-    isApps,
+    isManagerProduct,
+    isUsers,
+    isCRM,
     isAuth,
     isPages,
     isBaseUi,
@@ -156,26 +158,44 @@ const Navdata = () => {
         setIsDashboard(!isDashboard);
         setIscurrentState("Dashboard");
         updateIconSidebar(e);
-      }
+      },
     },
     {
-      id: "apps",
-      label: "Apps",
+      id: "production-manager",
+      label: "Production Manager",
       icon: "bx bx-layer",
       link: "/#",
       click: function (e) {
         e.preventDefault();
-        setIsApps(!isApps);
-        setIscurrentState("Apps");
+        setIsManagerProduct(!isManagerProduct);
+        setIscurrentState("ProductionManager");
         updateIconSidebar(e);
       },
-      stateVariables: isApps,
+      stateVariables: isManagerProduct,
       subItems: [
         {
-          id: "table",
-          label: "Table",
-          link: "/apps-table",
-          parentId: "apps",
+          id: "machines-manager",
+          label: "Machines Manager",
+          link: "/machines-manager",
+          parentId: "production-manager",
+        },
+        {
+          id: "supplies-manager",
+          label: "Supplies Manager",
+          link: "/supplies-manager",
+          parentId: "production-manager",
+        },
+        {
+          id: "supplier-manager",
+          label: "Supplier Manager",
+          link: "/supplier-manager",
+          parentId: "production-manager",
+        },
+        {
+          id: "factory-manager",
+          label: "Factory Manager",
+          link: "/factory-manager",
+          parentId: "production-manager",
         },
       ],
     },

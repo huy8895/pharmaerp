@@ -198,5 +198,9 @@
   "Filter": "Lọc",
   "Leads Filter": "Lọc khách hàng",
   "Add Leads": "Thêm khách hàng",
-  "Add Candidate": "Thêm nhân viên"
+  "Add Candidate": "Thêm nhân viên",
+  "Machines Manager": "Quản lý máy móc",
+  "Supplies Manager": "Quản lý vật tư",
+  "Supplier Manager": "Quản lý NCC",
+  "Factory Manager": "Quản lý nhà xưởng"
 }

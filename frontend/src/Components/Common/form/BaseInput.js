@@ -4,7 +4,7 @@ import { useField, useFormikContext } from "formik";
 import _ from 'lodash';
 import { useTranslation } from "react-i18next";
 
-const BaseForm = (props) => {
+const BaseInput = (props) => {
   const { t } = useTranslation();
   const {id, title, name, textformat, msgerror } = props;
   const { errors, touched, handleChange, handleBlur } = useFormikContext();
@@ -41,4 +41,4 @@ const BaseForm = (props) => {
   );
 };
 
-export default BaseForm;
+export default BaseInput;

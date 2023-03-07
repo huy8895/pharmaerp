@@ -19,7 +19,7 @@ import {
     changeLeftsidebarSizeType,
     changeLeftsidebarViewType,
     changeSidebarImageType
-} from "store/backup/layouts/action";
+} from "store/layouts/action";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

@@ -35,7 +35,7 @@ import {
   addNewCompanies as onAddNewCompanies,
   updateCompanies as onUpdateCompanies,
   deleteCompanies as onDeleteCompanies,
-} from "store/backup/crm/action";
+} from "store/crm/action";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from "Components/Common/TableContainer";

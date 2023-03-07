@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 import { MarkerCharts } from './DashboardCryptoCharts';
 import { useSelector, useDispatch } from "react-redux";
-import { getMarketChartsData } from 'store/backup/layouts/action';
+import { getMarketChartsData } from 'store/layouts/action';
 
 const MarketGraph = () => {
     const dispatch = useDispatch();

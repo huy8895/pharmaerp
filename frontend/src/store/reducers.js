@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 // Front
-import Layout from "./backup/layouts/reducer";
+import Layout from "./layouts/reducer";
 
 // Authentication
 import Login from "./auth/login/reducer";
@@ -30,7 +30,7 @@ import Crypto from "./backup/crypto/reducer";
 //TicketsList
 import Tickets from "./backup/tickets/reducer";
 //Crm
-import Crm from "./backup/crm/reducer";
+import Crm from "./crm/reducer";
 
 //Invoice
 import Invoice from "./backup/invoice/reducer";
