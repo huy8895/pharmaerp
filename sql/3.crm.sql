@@ -14,6 +14,12 @@ CREATE TABLE "tags"
 ;
 
 -- ----------------------------
+-- Primary Key structure for table tags
+-- ----------------------------
+ALTER TABLE "tags"
+    ADD CONSTRAINT "pk_tags" PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Table structure for tagables
 -- ----------------------------
 DROP TABLE IF EXISTS "tagables";
@@ -22,7 +28,7 @@ CREATE TABLE "tagables"
     "tag_id"       int8 NOT NULL,
     "object_id"    int8 NOT NULL,
     "object_type"  varchar(45) COLLATE "pg_catalog"."default",
-    "object_filed" varchar(45) COLLATE "pg_catalog"."default"
+    "object_field" varchar(45) COLLATE "pg_catalog"."default"
 )
 ;
 
@@ -37,7 +43,7 @@ COMMENT ON COLUMN "tagables"."object_type" is 'table name of reference object';
 COMMENT ON COLUMN "tagables"."object_field" is 'field name of reference object. Ex: logo, avatar, ...';
 
 -- ----------------------------
--- Table structure for crm_leads
+-- Table structure for crm_leads - Has Many with tags
 -- ----------------------------
 DROP TABLE IF EXISTS "crm_leads";
 CREATE TABLE "crm_leads"
@@ -61,7 +67,7 @@ ALTER TABLE "crm_leads"
 -- ----------------------------
 -- Indexes structure for table crm_leads
 -- ----------------------------
-CREATE UNIQUE INDEX "name_unique" ON "crm_leads" USING
+CREATE UNIQUE INDEX "crm_leads_name_unique" ON "crm_leads" USING
     btree (
            "name" COLLATE "pg_catalog"."default"
            "pg_catalog"."text_ops" ASC NULLS LAST
@@ -104,10 +110,10 @@ CREATE INDEX "crm_lead_items_crm_lead_id_idx" ON "crm_lead_items" USING
 -- Foreign Keys structure for table crm_lead_items
 -- ----------------------------
 ALTER TABLE "crm_lead_items"
-    ADD CONSTRAINT "crm_lead_items_crm_lead_id" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "crm_lead_items_crm_lead_id" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
--- Table structure for crm_companies
+-- Table structure for crm_companies - Has file logo, Has Many with tags
 -- ----------------------------
 DROP TABLE IF EXISTS "crm_companies";
 CREATE TABLE "crm_companies"
@@ -119,8 +125,9 @@ CREATE TABLE "crm_companies"
     "company_ceo"       varchar(100) COLLATE "pg_catalog"."default",
     "abbreviation_name" varchar(255) COLLATE "pg_catalog"."default",
     "headquarter"       varchar(45) COLLATE "pg_catalog"."default",
-    "main_tel"          varchar(45) COLLATE "pg_catalog"."default",
-    "main_email"        varchar(45) COLLATE "pg_catalog"."default",
+    "main_tel"          varchar(20) COLLATE "pg_catalog"."default",
+    "main_fax"          varchar(20) COLLATE "pg_catalog"."default",
+    "main_email"        varchar(100) COLLATE "pg_catalog"."default",
     "operation_day"     date,
     "is_active"         boolean DEFAULT true,
     "created_at"        timestamp(6),
@@ -138,30 +145,35 @@ ALTER TABLE "crm_companies"
 -- ----------------------------
 -- Indexes structure for table crm_companies
 -- ----------------------------
-CREATE UNIQUE INDEX "tax_code_unique" ON "crm_companies" USING btree (
-                                                                      "tax_code" COLLATE "pg_catalog"."default"
-                                                                      "pg_catalog"."text_ops" ASC NULLS LAST
+CREATE UNIQUE INDEX "crm_companies_tax_code_unique" ON "crm_companies" USING
+    btree (
+           "tax_code" COLLATE "pg_catalog"."default"
+           "pg_catalog"."text_ops" ASC NULLS LAST
     );
 
 -- ----------------------------
--- Table structure for crm_contacts
+-- Table structure for crm_contacts - Has file avatar, Has Many with tags
 -- ----------------------------
 DROP TABLE IF EXISTS "crm_contacts";
 CREATE TABLE "crm_contacts"
 (
-    "id"           bigserial                                   NOT NULL,
-    "email"        varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-    "tel"          varchar(20) COLLATE "pg_catalog"."default",
-    "first_name"   varchar(50) COLLATE "pg_catalog"."default",
-    "last_name"    varchar(50) COLLATE "pg_catalog"."default",
-    "english_name" varchar(50) COLLATE "pg_catalog"."default",
-    "designation"  varchar(45) COLLATE "pg_catalog"."default",
-    "is_active"    boolean DEFAULT true,
-    "created_at"   timestamp(6),
-    "updated_at"   timestamp(6),
-    "deleted_at"   timestamp(6)
+    "id"             bigserial                                   NOT NULL,
+    "crm_company_id" int8                                        NOT NULL,
+    "email"          varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+    "tel"            varchar(20) COLLATE "pg_catalog"."default",
+    "first_name"     varchar(50) COLLATE "pg_catalog"."default",
+    "last_name"      varchar(50) COLLATE "pg_catalog"."default",
+    "english_name"   varchar(50) COLLATE "pg_catalog"."default",
+    "designation"    varchar(100) COLLATE "pg_catalog"."default",
+    "is_active"      boolean DEFAULT true,
+    "created_at"     timestamp(6),
+    "updated_at"     timestamp(6),
+    "deleted_at"     timestamp(6)
 )
 ;
+
+COMMENT
+    ON COLUMN "crm_contacts"."designation" is 'Chức vụ được chỉ định';
 
 -- ----------------------------
 -- Primary Key structure for table crm_contacts
@@ -170,14 +182,10 @@ ALTER TABLE "crm_contacts"
     ADD CONSTRAINT "pk_crm_contacts" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Indexes structure for table crm_contacts
+-- Foreign Keys structure for table documents
 -- ----------------------------
-CREATE UNIQUE INDEX "tax_code_unique" ON "crm_contacts" USING
-    btree (
-           "tax_code" COLLATE "pg_catalog"."default"
-           "pg_catalog"."text_ops" ASC NULLS LAST
-    );
-
+ALTER TABLE "crm_contacts"
+    ADD CONSTRAINT "crm_contacts_crm_company_id" FOREIGN KEY ("crm_company_id") REFERENCES "crm_companies" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Table structure for crm_companies_crm_leads
@@ -218,11 +226,11 @@ ALTER TABLE "crm_companies_crm_leads"
 -- Foreign Keys structure for table crm_companies_crm_leads
 -- ----------------------------
 ALTER TABLE "crm_companies_crm_leads"
-    ADD CONSTRAINT "crm_company_fk" FOREIGN KEY ("crm_company_id") REFERENCES "crm_companies" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "crm_company_fk" FOREIGN KEY ("crm_company_id") REFERENCES "crm_companies" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "crm_companies_crm_leads"
-    ADD CONSTRAINT "crm_lead_fk" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "crm_lead_fk" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "crm_companies_crm_leads"
-    ADD CONSTRAINT "crm_lead_item_id_fk" FOREIGN KEY ("crm_lead_item_id") REFERENCES "crm_lead_items" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "crm_lead_item_id_fk" FOREIGN KEY ("crm_lead_item_id") REFERENCES "crm_lead_items" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- ----------------------------
 -- Table structure for crm_contacts_crm_leads
@@ -263,8 +271,8 @@ ALTER TABLE "crm_contacts_crm_leads"
 -- Foreign Keys structure for table crm_contacts_crm_leads
 -- ----------------------------
 ALTER TABLE "crm_contacts_crm_leads"
-    ADD CONSTRAINT "contacts_crm_contact_fk" FOREIGN KEY ("crm_contact_id") REFERENCES "crm_contacts" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "contacts_crm_contact_fk" FOREIGN KEY ("crm_contact_id") REFERENCES "crm_contacts" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "crm_contacts_crm_leads"
-    ADD CONSTRAINT "contacts_crm_lead_fk" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "contacts_crm_lead_fk" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "crm_contacts_crm_leads"
-    ADD CONSTRAINT "contacts_crm_lead_item_id_fk" FOREIGN KEY ("crm_lead_item_id") REFERENCES "crm_lead_items" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT "contacts_crm_lead_item_id_fk" FOREIGN KEY ("crm_lead_item_id") REFERENCES "crm_lead_items" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
