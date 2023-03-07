@@ -20,6 +20,7 @@
 package DKSPACE.PhamarERP.helper.query;
 
 
+import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.RangeFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -31,11 +32,9 @@ import jakarta.persistence.metamodel.SingularAttribute;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Function;
-import io.github.jhipster.service.filter.Filter;
 
 /**
  * Base service for constructing and executing complex queries.
@@ -156,29 +155,15 @@ public abstract class QueryService<ENTITY> {
             return valueIn(metaclassFunction, filter.getIn());
         }
 
-        Specification<ENTITY> result = Specification.where(null);
-        if (filter.getSpecified() != null) {
-            result = result.and(byFieldSpecified(metaclassFunction, filter.getSpecified()));
-        }
-        if (filter.getNotEquals() != null) {
-            result = result.and(notEqualsSpecification(metaclassFunction, filter.getNotEquals()));
-        }
-        if (filter.getNotIn() != null) {
-            result = result.and(valueNotIn(metaclassFunction, filter.getNotIn()));
-        }
-        if (filter.getGreaterThan() != null) {
-            result = result.and(greaterThan(metaclassFunction, filter.getGreaterThan()));
-        }
-        if (filter.getGreaterThanOrEqual() != null) {
-            result = result.and(greaterThanOrEqualTo(metaclassFunction, filter.getGreaterThanOrEqual()));
-        }
-        if (filter.getLessThan() != null) {
-            result = result.and(lessThan(metaclassFunction, filter.getLessThan()));
-        }
-        if (filter.getLessThanOrEqual() != null) {
-            result = result.and(lessThanOrEqualTo(metaclassFunction, filter.getLessThanOrEqual()));
-        }
-        return result;
+        return MetaClassFunctionBuilder.builder(metaclassFunction)
+                                       .and(filter.getSpecified(), this::byFieldSpecified)
+                                       .and(filter.getNotEquals(), this::notEqualsSpecification)
+                                       .and(filter.getNotIn(), this::valueNotIn)
+                                       .and(filter.getGreaterThan(), this::greaterThan)
+                                       .and(filter.getGreaterThanOrEqual(), this::greaterThanOrEqualTo)
+                                       .and(filter.getLessThan(), this::lessThan)
+                                       .and(filter.getLessThanOrEqual(), this::lessThanOrEqualTo)
+                                       .build();
     }
 
     /**
