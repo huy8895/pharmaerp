@@ -32,7 +32,7 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
         return repository
                 .findById(baseCRUDEntity.getId())
                 .map(existingProduct -> {
-                    BaseCrudUtils.update(baseCRUDEntity, baseCRUDEntity);
+                    BaseCrudUtils.update(baseCRUDEntity, existingProduct);
                     return existingProduct;
                 })
                 .map(repository::save)

@@ -2,14 +2,13 @@ package DKSPACE.PhamarERP.service;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDService;
-import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
-
-import java.util.List;
+import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
+import DKSPACE.PhamarERP.master_data.dto.user.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService extends BaseCRUDService<User> {
-    Object listUser();
+    Object listUser(UserCriteria userCriteria, Pageable pageable);
 
     Object createUser(UserCreateDTO dto);
 
@@ -17,11 +16,15 @@ public interface UserService extends BaseCRUDService<User> {
 
     Object toggleActiveUser(Long id);
 
-    Object addRoles(Long id, List<Long> rolesId);
+    Object updateRolesUser(UserAddRolesDTO dto);
 
     Object exportUser();
 
-    Object importUser();
-
-    Object changePassword(UserChangePasswordDTO dto);
+    Object importUser(MultipartFile file);
+    
+    void changePassword(UserChangePasswordDTO dto);
+    
+    Object exportTemplate();
+    
+    Object saveListUser(UserCreateListDTO dtos);
 }

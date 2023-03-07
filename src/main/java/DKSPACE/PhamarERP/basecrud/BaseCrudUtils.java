@@ -1,12 +1,12 @@
 package DKSPACE.PhamarERP.basecrud;
 
+import DKSPACE.PhamarERP.helper.excel.ReflectUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 
-import java.util.HashSet;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class BaseCrudUtils {
 
@@ -16,16 +16,15 @@ public final class BaseCrudUtils {
                     "updatedAt",
                     "deletedFlag");
     public static Set<String> getNullPropertyNames (Object source) {
-        final BeanWrapper src = new BeanWrapperImpl(source);
-        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
-
-        Set<String> emptyNames = new HashSet<String>();
-        for(java.beans.PropertyDescriptor pd : pds) {
-            Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null) emptyNames.add(pd.getName());
-        }
-
-        return emptyNames;
+        List<Field> allField = ReflectUtils.getAllField(source.getClass());
+        return allField.stream().filter(field -> {
+            try {
+                field.setAccessible(true);
+                return field.get(source) == null;
+            } catch (Exception e) {
+                return true;
+            }
+        }).map(Field::getName).collect(Collectors.toSet());
     }
 
     // then use Spring BeanUtils to copy and ignore null using our function

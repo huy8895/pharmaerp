@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @ToString
@@ -11,13 +13,10 @@ import lombok.experimental.Accessors;
 @Builder
 @Accessors(chain = true)
 @AllArgsConstructor
-public class UserChangePasswordDTO {
+public class UserAddRolesDTO {
     @NotNull
     private Long id;
-    
+
     @NotNull
-    private String newPassword;
-    
-    @NotNull
-    private String confirmPassword;
+    private Set<Long> rolesId;
 }

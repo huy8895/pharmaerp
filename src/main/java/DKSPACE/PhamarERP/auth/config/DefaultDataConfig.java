@@ -43,7 +43,7 @@ public class DefaultDataConfig {
     private void setupUserAndRole() {
         log.info("setupUserAdmin");
         User admin = buildSuperAdminUser();
-        userRepository.findByEmail(admin.getEmail())
+        userRepository.findByEmailOrUsername(admin.getEmail())
                       .ifPresentOrElse(user -> {
                                            admin.setId(user.getId());
                                            this.userRepository.save(admin);
@@ -90,7 +90,7 @@ public class DefaultDataConfig {
                    .build();
     }
 
-    private List<Permission> setupPermissions() {
+    private void setupPermissions() {
         log.info("setupPermissions");
         Set<Permission> collect = Arrays.stream(PermissionGroupEnum.values())
                                         .map(this::buildPermission)
@@ -98,22 +98,29 @@ public class DefaultDataConfig {
                                         .collect(Collectors.toSet());
 
         List<Permission> permissionAll = permissionRepository.findAll();
-        if (!permissionAll.isEmpty()) {
+        List<Permission> newPermission = collect.stream()
+                                                .filter(permission -> permissionAll.stream()
+                                                                                   .noneMatch(p -> p.getKey()
+                                                                                                    .equals(permission.getKey())))
+                                                .toList();
+
+        if (newPermission.isEmpty()) {
             log.info("Permission already import");
-            return permissionAll;
+            return;
         }
-        log.info("setupPermissions = " + collect);
-        return permissionRepository.saveAll(collect);
+        log.info("setupPermissions = {}", newPermission);
+        permissionRepository.saveAll(newPermission);
+        return;
     }
 
     private List<Permission> buildPermission(PermissionGroupEnum groupEnum) {
         return groupEnum.getKeys()
-                        .stream()
-                        .map(keyEnum -> Permission.builder()
-                                                  .group(groupEnum)
-                                                  .key(keyEnum)
-                                                  .isActive(true)
-                                                  .build())
-                        .toList();
+                                   .stream()
+                                   .map(keyEnum -> Permission.builder()
+                                                         .group(groupEnum)
+                                                         .key(keyEnum)
+                                                         .isActive(true)
+                                                         .build())
+                                   .collect(Collectors.toList());
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
+@SuperBuilder
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt", "deletedAt"})
 public class BaseCRUDEntity {
     @Id

@@ -6,6 +6,10 @@ import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,5 +52,13 @@ public class RoleMapper {
                          .build();
         role.setId(roleReqDto.getId());
         return role;
+    }
+    public Set<Role> toEntity(Set<Long> rolesId) {
+        if (CollectionUtils.isEmpty(rolesId)) {
+            return Set.of();
+        }
+        return rolesId.stream()
+                            .map(id -> Role.builder().id(id).build())
+                            .collect(Collectors.toSet());
     }
 }

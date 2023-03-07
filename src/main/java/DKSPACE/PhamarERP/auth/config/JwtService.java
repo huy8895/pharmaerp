@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.config;
 
 import DKSPACE.PhamarERP.auth.config.properties.JwtConfig;
 import DKSPACE.PhamarERP.auth.dto.jwt.JwtTokenDTO;
+import DKSPACE.PhamarERP.auth.model.CustomUserDetails;
 import DKSPACE.PhamarERP.auth.model.Permission;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
@@ -38,8 +39,9 @@ public class JwtService {
         return null;
     }
 
-    public JwtTokenDTO generateToken(User user) {
+    public JwtTokenDTO generateToken(CustomUserDetails userDetails) {
         HashMap<String, Object> claims = new HashMap<>();
+        User user = userDetails.getUser();
         Set<Role> roleSet = getRoles(user);
 
         List<String> permissions = getPermissions(roleSet);
@@ -92,7 +94,7 @@ public class JwtService {
 
     private String generateToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails) {
+            User userDetails) {
         return Jwts.builder()
                    .setClaims(extraClaims)
                    .setSubject(userDetails.getUsername())

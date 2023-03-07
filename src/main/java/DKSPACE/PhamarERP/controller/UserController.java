@@ -2,22 +2,28 @@ package DKSPACE.PhamarERP.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
-import DKSPACE.PhamarERP.master_data.dto.user.UserChangePasswordDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserCreateDTO;
-import DKSPACE.PhamarERP.master_data.dto.user.UserUpdateDTO;
+import DKSPACE.PhamarERP.helper.excel.FileUtils;
+import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
+import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Slf4j
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
     private final UserService service;
 
@@ -31,8 +37,9 @@ public class UserController {
      **/
     @GetMapping
     @HasPermission(PermissionKeyEnum.GET_LIST_USER)
-    public Object listUser(){
-        return service.listUser();
+    public Object listUser(@ParameterObject Pageable pageable,
+                           @ParameterObject UserCriteria userCriteria){
+        return service.listUser(userCriteria, pageable);
     }
 
     /**
@@ -41,7 +48,7 @@ public class UserController {
      - Password mặc định PharmaERP@2023 -> tạo 1 const lưu cái này
      **/
     @PostMapping
-    @HasPermission(PermissionKeyEnum.CREATE_ROLE)
+    @HasPermission(PermissionKeyEnum.CREATE_USER)
     public Object createUser(@RequestBody @Valid UserCreateDTO dto){
         return service.createUser(dto);
     }
@@ -69,20 +76,23 @@ public class UserController {
      5. Add role cho User
      - Thêm 1 or nhiều role cho  User
      **/
-    @PutMapping("/add-roles/{userId}")
+    @PutMapping("/add-roles")
     @HasPermission(PermissionKeyEnum.ADD_ROLES_USER)
-    public Object addRoles(@PathVariable("userId") Long userId, @RequestBody List<Long> rolesId){
-        return service.addRoles(userId, rolesId);
+    public Object addRolesUser(@RequestBody @Valid UserAddRolesDTO dto){
+        return service.updateRolesUser(dto);
     }
 
     /**
      6. Export User
      - Export all Field ngoại trừ password
      **/
-    @GetMapping("/export-user")
+    @GetMapping("/export")
     @HasPermission(PermissionKeyEnum.EXPORT_USER)
     public Object exportUser(){
-        return service.exportUser();
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(FileUtils.genHeadersForExport("export-user"))
+                .body(service.exportUser())
+                ;
     }
 
     /**
@@ -90,10 +100,24 @@ public class UserController {
      - Export all Field
      - Tạo account đăng nhập được luôn, nếu cột password trống thì Pass mặc định: PharmaERP@2023
      **/
-    @GetMapping("/import-user")
+    @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @HasPermission(PermissionKeyEnum.IMPORT_USER)
-    public Object importUser(){
-        return service.importUser();
+    public Object importUser(@RequestParam("file") MultipartFile file){
+        return service.importUser(file);
+    }
+    
+    @PostMapping(value = "/save-list")
+    @HasPermission(PermissionKeyEnum.IMPORT_USER)
+    public Object saveListUser(@RequestBody @Valid UserCreateListDTO dtos){
+        return service.saveListUser(dtos);
+    }
+    
+    @GetMapping("/export-template-import")
+    @HasPermission(PermissionKeyEnum.IMPORT_USER)
+    public Object exportTemplate() {
+        return ResponseEntity.status(HttpStatus.OK)
+                             .headers(FileUtils.genHeadersForExport("template-user-import"))
+                             .body(service.exportTemplate());
     }
 
     /**
@@ -101,9 +125,10 @@ public class UserController {
      - Form truyền lên sẽ có 2 tham số chính: pass mới, nhập lại pass mới
      - Gửi mail thông báo cho user kèm theo password raw mà họ thay đổi
      **/
-    @GetMapping("/change-password")
+    @PutMapping("/change-password")
     @HasPermission(PermissionKeyEnum.CHANGE_PASSWORD_USER)
-    public Object changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
-        return service.changePassword(dto);
+    public ResponseEntity<?> changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
+        service.changePassword(dto);
+        return ResponseEntity.noContent().build();
     }
 }

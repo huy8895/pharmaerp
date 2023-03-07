@@ -1,0 +1,7 @@
+- cách chạy chương trình.
+- cài đặt postgresSQL 
+- tạo database: `pharmaerp`
+- mở file  `src/main/resources/application-local.yml` 
+- sửa lại thông tin **username** và **password** tương ứng.
+- chạy chương trình tại file : `src/main/java/DKSPACE/PhamarERP/PhamarErpApplication.java`
+- link swagger: [swagger](http://localhost:8080/swagger-ui/index.html)
