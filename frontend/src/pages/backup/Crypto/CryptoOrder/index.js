@@ -3,7 +3,7 @@ import { Container, Row } from 'reactstrap';
 import BreadCrumb from '../../../Components/Common/BreadCrumb';
 import AllOrders from './AllOrders';
 import { useSelector, useDispatch } from "react-redux";
-import { getOrderList } from "../../../store/actions";
+import { getOrderList } from "../store/backup/layouts/action";
 // import {CryptoOrders} from "../../../common/data/cryptoPage";
 
 const CryproOrder = () => {

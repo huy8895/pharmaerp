@@ -36,7 +36,7 @@ import {
   addNewLead as onAddNewLead,
   updateLead as onUpdateLead,
   deleteLead as onDeleteLead,
-} from "../../../store/actions";
+} from "../store/backup/layouts/action";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from "../../../Components/Common/TableContainer";

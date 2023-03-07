@@ -15,7 +15,7 @@ import {
   getWeekMarketData,
   getHourMarketData
 }
-  from "../../helpers/fakebackend_helper";
+  from "helpers/fakebackend_helper";
 
 function* getPortfolioChartsData({ payload: data }) {
   try {

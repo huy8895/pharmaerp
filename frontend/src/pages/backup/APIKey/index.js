@@ -25,7 +25,7 @@ import TableContainer from "../../Components/Common/TableContainer";
 import { APIKeys, CreatedBy, ExpiryDate, Name, Status } from "./APIKeyCol";
 import { CreateDate } from "../SupportTickets/ListView/TicketCol";
 import { useDispatch, useSelector } from "react-redux";
-import { getAPIKey } from "../../store/actions";
+import { getAPIKey } from "store/layouts/action";
 
 const APIKey = () => {
   document.title = "API Key | Velzon -  Admin & Dashboard Template";

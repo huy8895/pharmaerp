@@ -23,7 +23,7 @@ import DeleteModal from "../../../Components/Common/DeleteModal";
 
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import { useSelector, useDispatch } from "react-redux";
-import { getApplicationList } from "../../../store/actions";
+import { getApplicationList } from "../store/backup/layouts/action";
 import TableContainer from "../../../Components/Common/TableContainer";
 import { Link } from "react-router-dom";
 import {

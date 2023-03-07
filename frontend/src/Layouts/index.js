@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
-import withRouter from '../Components/Common/withRouter';
+import withRouter from 'Components/Common/withRouter';
 
 //import Components
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import RightSidebar from '../Components/Common/RightSidebar';
+import RightSidebar from 'Components/Common/RightSidebar';
 
 //import actions
 import {
@@ -19,7 +19,7 @@ import {
     changeLeftsidebarSizeType,
     changeLeftsidebarViewType,
     changeSidebarImageType
-} from "../store/actions";
+} from "store/layouts/action";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

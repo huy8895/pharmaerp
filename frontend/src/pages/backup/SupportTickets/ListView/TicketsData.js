@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownTo
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from '../../../Components/Common/TableContainer';
-import { getTicketsList, addNewTicket, updateTicket, deleteTicket } from "../../../store/actions";
+import { getTicketsList, addNewTicket, updateTicket, deleteTicket } from "../store/backup/layouts/action";
 
 import { TicketsId, Title, Client, AssignedTo, CreateDate, DueDate, Status, Priority } from "./TicketCol";
 //Import Flatepicker

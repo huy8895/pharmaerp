@@ -26,7 +26,7 @@ import Select from "react-select";
 import LeadDiscover from "./leadDiscover";
 
 //Import actions
-import { getDeals as onGetDeals } from "../../../store/actions";
+import { getDeals as onGetDeals } from "../store/backup/layouts/action";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
