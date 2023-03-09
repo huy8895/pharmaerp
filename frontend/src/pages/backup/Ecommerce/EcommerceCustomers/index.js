@@ -36,7 +36,7 @@ import {
   addNewCustomer as onAddNewCustomer,
   updateCustomer as onUpdateCustomer,
   deleteCustomer as onDeleteCustomer,
-} from "../../../store/actions";
+} from "../store/backup/layouts/action";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

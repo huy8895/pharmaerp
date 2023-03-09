@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import TableContainer from '../../../Components/Common/TableContainer';
-import { getTransationList } from "../../../store/actions";
+import { getTransationList } from "../store/backup/layouts/action";
 // import { transactions } from "../../../common/data/cryptoPage";
 
 import {

@@ -61,7 +61,7 @@ import {
   deleteCustomer,
   addNewProduct,
   updateProduct
-} from "../../helpers/fakebackend_helper";
+} from "helpers/fakebackend_helper";
 
 function* getProducts() {
   try {

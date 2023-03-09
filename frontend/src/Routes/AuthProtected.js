@@ -4,8 +4,8 @@ import {setAuthorization} from "../helpers/api_helper";
 import { useDispatch } from "react-redux";
 
 import { useProfile } from "../Components/Hooks/UserHooks";
+import { logoutUser } from "store/backup/auth/login/actions";
 
-import { logoutUser } from "../store/actions";
 
 const AuthProtected = (props) => {
   const dispatch = useDispatch();

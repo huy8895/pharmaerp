@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Col, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
 import { useSelector, useDispatch } from "react-redux";
 import { DealTypeCharts } from "./DashboardCrmCharts";
-import { getDialTypeChartsData } from '../../store/actions';
+import { getDialTypeChartsData } from 'store/backup/dashboardCRM/action';
 
 const DealType = () => {
     const dispatch = useDispatch();
