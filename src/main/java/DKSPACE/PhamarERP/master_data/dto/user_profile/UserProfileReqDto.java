@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.user_profile;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
  */
 @Data
 public class UserProfileReqDto {
+	@NotNull
 	private final Long id;
 	private final Short gender;
 	private final LocalDate dob;

@@ -8,6 +8,7 @@ import DKSPACE.PhamarERP.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
 @Slf4j
 @Service
 public class UserProfileServiceImpl extends AbstractBaseCRUDService<UserProfile, UserProfileRepository> implements UserProfileService {
@@ -17,7 +18,7 @@ public class UserProfileServiceImpl extends AbstractBaseCRUDService<UserProfile,
 	
 	@Override
 	public Object getUserProfile(Long userId) {
-		return null;
+		return userId;
 	}
 	
 	@Override

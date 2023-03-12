@@ -5,10 +5,12 @@ import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
@@ -21,8 +23,8 @@ import java.time.LocalDate;
 public class UserProfile extends BaseCRUDEntity {
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "user_id", nullable = false)
+	@OneToOne(optional = false)
+	@JoinColumn(name = "user_id", unique = true, nullable = false)
 	private User user;
 	
 	@Column(name = "gender")

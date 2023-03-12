@@ -5,9 +5,9 @@ import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.master_data.dto.user_profile.UserProfileReqDto;
 import DKSPACE.PhamarERP.service.UserProfileService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import lombok.RequiredArgsConstructor;
 
 @Slf4j
 @RestController
