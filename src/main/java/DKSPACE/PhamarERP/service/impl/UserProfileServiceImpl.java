@@ -38,7 +38,7 @@ public class UserProfileServiceImpl extends AbstractBaseCRUDService<UserProfile,
 		UserProfile userProfile = this.save(UserProfile.builder()
 		                                        .user(user)
 		                                        .build());
-		return this.partialUpdate()
-				;
+//		return this.partialUpdate()
+		return null;
 	}
 }
