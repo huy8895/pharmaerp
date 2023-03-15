@@ -23,6 +23,7 @@ public class ApiResponse<T> {
     private ApiResponseStatus status;
     private String message;
     private String code;
+     private int statusCode;
     private List<ErrorDTO> errors;
     private T results;
 
@@ -32,6 +33,7 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> ok(@Nullable T body) {
         return ApiResponse.<T>builder()
                           .status(ApiResponseStatus.SUCCESS)
+                          .statusCode(200)
                           .results(body)
                           .build();
     }

@@ -4,6 +4,7 @@ package DKSPACE.PhamarERP.auth.controller;
 import DKSPACE.PhamarERP.auth.dto.login.LoginReqDto;
 import DKSPACE.PhamarERP.auth.dto.login.LoginResDto;
 import DKSPACE.PhamarERP.auth.service.AuthenticationService;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@ResponseWrapper
 public class AuthenticationController {
     private final AuthenticationService service;
 

@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.controller;
 
 import DKSPACE.PhamarERP.master_data.dto.upload.GenUploadDto;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import DKSPACE.PhamarERP.service.GenUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/gen-upload")
 @RequiredArgsConstructor
+@ResponseWrapper(excludes = {"download"})
 public class GenUploadController {
     private final GenUploadService service;
 
