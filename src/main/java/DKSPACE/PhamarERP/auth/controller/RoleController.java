@@ -30,8 +30,8 @@ public class RoleController {
      */
     @GetMapping
     @HasPermission(PermissionKeyEnum.LIST_ROLE)
-    public ResponseEntity<Object> listRoles(@ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(service.listRoles(pageable));
+    public Object listRoles(@ParameterObject Pageable pageable) {
+        return service.listRoles(pageable);
     }
 
 
@@ -40,7 +40,7 @@ public class RoleController {
      */
     @PostMapping
     @HasPermission(PermissionKeyEnum.CREATE_ROLE)
-    public ResponseEntity<RoleDTO> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
+    public Object createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
         return ResponseEntity.ok(service.createRole(roleReqDto));
     }
 
@@ -49,7 +49,7 @@ public class RoleController {
      */
     @PutMapping
     @HasPermission(PermissionKeyEnum.UPDATE_ROLE)
-    public ResponseEntity<RoleDTO> updateRole(@RequestBody @Valid RoleUpdateDTO role) {
+    public Object updateRole(@RequestBody @Valid RoleUpdateDTO role) {
         return ResponseEntity.ok(service.updateRole(role));
     }
 
@@ -59,7 +59,7 @@ public class RoleController {
      */
     @DeleteMapping("/{id}")
     @HasPermission(PermissionKeyEnum.DELETE_ROLE)
-    public ResponseEntity<Role> deleteRole(@PathVariable Long id) {
+    public Object deleteRole(@PathVariable Long id) {
         service.deleteRole(id);
         return ResponseEntity.noContent()
                              .build();
@@ -71,7 +71,7 @@ public class RoleController {
      */
     @GetMapping("/{id}")
     @HasPermission(PermissionKeyEnum.DETAIL_ROLE)
-    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
+    public Object detailRole(@PathVariable Long id) {
         return ResponseEntity.ok(service.detailRole(id));
     }
 }

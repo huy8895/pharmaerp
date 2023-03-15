@@ -24,10 +24,9 @@ public class GenUploadController {
     private final GenUploadService service;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
+    public Object upload(@RequestParam("file") MultipartFile file) throws IOException {
         log.info("file : {}", file.getOriginalFilename());
-        return ResponseEntity.status(HttpStatus.OK)
-                             .body(service.upload(file));
+        return service.upload(file);
     }
 
     @GetMapping("/download/{id}")

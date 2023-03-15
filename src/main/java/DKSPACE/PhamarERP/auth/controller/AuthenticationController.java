@@ -22,9 +22,9 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResDto> login(@RequestBody LoginReqDto dto){
+    public Object login(@RequestBody LoginReqDto dto){
         log.info("AuthenticationController start api /api/auth/login:  {}", dto);
-        return ResponseEntity.ok(service.login(dto));
+        return service.login(dto);
     }
 
 }

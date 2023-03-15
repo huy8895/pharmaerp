@@ -4,6 +4,7 @@ import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
+@ResponseWrapper
 public class ApplicationExceptionHandler {
     private final I18NMessageResolver messageResolver;
 
@@ -60,14 +62,14 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Object handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
+    public ApiResponse<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
         log.error("handleHttpMessageNotReadableException: {}", exception.getMessage());
         return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Object handleBadCredentialsException(BadCredentialsException exception) {
+    public ApiResponse<?> handleBadCredentialsException(BadCredentialsException exception) {
         log.error("handleBadCredentialsException: {}", exception.getMessage());
         log.error(exception.getMessage());
         return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
@@ -110,10 +112,8 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException exception,
             @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
-        ApiResponse<?> apiResponse = new ApiResponse<>();
-
-
-        List<ErrorDTO> errors =
+        final var apiResponse = new ApiResponse<>();
+        final var  errors =
                 exception.getBindingResult()
                          .getFieldErrors()
                          .stream()
@@ -123,7 +123,6 @@ public class ApplicationExceptionHandler {
                                                .build())
                          .toList();
 
-        apiResponse.setStatus(ApiResponseStatus.FAILED);
         apiResponse.setErrors(errors);
         return apiResponse;
     }
@@ -133,16 +132,16 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleConstraintViolationException(
             ConstraintViolationException exception) {
         log.error("handleConstraintViolationException exception: ", exception);
-        ApiResponse<?> apiResponse = new ApiResponse<>();
-       var errors =         exception.getConstraintViolations()
+        final var apiResponse = new ApiResponse<>();
+        final var errors =
+                exception.getConstraintViolations()
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getPropertyPath().toString())
                                                .errorMessage(error.getMessage())
                                                .build())
                          .toList();
-
-        apiResponse.setStatus(ApiResponseStatus.FAILED);
+        
         apiResponse.setErrors(errors);
         return apiResponse;
     }
