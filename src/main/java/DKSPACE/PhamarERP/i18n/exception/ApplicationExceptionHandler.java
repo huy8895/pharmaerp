@@ -1,9 +1,9 @@
 package DKSPACE.PhamarERP.i18n.exception;
 
+import DKSPACE.PhamarERP.auth.exception.AccessDeniedException;
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
-import DKSPACE.PhamarERP.i18n.enums.ApiResponseStatus;
 import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.server.MethodNotAllowedException;
+import org.springframework.web.server.ServerWebInputException;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
@@ -98,6 +99,30 @@ public class ApplicationExceptionHandler {
         log.error(exception.getMessage());
         return messageResolver.generateApiResponse(ApiResponseInfo.METHOD_NOT_SUPPORTED);
     }
+    
+    @ExceptionHandler(MethodNotAllowedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiResponse<?> handleMethodNotAllowedException(MethodNotAllowedException exception) {
+        log.error("handleMethodNotSupportedException: {}", exception.getClass());
+        log.error(exception.getMessage());
+        return messageResolver.generateApiResponse(ApiResponseInfo.FORBIDDEN);
+    }
+    
+    @ExceptionHandler(ServerWebInputException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleServerWebInputException(ServerWebInputException exception) {
+        log.error("handleServerWebInputException: {}", exception.getClass());
+        log.error(exception.getMessage());
+        return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiResponse<?> handleAccessDeniedException(AccessDeniedException exception) {
+        log.error("handleAccessDeniedException: {}", exception.getMessage());
+        log.error(exception.getMessage());
+        return messageResolver.generateApiResponse(exception.getApiResponseInfo());
+    }
 
     @ExceptionHandler(ServerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -112,7 +137,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException exception,
             @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
-        final var apiResponse = new ApiResponse<>();
+        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
         final var  errors =
                 exception.getBindingResult()
                          .getFieldErrors()
@@ -132,7 +157,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleConstraintViolationException(
             ConstraintViolationException exception) {
         log.error("handleConstraintViolationException exception: ", exception);
-        final var apiResponse = new ApiResponse<>();
+        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
         final var errors =
                 exception.getConstraintViolations()
                          .stream()
