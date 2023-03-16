@@ -62,3 +62,8 @@ CREATE UNIQUE INDEX "documents_name_vi_unique" ON "documents" USING
     "name_vi" COLLATE "pg_catalog"."default"
     "pg_catalog"."text_ops" ASC NULLS LAST
     );
+
+CREATE INDEX "documents_document_group_id_idx" ON "documents" USING
+    btree (
+           "document_group_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+    );

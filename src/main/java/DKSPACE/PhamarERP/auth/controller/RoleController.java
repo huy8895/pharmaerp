@@ -2,11 +2,10 @@ package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
-import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
-import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/roles")
 @RequiredArgsConstructor
+@ResponseWrapper
 public class RoleController {
     private final RoleService service;
 
@@ -28,8 +28,8 @@ public class RoleController {
      */
     @GetMapping
     @HasPermission(PermissionKeyEnum.LIST_ROLE)
-    public ResponseEntity<Object> listRoles(@ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(service.listRoles(pageable));
+    public Object listRoles(@ParameterObject Pageable pageable) {
+        return service.listRoles(pageable);
     }
 
 
@@ -38,8 +38,8 @@ public class RoleController {
      */
     @PostMapping
     @HasPermission(PermissionKeyEnum.CREATE_ROLE)
-    public ResponseEntity<RoleDTO> createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
-        return ResponseEntity.ok(service.createRole(roleReqDto));
+    public Object createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
+        return service.createRole(roleReqDto);
     }
 
     /**
@@ -47,8 +47,8 @@ public class RoleController {
      */
     @PutMapping
     @HasPermission(PermissionKeyEnum.UPDATE_ROLE)
-    public ResponseEntity<RoleDTO> updateRole(@RequestBody @Valid RoleUpdateDTO role) {
-        return ResponseEntity.ok(service.updateRole(role));
+    public Object updateRole(@RequestBody @Valid RoleUpdateDTO role) {
+        return service.updateRole(role);
     }
 
     /**
@@ -57,7 +57,7 @@ public class RoleController {
      */
     @DeleteMapping("/{id}")
     @HasPermission(PermissionKeyEnum.DELETE_ROLE)
-    public ResponseEntity<Role> deleteRole(@PathVariable Long id) {
+    public Object deleteRole(@PathVariable Long id) {
         service.deleteRole(id);
         return ResponseEntity.noContent()
                              .build();
@@ -69,7 +69,7 @@ public class RoleController {
      */
     @GetMapping("/{id}")
     @HasPermission(PermissionKeyEnum.DETAIL_ROLE)
-    public ResponseEntity<RoleDTO> detailRole(@PathVariable Long id) {
-        return ResponseEntity.ok(service.detailRole(id));
+    public Object detailRole(@PathVariable Long id) {
+        return service.detailRole(id);
     }
 }

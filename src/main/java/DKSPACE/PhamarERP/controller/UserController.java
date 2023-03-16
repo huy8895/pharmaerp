@@ -5,6 +5,7 @@ import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import DKSPACE.PhamarERP.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
+@ResponseWrapper(excludes = {"exportTemplate","exportUser"})
 public class UserController {
     private final UserService service;
 
@@ -127,7 +129,7 @@ public class UserController {
      **/
     @PutMapping("/change-password")
     @HasPermission(PermissionKeyEnum.CHANGE_PASSWORD_USER)
-    public ResponseEntity<?> changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
+    public Object changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
         service.changePassword(dto);
         return ResponseEntity.noContent().build();
     }

@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.controller;
 
 import DKSPACE.PhamarERP.master_data.dto.upload.GenUploadDto;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import DKSPACE.PhamarERP.service.GenUploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +19,14 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/gen-upload")
 @RequiredArgsConstructor
+@ResponseWrapper(excludes = {"download"})
 public class GenUploadController {
     private final GenUploadService service;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
+    public Object upload(@RequestParam("file") MultipartFile file) throws IOException {
         log.info("file : {}", file.getOriginalFilename());
-        return ResponseEntity.status(HttpStatus.OK)
-                             .body(service.upload(file));
+        return service.upload(file);
     }
 
     @GetMapping("/download/{id}")

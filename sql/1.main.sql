@@ -1039,7 +1039,6 @@ ALTER TABLE "crm_contacts_crm_leads"
     ADD CONSTRAINT "contacts_crm_lead_fk" FOREIGN KEY ("crm_lead_id") REFERENCES "crm_leads" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "crm_contacts_crm_leads"
     ADD CONSTRAINT "contacts_crm_lead_item_id_fk" FOREIGN KEY ("crm_lead_item_id") REFERENCES "crm_lead_items" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
 -- ----------------------------
 -- Table structure for document_groups
 -- ----------------------------
@@ -1105,6 +1104,11 @@ CREATE UNIQUE INDEX "documents_name_vi_unique" ON "documents" USING
            "pg_catalog"."text_ops" ASC NULLS LAST
     );
 
+CREATE INDEX "documents_document_group_id_idx" ON "documents" USING
+    btree (
+           "document_group_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+    );
+
 -- ----------------------------
 -- Table structure for material_groups
 -- ----------------------------
@@ -1139,6 +1143,12 @@ CREATE UNIQUE INDEX "material_groups_name_vi_unique" ON "material_groups" USING
            "name_vi" COLLATE "pg_catalog"."default"
            "pg_catalog"."text_ops" ASC NULLS LAST
     );
+
+CREATE INDEX "material_groups_type_idx" ON "material_groups" USING
+    btree (
+           "type" "pg_catalog"."varchar_pattern_ops" ASC NULLS LAST
+    );
+
 -- ----------------------------
 -- Table structure for gen_units
 -- ----------------------------
@@ -1178,7 +1188,7 @@ DROP TABLE IF EXISTS "materials";
 CREATE TABLE "materials"
 (
     "id"                bigserial                                   NOT NULL,
-    "gen_unit_id"           int8                                        NOT NULL,
+    "gen_unit_id"       int8                                        NOT NULL,
     "material_group_id" int8                                        NOT NULL,
     "name_vi"           varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
     "name_en"           varchar(100) COLLATE "pg_catalog"."default",
@@ -1187,12 +1197,16 @@ CREATE TABLE "materials"
     "inventory_min"     int8                                        NOT NULL,
     "inventory_max"     int8                                        NOT NULL,
     "describe"          text COLLATE "pg_catalog"."default",
+    "belong_to"         varchar(45) COLLATE "pg_catalog"."default"  NOT NULL,
     "is_active"         boolean DEFAULT true,
     "created_at"        timestamp(6),
     "updated_at"        timestamp(6),
     "deleted_at"        timestamp(6)
 )
 ;
+
+COMMENT
+    ON COLUMN "materials"."belong_to" is 'Thuộc về machine, manufacture\nMáy móc, Sản xuất';
 
 -- ----------------------------
 -- Primary Key structure for table materials
@@ -1209,6 +1223,21 @@ CREATE UNIQUE INDEX "materials_name_vi_unique" ON "materials" USING
            "pg_catalog"."text_ops" ASC NULLS LAST
     );
 
+CREATE INDEX "materials_gen_unit_id_idx" ON "materials" USING
+    btree (
+           "gen_unit_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+    );
+
+CREATE INDEX "materials_material_group_id_idx" ON "materials" USING
+    btree (
+           "material_group_id" "pg_catalog"."int8_ops" ASC NULLS LAST
+    );
+
+CREATE INDEX "materials_belong_to_idx" ON "materials" USING
+    btree (
+           "belong_to" "pg_catalog"."varchar_pattern_ops" ASC NULLS LAST
+    );
+
 -- ----------------------------
 -- Foreign Keys structure for table materials
 -- ----------------------------
@@ -1216,7 +1245,6 @@ ALTER TABLE "materials"
     ADD CONSTRAINT "materials_gen_unit_id" FOREIGN KEY ("gen_unit_id") REFERENCES "gen_units" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "materials"
     ADD CONSTRAINT "materials_material_group_id" FOREIGN KEY ("material_group_id") REFERENCES "material_groups" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
 -- ----------------------------
 -- Table structure for suppliers - Has file logo, has Many with tags
 -- ----------------------------

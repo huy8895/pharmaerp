@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.service.PermissionService;
+import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/permissions")
 @RequiredArgsConstructor
+@ResponseWrapper
 public class PermissionController {
     private final PermissionService service;
 

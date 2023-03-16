@@ -38,15 +38,21 @@ public class I18NMessageResolver {
         return ApiResponse.failed(responseInfo, this);
     }
 
-    public ApiResponse<?> generateApiResponse(ApiResponseInfo responseInfo, @NotNull HttpServletResponse response)
+    public void generateApiResponse(ApiResponseInfo responseInfo, @NotNull HttpServletResponse response)
             throws IOException {
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        this.responseUnauthorized(response);
+    }
+    
+    public void responseUnauthorized(HttpServletResponse response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        final var unauthorized = HttpStatus.UNAUTHORIZED;
+        response.setStatus(unauthorized.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        ObjectMapper mapper = new ObjectMapper();
         final var apiResponse = this.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
+        apiResponse.setStatus(unauthorized.name());
+        apiResponse.setStatusCode(unauthorized.value());
         response.getWriter().write(mapper.writeValueAsString(apiResponse));
-        return ApiResponse.failed(responseInfo, this);
     }
 
     public String resolverMessageTemplate(FieldError error, Locale locale) {
