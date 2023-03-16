@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@ResponseWrapper
+@ResponseWrapper(excludes = {"exportTemplate","exportUser"})
 public class UserController {
     private final UserService service;
 
@@ -129,7 +129,7 @@ public class UserController {
      **/
     @PutMapping("/change-password")
     @HasPermission(PermissionKeyEnum.CHANGE_PASSWORD_USER)
-    public ResponseEntity<?> changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
+    public Object changePassword(@RequestBody @Valid UserChangePasswordDTO dto){
         service.changePassword(dto);
         return ResponseEntity.noContent().build();
     }

@@ -6,12 +6,13 @@ import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface RoleService extends BaseCRUDService<Role> {
     RoleDTO createRole(@Valid RoleCreateDTO role);
-
-    Object listRoles(Pageable unpaged);
+    
+    Page<RoleDTO> listRoles(Pageable unpaged);
 
     RoleDTO detailRole(Long id);
 

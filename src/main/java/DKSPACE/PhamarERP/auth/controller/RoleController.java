@@ -2,10 +2,8 @@ package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
-import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
-import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.service.RoleService;
 import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
 import jakarta.validation.Valid;
@@ -41,7 +39,7 @@ public class RoleController {
     @PostMapping
     @HasPermission(PermissionKeyEnum.CREATE_ROLE)
     public Object createRole(@RequestBody @Valid RoleCreateDTO roleReqDto) {
-        return ResponseEntity.ok(service.createRole(roleReqDto));
+        return service.createRole(roleReqDto);
     }
 
     /**
@@ -50,7 +48,7 @@ public class RoleController {
     @PutMapping
     @HasPermission(PermissionKeyEnum.UPDATE_ROLE)
     public Object updateRole(@RequestBody @Valid RoleUpdateDTO role) {
-        return ResponseEntity.ok(service.updateRole(role));
+        return service.updateRole(role);
     }
 
     /**
@@ -72,6 +70,6 @@ public class RoleController {
     @GetMapping("/{id}")
     @HasPermission(PermissionKeyEnum.DETAIL_ROLE)
     public Object detailRole(@PathVariable Long id) {
-        return ResponseEntity.ok(service.detailRole(id));
+        return service.detailRole(id);
     }
 }
