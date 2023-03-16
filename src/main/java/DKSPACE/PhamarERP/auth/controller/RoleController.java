@@ -5,7 +5,7 @@ import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.service.RoleService;
-import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

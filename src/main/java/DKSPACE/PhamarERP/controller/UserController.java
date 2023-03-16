@@ -5,7 +5,7 @@ import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
-import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import DKSPACE.PhamarERP.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

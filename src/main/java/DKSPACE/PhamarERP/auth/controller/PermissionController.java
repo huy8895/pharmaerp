@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.service.PermissionService;
-import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;

@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             this.filter(request, response, filterChain);
         } catch (Exception e){
             log.info("JwtAuthenticationFilter error doFilterInternal: ", e);
-            messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED, response);
+            messageResolver.generateApiResponse(response, HttpStatus.UNAUTHORIZED);
         }
     }
 
