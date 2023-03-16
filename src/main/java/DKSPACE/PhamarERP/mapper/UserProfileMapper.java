@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.mapper;
 
+import DKSPACE.PhamarERP.master_data.dto.user_profile.UserProfileReqDto;
 import DKSPACE.PhamarERP.master_data.dto.user_profile.UserProfileResDto;
 import DKSPACE.PhamarERP.master_data.entity.UserProfile;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +32,22 @@ public class UserProfileMapper {
 		                        .build();
     }
 
-//	public User toEntity(UserAddRolesDTO dto) {
-//
-//	}
-//
-//	public User toEntity(UserUpdateDTO dto) {
-//
-//	}
+	public UserProfile toEntity(UserProfileReqDto dto) {
+		return UserProfile.builder()
+			              .userId(dto.getUserId())
+			              .gender(dto.getGender())
+			              .dob(dto.getDob())
+			              .nationality(dto.getNationality())
+			              .permanentAddress(dto.getPermanentAddress())
+			              .idCardNumber(dto.getIdCardNumber())
+			              .idCardIssuanceDate(dto.getIdCardIssuanceDate())
+			              .idCardIssuanceWhere(dto.getIdCardIssuanceWhere())
+			              .taxCode(dto.getTaxCode())
+			              .note(dto.getNote())
+			              .bankName(dto.getBankName())
+			              .bankAccountNumber(dto.getBankAccountNumber())
+			              .bankAccountName(dto.getBankAccountName())
+			              .bankBranch(dto.getBankBranch())
+			              .build();
+	}
 }

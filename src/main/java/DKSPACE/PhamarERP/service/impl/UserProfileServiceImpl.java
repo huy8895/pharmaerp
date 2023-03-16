@@ -2,6 +2,8 @@ package DKSPACE.PhamarERP.service.impl;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
+import DKSPACE.PhamarERP.basecrud.BaseCrudUtils;
+import DKSPACE.PhamarERP.helper.excel.ReflectUtils;
 import DKSPACE.PhamarERP.mapper.UserProfileMapper;
 import DKSPACE.PhamarERP.master_data.dto.user_profile.UserProfileResDto;
 import DKSPACE.PhamarERP.master_data.dto.user_profile.UserProfileReqDto;
@@ -42,11 +44,18 @@ public class UserProfileServiceImpl extends AbstractBaseCRUDService<UserProfile,
 	
 	@Override
 	public Object updateUserProfile(UserProfileReqDto dto) {
-//		User user = userService.findOne(dto.getId());
-//		UserProfile userProfile = this.save(UserProfile.builder()
-//		                                        .user(user)
-//		                                        .build());
-//		return this.partialUpdate()
-		return null;
+		userService.findOne(dto.getUserId());
+		UserProfile userProfile = mapper.toEntity(dto);
+		return this.partialUpdate(userProfile);
+	}
+	
+	@Override
+	public UserProfile partialUpdate(UserProfile userProfile) {
+		return repository.findByUserId(userProfile.getUserId())
+		                 .map(existingProfile -> {
+			                 BaseCrudUtils.update(userProfile, existingProfile);
+			                 return this.save(existingProfile);
+		                 })
+		                 .orElseGet(() -> this.save(userProfile));
 	}
 }

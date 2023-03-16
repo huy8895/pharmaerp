@@ -2,17 +2,18 @@ package DKSPACE.PhamarERP.master_data.dto.user_profile;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
 /**
  * A DTO for the {@link DKSPACE.PhamarERP.master_data.entity.UserProfile} entity
  */
-@Data
+@Getter
+@AllArgsConstructor
 public class UserProfileReqDto {
 	@NotNull
-	private final Long id;
+	private final Long userId;
 	private final Short gender;
 	private final LocalDate dob;
 	@Size(max = 45)
