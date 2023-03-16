@@ -61,17 +61,11 @@ public class ResponseWrapperAspect {
 	}
 	
 	private boolean isExcluded(ResponseWrapper responseWrapper, ProceedingJoinPoint joinPoint) {
-		// Lấy đối tượng MethodSignature từ joinPoint
-		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		// Lấy đối tượng Method từ signature
-		Method method = signature.getMethod();
-		// Get the array of excluded methods from the annotation
-		String[] excludes = responseWrapper.excludes();
-		
-		// Check if the current method is in the excluded array
-		String methodName = method.getName();
+		Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
 		
 		// If the current method is excluded, return the original result
-		return Arrays.asList(excludes).contains(methodName);
+		return Arrays.asList(responseWrapper.excludes())
+		             .contains(method.getName());
 	}
 }
