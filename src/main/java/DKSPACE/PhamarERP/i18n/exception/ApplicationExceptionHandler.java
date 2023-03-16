@@ -69,11 +69,11 @@ public class ApplicationExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResponse<?> handleBadCredentialsException(BadCredentialsException exception) {
         log.error("handleBadCredentialsException: {}", exception.getMessage());
         log.error(exception.getMessage());
-        return ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
+        return ApiResponse.failed(ApiResponseInfo.BAD_CREDENTIALS);
     }
 
     @ExceptionHandler(UserAlreadyExistException.class)
