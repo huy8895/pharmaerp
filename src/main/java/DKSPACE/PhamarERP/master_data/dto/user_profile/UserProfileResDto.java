@@ -1,7 +1,6 @@
-package DKSPACE.PhamarERP.master_data.dto;
+package DKSPACE.PhamarERP.master_data.dto.user_profile;
 
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,9 +9,11 @@ import java.time.LocalDateTime;
 /**
  * A DTO for the {@link DKSPACE.PhamarERP.master_data.entity.UserProfile} entity
  */
-@Data
+@Builder
+@Getter
+@AllArgsConstructor
 public class UserProfileResDto implements Serializable {
-	private final Long id;
+	private final Long userId;
 	private final LocalDateTime createdAt;
 	private final LocalDateTime updatedAt;
 	private final LocalDateTime deletedAt;

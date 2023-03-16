@@ -21,11 +21,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "user_profiles")
 public class UserProfile extends BaseCRUDEntity {
-
-	@NotNull
-	@OneToOne(optional = false)
-	@JoinColumn(name = "user_id", unique = true, nullable = false)
-	private User user;
+	
+	/**
+	 * @see User
+	 */
+	@Column(name = "user_id", unique = true)
+	private Long userId;
 	
 	@Column(name = "gender")
 	private Short gender;

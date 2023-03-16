@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UserProfileRepository extends BaseCRUDRepository<UserProfile, Long> {
-	@Query("select u from UserProfile u where u.user.id = :userId")
+	@Query("select u from UserProfile u where u.userId = :userId")
 	Optional<UserProfile> findByUserId(@Param("userId") Long userId);
 }
