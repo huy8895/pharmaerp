@@ -10,15 +10,11 @@ import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.common.TemplateParserContext;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.HandlerMapping;
 
-import java.lang.reflect.Parameter;
 import java.util.*;
 
 @Slf4j
@@ -36,17 +32,23 @@ public class PermissionInterceptor implements HandlerInterceptor {
             final var handlerMethod = (HandlerMethod) handler;
             final var methodAnnotation = handlerMethod.getMethodAnnotation(HasPermission.class);
             if (methodAnnotation == null) return true;
-            this.checkPermissionBefore(methodAnnotation);
+            this.checkPermissionBefore(methodAnnotation, request);
         }
         return true;
     }
-    public void checkPermissionBefore(HasPermission methodAnnotation) {
+    
+    public void checkPermissionBefore(HasPermission methodAnnotation, HttpServletRequest request) {
         User currentUser = SecurityUtils.getCurrentUser();
 
         if (this.isSupperAdmin(currentUser)) {
             return;
         }
     
+        final var userIdRequest = this.getUserId(request, "userId");
+        final var isCurrentUserRequest = this.isCurrentUser(currentUser, userIdRequest);
+        if (isCurrentUserRequest && methodAnnotation.acceptCurrentUser()){
+            return;
+        }
     
         if (this.hasPermission(methodAnnotation)){
             return;
@@ -55,8 +57,12 @@ public class PermissionInterceptor implements HandlerInterceptor {
         log.warn("don't has permission to access this function");
         throw new AccessDeniedException(ApiResponseInfo.FORBIDDEN);
     }
-    
     @SuppressWarnings("unchecked")
+    public String getUserId(HttpServletRequest request, String key) {
+        Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        return pathVariables.get(key);
+    }
+    
     private boolean hasPermission(HasPermission methodAnnotation) {
         Set<String> permission = SecurityUtils.getPermission();
         return this.getPermissions(methodAnnotation).stream()
@@ -77,38 +83,10 @@ public class PermissionInterceptor implements HandlerInterceptor {
     
     //todo tạo 1 annotation để validate currentUser.
     /**
-     * nếu như id của user đang đăng nhập = với userId request.
+     * nếu như id của user đang đăng nhập = với userIdRequest request.
      */
-    private boolean acceptCurrentUser(HandlerMethod handler) {
-        final HasPermission hasPermission = handler.getMethodAnnotation(HasPermission.class);
-        
-        Object[] args = handler.getMethod().getParameters();
-//        String[] parameterNames = handler.getMethod().getParameters();
-        String[] parameterNames = new String[]{};
-    
-        // Assuming you have a HandlerMethod object named handler
-        Parameter[] params = handler.getMethod().getParameters();
-        for (Parameter p : params) {
-            // Get the name of the parameter
-            String name = p.getName();
-        
-            // Get the value of the parameter
-            Object value = p ;// args is an array of arguments passed to the method
-            System.out.println("Value: " + value);
-        }
-    
-        EvaluationContext evaluationContext = new StandardEvaluationContext();
-        for (int i = 0; i < args.length; i ++) {
-            evaluationContext.setVariable(parameterNames[i], args[i]);
-        }
-    
-        final var parser = new SpelExpressionParser();
-    
-        Long userId = parser.parseExpression(hasPermission.userId(), new TemplateParserContext())
-                            .getValue(evaluationContext, Long.class);
-    
-        User currentUser = SecurityUtils.getCurrentUser();
-        return Objects.equals(currentUser.getId(), userId);
+    private boolean isCurrentUser(User currentUser, String userIdRequest) {
+        return Objects.equals(currentUser.getId().toString(), userIdRequest);
     }
     
 	

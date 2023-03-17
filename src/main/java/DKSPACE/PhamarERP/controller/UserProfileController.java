@@ -22,7 +22,7 @@ public class UserProfileController {
 	 * 1. Xem hồ sơ người dùng - View user profile
 	 */
 	@GetMapping("/{userId}")
-	@HasPermission(value = PermissionKeyEnum.VIEW_USER_PROFILE, userId = "#{#userId}")
+	@HasPermission(value = PermissionKeyEnum.VIEW_USER_PROFILE, acceptCurrentUser = true)
 	public Object getUserProfile(@PathVariable("userId") Long userId){
 		return service.getUserProfile(userId);
 	}
@@ -31,9 +31,9 @@ public class UserProfileController {
 	/**
 	 * 2. Cập nhật hồ sơ người dùng - Update user profile
 	 */
-	@PutMapping
-	@HasPermission(value = PermissionKeyEnum.UPDATE_USER_PROFILE, userId = "#{#dto.id}")
-	public Object updateUserProfile(@Valid @RequestBody UserProfileReqDto dto){
+	@PutMapping("/{userId}")
+	@HasPermission(value = PermissionKeyEnum.UPDATE_USER_PROFILE, acceptCurrentUser = true)
+	public Object updateUserProfile(@PathVariable("userId") Long userId, @Valid @RequestBody UserProfileReqDto dto){
 		return service.updateUserProfile(dto);
 	}
 }

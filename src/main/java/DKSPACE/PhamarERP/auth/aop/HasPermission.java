@@ -15,8 +15,7 @@ public @interface HasPermission {
     PermissionKeyEnum[] value() default {};
     
     /**
-     * userId request <p>
-     * SpEL default ex: #{#dto.id}
+     * cho phép người dùng hiện tại truy cập mà không cần kiểm tra quyền
      */
-    String userId() default "";
+    boolean acceptCurrentUser() default false;
 }
