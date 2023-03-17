@@ -39,4 +39,4 @@ spring:
       pool:
         size: 2
   jpa:
-    open-in-view: off
+    open-in-view: true
