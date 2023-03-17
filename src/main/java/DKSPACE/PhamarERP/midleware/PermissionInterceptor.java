@@ -81,7 +81,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
                        .orElse(Collections.emptyList());
     }
     
-    //todo tạo 1 annotation để validate currentUser.
     /**
      * nếu như id của user đang đăng nhập = với userIdRequest request.
      */
