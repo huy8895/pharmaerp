@@ -26,7 +26,7 @@ import java.util.*;
 public class PermissionInterceptor implements HandlerInterceptor {
 	
 	@Override
-	public boolean preHandle(
+    public boolean preHandle(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			Object handler) throws Exception {
@@ -36,14 +36,13 @@ public class PermissionInterceptor implements HandlerInterceptor {
             final var handlerMethod = (HandlerMethod) handler;
             final var methodAnnotation = handlerMethod.getMethodAnnotation(HasPermission.class);
             if (methodAnnotation == null) return true;
-            
-            this.checkPermissionBefore(request, methodAnnotation);
+            this.checkPermissionBefore(methodAnnotation);
         }
         return true;
     }
-    public void checkPermissionBefore(HttpServletRequest request, HasPermission methodAnnotation) {
-        
+    public void checkPermissionBefore(HasPermission methodAnnotation) {
         User currentUser = SecurityUtils.getCurrentUser();
+
         if (this.isSupperAdmin(currentUser)) {
             return;
         }
