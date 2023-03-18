@@ -25,28 +25,28 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
     }
 
     @PostMapping
-    public ResponseEntity<E> create(@RequestBody @Valid E entity) {
-        return ResponseEntity.ok(service.save(entity));
+    public Object create(@RequestBody @Valid E entity) {
+        return service.save(entity);
     }
 
     @PostMapping("/save-list")
-    public ResponseEntity<List<E>> saveList(@RequestBody @Valid List<E> entity) {
-        return ResponseEntity.ok(service.saveList(entity));
+    public Object saveList(@RequestBody @Valid List<E> entity) {
+        return service.saveList(entity);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<E> getDetail(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findOne(id));
+    public Object getDetail(@PathVariable Long id) {
+        return service.findOne(id);
     }
 
     @GetMapping
-    public ResponseEntity<Page<E>> getAll(@ParameterObject Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(pageable));
+    public Object getAll(@ParameterObject Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @PutMapping
-    public ResponseEntity<E> update(@RequestBody E entity) {
-        return ResponseEntity.ok(service.partialUpdate(entity));
+    public Object update(@RequestBody E entity) {
+        return service.partialUpdate(entity);
     }
 
     @DeleteMapping("/{id}")
@@ -64,8 +64,8 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
     }
 
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<E>> exportFileExcel(@RequestParam("file") MultipartFile file) {
-        return ResponseEntity.ok(excelHelper.readFile(file, this.entity));
+    public Object exportFileExcel(@RequestParam("file") MultipartFile file) {
+        return excelHelper.readFile(file, this.entity);
     }
 
     @GetMapping("/export")
