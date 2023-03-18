@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * Lớp ContractType kế thừa từ lớp BaseCRUDEntity. Lớp này đại diện cho một loại hợp đồng trong hệ thống.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -26,26 +29,39 @@ import lombok.experimental.SuperBuilder;
 public class ContractType extends BaseCRUDEntity {
 	
 	
+	/**
+	 * Tên tiếng Việt của loại hợp đồng.
+	 */
 	@Size(max = 100)
 	@NotNull
 	@Column(name = "name_vi", nullable = false, length = 100)
 	private String nameVi;
 	
+	/**
+	 * Tên tiếng Anh của loại hợp đồng.
+	 */
 	@Size(max = 100)
 	@NotNull
 	@Column(name = "name_en", nullable = false, length = 100)
 	private String nameEn;
 	
+	/**
+	 * Biến boolean chỉ ra loại hợp đồng có xác định thời hạn hay không. Mặc định là false.
+	 */
 	@NotNull
 	@Column(name = "is_determine_deadline", nullable = false)
 	private Boolean isDetermineDeadline = false;
 	
+	/**
+	 * Biến boolean chỉ ra loại hợp đồng có hoạt động hay không. Mặc định là false.
+	 */
 	@NotNull
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive = false;
 	
+	/**
+	 * Mô tả về loại hợp đồng. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "describe", length = Integer.MAX_VALUE)
 	private String describe;
-	
-	
 }

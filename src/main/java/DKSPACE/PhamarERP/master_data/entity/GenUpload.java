@@ -11,6 +11,9 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+/**
+ * đại diện cho một tệp tin được tải lên hệ thống.
+ */
 @Getter
 @Setter
 @ToString
@@ -24,31 +27,49 @@ import java.util.Objects;
 })
 public class GenUpload extends BaseCRUDEntity {
 	
+	/**
+	 * Tên gốc của tệp tin.
+	 */
 	@Size(max = 255)
 	@NotNull
 	@Column(name = "original_name", nullable = false)
 	private String originalName;
 	
+	/**
+	 * Tên của tệp tin sau khi được mã hóa. Có độ dài 45 ký tự.
+	 */
 	@Size(max = 45)
 	@NotNull
 	@Column(name = "file_name", nullable = false, length = 45)
 	private String fileName;
 	
+	/**
+	 * Phần mở rộng của tệp tin. Có độ dài 10 ký tự.
+	 */
 	@Size(max = 10)
 	@NotNull
 	@Column(name = "extension", nullable = false, length = 10)
 	private String extension;
 	
+	/**
+	 * Loại nội dung của tệp tin. Ví dụ: image/jpeg, application/pdf, text/plain...
+	 */
 	@Size(max = 255)
 	@NotNull
 	@Column(name = "content_type", nullable = false)
 	private String contentType;
 	
+	/**
+	 * Dữ liệu của tệp tin. Được lưu trữ dưới dạng mảng byte.
+	 */
 	@NotNull
 	@Column(name = "data", nullable = false)
 	@Lob
 	private byte[] data;
 	
+	/**
+	 * Kích thước của tệp tin. Được tính bằng megabyte (MB).
+	 */
 	@NotNull
 	@Column(name = "size", nullable = false)
 	private Float size;

@@ -13,6 +13,9 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
+/**
+ * đại diện cho một hợp đồng của người dùng với hệ thống.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -29,59 +32,97 @@ import java.time.LocalDate;
 })
 public class Contract extends BaseCRUDEntity {
 	
+	/**
+	 * Mã người dùng.
+	 */
 	@NotNull
-	@Column(name = "user_id", nullable = false )
+	@Column(name = "user_id", nullable = false)
 	private Long userId;
 	
+	/**
+	 * Người tạo hợp đồng. Là một đối tượng của lớp User.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "creator_id", nullable = false)
 	private User creator;
 	
+	/**
+	 * Loại hợp đồng. Là một đối tượng của lớp ContractType.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "contract_type_id", nullable = false)
 	private ContractType contractType;
 	
+	/**
+	 * Địa điểm làm việc. Là một đối tượng của lớp GenWorkLocation.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "gen_work_location_id", nullable = false)
 	private GenWorkLocation genWorkLocation;
 	
+	/**
+	 * Cấp bậc cán bộ. Là một đối tượng của lớp GenOfficerLevel.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "gen_officer_level_id", nullable = false)
 	private GenOfficerLevel genOfficerLevel;
 	
+	/**
+	 * Mã phòng ban.
+	 */
 	@NotNull
 	@Column(name = "gen_department_id", nullable = false)
 	private Long genDepartmentId;
 	
+	/**
+	 * Chức danh công việc. Là một đối tượng của lớp GenJobTitle.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "gen_job_title_id", nullable = false)
 	private GenJobTitle genJobTitle;
 	
+	/**
+	 * Mã hợp đồng.
+	 */
 	@Size(max = 45)
 	@NotNull
 	@Column(name = "contract_code", nullable = false, length = 45)
 	private String contractCode;
 	
+	/**
+	 * Thời hạn của hợp đồng. Được tính bằng ngày. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "duration")
 	private Long duration;
 	
+	/**
+	 * Ngày bắt đầu của hợp đồng. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "start_date")
 	private LocalDate startDate;
 	
+	/**
+	 * Ngày kết thúc của hợp đồng. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "end_date")
 	private LocalDate endDate;
 	
+	/**
+	 * Trạng thái của hợp đồng. Có thể là chưa ký, đã ký, đã duyệt hoặc đã hủy.
+	 */
 	@Size(max = 45)
 	@NotNull
 	@Column(name = "status", nullable = false, length = 45)
 	private String status;
 	
+	/**
+	 * Ghi chú về hợp đồng. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "note", length = Integer.MAX_VALUE)
 	private String note;
-	
 }
