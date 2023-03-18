@@ -2,13 +2,17 @@ package DKSPACE.PhamarERP.master_data.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@Setter
 @Embeddable
 public class UploadableId implements Serializable {
 	private static final long serialVersionUID = -2903488751122295749L;
@@ -19,22 +23,6 @@ public class UploadableId implements Serializable {
 	@NotNull
 	@Column(name = "object_id", nullable = false)
 	private Long objectId;
-	
-	public Long getGenUploadId() {
-		return genUploadId;
-	}
-	
-	public void setGenUploadId(Long genUploadId) {
-		this.genUploadId = genUploadId;
-	}
-	
-	public Long getObjectId() {
-		return objectId;
-	}
-	
-	public void setObjectId(Long objectId) {
-		this.objectId = objectId;
-	}
 	
 	@Override
 	public boolean equals(Object o) {

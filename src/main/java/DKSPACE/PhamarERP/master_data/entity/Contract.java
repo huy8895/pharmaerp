@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
@@ -28,12 +27,11 @@ import java.time.LocalDate;
 		@Index(name = "contracts_gen_work_location_id_idx", columnList = "gen_work_location_id"),
 		@Index(name = "contracts_gen_officer_level_id_idx", columnList = "gen_officer_level_id")
 })
-public class Contract extends BaseCRUDEntity{
+public class Contract extends BaseCRUDEntity {
 	
 	@NotNull
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@Column(name = "user_id", nullable = false )
+	private Long userId;
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -1,12 +1,13 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -18,12 +19,9 @@ import java.time.Instant;
 		@Index(name = "activity_logs_user_id_idx", columnList = "user_id")
 })
 public class ActivityLog extends BaseCRUDEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Long id;
 	
-	@Column(name = "user_id")
+	@NotNull
+	@Column(name = "user_id", nullable = false )
 	private Long userId;
 	
 	@Size(max = 20)
@@ -39,13 +37,6 @@ public class ActivityLog extends BaseCRUDEntity {
 	
 	@Column(name = "response", length = Integer.MAX_VALUE)
 	private String response;
-	
-	@Column(name = "created_at")
-	private Instant createdAt;
-	
-	@Column(name = "updated_at")
-	private Instant updatedAt;
-	
-	@Column(name = "deleted_at")
-	private Instant deletedAt;
 }
+	
+	

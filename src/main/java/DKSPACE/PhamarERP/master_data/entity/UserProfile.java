@@ -2,7 +2,9 @@ package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -26,6 +29,7 @@ public class UserProfile extends BaseCRUDEntity {
 	 * @see User
 	 */
 	@Column(name = "user_id", unique = true)
+	@NotNull
 	private Long userId;
 	
 	@Column(name = "gender")

@@ -1,25 +1,30 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import java.time.Instant;
-
+@Getter
+@Setter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user_activities", indexes = {
 		@Index(name = "user_activities_user_id_idx", columnList = "user_id")
 })
 public class UserActivity extends BaseCRUDEntity {
-	@Id
-	@Column(name = "id", nullable = false)
-	private Long id;
 	
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@Column(name = "user_id", nullable = false)
+	private Long userId;
 	
 	@Size(max = 255)
 	@NotNull
@@ -47,110 +52,4 @@ public class UserActivity extends BaseCRUDEntity {
 	@Size(max = 255)
 	@Column(name = "link")
 	private String link;
-	
-	@Column(name = "created_at")
-	private Instant createdAt;
-	
-	@Column(name = "updated_at")
-	private Instant updatedAt;
-	
-	@Column(name = "deleted_at")
-	private Instant deletedAt;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	public String getOrganization() {
-		return organization;
-	}
-	
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-	
-	public String getParticipatingPosition() {
-		return participatingPosition;
-	}
-	
-	public void setParticipatingPosition(String participatingPosition) {
-		this.participatingPosition = participatingPosition;
-	}
-	
-	public Boolean getIsCurrentActive() {
-		return isCurrentActive;
-	}
-	
-	public void setIsCurrentActive(Boolean isCurrentActive) {
-		this.isCurrentActive = isCurrentActive;
-	}
-	
-	public String getStartDate() {
-		return startDate;
-	}
-	
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	
-	public String getEndDate() {
-		return endDate;
-	}
-	
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	
-	public String getDescribe() {
-		return describe;
-	}
-	
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
-	
-	public String getLink() {
-		return link;
-	}
-	
-	public void setLink(String link) {
-		this.link = link;
-	}
-	
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
-	
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
-	
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	
-	public Instant getDeletedAt() {
-		return deletedAt;
-	}
-	
-	public void setDeletedAt(Instant deletedAt) {
-		this.deletedAt = deletedAt;
-	}
-	
 }

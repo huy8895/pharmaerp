@@ -1,20 +1,26 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import java.time.Instant;
-
+@Getter
+@Setter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "gen_work_locations")
 public class GenWorkLocation extends BaseCRUDEntity {
-	@Id
-	@Column(name = "id", nullable = false)
-	private Long id;
+	
 	
 	@Size(max = 100)
 	@NotNull
@@ -33,77 +39,5 @@ public class GenWorkLocation extends BaseCRUDEntity {
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive = false;
 	
-	@Column(name = "created_at")
-	private Instant createdAt;
-	
-	@Column(name = "updated_at")
-	private Instant updatedAt;
-	
-	@Column(name = "deleted_at")
-	private Instant deletedAt;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getNameVi() {
-		return nameVi;
-	}
-	
-	public void setNameVi(String nameVi) {
-		this.nameVi = nameVi;
-	}
-	
-	public String getNameEn() {
-		return nameEn;
-	}
-	
-	public void setNameEn(String nameEn) {
-		this.nameEn = nameEn;
-	}
-	
-	public String getDescribe() {
-		return describe;
-	}
-	
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
-	
-	public Boolean getIsActive() {
-		return isActive;
-	}
-	
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-	
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
-	
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
-	
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	
-	public Instant getDeletedAt() {
-		return deletedAt;
-	}
-	
-	public void setDeletedAt(Instant deletedAt) {
-		this.deletedAt = deletedAt;
-	}
 	
 }
