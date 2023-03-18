@@ -42,9 +42,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         response.setStatus(unauthorized.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
-        apiResponse.setStatus(unauthorized.name());
-        apiResponse.setStatusCode(unauthorized.value());
+        final var apiResponse = messageResolver.getApiResponse(unauthorized, ApiResponseInfo.UNAUTHORIZED);
         response.getWriter().write(mapper.writeValueAsString(apiResponse));
     }
 }

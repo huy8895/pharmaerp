@@ -4,7 +4,7 @@ import DKSPACE.PhamarERP.auth.exception.AccessDeniedException;
 import DKSPACE.PhamarERP.auth.exception.UserAlreadyExistException;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
-import DKSPACE.PhamarERP.midleware.response.ResponseWrapper;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResponse<?> handleUnauthorized(AuthenticationException exception) {
         log.error("handleUnauthorized: {}", exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
+        return ApiResponse.failed(ApiResponseInfo.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Throwable.class)
@@ -44,36 +44,36 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleException(Throwable exception) {
         log.error("handleException: {}", exception.getMessage());
         log.error("handleException class: {}", exception.getClass());
-        return messageResolver.generateApiResponse(ApiResponseInfo.INTERNAL_SERVER_ERROR);
+        return ApiResponse.failed(ApiResponseInfo.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<?> handleNoValuePresent(NoSuchElementException exception) {
         log.error("handleNoValuePresent: {}", exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.NO_VALUE_PRESENT);
+        return ApiResponse.failed(ApiResponseInfo.NO_VALUE_PRESENT);
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<?> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException exception) {
         log.error("handleMaxUploadSizeExceededException: {}", exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.MAX_UPLOAD_SIZE_EXCEEDED);
+        return ApiResponse.failed(ApiResponseInfo.MAX_UPLOAD_SIZE_EXCEEDED);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
         log.error("handleHttpMessageNotReadableException: {}", exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
+        return ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResponse<?> handleBadCredentialsException(BadCredentialsException exception) {
         log.error("handleBadCredentialsException: {}", exception.getMessage());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
+        return ApiResponse.failed(ApiResponseInfo.BAD_CREDENTIALS);
     }
 
     @ExceptionHandler(UserAlreadyExistException.class)
@@ -81,7 +81,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleUserAlreadyExistException(UserAlreadyExistException exception) {
         log.error("handleUserAlreadyExistException: {}", exception.getMessage());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.USER_ALREADY_EXIST);
+        return ApiResponse.failed(ApiResponseInfo.USER_ALREADY_EXIST);
     }
 
     @ExceptionHandler(ClientException.class)
@@ -89,7 +89,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleClientException(ClientException exception) {
         log.error("handleClientException: {}", exception.getMessage());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(exception.getApiResponseInfo());
+        return ApiResponse.failed(exception.getApiResponseInfo());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -97,7 +97,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleMethodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
         log.error("handleMethodNotSupportedException: {}", exception.getClass());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.METHOD_NOT_SUPPORTED);
+        return ApiResponse.failed(ApiResponseInfo.METHOD_NOT_SUPPORTED);
     }
     
     @ExceptionHandler(MethodNotAllowedException.class)
@@ -105,7 +105,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleMethodNotAllowedException(MethodNotAllowedException exception) {
         log.error("handleMethodNotSupportedException: {}", exception.getClass());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.FORBIDDEN);
+        return ApiResponse.failed(ApiResponseInfo.FORBIDDEN);
     }
     
     @ExceptionHandler(ServerWebInputException.class)
@@ -113,7 +113,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleServerWebInputException(ServerWebInputException exception) {
         log.error("handleServerWebInputException: {}", exception.getClass());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
+        return ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
     }
     
     @ExceptionHandler(AccessDeniedException.class)
@@ -121,7 +121,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleAccessDeniedException(AccessDeniedException exception) {
         log.error("handleAccessDeniedException: {}", exception.getMessage());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(exception.getApiResponseInfo());
+        return ApiResponse.failed(exception.getApiResponseInfo());
     }
 
     @ExceptionHandler(ServerException.class)
@@ -129,7 +129,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleServerException(ServerException exception) {
         log.error("handleServerException: {}", exception.getMessage());
         log.error(exception.getMessage());
-        return messageResolver.generateApiResponse(exception.getApiResponseInfo());
+        return ApiResponse.failed(exception.getApiResponseInfo());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -137,7 +137,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException exception,
             @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
-        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
+        final var apiResponse = ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
         final var  errors =
                 exception.getBindingResult()
                          .getFieldErrors()
@@ -157,7 +157,7 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleConstraintViolationException(
             ConstraintViolationException exception) {
         log.error("handleConstraintViolationException exception: ", exception);
-        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.BAD_REQUEST);
+        final var apiResponse = ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
         final var errors =
                 exception.getConstraintViolations()
                          .stream()

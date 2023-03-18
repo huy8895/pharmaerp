@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class JwtTokenDTO {
     private String token;
+    private Long userId;
     private List<String> roles;
     private List<String> permissions;
     private int expirationIn;

@@ -18,6 +18,10 @@ public enum PermissionKeyEnum implements HasI18NCode{
     EXPORT_USER("permission.user.export_user"),
     IMPORT_USER("permission.user.import_user"),
     CHANGE_PASSWORD_USER("permission.user.change_password_user"),
+    
+    //user-profile
+    VIEW_USER_PROFILE("permission.user_profile.view"),
+    UPDATE_USER_PROFILE("permission.user_profile.update"),
 
     ;
 

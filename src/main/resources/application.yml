@@ -38,3 +38,5 @@ spring:
       thread-name-prefix: scheduling-
       pool:
         size: 2
+  jpa:
+    open-in-view: true

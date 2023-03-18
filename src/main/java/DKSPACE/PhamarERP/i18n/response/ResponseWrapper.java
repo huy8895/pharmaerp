@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.midleware.response;
+package DKSPACE.PhamarERP.i18n.response;
 
 import java.lang.annotation.*;
 

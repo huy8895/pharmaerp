@@ -1,6 +1,9 @@
-package DKSPACE.PhamarERP.midleware.response;
+package DKSPACE.PhamarERP.i18n.response;
 
+import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
+import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ApiResponse;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,10 +16,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Component
 @Aspect
+@RequiredArgsConstructor
 public class ResponseWrapperAspect {
+	private final I18NMessageResolver messageResolver;
+	
 	@Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
 	public void controller() {
 		// Method is empty as this is just a Pointcut, the implementations are in the advices.
@@ -42,6 +49,9 @@ public class ResponseWrapperAspect {
 		// Lấy giá trị trong ResponseStatus
 		HttpStatus httpStatus = responseStatus.value();
 		final var response = (ApiResponse<?>) result;
+		Optional.ofNullable(response.getResponseInfo())
+		        .map(messageResolver::convertMessage)
+		        .ifPresent(response::setMessage);
 		response.setStatus(httpStatus.name());
 		response.setStatusCode(httpStatus.value());
 		return response;

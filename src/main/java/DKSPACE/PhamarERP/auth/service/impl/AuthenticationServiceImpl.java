@@ -29,6 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         final var jwtTokenDTO = jwtService.generateToken((CustomUserDetails) authenticate.getPrincipal());
         return LoginResDto.builder()
+                          .userId(jwtTokenDTO.getUserId())
                           .token(jwtTokenDTO.getToken())
                           .roles(jwtTokenDTO.getRoles())
                           .permissions(jwtTokenDTO.getPermissions())
