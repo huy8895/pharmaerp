@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,7 +12,7 @@ import java.time.Instant;
 		@Index(name = "name_vi_unique", columnList = "name_vi", unique = true),
 		@Index(name = "name_en_unique", columnList = "name_en", unique = true)
 })
-public class ContractType {
+public class ContractType extends BaseCRUDEntity {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;

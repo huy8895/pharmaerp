@@ -11,7 +11,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "gen_job_titles")
-public class GenJobTitle {
+public class GenJobTitle extends BaseCRUDEntity {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;

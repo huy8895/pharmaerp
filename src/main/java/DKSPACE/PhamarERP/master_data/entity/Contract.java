@@ -1,13 +1,24 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "contracts", indexes = {
 		@Index(name = "contracts_user_id_unique", columnList = "user_id", unique = true),
@@ -17,10 +28,7 @@ import java.time.LocalDate;
 		@Index(name = "contracts_gen_work_location_id_idx", columnList = "gen_work_location_id"),
 		@Index(name = "contracts_gen_officer_level_id_idx", columnList = "gen_officer_level_id")
 })
-public class Contract {
-	@Id
-	@Column(name = "id", nullable = false)
-	private Long id;
+public class Contract extends BaseCRUDEntity{
 	
 	@NotNull
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -77,150 +85,5 @@ public class Contract {
 	
 	@Column(name = "note", length = Integer.MAX_VALUE)
 	private String note;
-	
-	@Column(name = "created_at")
-	private Instant createdAt;
-	
-	@Column(name = "updated_at")
-	private Instant updatedAt;
-	
-	@Column(name = "deleted_at")
-	private Instant deletedAt;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	public User getCreator() {
-		return creator;
-	}
-	
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-	
-	public ContractType getContractType() {
-		return contractType;
-	}
-	
-	public void setContractType(ContractType contractType) {
-		this.contractType = contractType;
-	}
-	
-	public GenWorkLocation getGenWorkLocation() {
-		return genWorkLocation;
-	}
-	
-	public void setGenWorkLocation(GenWorkLocation genWorkLocation) {
-		this.genWorkLocation = genWorkLocation;
-	}
-	
-	public GenOfficerLevel getGenOfficerLevel() {
-		return genOfficerLevel;
-	}
-	
-	public void setGenOfficerLevel(GenOfficerLevel genOfficerLevel) {
-		this.genOfficerLevel = genOfficerLevel;
-	}
-	
-	public Long getGenDepartmentId() {
-		return genDepartmentId;
-	}
-	
-	public void setGenDepartmentId(Long genDepartmentId) {
-		this.genDepartmentId = genDepartmentId;
-	}
-	
-	public GenJobTitle getGenJobTitle() {
-		return genJobTitle;
-	}
-	
-	public void setGenJobTitle(GenJobTitle genJobTitle) {
-		this.genJobTitle = genJobTitle;
-	}
-	
-	public String getContractCode() {
-		return contractCode;
-	}
-	
-	public void setContractCode(String contractCode) {
-		this.contractCode = contractCode;
-	}
-	
-	public Long getDuration() {
-		return duration;
-	}
-	
-	public void setDuration(Long duration) {
-		this.duration = duration;
-	}
-	
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-	
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-	
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-	
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	public String getNote() {
-		return note;
-	}
-	
-	public void setNote(String note) {
-		this.note = note;
-	}
-	
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
-	
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
-	
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-	
-	public Instant getDeletedAt() {
-		return deletedAt;
-	}
-	
-	public void setDeletedAt(Instant deletedAt) {
-		this.deletedAt = deletedAt;
-	}
 	
 }

@@ -11,7 +11,7 @@ import java.time.Instant;
 @Table(name = "user_courses", indexes = {
 		@Index(name = "user_courses_user_id_idx", columnList = "user_id")
 })
-public class UserCours {
+public class UserCours extends BaseCRUDEntity {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;

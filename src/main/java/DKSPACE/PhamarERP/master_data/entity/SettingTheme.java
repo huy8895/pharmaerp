@@ -11,7 +11,7 @@ import java.time.Instant;
 @Table(name = "setting_themes", indexes = {
 		@Index(name = "setting_themes_user_id_idx", columnList = "user_id")
 })
-public class SettingTheme {
+public class SettingTheme extends BaseCRUDEntity {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "uploadables")
-public class Uploadable {
+public class Uploadable extends BaseCRUDEntity {
 	@EmbeddedId
 	private UploadableId id;
 	

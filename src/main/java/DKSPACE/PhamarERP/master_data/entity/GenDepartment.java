@@ -11,7 +11,7 @@ import java.time.Instant;
 		@Index(name = "gen_officer_levels_name_en_unique", columnList = "name_en", unique = true),
 		@Index(name = "gen_officer_levels_name_vi_unique", columnList = "name_vi", unique = true)
 })
-public class GenDepartment {
+public class GenDepartment extends BaseCRUDEntity {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;

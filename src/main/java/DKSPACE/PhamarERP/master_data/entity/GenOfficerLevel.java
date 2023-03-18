@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +12,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "gen_officer_levels")
-public class GenOfficerLevel {
+public class GenOfficerLevel extends BaseCRUDEntity {
 	@Id
 	@Column(name = "id", nullable = false)
 	private Long id;
