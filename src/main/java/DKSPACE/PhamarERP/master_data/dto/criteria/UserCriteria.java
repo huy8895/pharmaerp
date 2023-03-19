@@ -16,7 +16,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCriteria implements Serializable {
-	private StringFilter search;
+	private StringFilter email;
+	private StringFilter username;
+	private StringFilter phoneNumber;
+	private StringFilter firstName;
+	private StringFilter lastName;
+	private StringFilter staffCode;
 	
 	private BooleanFilter isActive;
 	private LongFilter roleId;

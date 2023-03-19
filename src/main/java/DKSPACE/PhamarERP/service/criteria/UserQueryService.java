@@ -32,19 +32,15 @@ public class UserQueryService extends QueryService<User> {
 	private Specification<User> createSpecification(UserCriteria criteria) {
 		return SpecificationBuilder
 				.<User>builder()
-				.and(criteria.getSearch(),
-				     filter -> this.buildStringSpecification(filter, User_.phoneNumber)
-				                   .or(this.buildStringSpecification(filter, User_.email))
-				                   .or(this.buildStringSpecification(filter, User_.username))
-				                   .or(this.buildStringSpecification(filter, User_.staffCode))
-				                   .or(this.buildStringSpecification(filter, User_.firstName))
-				                   .or(this.buildStringSpecification(filter, User_.lastName)))
-				.and(criteria.getType(),
-				     userTypeFilter -> this.buildSpecification(userTypeFilter, User_.type))
-				.and(criteria.getRoleId(),
-				     longFilter -> this.buildSpecification(longFilter,
-				                                           userRoot -> userRoot.join(User_.roles, JoinType.LEFT).get(
-						                                           Role_.id)))
+				.and(criteria.getPhoneNumber(), filter -> this.buildStringSpecification(filter, User_.phoneNumber))
+				.and(criteria.getEmail(), filter -> this.buildStringSpecification(filter, User_.email))
+				.and(criteria.getUsername(), filter -> this.buildStringSpecification(filter, User_.username))
+				.and(criteria.getStaffCode(), filter -> this.buildStringSpecification(filter, User_.staffCode))
+				.and(criteria.getFirstName(), filter -> this.buildStringSpecification(filter, User_.firstName))
+				.and(criteria.getLastName(), filter -> this.buildStringSpecification(filter, User_.lastName))
+				.and(criteria.getType(), userTypeFilter -> this.buildSpecification(userTypeFilter, User_.type))
+				.and(criteria.getRoleId(), longFilter -> this.buildSpecification(longFilter,
+				                                           userRoot -> userRoot.join(User_.roles, JoinType.LEFT).get(Role_.id)))
 				.and(criteria.getIsActive(),
 				     booleanFilter -> this.buildSpecification(booleanFilter, User_.isActive))
 				.build();
