@@ -4,7 +4,6 @@ import DKSPACE.PhamarERP.master_data.entity.id.UploadableId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * chứa thông tin về các tệp tin được tải lên và liên kết với các đối tượng khác trong hệ thống.
