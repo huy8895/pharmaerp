@@ -29,7 +29,7 @@ public class ContractTypeServiceImpl extends AbstractBaseCRUDService<ContractTyp
 		if (criteria instanceof ContractTypeCriteria contractCriteria) {
 			return queryService.findByCriteria(contractCriteria, pageable);
 		}
-		log.error("findByCriteria criteria must be ContractCriteria");
+		log.error("findByCriteria criteria must be ContractTypeCriteria");
 		throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);
 	}
 }

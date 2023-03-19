@@ -21,5 +21,4 @@ public class ActivityLogController
 	protected ActivityLogController(ActivityLogService service) {
 		super(service,  ActivityLog.class);
 	}
-	
 }
