@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ActivityLogQueryService extends QueryService<ActivityLog> {
+public class ActivityLogQueryService extends QueryService<ActivityLog>
+		implements FilterService<ActivityLogCriteria>{
 	private final ActivityLogRepository activityLogRepository;
 	
 	@Transactional(readOnly = true)
