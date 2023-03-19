@@ -2,10 +2,10 @@ package DKSPACE.PhamarERP.basecrud;
 
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.helper.excel.impl.ExcelHelperImpl;
+import DKSPACE.PhamarERP.master_data.dto.criteria.DtoCriteria;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +49,7 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
     }
 
     @GetMapping
-    @Operation(summary="Lấy danh sách và lọc")
+    @Operation(summary="Lấy danh sách")
     public Object getAll(@ParameterObject Pageable pageable) {
         return service.findAll(pageable);
     }
