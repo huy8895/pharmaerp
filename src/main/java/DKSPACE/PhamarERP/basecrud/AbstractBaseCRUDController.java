@@ -48,12 +48,6 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
         return service.findOne(id);
     }
 
-    @GetMapping
-    @Operation(summary="Lấy danh sách")
-    public Object getAll(@ParameterObject Pageable pageable) {
-        return service.findAll(pageable);
-    }
-
     @PutMapping
     @Operation(summary="Cập nhật")
     public Object update(@RequestBody E entity) {
