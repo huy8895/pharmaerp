@@ -21,5 +21,5 @@ package DKSPACE.PhamarERP.helper.query;
 /**
  * Implementation should usually contain fields of Filter instances.
  */
-public interface Criteria {
+public interface Criteria<ENTITY> {
 }

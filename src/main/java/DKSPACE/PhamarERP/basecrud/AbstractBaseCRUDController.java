@@ -2,12 +2,15 @@ package DKSPACE.PhamarERP.basecrud;
 
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.helper.excel.impl.ExcelHelperImpl;
-import DKSPACE.PhamarERP.master_data.dto.criteria.DtoCriteria;
+import DKSPACE.PhamarERP.helper.query.Criteria;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +22,10 @@ import java.util.List;
  * - Các controller này sẽ sử dụng một service cơ bản và một entity cơ bản
  * - Các controller này cũng có thể xuất và nhập file Excel cho entity của chúng
  **/
-public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S extends BaseCRUDService<E>> {
+public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
+        S extends BaseCRUDService<E>,
+        C extends Criteria<E>> {
+    
     protected final S service;
     protected final Class<E> entity;
     protected final ExcelHelper excelHelper;
@@ -46,6 +52,13 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity, S ext
     @Operation(summary="Lấy thông tin chi tiết")
     public Object getDetail(@PathVariable Long id) {
         return service.findOne(id);
+    }
+    
+    @GetMapping
+    @Operation(summary = "Lấy danh sách và lọc theo tiêu chí")
+    public Object getListByCriteria(@ParameterObject Pageable pageable,
+                                    @ParameterObject C criteria) {
+        return service.findByCriteria(pageable, criteria);
     }
 
     @PutMapping
