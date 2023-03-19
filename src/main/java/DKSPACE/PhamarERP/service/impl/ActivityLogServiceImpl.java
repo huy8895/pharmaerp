@@ -9,6 +9,7 @@ import DKSPACE.PhamarERP.master_data.entity.ActivityLog;
 import DKSPACE.PhamarERP.repository.ActivityLogRepository;
 import DKSPACE.PhamarERP.service.ActivityLogService;
 import DKSPACE.PhamarERP.service.criteria.ActivityLogQueryService;
+import DKSPACE.PhamarERP.service.criteria.FilterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ActivityLogServiceImpl extends AbstractBaseCRUDService<ActivityLog, ActivityLogRepository> implements ActivityLogService {
-	private final ActivityLogQueryService queryService;
+	private final FilterService<ActivityLogCriteria> queryService;
+	
 	protected ActivityLogServiceImpl(ActivityLogRepository repository,
 	                                 ActivityLogQueryService queryService) {
 		super(repository);
