@@ -18,8 +18,10 @@
  */
 package DKSPACE.PhamarERP.helper.query;
 
+import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+
 /**
  * Implementation should usually contain fields of Filter instances.
  */
-public interface Criteria<ENTITY> {
+public interface Criteria<ENTITY extends BaseCRUDEntity> {
 }

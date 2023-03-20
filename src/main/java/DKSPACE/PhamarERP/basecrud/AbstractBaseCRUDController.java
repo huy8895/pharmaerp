@@ -85,13 +85,13 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
 
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary="Nhập dữ liệu từ file Excel")
-    public Object exportFileExcel(@RequestParam("file") MultipartFile file) {
+    public Object importFileExcel(@RequestParam("file") MultipartFile file) {
         return excelHelper.readFile(file, this.entity);
     }
 
     @GetMapping("/export")
     @Operation(summary="Xuất dữ liệu ra file Excel")
-    public ResponseEntity<byte[]> importFileExcel() {
+    public ResponseEntity<byte[]> exportFileExcel() {
         return ResponseEntity.status(HttpStatus.OK)
                              .headers(this.getHttpHeaders("-export-" + entity.getSimpleName()))
                              .body(excelHelper.writeFile(service.findAll(Pageable.unpaged())
