@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.controller;
+package DKSPACE.PhamarERP.master_data.dto.criteria;
 
 import DKSPACE.PhamarERP.helper.query.Criteria;
 import DKSPACE.PhamarERP.master_data.entity.GenWorkLocation;
