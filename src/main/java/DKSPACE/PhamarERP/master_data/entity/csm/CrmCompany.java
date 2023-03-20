@@ -35,6 +35,7 @@ public class CrmCompany extends BaseCRUDEntity {
 	 * Mã số thuế của công ty.
 	 */
 	@NotNull
+	@Size(max = 20)
 	@Column(name = "tax_code", nullable = false, length = 20)
 	private String taxCode;
 	
