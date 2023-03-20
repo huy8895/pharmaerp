@@ -1,7 +1,10 @@
 package DKSPACE.PhamarERP.master_data.entity.csm;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -31,9 +34,8 @@ public class CrmLeadItem extends BaseCRUDEntity {
 	 * Khách hàng tiềm năng mà sản phẩm thuộc về. Không được để trống.
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "crm_lead_id", nullable = false)
-	private CrmLead crmLead;
+	@Column(name = "crm_lead_id")
+	private Long crmLeadId;
 	
 	/**
 	 * Tên của sản phẩm. Không được để trống.
