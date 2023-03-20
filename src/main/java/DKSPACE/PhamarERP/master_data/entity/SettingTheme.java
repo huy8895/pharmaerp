@@ -1,8 +1,10 @@
 package DKSPACE.PhamarERP.master_data.entity;
 
-import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -10,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 /**
  * đại diện cho các thiết lập giao diện của người dùng trên hệ thống.
@@ -79,4 +84,17 @@ public class SettingTheme extends BaseCRUDEntity {
 	@NotNull
 	@Column(name = "preloader", nullable = false,length= 20,columnDefinition="varchar(20) default 'enable'")
 	private String preloader;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		SettingTheme that = (SettingTheme) o;
+		return getId() != null && Objects.equals(getId(), that.getId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 /**
  * Lớp UserActivity kế thừa từ lớp BaseCRUDEntity. Lớp này đại diện cho một bản ghi hoạt động của người dùng trong một tổ chức nào đó.
@@ -84,4 +87,17 @@ public class UserActivity extends BaseCRUDEntity {
 	@Size(max = 255)
 	@Column(name = "link")
 	private String link;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		UserActivity that = (UserActivity) o;
+		return getId() != null && Objects.equals(getId(), that.getId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

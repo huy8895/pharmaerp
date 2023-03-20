@@ -11,8 +11,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
 
- /**
+import java.util.Objects;
+
+/**
   * Lớp này đại diện cho một chức danh công việc trong hệ thống.
 	*/
 @Getter
@@ -58,4 +61,17 @@ public class GenJobTitle extends BaseCRUDEntity {
 	@NotNull
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive = false;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		GenJobTitle that = (GenJobTitle) o;
+		return getId() != null && Objects.equals(getId(), that.getId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }

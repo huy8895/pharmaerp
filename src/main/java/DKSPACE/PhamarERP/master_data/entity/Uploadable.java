@@ -4,6 +4,9 @@ import DKSPACE.PhamarERP.master_data.entity.id.UploadableId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 /**
  * chứa thông tin về các tệp tin được tải lên và liên kết với các đối tượng khác trong hệ thống.
@@ -50,4 +53,17 @@ public class Uploadable {
 	 */
 	@Column(name = "describe", length = Integer.MAX_VALUE)
 	private String describe;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		Uploadable that = (Uploadable) o;
+		return id != null && Objects.equals(id, that.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

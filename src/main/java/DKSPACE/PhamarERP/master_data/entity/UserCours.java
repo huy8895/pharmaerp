@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 /**
  * đại diện cho một khóa học mà người dùng đã tham gia hoặc đang tham gia.
@@ -76,4 +79,17 @@ public class UserCours extends BaseCRUDEntity {
 	@Size(max = 255)
 	@Column(name = "link")
 	private String link;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+		UserCours userCours = (UserCours) o;
+		return getId() != null && Objects.equals(getId(), userCours.getId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return getClass().hashCode();
+	}
 }
