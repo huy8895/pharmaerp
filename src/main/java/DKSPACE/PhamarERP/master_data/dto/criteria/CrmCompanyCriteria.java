@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.controller.csm;
+package DKSPACE.PhamarERP.master_data.dto.criteria;
 
 import DKSPACE.PhamarERP.helper.query.Criteria;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmCompany;

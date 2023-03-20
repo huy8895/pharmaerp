@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.controller.csm;
+package DKSPACE.PhamarERP.service;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDService;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmLead;

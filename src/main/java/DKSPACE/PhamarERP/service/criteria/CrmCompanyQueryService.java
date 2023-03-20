@@ -1,11 +1,11 @@
-package DKSPACE.PhamarERP.controller.csm;
+package DKSPACE.PhamarERP.service.criteria;
 
 import DKSPACE.PhamarERP.helper.query.QueryService;
 import DKSPACE.PhamarERP.helper.query.SpecificationBuilder;
+import DKSPACE.PhamarERP.master_data.dto.criteria.CrmCompanyCriteria;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmCompany;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmCompany_;
 import DKSPACE.PhamarERP.repository.crm.CrmCompanyRepository;
-import DKSPACE.PhamarERP.service.criteria.FilterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
