@@ -15,6 +15,9 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+/**
+ * Lớp Tagable đại diện cho một đối tượng có thể được gán nhãn trong hệ thống CRM. Lớp này có một khóa chính nhúng là TagableId bao gồm id của nhãn và id của đối tượng được gán nhãn.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -23,13 +26,23 @@ import java.util.Objects;
 @Entity
 @Table(name = "tagables")
 public class Tagable {
+	
+	/**
+	 * Khóa chính nhúng của lớp Tagable. Bao gồm id của nhãn và id của đối tượng được gán nhãn.
+	 */
 	@EmbeddedId
 	private TagableId id;
 	
+	/**
+	 * Loại của đối tượng được gán nhãn. Ví dụ: công ty, liên hệ, khách hàng tiềm năng... Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 45)
 	@Column(name = "object_type", length = 45)
 	private String objectType;
 	
+	/**
+	 * Trường của đối tượng được gán nhãn. Ví dụ: tên, email, số điện thoại... Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 45)
 	@Column(name = "object_field", length = 45)
 	private String objectField;
