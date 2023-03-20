@@ -25,7 +25,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "tagables")
-public class Tagable {
+public class CrmTagable {
 	
 	/**
 	 * Khóa chính nhúng của lớp Tagable. Bao gồm id của nhãn và id của đối tượng được gán nhãn.
@@ -51,8 +51,8 @@ public class Tagable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		Tagable tagable = (Tagable) o;
-		return id != null && Objects.equals(id, tagable.id);
+		CrmTagable crmTagable = (CrmTagable) o;
+		return id != null && Objects.equals(id, crmTagable.id);
 	}
 	
 	@Override

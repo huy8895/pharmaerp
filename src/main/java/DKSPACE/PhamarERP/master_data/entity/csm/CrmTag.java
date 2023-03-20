@@ -26,7 +26,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "tags")
-public class Tag extends BaseCRUDEntity {
+public class CrmTag extends BaseCRUDEntity {
 	
 	/**
 	 * Tên của nhãn. Không được để trống.
@@ -47,8 +47,8 @@ public class Tag extends BaseCRUDEntity {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		Tag tag = (Tag) o;
-		return getId() != null && Objects.equals(getId(), tag.getId());
+		CrmTag crmTag = (CrmTag) o;
+		return getId() != null && Objects.equals(getId(), crmTag.getId());
 	}
 	
 	@Override
