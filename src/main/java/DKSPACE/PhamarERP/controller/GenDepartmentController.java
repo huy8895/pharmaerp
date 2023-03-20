@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/gen-departments")
 @ResponseWrapper
-@Tag(name = "GenDepartment", description = "Các API liên quan đến GenDepartment")
+@Tag(name = "GenDepartment", description = "Phòng ban")
 public class GenDepartmentController
 		extends AbstractBaseCRUDController<GenDepartment, GenDepartmentService, GenDepartmentCriteria> {
 	

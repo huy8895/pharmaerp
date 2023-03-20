@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/gen-work-location")
+@RequestMapping("/api/gen-work-locations")
 @ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
-@Tag(name = "GenWorkLocation", description = "Các API liên quan đến GenWorkLocation")
+@Tag(name = "GenWorkLocation", description = "Địa điểm làm việc")
 public class GenWorkLocationController extends AbstractBaseCRUDController<GenWorkLocation, GenWorkLocationService, GenWorkLocationCriteria> {
 	protected GenWorkLocationController(GenWorkLocationService service) {
 		super(service, GenWorkLocation.class);

@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.controller;
 
-import DKSPACE.PhamarERP.master_data.dto.upload.GenUploadDto;
 import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
+import DKSPACE.PhamarERP.master_data.dto.upload.GenUploadDto;
 import DKSPACE.PhamarERP.service.GenUploadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/gen-upload")
+@RequestMapping("/api/gen-uploads")
 @RequiredArgsConstructor
 @ResponseWrapper(excludes = {"download"})
 @Tag(name = "GenUpload", description = "The GenUpload API")

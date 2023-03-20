@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user-profiles")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@Tag(name = "UserProfile", description = "Các API để quản lý hồ sơ người dùng")
+@Tag(name = "UserProfile", description = "Hồ sơ người dùng")
 public class UserProfileController {
 	private final UserProfileService service;
 	

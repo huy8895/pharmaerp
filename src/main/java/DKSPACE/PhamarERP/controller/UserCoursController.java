@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user-cours")
 @ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
-@Tag(name = "UserCours", description = "Các API liên quan đến UserCours")
+@Tag(name = "UserCours", description = "Khóa học")
 public class UserCoursController extends AbstractBaseCRUDController<UserCours, UserCoursService, UserCoursCriteria> {
 	protected UserCoursController(UserCoursService service) {
 		super(service, UserCours.class);

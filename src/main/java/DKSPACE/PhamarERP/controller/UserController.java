@@ -3,9 +3,9 @@ package DKSPACE.PhamarERP.controller;
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
-import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import DKSPACE.PhamarERP.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 @ResponseWrapper(excludes = {"exportTemplate","exportUser"})
-@Tag(name = "User", description = "Các API để quản lý người dùng")
+@Tag(name = "User", description = "Quản lý người dùng")
 public class UserController {
     private final UserService service;
 

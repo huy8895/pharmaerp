@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/contracts")
-@Tag(name = "Contract", description = "Các API liên quan đến hợp đồng của người dùng")
+@Tag(name = "Contract", description = "Hợp đồng của người dùng")
 public class ContractController extends AbstractBaseCRUDController<Contract, ContractService, ContractCriteria> {
 	
 	protected ContractController(ContractService service) {
