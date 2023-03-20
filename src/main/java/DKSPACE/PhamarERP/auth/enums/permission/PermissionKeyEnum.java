@@ -22,6 +22,14 @@ public enum PermissionKeyEnum implements HasI18NCode{
     //user-profile
     VIEW_USER_PROFILE("permission.user_profile.view"),
     UPDATE_USER_PROFILE("permission.user_profile.update"),
+    
+    CREATE_JOB_TITLE("permission.job_title.create"),
+    IMPORT_JOB_TITLE("permission.job_title.import"),
+    DETAIL_JOB_TITLE("permission.job_title.detail"),
+    LIST_JOB_TITLE("permission.job_title.list"),
+    UPDATE_JOB_TITLE("permission.job_title.update"),
+    DELETE_JOB_TITLE("permission.job_title.delete"),
+    EXPORT_JOB_TITLE("permission.job_title.export"),
 
     ;
 

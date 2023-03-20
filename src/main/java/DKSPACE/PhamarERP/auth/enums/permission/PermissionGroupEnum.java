@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.enums.permission;
 
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.master_data.entity.GenJobTitle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +35,18 @@ public enum PermissionGroupEnum implements HasI18NCode{
             IMPORT_USER,
             CHANGE_PASSWORD_USER
             ),
+    
+    JOB_TITLE(
+            GenJobTitle.class,
+            "permission.group.job_title",
+            UPDATE_JOB_TITLE,
+            CREATE_JOB_TITLE,
+            LIST_JOB_TITLE,
+            DELETE_JOB_TITLE,
+            DETAIL_JOB_TITLE,
+            IMPORT_JOB_TITLE,
+            EXPORT_JOB_TITLE
+    ),
 
     ;
 
