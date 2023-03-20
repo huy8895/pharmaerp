@@ -13,6 +13,9 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+/**
+ * đại diện cho một sản phẩm của một khách hàng tiềm năng trong hệ thống CRM.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -24,24 +27,39 @@ import java.util.Objects;
 })
 public class CrmLeadItem extends BaseCRUDEntity {
 	
-	
+	/**
+	 * Khách hàng tiềm năng mà sản phẩm thuộc về. Không được để trống.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "crm_lead_id", nullable = false)
 	private CrmLead crmLead;
 	
+	/**
+	 * Tên của sản phẩm. Không được để trống.
+	 */
 	@Size(max = 100)
 	@NotNull
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 	
+	/**
+	 * Màu sắc của sản phẩm. Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 10)
 	@Column(name = "color", length = 10)
 	private String color;
 	
+	/**
+	 * Mô tả về sản phẩm. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "describe", length = Integer.MAX_VALUE)
 	private String describe;
 	
+	/**
+	 * Trạng thái hoạt động của sản phẩm (true: hoạt động; false: ngừng hoạt động).
+	 * Mặc định là true khi tạo mới một sản phẩm trong hệ thống CRM.
+	 */
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
