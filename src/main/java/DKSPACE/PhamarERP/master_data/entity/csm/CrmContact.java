@@ -13,6 +13,9 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+/**
+ * đại diện cho một liên hệ của một công ty trong hệ thống CRM.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -22,37 +25,60 @@ import java.util.Objects;
 @Table(name = "crm_contacts")
 public class CrmContact extends BaseCRUDEntity {
 	
-	
+	/**
+	 * Công ty mà liên hệ thuộc về. Không được để trống.
+	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "crm_company_id", nullable = false)
 	private CrmCompany crmCompany;
 	
+	/**
+	 * Email của liên hệ. Không được để trống.
+	 */
 	@Size(max = 100)
 	@NotNull
 	@Column(name = "email", nullable = false, length = 100)
 	private String email;
 	
+	/**
+	 * Số điện thoại của liên hệ. Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 20)
 	@Column(name = "tel", length = 20)
 	private String tel;
 	
+	/**
+	 * Tên của liên hệ. Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 50)
 	@Column(name = "first_name", length = 50)
 	private String firstName;
 	
+	/**
+	 * Họ của liên hệ. Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 50)
 	@Column(name = "last_name", length = 50)
 	private String lastName;
 	
+	/**
+	 * Tên tiếng Anh của liên hệ. Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 50)
 	@Column(name = "english_name", length = 50)
 	private String englishName;
 	
+	/**
+	 * Chức vụ của liên hệ trong công ty. Có thể để trống nếu không có thông tin.
+	 */
 	@Size(max = 100)
 	@Column(name = "designation", length = 100)
 	private String designation;
 	
+	/**
+	 * Trạng thái hoạt động của liên hệ (true: hoạt động; false: ngừng hoạt động). Mặc định là true khi tạo mới một liên hệ trong hệ thống CRM.
+	 */
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
