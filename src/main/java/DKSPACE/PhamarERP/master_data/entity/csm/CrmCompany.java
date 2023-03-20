@@ -17,6 +17,9 @@ import org.hibernate.Hibernate;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * đại diện cho một công ty trong hệ thống CRM.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -28,47 +31,79 @@ import java.util.Objects;
 })
 public class CrmCompany extends BaseCRUDEntity {
 	
-	
-	@Size(max = 20)
+	/**
+	 * Mã số thuế của công ty.
+	 */
 	@NotNull
 	@Column(name = "tax_code", nullable = false, length = 20)
 	private String taxCode;
 	
+	/**
+	 * Tên công ty bằng tiếng Việt. 
+	 */
 	@Size(max = 255)
 	@Column(name = "company_name_vi")
 	private String companyNameVi;
 	
+	/**
+	 * Tên công ty bằng tiếng Anh. 
+	 */
 	@Size(max = 255)
 	@Column(name = "company_name_en")
 	private String companyNameEn;
 	
+	/**
+	 * Tên giám đốc điều hành của công ty. 
+	 */
 	@Size(max = 100)
 	@Column(name = "company_ceo", length = 100)
 	private String companyCeo;
 	
+	/**
+	 * Tên viết tắt của công ty. 
+	 */
 	@Size(max = 255)
 	@Column(name = "abbreviation_name")
 	private String abbreviationName;
 	
+	/**
+	 * Trụ sở chính của công ty. 
+	 */
 	@Size(max = 45)
 	@Column(name = "headquarter", length = 45)
 	private String headquarter;
 	
+	/**
+	 * Số điện thoại chính của công ty. 
+	 */
 	@Size(max = 20)
 	@Column(name = "main_tel", length = 20)
 	private String mainTel;
 	
+	/**
+	 * Số fax chính của công ty. 
+	 */
 	@Size(max = 20)
 	@Column(name = "main_fax", length = 20)
 	private String mainFax;
 	
+	/**
+	 * Email chính của công ty. 
+	 */
 	@Size(max = 100)
 	@Column(name = "main_email", length = 100)
 	private String mainEmail;
 	
+	/**
+	 * Ngày bắt đầu hoạt động của công ty. 
+	 */
 	@Column(name = "operation_day")
 	private LocalDate operationDay;
 	
+	/**
+	 * Trạng thái hoạt động của công ty (true: hoạt động; false: ngừng hoạt động). 
+	 * Mặc định là true khi tạo mới một công ty trong hệ thống CRM.
+	 */
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
