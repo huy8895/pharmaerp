@@ -16,6 +16,9 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+/**
+ * Lớp CrmLead kế thừa từ lớp BaseCRUDEntity. Lớp này đại diện cho một khách hàng tiềm năng trong hệ thống CRM.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -27,15 +30,23 @@ import java.util.Objects;
 })
 public class CrmLead extends BaseCRUDEntity {
 	
-	
+	/**
+	 * Tên của khách hàng tiềm năng. Không được để trống.
+	 */
 	@Size(max = 100)
 	@NotNull
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 	
+	/**
+	 * Mô tả về khách hàng tiềm năng. Có thể để trống nếu không có thông tin.
+	 */
 	@Column(name = "describe", length = Integer.MAX_VALUE)
 	private String describe;
 	
+	/**
+	 * Trạng thái hoạt động của khách hàng tiềm năng (true: hoạt động; false: ngừng hoạt động). Mặc định là true khi tạo mới một khách hàng tiềm năng trong hệ thống CRM.
+	 */
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
