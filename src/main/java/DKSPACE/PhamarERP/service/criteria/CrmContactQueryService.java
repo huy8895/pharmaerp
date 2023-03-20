@@ -30,7 +30,7 @@ public class CrmContactQueryService extends QueryService<CrmContact> implements 
 	private Specification<CrmContact> createSpecification(CrmContactCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmContact>builder()
-				.and(criteria.getCrmCompanyId(), filter -> this.buildSpecification(filter, CrmContact_.id))
+				.and(criteria.getCrmCompanyId(), filter -> this.buildSpecification(filter, CrmContact_.crmCompanyId))
 				.and(criteria.getEmail(), filter -> this.buildStringSpecification(filter, CrmContact_.email))
 				.and(criteria.getTel(), filter -> this.buildStringSpecification(filter, CrmContact_.tel))
 				.and(criteria.getFirstName(), filter -> this.buildStringSpecification(filter, CrmContact_.firstName))

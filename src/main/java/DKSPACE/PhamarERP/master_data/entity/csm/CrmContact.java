@@ -1,7 +1,9 @@
 package DKSPACE.PhamarERP.master_data.entity.csm;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -29,9 +31,8 @@ public class CrmContact extends BaseCRUDEntity {
 	 * Công ty mà liên hệ thuộc về. Không được để trống.
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "crm_company_id", nullable = false)
-	private CrmCompany crmCompany;
+	@Column(name = "crm_company_id", nullable = false)
+	private Long crmCompanyId;
 	
 	/**
 	 * Email của liên hệ. Không được để trống.
