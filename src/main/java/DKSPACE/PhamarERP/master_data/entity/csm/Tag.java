@@ -15,6 +15,10 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+/**
+ * đại diện cho một nhãn trong hệ thống CRM.
+ * Nhãn có thể được gán cho các đối tượng khác nhau như công ty, liên hệ, khách hàng tiềm năng, sản phẩm...
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -24,11 +28,18 @@ import java.util.Objects;
 @Table(name = "tags")
 public class Tag extends BaseCRUDEntity {
 	
+	/**
+	 * Tên của nhãn. Không được để trống.
+	 */
 	@Size(max = 100)
 	@NotNull
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 	
+	/**
+	 * Trạng thái hoạt động của nhãn (true: hoạt động; false: ngừng hoạt động).
+	 * Mặc định là true khi tạo mới một nhãn trong hệ thống CRM.
+	 */
 	@Column(name = "is_active")
 	private Boolean isActive;
 	
