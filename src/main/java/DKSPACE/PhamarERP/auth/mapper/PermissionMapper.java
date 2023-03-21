@@ -4,13 +4,13 @@ import DKSPACE.PhamarERP.auth.dto.permission.PermissionDTO;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.model.Permission;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDAction;
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,16 +19,27 @@ import java.util.stream.Collectors;
 public class PermissionMapper  {
     private final I18NMessageResolver messageResolver;
     public PermissionDTO toDTO(Permission entity) {
+        final var group = PermissionGroupEnum.from(entity.getGroup());
+        if (group != null && group.isBaseCRUD()){
+            final var baseCRUDAction = BaseCRUDAction.resolveKey(entity.getKey(), group);
+            final var groupName = messageResolver.convertMessage(group);
+            final var keyName = BaseCRUDAction.getKeyNameI18N(group, baseCRUDAction, messageResolver::convertMessage);
+            return PermissionDTO.builder()
+                                .id(entity.getId())
+                                .group(group.name())
+                                .groupName(groupName)
+                                .key(entity.getKey())
+                                .keyName(keyName)
+                                .build();
+        }
+    
+        final var key = PermissionKeyEnum.from(entity.getKey());
         return PermissionDTO.builder()
                             .id(entity.getId())
-                            .group(Optional.ofNullable(entity.getGroup())
-                                           .map(PermissionGroupEnum::name)
-                                           .orElse(null))
-                            .groupName(messageResolver.convertMessage(entity.getGroup()))
-                            .key(Optional.ofNullable(entity.getKey())
-                                         .map(PermissionKeyEnum::name)
-                                         .orElse(null))
-                            .keyName(messageResolver.convertMessage(entity.getKey()))
+                            .group(entity.getGroup())
+                            .groupName(messageResolver.convertMessage(group))
+                            .key(key.name())
+                            .keyName(messageResolver.convertMessage(key))
                             .build();
     }
 

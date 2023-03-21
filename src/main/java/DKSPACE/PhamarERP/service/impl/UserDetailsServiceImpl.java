@@ -37,7 +37,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                                          .map(Role::getPermissions)
                                          .flatMap(Collection::stream)
                                          .map(Permission::getKey)
-                                         .map(Enum::name)
                                          .collect(Collectors.toSet());
 
         return new CustomUserDetails(user, simpleGrantedAuthorities,listPermission);

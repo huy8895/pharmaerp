@@ -1,5 +1,9 @@
 package DKSPACE.PhamarERP.auth.enums.permission;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public enum PermissionKeyEnum implements HasI18NCode{
     //role
 
@@ -32,7 +36,12 @@ public enum PermissionKeyEnum implements HasI18NCode{
     EXPORT_JOB_TITLE("permission.job_title.export"),
 
     ;
-
+    
+    static {
+        groupEnumMap = Arrays.stream(values()).collect(Collectors.toMap(Enum::name, p -> p));
+    }
+    
+    private static final Map<String, PermissionKeyEnum> groupEnumMap;
 
     private final String i18nCode;
 
@@ -43,5 +52,9 @@ public enum PermissionKeyEnum implements HasI18NCode{
 
     public String getI18nCode() {
         return i18nCode;
+    }
+    
+    public static PermissionKeyEnum from(String groupName) {
+        return groupEnumMap.get(groupName);
     }
 }

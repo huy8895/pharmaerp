@@ -6,6 +6,7 @@ import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.exception.AccessDeniedException;
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.basecrud.HasBaseCRUDPermission;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,11 +31,20 @@ public class PermissionInterceptor implements HandlerInterceptor {
         log.info("PermissionInterceptor => check");
         if (HandlerMethod.class.isAssignableFrom(handler.getClass())) {
             final var handlerMethod = (HandlerMethod) handler;
-            final var methodAnnotation = handlerMethod.getMethodAnnotation(HasPermission.class);
-            if (methodAnnotation == null) return true;
-            this.checkPermissionBefore(methodAnnotation, request);
+            handlerMethod.getMethod().getAnnotations();
+            final var hasPermission = handlerMethod.getMethodAnnotation(HasPermission.class);
+            final var hasBaseCRUDPermission = handlerMethod.getMethodAnnotation(HasBaseCRUDPermission.class);
+            if (hasPermission != null) {
+                this.checkPermissionBefore(hasPermission, request);
+            } else if (hasBaseCRUDPermission != null) {
+                this.checkPermissionBefore(hasBaseCRUDPermission, request);
+            }
         }
         return true;
+    }
+    
+    private void checkPermissionBefore(HasBaseCRUDPermission crudPermission, HttpServletRequest request) {
+    
     }
     
     public void checkPermissionBefore(HasPermission methodAnnotation, HttpServletRequest request) {
