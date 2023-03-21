@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.criteria;
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.master_data.entity.UserCertificate;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.LongFilter;
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCertificateCriteria implements Criteria<UserCertificate> {
+public class UserCertificateCriteria extends BaseCrudCriteria<UserCertificate> {
 	private LongFilter userId;
 	private StringFilter name;
 	private StringFilter organization;

@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.criteria;
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.master_data.entity.Contract;
 import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContractCriteria implements Criteria<Contract> {
+public class ContractCriteria extends BaseCrudCriteria<Contract> {
 	private LongFilter userId;
 	private LongFilter creatorId;
 	private LongFilter contractTypeId;

@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.criteria;
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmCompany;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.LocalDateFilter;
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CrmCompanyCriteria implements Criteria<CrmCompany> {
+public class CrmCompanyCriteria extends BaseCrudCriteria<CrmCompany> {
 	private StringFilter taxCode;
 	private StringFilter companyNameVi;
 	private StringFilter companyNameEn;

@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.master_data.dto.criteria;
 
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.master_data.entity.ActivityLog;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActivityLogCriteria implements Criteria<ActivityLog> {
+public class ActivityLogCriteria extends BaseCrudCriteria<ActivityLog> {
 	private LongFilter userId;
 	private StringFilter ip;
 	private StringFilter userAgent;

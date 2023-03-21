@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.criteria;
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmContact;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.LongFilter;
@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CrmContactCriteria implements Criteria<CrmContact> {
+public class CrmContactCriteria extends BaseCrudCriteria<CrmContact> {
 	private LongFilter crmCompanyId;
 	private StringFilter email;
 	private StringFilter tel;

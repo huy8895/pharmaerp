@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.master_data.dto.criteria;
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.master_data.entity.UserCours;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCoursCriteria implements Criteria<UserCours> {
+public class UserCoursCriteria extends BaseCrudCriteria<UserCours> {
 	private LongFilter userId;
 	private StringFilter name;
 	private StringFilter organization;
