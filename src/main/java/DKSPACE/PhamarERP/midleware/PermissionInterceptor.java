@@ -3,8 +3,10 @@ package DKSPACE.PhamarERP.midleware;
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.config.SecurityUtils;
 import DKSPACE.PhamarERP.auth.enums.UserType;
+import DKSPACE.PhamarERP.auth.enums.permission.PermissionGroupEnum;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.exception.AccessDeniedException;
+import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.HasBaseCRUDPermission;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
@@ -31,20 +33,48 @@ public class PermissionInterceptor implements HandlerInterceptor {
         log.info("PermissionInterceptor => check");
         if (HandlerMethod.class.isAssignableFrom(handler.getClass())) {
             final var handlerMethod = (HandlerMethod) handler;
-            handlerMethod.getMethod().getAnnotations();
             final var hasPermission = handlerMethod.getMethodAnnotation(HasPermission.class);
             final var hasBaseCRUDPermission = handlerMethod.getMethodAnnotation(HasBaseCRUDPermission.class);
             if (hasPermission != null) {
                 this.checkPermissionBefore(hasPermission, request);
             } else if (hasBaseCRUDPermission != null) {
-                this.checkPermissionBefore(hasBaseCRUDPermission, request);
+                this.checkPermissionBefore(hasBaseCRUDPermission, handlerMethod);
             }
         }
         return true;
     }
     
-    private void checkPermissionBefore(HasBaseCRUDPermission crudPermission, HttpServletRequest request) {
+    private void checkPermissionBefore(HasBaseCRUDPermission crudPermission, HandlerMethod handlerMethod) {
+        
+        final var actionConfig = crudPermission.value();
+        final var groupEnumOptional = PermissionGroupEnum.getGroup(handlerMethod.getBeanType());
+        if (groupEnumOptional.isEmpty()) {
+            return;
+        }
     
+        final var permissionGroupEnum = groupEnumOptional.get();
+        final var permissionKeyConfig = actionConfig.getPermissionKey(permissionGroupEnum);
+    
+        User currentUser = SecurityUtils.getCurrentUser();
+        
+        if (this.isSupperAdmin(currentUser)) {
+            return;
+        }
+    
+        final boolean hasPermission = isCurrentUserHasPermission(permissionKeyConfig, currentUser);
+    
+        if (!hasPermission){
+            log.warn("don't has HasBaseCRUDPermission to access this function");
+            throw new AccessDeniedException(ApiResponseInfo.FORBIDDEN);
+        }
+    }
+    
+    private boolean isCurrentUserHasPermission(String permissionKeyConfig, User currentUser) {
+        return currentUser.getRoles()
+                          .stream()
+                          .map(Role::getPermissions)
+                          .flatMap(Collection::stream)
+                          .anyMatch(permission -> permissionKeyConfig.equals(permission.getKey()));
     }
     
     public void checkPermissionBefore(HasPermission methodAnnotation, HttpServletRequest request) {

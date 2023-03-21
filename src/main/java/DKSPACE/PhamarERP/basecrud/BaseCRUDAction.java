@@ -38,7 +38,7 @@ public enum BaseCRUDAction implements HasI18NCode {
 		return MAP.get(action);
 	}
 	
-	public String getKeyName(PermissionGroupEnum groupEnum){
+	public String getPermissionKey(PermissionGroupEnum groupEnum){
 		if (groupEnum == null || !groupEnum.isBaseCRUD()) return "";
 		return this.name().concat("_" + groupEnum.name());
 	}

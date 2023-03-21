@@ -9,6 +9,7 @@ import DKSPACE.PhamarERP.master_data.entity.GenJobTitle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum.*;
@@ -99,5 +100,10 @@ public enum PermissionGroupEnum implements HasI18NCode{
     
     public boolean isBaseCRUD() {
         return AbstractBaseCRUDController.class.isAssignableFrom(this.controller);
+    }
+    
+    public static Optional<PermissionGroupEnum> getGroup(Class<?> aClass) {
+        return Arrays.stream(values()).filter(groupEnum -> groupEnum.controller.equals(aClass))
+                     .findFirst();
     }
 }

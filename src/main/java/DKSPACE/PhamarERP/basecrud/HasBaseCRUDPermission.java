@@ -7,5 +7,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface HasBaseCRUDPermission {
-    BaseCRUDAction[] value() default {};
+    BaseCRUDAction value() ;
 }

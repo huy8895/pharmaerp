@@ -119,7 +119,7 @@ public class DefaultDataConfig {
             return Arrays.stream(BaseCRUDAction.values())
                          .map(action -> Permission.builder()
                                                   .group(groupEnum.name())
-                                                  .key(action.getKeyName(groupEnum))
+                                                  .key(action.getPermissionKey(groupEnum))
                                                   .isActive(true)
                                                   .build()).collect(Collectors.toList());
         }
