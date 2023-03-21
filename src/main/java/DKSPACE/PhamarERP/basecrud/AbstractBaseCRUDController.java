@@ -40,24 +40,28 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
 
     @PostMapping
     @Operation(summary="Tạo mới")
+    @HasBaseCRUDPermission(BaseCRUDAction.CREATE)
     public Object create(@RequestBody @Valid E entity) {
         return service.save(entity);
     }
 
     @PostMapping("/save-list")
     @Operation(summary="Lưu danh sách")
+    @HasBaseCRUDPermission(BaseCRUDAction.IMPORT)
     public Object saveList(@RequestBody @Valid List<E> entity) {
         return service.saveList(entity);
     }
 
     @GetMapping("/{id}")
     @Operation(summary="Lấy thông tin chi tiết")
+    @HasBaseCRUDPermission(BaseCRUDAction.DETAIL)
     public Object getDetail(@PathVariable Long id) {
         return service.findOne(id);
     }
     
     @GetMapping
     @Operation(summary = "Lấy danh sách và lọc theo tiêu chí")
+    @HasBaseCRUDPermission(BaseCRUDAction.LIST)
     public Object getListByCriteria(@ParameterObject Pageable pageable,
                                     @ParameterObject C criteria) {
         return service.findByCriteria(pageable, criteria);
@@ -65,12 +69,14 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
 
     @PutMapping
     @Operation(summary="Cập nhật")
+    @HasBaseCRUDPermission(BaseCRUDAction.UPDATE)
     public Object update(@RequestBody E entity) {
         return service.partialUpdate(entity);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary="Xóa")
+    @HasBaseCRUDPermission(BaseCRUDAction.DELETE)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.softDelete(id);
         return ResponseEntity.noContent()
@@ -79,6 +85,7 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
 
     @GetMapping("/export-template-import")
     @Operation(summary="Xuất template để nhập")
+    @HasBaseCRUDPermission(BaseCRUDAction.IMPORT)
     public ResponseEntity<byte[]> exportTemplate() {
         return ResponseEntity.status(HttpStatus.OK)
                              .headers(this.getHttpHeaders("-template-" + this.entity.getSimpleName()))
@@ -87,12 +94,14 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
 
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary="Nhập dữ liệu từ file Excel")
+    @HasBaseCRUDPermission(BaseCRUDAction.IMPORT)
     public Object importFileExcel(@RequestParam("file") MultipartFile file) {
         return excelHelper.readFile(file, this.entity);
     }
 
     @GetMapping("/export")
     @Operation(summary="Xuất dữ liệu ra file Excel")
+    @HasBaseCRUDPermission(BaseCRUDAction.EXPORT)
     public ResponseEntity<byte[]> exportFileExcel() {
         return ResponseEntity.status(HttpStatus.OK)
                              .headers(this.getHttpHeaders("-export-" + entity.getSimpleName()))
