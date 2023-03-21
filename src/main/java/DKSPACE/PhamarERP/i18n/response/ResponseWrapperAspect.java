@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.i18n.response;
 
 import DKSPACE.PhamarERP.i18n.config.I18NMessageResolver;
-import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,7 +23,8 @@ import java.util.Optional;
 public class ResponseWrapperAspect {
 	private final I18NMessageResolver messageResolver;
 	
-	@Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
+	@Pointcut("within(@org.springframework.web.bind.annotation.RestController *)" +
+			" || within(DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDController)")
 	public void controller() {
 		// Method is empty as this is just a Pointcut, the implementations are in the advices.
 	}

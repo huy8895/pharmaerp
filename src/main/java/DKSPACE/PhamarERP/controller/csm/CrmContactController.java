@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/crm-contacts")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "CrmContact", description = "Liên hệ của công ty")
 public class CrmContactController extends AbstractBaseCRUDController<CrmContact, CrmContactService, CrmContactCriteria> {
 	protected CrmContactController(CrmContactService service) {

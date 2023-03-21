@@ -3,6 +3,7 @@ package DKSPACE.PhamarERP.basecrud;
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.helper.excel.impl.ExcelHelperImpl;
 import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
@@ -22,6 +23,7 @@ import java.util.List;
  * - Các controller này sẽ sử dụng một service cơ bản và một entity cơ bản
  * - Các controller này cũng có thể xuất và nhập file Excel cho entity của chúng
  **/
+@ResponseWrapper(excludes = {"exportTemplate","exportFileExcel"})
 public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
         S extends BaseCRUDService<E>,
         C extends Criteria<E>> {

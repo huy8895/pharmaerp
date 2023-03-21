@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/gen-job-titles")
-@ResponseWrapper(excludes = {"exportTemplate","exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "GenJobTitle", description = "Chức danh công việc")
 public class GenJobTitleController extends AbstractBaseCRUDController<GenJobTitle, GenJobTitleService, GenJobTitleCriteria> {
 	protected GenJobTitleController(GenJobTitleService service) {

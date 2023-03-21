@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/user-cours")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "UserCours", description = "Khóa học")
 public class UserCoursController extends AbstractBaseCRUDController<UserCours, UserCoursService, UserCoursCriteria> {
 	protected UserCoursController(UserCoursService service) {

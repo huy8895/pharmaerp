@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/user-certificates")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "UserCertificate", description = "Chứng chỉ của người dùng")
 public class UserCertificateController extends AbstractBaseCRUDController<UserCertificate, UserCertificateService, UserCertificateCriteria> {
 	protected UserCertificateController(UserCertificateService service) {

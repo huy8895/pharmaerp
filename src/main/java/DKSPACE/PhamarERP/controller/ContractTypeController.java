@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.controller;
 
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDController;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import DKSPACE.PhamarERP.master_data.dto.criteria.ContractTypeCriteria;
 import DKSPACE.PhamarERP.master_data.entity.ContractType;
 import DKSPACE.PhamarERP.service.ContractTypeService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/contract-types")
+@ResponseWrapper
 @Tag(name = "ContractType", description = "Loại hợp đồng")
 public class ContractTypeController extends AbstractBaseCRUDController<ContractType,ContractTypeService, ContractTypeCriteria> {
 	protected ContractTypeController(ContractTypeService service) {

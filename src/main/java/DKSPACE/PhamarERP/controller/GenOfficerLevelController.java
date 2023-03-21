@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/gen-officer-levels")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "GenOfficerLevel", description = "Cấp bậc cán bộ")
 public class GenOfficerLevelController extends AbstractBaseCRUDController<GenOfficerLevel, GenOfficerLevelService, GenOfficerLevelCriteria> {
 	protected GenOfficerLevelController(GenOfficerLevelService service) {

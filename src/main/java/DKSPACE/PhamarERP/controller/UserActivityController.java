@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/user-activities")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "UserActivity", description = "Hoạt động của người dùng")
 public class UserActivityController extends AbstractBaseCRUDController<UserActivity, UserActivityService, UserActivityCriteria> {
 	protected UserActivityController(UserActivityService service) {

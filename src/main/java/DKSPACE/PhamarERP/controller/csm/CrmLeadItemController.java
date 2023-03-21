@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/crm-lead-items")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "CrmLeadItem", description = "Sản phẩm của một khách hàng tiềm năng")
 public class CrmLeadItemController extends AbstractBaseCRUDController<CrmLeadItem, CrmLeadItemService, CrmLeadItemCriteria> {
 	protected CrmLeadItemController(CrmLeadItemService service) {

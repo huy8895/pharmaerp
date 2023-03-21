@@ -21,7 +21,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/gen-uploads")
 @RequiredArgsConstructor
-@ResponseWrapper(excludes = {"download"})
+@ResponseWrapper
 @Tag(name = "GenUpload", description = "The GenUpload API")
 @SecurityRequirement(name = "bearerAuth") // indicate that all endpoints require authentication
 public class GenUploadController {

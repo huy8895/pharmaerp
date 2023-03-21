@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/crm-tags")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "Tag", description = "Các API liên quan đến Nhãn")
 public class CrmTagController extends AbstractBaseCRUDController<CrmTag, CrmTagService, CrmTagCriteria> {
 	protected CrmTagController(CrmTagService service) {

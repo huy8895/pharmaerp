@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/crm-companies")
-@ResponseWrapper(excludes = {"exportTemplate", "exportFileExcel"})
+@ResponseWrapper
 @Tag(name = "CrmCompany", description = "Công ty trong hệ thống CRM")
 public class CrmCompanyController extends AbstractBaseCRUDController<CrmCompany, CrmCompanyService, CrmCompanyCriteria> {
 	protected CrmCompanyController(CrmCompanyService service) {

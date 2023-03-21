@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
-@ResponseWrapper(excludes = {"exportTemplate","exportUser"})
+@ResponseWrapper
 @Tag(name = "User", description = "Quản lý người dùng")
 public class UserController {
     private final UserService service;
