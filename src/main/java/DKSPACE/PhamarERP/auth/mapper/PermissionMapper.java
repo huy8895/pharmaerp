@@ -38,7 +38,7 @@ public class PermissionMapper  {
                             .id(entity.getId())
                             .group(entity.getGroup())
                             .groupName(messageResolver.convertMessage(group))
-                            .key(key.name())
+                            .key(key == null ? null : key.name())
                             .keyName(messageResolver.convertMessage(key))
                             .build();
     }
