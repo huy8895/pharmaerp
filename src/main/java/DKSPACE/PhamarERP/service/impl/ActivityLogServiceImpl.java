@@ -74,7 +74,7 @@ public class ActivityLogServiceImpl extends AbstractBaseCRUDService<ActivityLog,
 			headersNode.put(headerName, request.getHeader(headerName));
 		}
 		rootNode.set("headers", headersNode);
-		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+		return mapper.writeValueAsString(rootNode);
 	}
 	
 	private String getResponseInfo(HttpServletResponse response) throws JsonProcessingException {
@@ -87,6 +87,6 @@ public class ActivityLogServiceImpl extends AbstractBaseCRUDService<ActivityLog,
 			headersNode.put(headerName, response.getHeader(headerName));
 		}
 		rootNode.set("headers", headersNode);
-		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+		return mapper.writeValueAsString(rootNode);
 	}
 }
