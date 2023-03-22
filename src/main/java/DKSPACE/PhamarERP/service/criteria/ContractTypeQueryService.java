@@ -13,16 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContractTypeQueryService extends QueryService<ContractType>
 		implements FilterService<ContractType,ContractTypeCriteria> {
-
 	
 	public Specification<ContractType> createSpecification(ContractTypeCriteria criteria) {
 		return SpecificationBuilder
 				.<ContractType>builder()
-				.and(criteria.getNameVi(), filter -> this.buildStringSpecification(filter, ContractType_.nameVi))
-				.and(criteria.getNameEn(), filter -> this.buildStringSpecification(filter, ContractType_.nameEn))
-				.and(criteria.getIsDetermineDeadline(), filter -> this.buildSpecification(filter, ContractType_.isDetermineDeadline))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, ContractType_.isActive))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, ContractType_.describe))
+				.and(criteria.getNameVi(), ContractType_.nameVi, super::buildStringSpecification)
+				.and(criteria.getNameEn(), ContractType_.nameEn, super::buildStringSpecification)
+				.and(criteria.getIsDetermineDeadline(), ContractType_.isDetermineDeadline, super::buildSpecification)
+				.and(criteria.getIsActive(), ContractType_.isActive, super::buildSpecification)
+				.and(criteria.getDescribe(), ContractType_.describe, super::buildStringSpecification)
 				.build();
 	}
 }

@@ -19,17 +19,17 @@ public class UserQueryService extends QueryService<User>
 	public Specification<User> createSpecification(UserCriteria criteria) {
 		return SpecificationBuilder
 				.<User>builder()
-				.and(criteria.getPhoneNumber(), filter -> this.buildStringSpecification(filter, User_.phoneNumber))
-				.and(criteria.getEmail(), filter -> this.buildStringSpecification(filter, User_.email))
-				.and(criteria.getUsername(), filter -> this.buildStringSpecification(filter, User_.username))
-				.and(criteria.getStaffCode(), filter -> this.buildStringSpecification(filter, User_.staffCode))
-				.and(criteria.getFirstName(), filter -> this.buildStringSpecification(filter, User_.firstName))
-				.and(criteria.getLastName(), filter -> this.buildStringSpecification(filter, User_.lastName))
-				.and(criteria.getType(), userTypeFilter -> this.buildSpecification(userTypeFilter, User_.type))
-				.and(criteria.getRoleId(), longFilter -> this.buildSpecification(longFilter,
-				                                           userRoot -> userRoot.join(User_.roles, JoinType.LEFT).get(Role_.id)))
-				.and(criteria.getIsActive(),
-				     booleanFilter -> this.buildSpecification(booleanFilter, User_.isActive))
+				.and(criteria.getPhoneNumber(), User_.phoneNumber, super::buildStringSpecification)
+				.and(criteria.getEmail(), User_.email, super::buildStringSpecification)
+				.and(criteria.getUsername(), User_.username, super::buildStringSpecification)
+				.and(criteria.getStaffCode(), User_.staffCode, super::buildStringSpecification)
+				.and(criteria.getFirstName(), User_.firstName, super::buildStringSpecification)
+				.and(criteria.getLastName(), User_.lastName, super::buildStringSpecification)
+				.and(criteria.getType(), User_.type, super::buildSpecification)
+				.and(criteria.getRoleId(), filter -> this.buildSpecification(filter,
+				                                                             root -> root.join(User_.roles, JoinType.LEFT)
+				                                                                         .get(Role_.id)))
+				.and(criteria.getIsActive(), User_.isActive, super::buildSpecification)
 				.build();
 	}
 }

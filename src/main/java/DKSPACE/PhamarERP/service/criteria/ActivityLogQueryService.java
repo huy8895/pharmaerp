@@ -17,11 +17,11 @@ public class ActivityLogQueryService extends QueryService<ActivityLog>
 	public Specification<ActivityLog> createSpecification(ActivityLogCriteria criteria) {
 		return SpecificationBuilder
 				.<ActivityLog>builder()
-				.and(criteria.getUserId(), filter -> this.buildSpecification(filter, ActivityLog_.userId))
-				.and(criteria.getIp(), filter -> this.buildStringSpecification(filter, ActivityLog_.ip))
-				.and(criteria.getUserAgent(), filter -> this.buildStringSpecification(filter, ActivityLog_.userAgent))
-				.and(criteria.getRequest(), filter -> this.buildStringSpecification(filter, ActivityLog_.request))
-				.and(criteria.getResponse(), filter -> this.buildStringSpecification(filter, ActivityLog_.response))
+				.and(criteria.getUserId(), ActivityLog_.userId, super::buildSpecification)
+				.and(criteria.getIp(), ActivityLog_.ip, super::buildStringSpecification)
+				.and(criteria.getUserAgent(), ActivityLog_.userAgent, super::buildStringSpecification)
+				.and(criteria.getRequest(), ActivityLog_.request, super::buildStringSpecification)
+				.and(criteria.getResponse(), ActivityLog_.response, super::buildStringSpecification)
 				.build();
 	}
 }

@@ -16,13 +16,13 @@ public class UserCoursQueryService extends QueryService<UserCours> implements Fi
 	public Specification<UserCours> createSpecification(UserCoursCriteria criteria) {
 		return SpecificationBuilder
 				.<UserCours>builder()
-				.and(criteria.getUserId(), filter -> this.buildSpecification(filter, UserCours_.userId))
-				.and(criteria.getName(), filter -> this.buildStringSpecification(filter, UserCours_.name))
-				.and(criteria.getOrganization(), filter -> this.buildStringSpecification(filter, UserCours_.organization))
-				.and(criteria.getStartDate(), filter -> this.buildStringSpecification(filter, UserCours_.startDate))
-				.and(criteria.getEndDate(), filter -> this.buildStringSpecification(filter, UserCours_.endDate))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, UserCours_.describe))
-				.and(criteria.getLink(), filter -> this.buildStringSpecification(filter, UserCours_.link))
+				.and(criteria.getUserId(), UserCours_.userId, super::buildSpecification)
+				.and(criteria.getName(), UserCours_.name, super::buildStringSpecification)
+				.and(criteria.getOrganization(), UserCours_.organization, super::buildStringSpecification)
+				.and(criteria.getStartDate(), UserCours_.startDate, super::buildStringSpecification)
+				.and(criteria.getEndDate(), UserCours_.endDate, super::buildStringSpecification)
+				.and(criteria.getDescribe(), UserCours_.describe, super::buildStringSpecification)
+				.and(criteria.getLink(), UserCours_.link, super::buildStringSpecification)
 				.build();
 	}
 }

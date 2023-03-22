@@ -11,16 +11,15 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class GenJobTitleQueryService extends QueryService<GenJobTitle> implements FilterService<GenJobTitle,GenJobTitleCriteria> {
 	public Specification<GenJobTitle> createSpecification(GenJobTitleCriteria criteria) {
 		return SpecificationBuilder
 				.<GenJobTitle>builder()
-				.and(criteria.getNameVi(), filter -> this.buildStringSpecification(filter, GenJobTitle_.nameVi))
-				.and(criteria.getNameEn(), filter -> this.buildStringSpecification(filter, GenJobTitle_.nameEn))
-				.and(criteria.getSalary(), filter -> this.buildSpecification(filter, GenJobTitle_.salary))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, GenJobTitle_.describe))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, GenJobTitle_.isActive))
+				.and(criteria.getNameVi(), GenJobTitle_.nameVi, super::buildStringSpecification)
+				.and(criteria.getNameEn(), GenJobTitle_.nameEn, super::buildStringSpecification)
+				.and(criteria.getSalary(), GenJobTitle_.salary, super::buildSpecification)
+				.and(criteria.getDescribe(), GenJobTitle_.describe, super::buildStringSpecification)
+				.and(criteria.getIsActive(), GenJobTitle_.isActive, super::buildSpecification)
 				.build();
 	}
 }

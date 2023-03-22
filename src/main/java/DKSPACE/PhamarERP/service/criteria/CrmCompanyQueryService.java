@@ -16,16 +16,16 @@ public class CrmCompanyQueryService extends QueryService<CrmCompany> implements 
 	public Specification<CrmCompany> createSpecification(CrmCompanyCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmCompany>builder()
-				.and(criteria.getTaxCode(), filter -> this.buildStringSpecification(filter, CrmCompany_.taxCode))
-				.and(criteria.getCompanyNameVi(), filter -> this.buildStringSpecification(filter, CrmCompany_.companyNameVi))
-				.and(criteria.getCompanyNameEn(), filter -> this.buildStringSpecification(filter, CrmCompany_.companyNameEn))
-				.and(criteria.getAbbreviationName(), filter -> this.buildStringSpecification(filter, CrmCompany_.abbreviationName))
-				.and(criteria.getHeadquarter(), filter -> this.buildStringSpecification(filter, CrmCompany_.headquarter))
-				.and(criteria.getMainTel(), filter -> this.buildStringSpecification(filter, CrmCompany_.mainTel))
-				.and(criteria.getMainFax(), filter -> this.buildStringSpecification(filter, CrmCompany_.mainFax))
-				.and(criteria.getMainEmail(), filter -> this.buildStringSpecification(filter, CrmCompany_.mainEmail))
-				.and(criteria.getOperationDay(), filter -> this.buildRangeSpecification(filter, CrmCompany_.operationDay))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, CrmCompany_.isActive))
+				.and(criteria.getTaxCode(), CrmCompany_.taxCode, super::buildStringSpecification)
+				.and(criteria.getCompanyNameVi(), CrmCompany_.companyNameVi, super::buildStringSpecification)
+				.and(criteria.getCompanyNameEn(), CrmCompany_.companyNameEn, super::buildStringSpecification)
+				.and(criteria.getAbbreviationName(), CrmCompany_.abbreviationName, super::buildStringSpecification)
+				.and(criteria.getHeadquarter(), CrmCompany_.headquarter, super::buildStringSpecification)
+				.and(criteria.getMainTel(), CrmCompany_.mainTel, super::buildStringSpecification)
+				.and(criteria.getMainFax(), CrmCompany_.mainFax, super::buildStringSpecification)
+				.and(criteria.getMainEmail(), CrmCompany_.mainEmail, super::buildStringSpecification)
+				.and(criteria.getOperationDay(), CrmCompany_.operationDay, super::buildRangeSpecification)
+				.and(criteria.getIsActive(), CrmCompany_.isActive, super::buildSpecification)
 				.build();
 	}
 }

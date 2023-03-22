@@ -11,17 +11,15 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class GenDepartmentQueryService extends QueryService<GenDepartment> implements FilterService<GenDepartment,GenDepartmentCriteria> {
+	
 	public Specification<GenDepartment> createSpecification(GenDepartmentCriteria criteria) {
 		return SpecificationBuilder
 				.<GenDepartment>builder()
-				.and(criteria.getNameVi(), filter -> this.buildStringSpecification(filter, GenDepartment_.nameVi))
-				.and(criteria.getNameEn(), filter -> this.buildStringSpecification(filter, GenDepartment_.nameEn))
-				.and(criteria.getDescribe(),
-				     filter -> this.buildStringSpecification(filter, GenDepartment_.describe))
-				.and(criteria.getIsActive(),
-				     filter -> this.buildSpecification(filter, GenDepartment_.isActive))
+				.and(criteria.getNameVi(), GenDepartment_.nameVi, super::buildStringSpecification)
+				.and(criteria.getNameEn(), GenDepartment_.nameEn, super::buildStringSpecification)
+				.and(criteria.getDescribe(), GenDepartment_.describe, super::buildStringSpecification)
+				.and(criteria.getIsActive(), GenDepartment_.isActive, super::buildSpecification)
 				.build();
 	}
 }

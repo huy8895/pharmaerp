@@ -16,9 +16,9 @@ public class CrmLeadQueryService extends QueryService<CrmLead> implements Filter
 	public Specification<CrmLead> createSpecification(CrmLeadCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmLead>builder()
-				.and(criteria.getName(), filter -> this.buildStringSpecification(filter, CrmLead_.name))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, CrmLead_.describe))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, CrmLead_.isActive))
+				.and(criteria.getName(), CrmLead_.name, super::buildStringSpecification)
+				.and(criteria.getDescribe(), CrmLead_.describe, super::buildStringSpecification)
+				.and(criteria.getIsActive(), CrmLead_.isActive, super::buildSpecification)
 				.build();
 	}
 }

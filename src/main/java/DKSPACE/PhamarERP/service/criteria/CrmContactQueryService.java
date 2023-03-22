@@ -16,14 +16,14 @@ public class CrmContactQueryService extends QueryService<CrmContact> implements 
 	public Specification<CrmContact> createSpecification(CrmContactCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmContact>builder()
-				.and(criteria.getCrmCompanyId(), filter -> this.buildSpecification(filter, CrmContact_.crmCompanyId))
-				.and(criteria.getEmail(), filter -> this.buildStringSpecification(filter, CrmContact_.email))
-				.and(criteria.getTel(), filter -> this.buildStringSpecification(filter, CrmContact_.tel))
-				.and(criteria.getFirstName(), filter -> this.buildStringSpecification(filter, CrmContact_.firstName))
-				.and(criteria.getLastName(), filter -> this.buildStringSpecification(filter, CrmContact_.lastName))
-				.and(criteria.getEnglishName(), filter -> this.buildStringSpecification(filter, CrmContact_.englishName))
-				.and(criteria.getDesignation(), filter -> this.buildStringSpecification(filter,CrmContact_.designation))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter,CrmContact_.isActive))
+				.and(criteria.getCrmCompanyId(), CrmContact_.crmCompanyId, super::buildSpecification)
+				.and(criteria.getEmail(), CrmContact_.email, super::buildStringSpecification)
+				.and(criteria.getTel(), CrmContact_.tel, super::buildStringSpecification)
+				.and(criteria.getFirstName(), CrmContact_.firstName, super::buildStringSpecification)
+				.and(criteria.getLastName(), CrmContact_.lastName, super::buildStringSpecification)
+				.and(criteria.getEnglishName(), CrmContact_.englishName, super::buildStringSpecification)
+				.and(criteria.getDesignation(), CrmContact_.designation, super::buildStringSpecification)
+				.and(criteria.getIsActive(), CrmContact_.isActive, super::buildSpecification)
 				.build();
 	}
 }

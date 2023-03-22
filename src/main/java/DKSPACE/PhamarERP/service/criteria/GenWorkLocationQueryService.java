@@ -11,16 +11,15 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class GenWorkLocationQueryService extends QueryService<GenWorkLocation> implements FilterService<GenWorkLocation,GenWorkLocationCriteria> {
 	
 	public Specification<GenWorkLocation> createSpecification(GenWorkLocationCriteria criteria) {
 		return SpecificationBuilder
 				.<GenWorkLocation>builder()
-				.and(criteria.getNameVi(), filter -> this.buildStringSpecification(filter, GenWorkLocation_.nameVi))
-				.and(criteria.getNameEn(), filter -> this.buildStringSpecification(filter, GenWorkLocation_.nameEn))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, GenWorkLocation_.describe))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, GenWorkLocation_.isActive))
+				.and(criteria.getNameVi(), GenWorkLocation_.nameVi, super::buildStringSpecification)
+				.and(criteria.getNameEn(), GenWorkLocation_.nameEn, super::buildStringSpecification)
+				.and(criteria.getDescribe(), GenWorkLocation_.describe, super::buildStringSpecification)
+				.and(criteria.getIsActive(), GenWorkLocation_.isActive, super::buildSpecification)
 				.build();
 	}
 }

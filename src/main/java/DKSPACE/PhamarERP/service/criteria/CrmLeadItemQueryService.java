@@ -16,11 +16,11 @@ public class CrmLeadItemQueryService extends QueryService<CrmLeadItem> implement
 	public Specification<CrmLeadItem> createSpecification(CrmLeadItemCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmLeadItem>builder()
-				.and(criteria.getCrmLeadId(), filter -> this.buildSpecification(filter, CrmLeadItem_.crmLeadId))
-				.and(criteria.getName(), filter -> this.buildStringSpecification(filter, CrmLeadItem_.name))
-				.and(criteria.getColor(), filter -> this.buildStringSpecification(filter, CrmLeadItem_.color))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter,CrmLeadItem_.describe))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter,CrmLeadItem_.isActive))
+				.and(criteria.getCrmLeadId(), CrmLeadItem_.crmLeadId, super::buildSpecification)
+				.and(criteria.getName(), CrmLeadItem_.name, super::buildStringSpecification)
+				.and(criteria.getColor(), CrmLeadItem_.color, super::buildStringSpecification)
+				.and(criteria.getDescribe(), CrmLeadItem_.describe, super::buildStringSpecification)
+				.and(criteria.getIsActive(), CrmLeadItem_.isActive, super::buildSpecification)
 				.build();
 	}
 }

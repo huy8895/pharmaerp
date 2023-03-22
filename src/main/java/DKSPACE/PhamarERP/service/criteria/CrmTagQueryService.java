@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class CrmTagQueryService extends QueryService<CrmTag> implements FilterService<CrmTag,CrmTagCriteria> {
 	public Specification<CrmTag> createSpecification(CrmTagCriteria criteria) {
-		return SpecificationBuilder.<CrmTag>builder()
-		                           .and(criteria.getName(),
-		                                filter -> this.buildStringSpecification(filter, CrmTag_.name))
-		                           .and(criteria.getIsActive(),
-		                                filter -> this.buildSpecification(filter, CrmTag_.isActive))
-		                           .build();
+		return SpecificationBuilder
+				.<CrmTag>builder()
+				.and(criteria.getName(), CrmTag_.name, super::buildStringSpecification)
+				.and(criteria.getIsActive(), CrmTag_.isActive, super::buildSpecification)
+				.build();
 	}
 }

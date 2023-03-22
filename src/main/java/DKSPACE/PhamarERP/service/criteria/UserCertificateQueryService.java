@@ -11,18 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class UserCertificateQueryService extends QueryService<UserCertificate> implements FilterService<UserCertificate,UserCertificateCriteria> {
 	public Specification<UserCertificate> createSpecification(UserCertificateCriteria criteria) {
 		return SpecificationBuilder
 				.<UserCertificate>builder()
-				.and(criteria.getUserId(), filter -> this.buildSpecification(filter, UserCertificate_.userId))
-				.and(criteria.getName(), filter -> this.buildStringSpecification(filter, UserCertificate_.name))
-				.and(criteria.getOrganization(), filter -> this.buildStringSpecification(filter, UserCertificate_.organization))
-				.and(criteria.getHasNoExpirationDate(), filter -> this.buildSpecification(filter, UserCertificate_.hasNoExpirationDate))
-				.and(criteria.getStartDate(), filter -> this.buildStringSpecification(filter, UserCertificate_.startDate))
-				.and(criteria.getEndDate(), filter -> this.buildStringSpecification(filter, UserCertificate_.endDate))
-				.and(criteria.getLink(), filter -> this.buildStringSpecification(filter, UserCertificate_.link))
+				.and(criteria.getUserId(), UserCertificate_.userId, super::buildSpecification)
+				.and(criteria.getName(), UserCertificate_.name, super::buildStringSpecification)
+				.and(criteria.getOrganization(), UserCertificate_.organization, super::buildStringSpecification)
+				.and(criteria.getHasNoExpirationDate(), UserCertificate_.hasNoExpirationDate, super::buildSpecification)
+				.and(criteria.getStartDate(), UserCertificate_.startDate, super::buildStringSpecification)
+				.and(criteria.getEndDate(), UserCertificate_.endDate, super::buildStringSpecification)
+				.and(criteria.getLink(), UserCertificate_.link, super::buildStringSpecification)
 				.build();
 	}
 }

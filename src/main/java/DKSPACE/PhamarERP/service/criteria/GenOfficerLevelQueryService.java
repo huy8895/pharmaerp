@@ -11,16 +11,15 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class GenOfficerLevelQueryService extends QueryService<GenOfficerLevel> implements FilterService<GenOfficerLevel,GenOfficerLevelCriteria> {
 	
 	public Specification<GenOfficerLevel> createSpecification(GenOfficerLevelCriteria criteria) {
 		return SpecificationBuilder
 				.<GenOfficerLevel>builder()
-				.and(criteria.getNameVi(), filter -> this.buildStringSpecification(filter, GenOfficerLevel_.nameVi))
-				.and(criteria.getNameEn(), filter -> this.buildStringSpecification(filter, GenOfficerLevel_.nameEn))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, GenOfficerLevel_.describe))
-				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, GenOfficerLevel_.isActive))
+				.and(criteria.getNameVi(), GenOfficerLevel_.nameVi, super::buildStringSpecification)
+				.and(criteria.getNameEn(), GenOfficerLevel_.nameEn, super::buildStringSpecification)
+				.and(criteria.getDescribe(), GenOfficerLevel_.describe, super::buildStringSpecification)
+				.and(criteria.getIsActive(), GenOfficerLevel_.isActive, super::buildSpecification)
 				.build();
 	}
 	

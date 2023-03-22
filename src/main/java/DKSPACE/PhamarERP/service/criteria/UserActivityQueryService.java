@@ -11,24 +11,20 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-
 public class UserActivityQueryService extends QueryService<UserActivity>
 		implements FilterService<UserActivity, UserActivityCriteria> {
 	
 	public Specification<UserActivity> createSpecification(UserActivityCriteria criteria) {
 		return SpecificationBuilder
 				.<UserActivity>builder()
-				.and(criteria.getUserId(), filter -> this.buildSpecification(filter, UserActivity_.userId))
-				.and(criteria.getOrganization(),
-				     filter -> this.buildStringSpecification(filter, UserActivity_.organization))
-				.and(criteria.getParticipatingPosition(),
-				     filter -> this.buildStringSpecification(filter, UserActivity_.participatingPosition))
-				.and(criteria.getIsCurrentActive(),
-				     filter -> this.buildSpecification(filter, UserActivity_.isCurrentActive))
-				.and(criteria.getStartDate(), filter -> this.buildStringSpecification(filter, UserActivity_.startDate))
-				.and(criteria.getEndDate(), filter -> this.buildStringSpecification(filter, UserActivity_.endDate))
-				.and(criteria.getDescribe(), filter -> this.buildStringSpecification(filter, UserActivity_.describe))
-				.and(criteria.getLink(), filter -> this.buildStringSpecification(filter, UserActivity_.link))
+				.and(criteria.getUserId(), UserActivity_.userId, super::buildSpecification)
+				.and(criteria.getOrganization(), UserActivity_.organization, super::buildStringSpecification)
+				.and(criteria.getParticipatingPosition(), UserActivity_.participatingPosition, super::buildStringSpecification)
+				.and(criteria.getIsCurrentActive(), UserActivity_.isCurrentActive, super::buildSpecification)
+				.and(criteria.getStartDate(), UserActivity_.startDate, super::buildStringSpecification)
+				.and(criteria.getEndDate(), UserActivity_.endDate, super::buildStringSpecification)
+				.and(criteria.getDescribe(), UserActivity_.describe, super::buildStringSpecification)
+				.and(criteria.getLink(), UserActivity_.link, super::buildStringSpecification)
 				.build();
 	}
 }
