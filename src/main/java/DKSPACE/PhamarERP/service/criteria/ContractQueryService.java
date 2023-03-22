@@ -55,4 +55,5 @@ public class ContractQueryService extends QueryService<Contract>
 				.and(criteria.getNote(), filter -> this.buildStringSpecification(filter, Contract_.note))
 				.build();
 	}
+	
 }

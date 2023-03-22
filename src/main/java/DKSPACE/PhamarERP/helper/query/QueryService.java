@@ -53,7 +53,7 @@ public abstract class QueryService<ENTITY> {
      * @param <X>    The type of the attribute which is filtered.
      * @return a Specification
      */
-    protected <X> Specification<ENTITY> buildSpecification(Filter<X> filter, SingularAttribute<? super ENTITY, X>
+    public  <X> Specification<ENTITY> buildSpecification(Filter<X> filter, SingularAttribute<? super ENTITY, X>
         field) {
         return buildSpecification(filter, root -> root.get(field));
     }
