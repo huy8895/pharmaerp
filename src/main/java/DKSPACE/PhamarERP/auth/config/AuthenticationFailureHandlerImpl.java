@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -28,22 +27,22 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
                                         HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
         log.error("AuthenticationFailureHandlerImpl onAuthenticationFailure: path: {}, error: {}", request.getRequestURI(), exception.getMessage());
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        ObjectMapper mapper = new ObjectMapper();
-        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
-        response.getWriter().write(mapper.writeValueAsString(apiResponse));
+        this.responseUnauthorized(response);
     }
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         log.error("AuthenticationFailureHandlerImpl commence: path: {}, error: {}", request.getRequestURI(), exception.getMessage());
+        this.responseUnauthorized(response);
+    }
+    
+    private void responseUnauthorized(HttpServletResponse response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        response.setStatus(HttpStatus.FORBIDDEN.value());
+        final var unauthorized = HttpStatus.UNAUTHORIZED;
+        response.setStatus(unauthorized.value());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        final var apiResponse = messageResolver.generateApiResponse(ApiResponseInfo.UNAUTHORIZED);
+        final var apiResponse = messageResolver.getApiResponse(unauthorized, ApiResponseInfo.UNAUTHORIZED);
         response.getWriter().write(mapper.writeValueAsString(apiResponse));
     }
 }

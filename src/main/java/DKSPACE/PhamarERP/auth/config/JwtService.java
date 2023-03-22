@@ -51,10 +51,12 @@ public class JwtService {
                                     .toList();
 
         claims.put("roles", roles);
+        claims.put("userId", user.getId());
         claims.put("permissions", permissions);
         claims.put("type", user.getType());
         String token = generateToken(claims, user);
         return JwtTokenDTO.builder()
+                          .userId(user.getId())
                           .token(token)
                           .roles(roles)
                           .permissions(permissions)
@@ -75,7 +77,6 @@ public class JwtService {
                       .flatMap(Collection::stream)
                       .filter(Permission::getIsActive)
                       .map(Permission::getKey)
-                      .map(Enum::name)
                       .toList();
     }
 

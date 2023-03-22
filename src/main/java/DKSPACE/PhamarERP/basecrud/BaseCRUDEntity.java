@@ -1,6 +1,5 @@
 package DKSPACE.PhamarERP.basecrud;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @MappedSuperclass
 @SuperBuilder
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt", "deletedAt"})
+//@JsonIgnoreProperties(value = {"createdAt", "updatedAt", "deletedAt"})
 public class BaseCRUDEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginResDto {
+    private Long userId;
     private String token;
     private List<String> roles;
     private List<String> permissions;

@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +28,15 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf()
                 .disable()
+                    .cors(c -> c
+                            .configurationSource(request -> {
+                                CorsConfiguration cors = new CorsConfiguration();
+                                cors.setAllowedOrigins(Collections.singletonList("*"));
+                                cors.setAllowedMethods(Collections.singletonList("*"));
+                                cors.setAllowedHeaders(Collections.singletonList("*"));
+                                return cors;
+                            })
+                    )
                 .authorizeHttpRequests()
                 .requestMatchers("").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()

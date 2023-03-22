@@ -24,7 +24,6 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role extends BaseCRUDEntity {
 
-    @Lob
     @Column(name = "`describe`")
     private String describe;
 
