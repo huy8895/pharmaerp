@@ -2,9 +2,10 @@ package DKSPACE.PhamarERP.auth.enums.permission;
 
 import DKSPACE.PhamarERP.auth.controller.RoleController;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDController;
-import DKSPACE.PhamarERP.controller.*;
-import DKSPACE.PhamarERP.controller.crm.*;
-import DKSPACE.PhamarERP.master_data.entity.GenJobTitle;
+import DKSPACE.PhamarERP.crm.controller.*;
+import DKSPACE.PhamarERP.general.controller.*;
+import DKSPACE.PhamarERP.general.model.GenJobTitle;
+import DKSPACE.PhamarERP.user.controller.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,10 +51,10 @@ public enum PermissionGroupEnum implements HasI18NCode{
     CRM_TAG(CrmTagController.class, "permission.group.crm_tag"),
     GEN_DEPARTMENT(GenDepartmentController.class, "permission.group.gen_department"),
     GEN_JOB_TITLE(GenJobTitleController.class, "permission.group.gen_job_title"),
-    GEN_OFFICER_LEVEL(GenOfficerLevelController.class,"permission.group.gen_officer_level"),
-    GEN_WORK_LOCATION(GenWorkLocationController.class,"permission.group.gen_work_location"),
-    USER_ACTIVITY(UserActivityController.class,"permission.group.user_activity"),
-    USER_CERTIFICATE(UserCertificateController.class,"permission.group.user_certificate"),
+    GEN_OFFICER_LEVEL(GenOfficerLevelController.class, "permission.group.gen_officer_level"),
+    GEN_WORK_LOCATION(GenWorkLocationController.class, "permission.group.gen_work_location"),
+    USER_ACTIVITY(UserActivityController.class, "permission.group.user_activity"),
+    USER_CERTIFICATE(UserCertificateController.class, "permission.group.user_certificate"),
     USER_COURS(UserCertificateController.class,"permission.group.user_cours")
 
     ;

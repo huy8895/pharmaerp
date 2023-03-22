@@ -1,8 +1,8 @@
 package DKSPACE.PhamarERP.basecrud;
 
+import DKSPACE.PhamarERP.basecrud.query.Criteria;
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.helper.excel.impl.ExcelHelperImpl;
-import DKSPACE.PhamarERP.helper.query.Criteria;
 import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

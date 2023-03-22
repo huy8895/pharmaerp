@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.basecrud;
 
-import DKSPACE.PhamarERP.helper.query.Criteria;
+import DKSPACE.PhamarERP.basecrud.query.Criteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

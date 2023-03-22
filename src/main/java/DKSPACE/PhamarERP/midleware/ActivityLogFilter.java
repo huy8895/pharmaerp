@@ -1,6 +1,6 @@
 package DKSPACE.PhamarERP.midleware;
 
-import DKSPACE.PhamarERP.service.ActivityLogService;
+import DKSPACE.PhamarERP.general.service.ActivityLogService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
