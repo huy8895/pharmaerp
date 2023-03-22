@@ -134,7 +134,7 @@ public abstract class QueryService<ENTITY> {
      */
     protected <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
                                                                                               SingularAttribute<? super ENTITY, X> field) {
-        return buildSpecification(filter, root -> root.get(field));
+        return buildRangeSpecification(filter, root -> root.get(field));
     }
 
     /**
@@ -147,8 +147,8 @@ public abstract class QueryService<ENTITY> {
      * @param metaclassFunction lambda, which based on a Root&lt;ENTITY&gt; returns Expression - basicaly picks a column
      * @return a Specification
      */
-    protected <X extends Comparable<? super X>> Specification<ENTITY> buildSpecification(RangeFilter<X> filter,
-                                                                                         Function<Root<ENTITY>, Expression<X>> metaclassFunction) {
+    protected <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
+                                                                                              Function<Root<ENTITY>, Expression<X>> metaclassFunction) {
         if (filter.getEquals() != null) {
             return equalsSpecification(metaclassFunction, filter.getEquals());
         } else if (filter.getIn() != null) {

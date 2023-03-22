@@ -26,9 +26,8 @@ public class UserQueryService extends QueryService<User>
 				.and(criteria.getFirstName(), User_.firstName, super::buildStringSpecification)
 				.and(criteria.getLastName(), User_.lastName, super::buildStringSpecification)
 				.and(criteria.getType(), User_.type, super::buildSpecification)
-				.and(criteria.getRoleId(), filter -> this.buildSpecification(filter,
-				                                                             root -> root.join(User_.roles, JoinType.LEFT)
-				                                                                         .get(Role_.id)))
+				.and(criteria.getRoleId(), root -> root.join(User_.roles, JoinType.LEFT).get(Role_.id),
+				     super::buildRangeSpecification)
 				.and(criteria.getIsActive(), User_.isActive, super::buildSpecification)
 				.build();
 	}

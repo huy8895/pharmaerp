@@ -13,46 +13,29 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ContractQueryService extends QueryService<Contract>
-		implements FilterService<Contract ,ContractCriteria> {
+		implements FilterService<Contract, ContractCriteria> {
 	
 	public Specification<Contract> createSpecification(ContractCriteria criteria) {
 		return SpecificationBuilder
 				.<Contract>builder()
-				.and(criteria.getUserId(), filter -> this.buildSpecification(filter, Contract_.userId))
-				.and(criteria.getCreatorId(), filter -> this.buildSpecification(filter,
-				                                                                contractRoot -> contractRoot.join(
-						                                                                Contract_.creator,
-						                                                                JoinType.LEFT).get(
-						                                                                User_.id)))
-				.and(criteria.getContractTypeId(), filter -> this.buildSpecification(filter,
-				                                                                     contractRoot -> contractRoot.join(
-						                                                                     Contract_.contractType,
-						                                                                     JoinType.LEFT).get(
-						                                                                     ContractType_.id)))
-				.and(criteria.getGenWorkLocationId(), filter -> this.buildSpecification(filter,
-				                                                                        contractRoot -> contractRoot.join(
-						                                                                        Contract_.genWorkLocation,
-						                                                                        JoinType.LEFT).get(
-						                                                                        GenWorkLocation_.id)))
-				.and(criteria.getGenOfficerLevelId(), filter -> this.buildSpecification(filter,
-				                                                                        contractRoot -> contractRoot.join(
-						                                                                        Contract_.genOfficerLevel,
-						                                                                        JoinType.LEFT).get(
-						                                                                        GenOfficerLevel_.id)))
-				.and(criteria.getGenDepartmentId(),
-				     filter -> this.buildSpecification(filter, Contract_.genDepartmentId))
-				.and(criteria.getGenJobTitleId(), filter -> this.buildSpecification(filter,
-				                                                                    contractRoot -> contractRoot.join(
-						                                                                                                Contract_.genJobTitle,
-						                                                                                                JoinType.LEFT)
-				                                                                                                .get(GenJobTitle_.id)))
-				.and(criteria.getContractCode(),
-				     filter -> this.buildStringSpecification(filter, Contract_.contractCode))
-				.and(criteria.getDuration(), filter -> this.buildSpecification(filter, Contract_.duration))
-				.and(criteria.getStartDate(), filter -> this.buildRangeSpecification(filter, Contract_.startDate))
-				.and(criteria.getEndDate(), filter -> this.buildRangeSpecification(filter, Contract_.endDate))
-				.and(criteria.getStatus(), filter -> this.buildStringSpecification(filter, Contract_.status))
-				.and(criteria.getNote(), filter -> this.buildStringSpecification(filter, Contract_.note))
+				.and(criteria.getUserId(),Contract_.userId, super::buildSpecification)
+				.and(criteria.getCreatorId(), root -> root.join(Contract_.creator, JoinType.LEFT).get(User_.id),
+				     super::buildRangeSpecification)
+				.and(criteria.getContractTypeId(), root -> root.join(Contract_.contractType, JoinType.LEFT).get(ContractType_.id),
+				     super::buildRangeSpecification)
+				.and(criteria.getGenWorkLocationId(), root -> root.join(Contract_.genWorkLocation, JoinType.LEFT).get(GenWorkLocation_.id),
+				     super::buildRangeSpecification)
+				.and(criteria.getGenOfficerLevelId(), root -> root.join(Contract_.genOfficerLevel, JoinType.LEFT).get(GenOfficerLevel_.id),
+				     super::buildRangeSpecification)
+				.and(criteria.getGenJobTitleId(), root -> root.join(Contract_.genJobTitle, JoinType.LEFT).get(GenJobTitle_.id),
+				     super::buildRangeSpecification)
+				.and(criteria.getGenDepartmentId(), Contract_.genDepartmentId, super::buildSpecification)
+				.and(criteria.getContractCode(), Contract_.contractCode, super::buildStringSpecification)
+				.and(criteria.getDuration(), Contract_.duration, super::buildSpecification)
+				.and(criteria.getStartDate(), Contract_.startDate, super::buildRangeSpecification)
+				.and(criteria.getEndDate(), Contract_.endDate, super::buildRangeSpecification)
+				.and(criteria.getStatus(), Contract_.status, super::buildStringSpecification)
+				.and(criteria.getNote(), Contract_.note, super::buildStringSpecification)
 				.build();
 	}
 	

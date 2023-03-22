@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.helper.query;
 
 import io.github.jhipster.service.filter.Filter;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Root;
 import jakarta.persistence.metamodel.SingularAttribute;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -39,6 +41,15 @@ public class SpecificationBuilder<ENTITY> {
 	                                                                                      BiFunction<F, SingularAttribute<? super ENTITY, X>, Specification<ENTITY>> function) {
 		if (filter != null) {
 			this.specification.getAndUpdate(current -> current.and(function.apply(filter, field)));
+		}
+		return this;
+	}
+	
+	public <FIELD_TYPE, X, F extends Filter<FIELD_TYPE>> SpecificationBuilder<ENTITY> and(F filter,
+	                                                                                      Function<Root<ENTITY>, Expression<X>> metaclassFunction,
+	                                                                                      BiFunction<F, Function<Root<ENTITY>, Expression<X>>, Specification<ENTITY>> function) {
+		if (filter != null) {
+			this.specification.getAndUpdate(current -> current.and(function.apply(filter, metaclassFunction)));
 		}
 		return this;
 	}
