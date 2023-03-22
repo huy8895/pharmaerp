@@ -132,7 +132,7 @@ public abstract class QueryService<ENTITY> {
      * @param field  the JPA static metamodel representing the field.
      * @return a Specification
      */
-    protected <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
+    public  <X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
                                                                                               SingularAttribute<? super ENTITY, X> field) {
         return buildRangeSpecification(filter, root -> root.get(field));
     }
