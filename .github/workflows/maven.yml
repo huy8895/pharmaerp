@@ -31,11 +31,11 @@ jobs:
     needs: build # only run this job after the build job succeeds
     runs-on: ubuntu-latest
     steps:
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp:${{ github.sha }}
-        registry: docker.io
-        dockerfile: Dockerfile
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp:${{ github.sha }}
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
