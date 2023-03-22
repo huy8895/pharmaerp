@@ -77,7 +77,6 @@ public class JwtService {
                       .flatMap(Collection::stream)
                       .filter(Permission::getIsActive)
                       .map(Permission::getKey)
-                      .map(Enum::name)
                       .toList();
     }
 

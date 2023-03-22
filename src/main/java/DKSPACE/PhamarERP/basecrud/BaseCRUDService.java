@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.basecrud;
 
+import DKSPACE.PhamarERP.basecrud.query.Criteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -55,4 +56,8 @@ public interface BaseCRUDService<E extends BaseCRUDEntity> {
     void hardDelete(Long id);
 
     List<E> saveList(List<E> entity);
+    
+    default Object findByCriteria(Pageable pageable, Criteria<E> criteria){
+        return null;
+    }
 }

@@ -10,6 +10,7 @@ import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.PermissionRepository;
 import DKSPACE.PhamarERP.auth.repository.RoleRepository;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
+import DKSPACE.PhamarERP.basecrud.BaseCRUDAction;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -114,11 +115,19 @@ public class DefaultDataConfig {
     }
 
     private List<Permission> buildPermission(PermissionGroupEnum groupEnum) {
+        if (groupEnum.isBaseCRUD()) {
+            return Arrays.stream(BaseCRUDAction.values())
+                         .map(action -> Permission.builder()
+                                                  .group(groupEnum.name())
+                                                  .key(action.getPermissionKey(groupEnum))
+                                                  .isActive(true)
+                                                  .build()).collect(Collectors.toList());
+        }
         return groupEnum.getKeys()
                                    .stream()
                                    .map(keyEnum -> Permission.builder()
-                                                         .group(groupEnum)
-                                                         .key(keyEnum)
+                                                         .group(groupEnum.name())
+                                                         .key(keyEnum.name())
                                                          .isActive(true)
                                                          .build())
                                    .collect(Collectors.toList());

@@ -26,4 +26,15 @@ public final class SecurityUtils {
         }
         return (CustomUserDetails) principal;
     }
+    
+    public static Long getCurrentUserId(){
+        final var principal = SecurityContextHolder.getContext()
+                                                   .getAuthentication()
+                                                   .getPrincipal();
+        if (principal instanceof CustomUserDetails userDetails){
+            return userDetails.getUser().getId();
+        }
+        
+        return null;
+    }
 }

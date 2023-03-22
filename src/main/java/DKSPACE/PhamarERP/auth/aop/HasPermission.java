@@ -18,4 +18,6 @@ public @interface HasPermission {
      * cho phép người dùng hiện tại truy cập mà không cần kiểm tra quyền
      */
     boolean acceptCurrentUser() default false;
+    
+    
 }

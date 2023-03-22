@@ -46,11 +46,11 @@ public class SpringdocConfig {
     }
 
     @Bean
-    public GroupedOpenApi sampleApi() {
-        String[] paths = {"/api/sample/**"};
+    public GroupedOpenApi csmApi() {
+        String[] packagesToScan = {"DDKSPACE.PhamarERP.crm.controller"};
         return GroupedOpenApi.builder()
-                             .group("Sample")
-                             .pathsToMatch(paths)
+                             .group("CRM")
+                             .packagesToScan(packagesToScan)
                              .build();
     }
 
