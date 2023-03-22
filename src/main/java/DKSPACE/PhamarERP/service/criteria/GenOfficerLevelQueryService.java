@@ -5,20 +5,16 @@ import DKSPACE.PhamarERP.helper.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.master_data.dto.criteria.GenOfficerLevelCriteria;
 import DKSPACE.PhamarERP.master_data.entity.GenOfficerLevel;
 import DKSPACE.PhamarERP.master_data.entity.GenOfficerLevel_;
-import DKSPACE.PhamarERP.repository.GenOfficerLevelRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
-public class GenOfficerLevelQueryService extends QueryService<GenOfficerLevel> implements FilterService<GenOfficerLevelCriteria> {
-	private final GenOfficerLevelRepository genOfficerLevelRepository;
+
+public class GenOfficerLevelQueryService extends QueryService<GenOfficerLevel> implements FilterService<GenOfficerLevel,GenOfficerLevelCriteria> {
 	
-	
-	private Specification<GenOfficerLevel> createSpecification(GenOfficerLevelCriteria criteria) {
+	public Specification<GenOfficerLevel> createSpecification(GenOfficerLevelCriteria criteria) {
 		return SpecificationBuilder
 				.<GenOfficerLevel>builder()
 				.and(criteria.getNameVi(), filter -> this.buildStringSpecification(filter, GenOfficerLevel_.nameVi))

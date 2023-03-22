@@ -9,6 +9,7 @@ import DKSPACE.PhamarERP.master_data.entity.UserActivity;
 import DKSPACE.PhamarERP.repository.UserActivityRepository;
 import DKSPACE.PhamarERP.service.UserActivityService;
 import DKSPACE.PhamarERP.service.criteria.FilterService;
+import DKSPACE.PhamarERP.service.criteria.UserActivityQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class UserActivityServiceImpl extends AbstractBaseCRUDService<UserActivit
     private final FilterService<UserActivity,UserActivityCriteria> queryService;
     
     protected UserActivityServiceImpl(UserActivityRepository repository,
-                                       ContractServiceImpl.UserActivityQueryService queryService) {
+                                       UserActivityQueryService queryService) {
         super(repository);
         this.queryService = queryService;
     }

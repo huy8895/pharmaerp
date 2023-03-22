@@ -2,20 +2,20 @@ package DKSPACE.PhamarERP.master_data.dto.criteria;
 
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
+import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.helper.query.BaseCrudCriteria;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import lombok.*;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCriteria implements Serializable {
+public class UserCriteria extends BaseCrudCriteria<User> {
 	private StringFilter email;
 	private StringFilter username;
 	private StringFilter phoneNumber;

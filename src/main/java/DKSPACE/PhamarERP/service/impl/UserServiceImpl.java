@@ -12,6 +12,7 @@ import DKSPACE.PhamarERP.master_data.dto.criteria.UserCriteria;
 import DKSPACE.PhamarERP.master_data.dto.user.*;
 import DKSPACE.PhamarERP.service.MailService;
 import DKSPACE.PhamarERP.service.UserService;
+import DKSPACE.PhamarERP.service.criteria.FilterService;
 import DKSPACE.PhamarERP.service.criteria.UserQueryService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
     private final PasswordEncoder passwordEncoder;
     protected final ExcelHelper excelHelper;
     private final MailService mailService;
-    private final UserQueryService userQueryService;
+    private final FilterService<User, UserCriteria> queryService;
     protected UserServiceImpl(UserRepository repository,
                               UserMapper userMapper,
                               PasswordEncoder passwordEncoder,
@@ -47,7 +48,7 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         this.passwordEncoder = passwordEncoder;
         this.excelHelper = excelHelper;
         this.mailService = mailService;
-        this.userQueryService = userQueryService;
+        this.queryService = userQueryService;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     @Override
     public Page<UserResDTO> listUser(UserCriteria userCriteria, Pageable pageable) {
-        return userqueryService.findByCriteria(userCriteria, pageable, repository::findAll)
+        return queryService.findByCriteria(userCriteria, pageable, repository::findAll)
                 .map(userMapper::toDTO);
     }
 

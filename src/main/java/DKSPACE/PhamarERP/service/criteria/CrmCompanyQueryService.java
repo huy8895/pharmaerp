@@ -5,29 +5,15 @@ import DKSPACE.PhamarERP.helper.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.master_data.dto.criteria.CrmCompanyCriteria;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmCompany;
 import DKSPACE.PhamarERP.master_data.entity.csm.CrmCompany_;
-import DKSPACE.PhamarERP.repository.crm.CrmCompanyRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
-public class CrmCompanyQueryService extends QueryService<CrmCompany> implements FilterService<CrmCompanyCriteria> {
-	private final CrmCompanyRepository repository;
+public class CrmCompanyQueryService extends QueryService<CrmCompany> implements FilterService<CrmCompany,CrmCompanyCriteria> {
 	
-	@Transactional(readOnly = true)
-	public Page<CrmCompany> findByCriteria(CrmCompanyCriteria criteria, Pageable page) {
-		log.debug("CrmCompanyQueryService find by criteria : {}, page: {}", criteria, page);
-		final Specification<CrmCompany> specification = this.createSpecification(criteria);
-		return repository.findAll(specification, page);
-	}
-	
-	private Specification<CrmCompany> createSpecification(CrmCompanyCriteria criteria) {
+	public Specification<CrmCompany> createSpecification(CrmCompanyCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmCompany>builder()
 				.and(criteria.getTaxCode(), filter -> this.buildStringSpecification(filter, CrmCompany_.taxCode))

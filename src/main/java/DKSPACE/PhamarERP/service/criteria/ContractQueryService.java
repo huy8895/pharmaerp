@@ -6,14 +6,12 @@ import DKSPACE.PhamarERP.helper.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.master_data.dto.criteria.ContractCriteria;
 import DKSPACE.PhamarERP.master_data.entity.*;
 import jakarta.persistence.criteria.JoinType;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class ContractQueryService extends QueryService<Contract>
 		implements FilterService<Contract ,ContractCriteria> {
 	
