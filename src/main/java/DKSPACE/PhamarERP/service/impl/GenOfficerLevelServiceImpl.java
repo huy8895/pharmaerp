@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class GenOfficerLevelServiceImpl extends AbstractBaseCRUDService<GenOfficerLevel, GenOfficerLevelRepository> implements GenOfficerLevelService {
     
-    private final FilterService<GenOfficerLevelCriteria> queryService;
+    private final FilterService<GenOfficerLevel,GenOfficerLevelCriteria> queryService;
     
     protected GenOfficerLevelServiceImpl(GenOfficerLevelRepository repository,
                                          GenOfficerLevelQueryService queryService) {
@@ -29,7 +29,7 @@ public class GenOfficerLevelServiceImpl extends AbstractBaseCRUDService<GenOffic
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<GenOfficerLevel> criteria) {
         if (criteria instanceof GenOfficerLevelCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be GenOfficerLevelCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

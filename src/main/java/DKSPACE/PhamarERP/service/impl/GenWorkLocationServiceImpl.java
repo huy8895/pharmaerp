@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class GenWorkLocationServiceImpl extends AbstractBaseCRUDService<GenWorkLocation, GenWorkLocationRepository> implements GenWorkLocationService {
     
-    private final FilterService<GenWorkLocationCriteria> queryService;
+    private final FilterService<GenWorkLocation,GenWorkLocationCriteria> queryService;
     
     protected GenWorkLocationServiceImpl(GenWorkLocationRepository repository,
                                          GenWorkLocationQueryService queryService) {
@@ -29,7 +29,7 @@ public class GenWorkLocationServiceImpl extends AbstractBaseCRUDService<GenWorkL
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<GenWorkLocation> criteria) {
         if (criteria instanceof GenWorkLocationCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be GenWorkLocationCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

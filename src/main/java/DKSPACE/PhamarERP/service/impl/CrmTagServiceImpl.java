@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CrmTagServiceImpl extends AbstractBaseCRUDService<CrmTag, CrmTagRepository> implements CrmTagService {
     
-    private final FilterService<CrmTagCriteria> queryService;
+    private final FilterService<CrmTag,CrmTagCriteria> queryService;
     
     protected CrmTagServiceImpl(CrmTagRepository repository,
                                        CrmTagQueryService queryService) {
@@ -29,7 +29,7 @@ public class CrmTagServiceImpl extends AbstractBaseCRUDService<CrmTag, CrmTagRep
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<CrmTag> criteria) {
         if (criteria instanceof CrmTagCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be CrmTagCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

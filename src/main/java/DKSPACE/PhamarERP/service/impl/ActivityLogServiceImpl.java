@@ -26,7 +26,7 @@ import java.util.Enumeration;
 @Service
 @Slf4j
 public class ActivityLogServiceImpl extends AbstractBaseCRUDService<ActivityLog, ActivityLogRepository> implements ActivityLogService {
-	private final FilterService<ActivityLogCriteria> queryService;
+	private final FilterService<ActivityLog,ActivityLogCriteria> queryService;
 	
 	protected ActivityLogServiceImpl(ActivityLogRepository repository,
 	                                 ActivityLogQueryService queryService) {
@@ -37,7 +37,7 @@ public class ActivityLogServiceImpl extends AbstractBaseCRUDService<ActivityLog,
 	@Override
 	public Object findByCriteria(Pageable pageable, Criteria<ActivityLog> criteria) {
 		if (criteria instanceof ActivityLogCriteria activityLogCriteria) {
-			return queryService.findByCriteria(activityLogCriteria, pageable);
+			return queryService.findByCriteria(activityLogCriteria, pageable, repository::findAll);
 		}
 		log.error("findByCriteria criteria must be ActivityLogCriteria");
 		throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

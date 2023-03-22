@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class GenJobTitleServiceImpl extends AbstractBaseCRUDService<GenJobTitle, GenJobTitleRepository> implements GenJobTitleService {
     
-    private final FilterService<GenJobTitleCriteria> queryService;
+    private final FilterService<GenJobTitle,GenJobTitleCriteria> queryService;
     
     protected GenJobTitleServiceImpl(GenJobTitleRepository repository,
                                        GenJobTitleQueryService queryService) {
@@ -29,7 +29,7 @@ public class GenJobTitleServiceImpl extends AbstractBaseCRUDService<GenJobTitle,
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<GenJobTitle> criteria) {
         if (criteria instanceof GenJobTitleCriteria contractCriteria) {
-            return queryService.findByCriteria(contractCriteria, pageable);
+            return queryService.findByCriteria(contractCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be GenJobTitleCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

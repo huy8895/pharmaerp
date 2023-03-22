@@ -59,7 +59,7 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 
     @Override
     public Page<UserResDTO> listUser(UserCriteria userCriteria, Pageable pageable) {
-        return userQueryService.findByCriteria(userCriteria, pageable)
+        return userqueryService.findByCriteria(userCriteria, pageable, repository::findAll)
                 .map(userMapper::toDTO);
     }
 

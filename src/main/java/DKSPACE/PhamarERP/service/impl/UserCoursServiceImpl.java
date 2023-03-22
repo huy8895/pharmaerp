@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserCoursServiceImpl extends AbstractBaseCRUDService<UserCours, UserCoursRepository> implements UserCoursService {
     
-    private final FilterService<UserCoursCriteria> queryService;
+    private final FilterService<UserCours,UserCoursCriteria> queryService;
     
     protected UserCoursServiceImpl(UserCoursRepository repository,
                                    UserCoursQueryService queryService) {
@@ -29,7 +29,7 @@ public class UserCoursServiceImpl extends AbstractBaseCRUDService<UserCours, Use
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<UserCours> criteria) {
         if (criteria instanceof UserCoursCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be UserCoursCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

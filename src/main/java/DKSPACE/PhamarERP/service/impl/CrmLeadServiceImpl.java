@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CrmLeadServiceImpl extends AbstractBaseCRUDService<CrmLead, CrmLeadRepository> implements CrmLeadService {
     
-    private final FilterService<CrmLeadCriteria> queryService;
+    private final FilterService<CrmLead,CrmLeadCriteria> queryService;
     
     protected CrmLeadServiceImpl(CrmLeadRepository repository,
                                        CrmLeadQueryService queryService) {
@@ -29,7 +29,7 @@ public class CrmLeadServiceImpl extends AbstractBaseCRUDService<CrmLead, CrmLead
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<CrmLead> criteria) {
         if (criteria instanceof CrmLeadCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be CrmLeadCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

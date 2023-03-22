@@ -5,11 +5,9 @@ import DKSPACE.PhamarERP.helper.query.QueryService;
 import DKSPACE.PhamarERP.helper.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.master_data.dto.criteria.ContractCriteria;
 import DKSPACE.PhamarERP.master_data.entity.*;
-import DKSPACE.PhamarERP.repository.ContractRepository;
 import jakarta.persistence.criteria.JoinType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ContractQueryService extends QueryService<Contract>
-		implements FilterService<ContractCriteria> {
-	private final ContractRepository contractRepository;
+		implements FilterService<Contract ,ContractCriteria> {
 	
-	@Override
-	public Object findByCriteria(ContractCriteria criteria, Pageable page) {
-		log.debug("ContractQueryService find by criteria : {}, page: {}", criteria, page);
-		final Specification<Contract> specification = this.createSpecification(criteria);
-		return contractRepository.findAll(specification, page);
-	}
-	
-	private Specification<Contract> createSpecification(ContractCriteria criteria) {
+	public Specification<Contract> createSpecification(ContractCriteria criteria) {
 		return SpecificationBuilder
 				.<Contract>builder()
 				.and(criteria.getUserId(), filter -> this.buildSpecification(filter, Contract_.userId))

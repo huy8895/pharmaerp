@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class GenDepartmentServiceImpl extends AbstractBaseCRUDService<GenDepartment, GenDepartmentRepository> implements GenDepartmentService {
-	private final FilterService<GenDepartmentCriteria> queryService;
+	private final FilterService<GenDepartment,GenDepartmentCriteria> queryService;
 	
 	protected GenDepartmentServiceImpl(GenDepartmentRepository repository,
 	                                   GenDepartmentQueryService queryService) {
@@ -28,7 +28,7 @@ public class GenDepartmentServiceImpl extends AbstractBaseCRUDService<GenDepartm
 	@Override
 	public Object findByCriteria(Pageable pageable, Criteria<GenDepartment> criteria) {
 		if (criteria instanceof GenDepartmentCriteria contractCriteria) {
-			return queryService.findByCriteria(contractCriteria, pageable);
+			return queryService.findByCriteria(contractCriteria, pageable, repository::findAll);
 		}
 		log.error("findByCriteria criteria must be ContractTypeCriteria");
 		throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

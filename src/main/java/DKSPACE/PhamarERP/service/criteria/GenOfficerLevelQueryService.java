@@ -8,11 +8,8 @@ import DKSPACE.PhamarERP.master_data.entity.GenOfficerLevel_;
 import DKSPACE.PhamarERP.repository.GenOfficerLevelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -20,12 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class GenOfficerLevelQueryService extends QueryService<GenOfficerLevel> implements FilterService<GenOfficerLevelCriteria> {
 	private final GenOfficerLevelRepository genOfficerLevelRepository;
 	
-	@Transactional(readOnly = true)
-	public Page<GenOfficerLevel> findByCriteria(GenOfficerLevelCriteria criteria, Pageable page) {
-		log.debug("GenOfficerLevelQueryService find by criteria : {}, page: {}", criteria, page);
-		final Specification<GenOfficerLevel> specification = this.createSpecification(criteria);
-		return genOfficerLevelRepository.findAll(specification, page);
-	}
 	
 	private Specification<GenOfficerLevel> createSpecification(GenOfficerLevelCriteria criteria) {
 		return SpecificationBuilder
@@ -36,4 +27,6 @@ public class GenOfficerLevelQueryService extends QueryService<GenOfficerLevel> i
 				.and(criteria.getIsActive(), filter -> this.buildSpecification(filter, GenOfficerLevel_.isActive))
 				.build();
 	}
+	
+
 }

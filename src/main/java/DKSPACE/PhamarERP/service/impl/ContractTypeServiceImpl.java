@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ContractTypeServiceImpl extends AbstractBaseCRUDService<ContractType, ContractTypeRepository> implements ContractTypeService {
-	private final FilterService<ContractTypeCriteria> queryService;
+	private final FilterService<ContractType,ContractTypeCriteria> queryService;
 	
 	protected ContractTypeServiceImpl(ContractTypeRepository repository,
-	                                  FilterService<ContractTypeCriteria> queryService) {
+	                                  FilterService<ContractType,ContractTypeCriteria> queryService) {
 		super(repository);
 		this.queryService = queryService;
 	}
@@ -27,7 +27,7 @@ public class ContractTypeServiceImpl extends AbstractBaseCRUDService<ContractTyp
 	@Override
 	public Object findByCriteria(Pageable pageable, Criteria<ContractType> criteria) {
 		if (criteria instanceof ContractTypeCriteria contractCriteria) {
-			return queryService.findByCriteria(contractCriteria, pageable);
+			return queryService.findByCriteria(contractCriteria, pageable, repository::findAll);
 		}
 		log.error("findByCriteria criteria must be ContractTypeCriteria");
 		throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

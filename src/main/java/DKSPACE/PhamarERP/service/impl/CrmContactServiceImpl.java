@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CrmContactServiceImpl extends AbstractBaseCRUDService<CrmContact, CrmContactRepository> implements CrmContactService {
     
-    private final FilterService<CrmContactCriteria> queryService;
+    private final FilterService<CrmContact,CrmContactCriteria> queryService;
     
     protected CrmContactServiceImpl(CrmContactRepository repository,
                                        CrmContactQueryService queryService) {
@@ -29,7 +29,7 @@ public class CrmContactServiceImpl extends AbstractBaseCRUDService<CrmContact, C
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<CrmContact> criteria) {
         if (criteria instanceof CrmContactCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be CrmContactCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

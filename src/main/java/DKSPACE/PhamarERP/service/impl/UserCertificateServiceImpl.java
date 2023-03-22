@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserCertificateServiceImpl extends AbstractBaseCRUDService<UserCertificate, UserCertificateRepository> implements UserCertificateService {
     
-    private final FilterService<UserCertificateCriteria> queryService;
+    private final FilterService<UserCertificate,UserCertificateCriteria> queryService;
     
     protected UserCertificateServiceImpl(UserCertificateRepository repository,
                                        UserCertificateQueryService queryService) {
@@ -29,7 +29,7 @@ public class UserCertificateServiceImpl extends AbstractBaseCRUDService<UserCert
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<UserCertificate> criteria) {
         if (criteria instanceof UserCertificateCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be UserCertificateCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);

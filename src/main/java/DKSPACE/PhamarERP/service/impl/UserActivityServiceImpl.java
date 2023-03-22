@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserActivityServiceImpl extends AbstractBaseCRUDService<UserActivity, UserActivityRepository> implements UserActivityService {
     
-    private final FilterService<UserActivityCriteria> queryService;
+    private final FilterService<UserActivity,UserActivityCriteria> queryService;
     
     protected UserActivityServiceImpl(UserActivityRepository repository,
                                        ContractServiceImpl.UserActivityQueryService queryService) {
@@ -28,7 +28,7 @@ public class UserActivityServiceImpl extends AbstractBaseCRUDService<UserActivit
     @Override
     public Object findByCriteria(Pageable pageable, Criteria<UserActivity> criteria) {
         if (criteria instanceof UserActivityCriteria implCriteria) {
-            return queryService.findByCriteria(implCriteria, pageable);
+            return queryService.findByCriteria(implCriteria, pageable, repository::findAll);
         }
         log.error("findByCriteria criteria must be UserActivityCriteria");
         throw new ServerException(ApiResponseInfo.INTERNAL_SERVER_ERROR);
