@@ -1,4 +1,4 @@
-package DKSPACE.PhamarERP.controller.csm;
+package DKSPACE.PhamarERP.controller.crm;
 
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDController;
 import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;

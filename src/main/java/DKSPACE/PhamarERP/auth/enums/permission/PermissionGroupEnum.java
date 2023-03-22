@@ -3,7 +3,7 @@ package DKSPACE.PhamarERP.auth.enums.permission;
 import DKSPACE.PhamarERP.auth.controller.RoleController;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDController;
 import DKSPACE.PhamarERP.controller.*;
-import DKSPACE.PhamarERP.controller.csm.*;
+import DKSPACE.PhamarERP.controller.crm.*;
 import DKSPACE.PhamarERP.master_data.entity.GenJobTitle;
 
 import java.util.Arrays;

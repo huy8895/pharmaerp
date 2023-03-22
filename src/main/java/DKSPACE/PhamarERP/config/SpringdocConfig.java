@@ -47,9 +47,9 @@ public class SpringdocConfig {
 
     @Bean
     public GroupedOpenApi csmApi() {
-        String[] packagesToScan = {"DKSPACE.PhamarERP.controller.csm"};
+        String[] packagesToScan = {"DKSPACE.PhamarERP.controller.crm"};
         return GroupedOpenApi.builder()
-                             .group("CSM")
+                             .group("CRM")
                              .packagesToScan(packagesToScan)
                              .build();
     }
