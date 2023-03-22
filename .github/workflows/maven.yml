@@ -31,14 +31,11 @@ jobs:
     needs: build # only run this job after the build job succeeds
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 # check out the source code again for this job
-      - name: Login to Docker Hub # login to docker hub using secrets stored in github repository settings
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Build and push # build and push the image using the Dockerfile in the project root folder
-        uses: docker/build-push-action@v4
-        with:
-          push: true # enable pushing the image to the registry
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/yourrepository:${{ github.sha }} # tag the image with your namespace, repository and commit sha
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp:${{ github.sha }}
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
