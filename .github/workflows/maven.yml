@@ -33,10 +33,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 #      - name: Change directory to pharmaerp
-        run: ls \ cd target \ ls
+#        run: ls \ cd target \ ls
       - uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: huy8895/phamar_erp
+          image: huy8895/phamarerp
           tags: latest
           registry: docker.io
           dockerfile: Dockerfile
