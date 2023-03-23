@@ -31,6 +31,9 @@ jobs:
     needs: build # only run this job after the build job succeeds
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - name: Change directory to pharmaerp
+        run: cd pharmaerp
       - uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: huy8895/phamar_erp
