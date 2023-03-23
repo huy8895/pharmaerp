@@ -32,8 +32,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: List files in target directory
-        run: ls -R target/
+      - name: List files in  directory
+        run: ls
+
+#      - name: List files in target directory
+#        run: ls -R target/
+
       - uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: huy8895/phamarerp
