@@ -45,7 +45,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp:${{ github.sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/latest
           registry: docker.io
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
