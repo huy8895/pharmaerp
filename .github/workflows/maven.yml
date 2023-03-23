@@ -25,13 +25,27 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn clean install
-      - name: List files in  directory
-        run: ls
-      - name: Build Image & push to dockerhub
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: maven-target
+          path: target/
+  deploy:
+    name: Deploy to Docker Hub
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: maven-target
+      - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: huy8895/phamarerp
-          tags: latest
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/phamar_erp:${{ github.sha }}
           registry: docker.io
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
