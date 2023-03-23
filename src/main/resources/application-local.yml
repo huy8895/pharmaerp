@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/pharmaerp
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/pharmaerp}
     username: postgres
     password: 1234
     driver-class-name: org.postgresql.Driver
