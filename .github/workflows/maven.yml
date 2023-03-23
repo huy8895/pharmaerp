@@ -41,6 +41,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: maven-target
+          path: target
       - name: List files in  directory
         run: ls
       - name: Build and push Docker image
