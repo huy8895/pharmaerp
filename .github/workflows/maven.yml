@@ -25,20 +25,10 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn clean install
-
-  docker:
-    name: Build Image & push to dockerhub
-    needs: build # only run this job after the build job succeeds
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
       - name: List files in  directory
-        run: ls
-
-#      - name: List files in target directory
-#        run: ls -R target/
-
-      - uses: mr-smithers-excellent/docker-build-push@v5
+          run: ls
+      - name: Build Image & push to dockerhub
+        uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: huy8895/phamarerp
           tags: latest
