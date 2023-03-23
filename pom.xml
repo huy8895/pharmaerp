@@ -167,6 +167,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>phamarerp</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
