@@ -32,8 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-#      - name: Change directory to pharmaerp
-#        run: ls \ cd target \ ls
+      - name: List files in target directory
+        run: ls -R target/
       - uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: huy8895/phamarerp
