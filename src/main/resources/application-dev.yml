@@ -1,0 +1,19 @@
+
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://192.168.64.1:5432/pharmaerp}
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+  #        generate_statistics: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
