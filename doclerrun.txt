@@ -1,0 +1,16 @@
+docker run -d --name postgres --network pharmaerp_default -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=pharmaerp -v db-data:/var/lib/postgresql/data -p 5432:5432 postgres:alpine
+
+docker run -d --name app --network pharmaerp_default -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/pharmaerp -e SPRING_DATASOURCE_USERNAME=user -e SPRING_DATASOURCE_PASSWORD=password -p 8080:8080 huy8895/phamar_erp
+
+
+/docker/pharmaerp/sql/1.main.sql
+
+docker cp /docker/pharmaerp/sql/1.main.sql 72004f0cc664:/init.sql
+
+psql --host=172.26.5.198 --user=user --password=password pharmaerp < /init.sql;
+
+docker exec -it postgres bash;
+
+psql --host=172.18.0.2 --user=user pharmaerp;
+
+pharmaerp=# \i init.sql;

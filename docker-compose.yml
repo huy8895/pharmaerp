@@ -29,3 +29,6 @@ services:
 networks:
   default:
     driver: bridge
+
+#  docker run -d --name postgres --network pharmaerp_default -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=pharmaerp -v db-data:/var/lib/postgresql/data -p 5432:5432 postgres:alpine
+#  docker run -d --name app --network pharmaerp_default -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/pharmaerp -e SPRING_DATASOURCE_USERNAME=user -e SPRING_DATASOURCE_PASSWORD=password -p 8080:8080 huy8895/phamar_erp
