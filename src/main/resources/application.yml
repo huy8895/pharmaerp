@@ -40,3 +40,7 @@ spring:
         size: 2
   jpa:
     open-in-view: true
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: +07:00
