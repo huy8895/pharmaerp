@@ -31,4 +31,13 @@ public class UserQueryService extends QueryService<User>
 				.and(criteria.getIsActive(), User_.isActive, super::buildSpecification)
 				.build();
 	}
+	
+	@Override
+	public Specification<User> buildSearchSpecification(UserCriteria criteria) {
+		if (criteria.getSearch() == null) return Specification.where(null);
+		
+		return super.likeUpperSpecification(userRoot -> userRoot.get(User_.firstName), criteria.getSearch())
+		            .or(super.likeUpperSpecification(userRoot -> userRoot.get(User_.lastName), criteria.getSearch()))
+		            .or(super.likeUpperSpecification(userRoot -> userRoot.get(User_.username), criteria.getSearch()));
+	}
 }

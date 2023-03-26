@@ -16,4 +16,5 @@ public abstract class BaseCrudCriteria<E extends BaseCRUDEntity> implements Crit
 	private LocalDateTimeFilter createdAt;
 	private LocalDateTimeFilter updatedAt;
 	private LocalDateTimeFilter deletedAt;
+	private String search;
 }

@@ -54,6 +54,13 @@ public class SpecificationBuilder<ENTITY> {
 		return this;
 	}
 	
+	public <C> SpecificationBuilder<ENTITY> and(C criteria, Function<C, Specification<ENTITY>> function ) {
+		if (function != null) {
+			this.specification.getAndUpdate(current -> current.and(function.apply(criteria)));
+		}
+		return this;
+	}
+	
 	
 	public Specification<ENTITY> build() {
 		return this.specification.get();

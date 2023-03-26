@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.BiFunction;
 
 public interface FilterService<ENTITY extends BaseCRUDEntity, C extends BaseCrudCriteria<ENTITY>> {
@@ -23,13 +25,23 @@ public interface FilterService<ENTITY extends BaseCRUDEntity, C extends BaseCrud
 				                    .and(criteria.getCreatedAt(), BaseCRUDEntity_.createdAt, this::buildRangeSpecification)
 				                    .and(criteria.getUpdatedAt(), BaseCRUDEntity_.updatedAt, this::buildRangeSpecification)
 				                    .and(criteria.getDeletedAt(), BaseCRUDEntity_.deletedAt, this::buildRangeSpecification)
+				                    .and(criteria, this::buildSearchSpecification)
 				                    .build();
 		
 		return findAll.apply(entitySpecification, page);
+	}
+	
+	default Specification<ENTITY> buildSearchSpecification(C criteria){
+		return Specification.where(null);
+	}
+	
+	default List<SingularAttribute<ENTITY, ?>> searchInColumns(){
+		return Collections.emptyList();
 	}
 	
 	Specification<ENTITY> createSpecification(C criteria);
 	<X> Specification<ENTITY> buildSpecification(Filter<X> filter, SingularAttribute<? super ENTITY, X> field);
 	<X extends Comparable<? super X>> Specification<ENTITY> buildRangeSpecification(RangeFilter<X> filter,
 	                                                                                        SingularAttribute<? super ENTITY, X> field);
+
 }
