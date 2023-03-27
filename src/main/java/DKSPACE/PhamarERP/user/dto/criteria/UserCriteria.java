@@ -38,7 +38,7 @@ public class UserCriteria extends BaseCrudCriteria<User> {
 	@Override
 	public List<SingularAttribute<User, String>> searchBy() {
 		return List.of(User_.email,
-		               User_.email,
+		               User_.username,
 		               User_.phoneNumber,
 		               User_.firstName,
 		               User_.lastName,
