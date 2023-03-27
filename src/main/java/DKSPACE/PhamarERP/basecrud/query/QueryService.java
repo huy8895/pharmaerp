@@ -369,7 +369,7 @@ public abstract class QueryService<ENTITY> {
      * @param value a {@link String} object.
      * @return a {@link Specification} object.
      */
-    protected Specification<ENTITY> likeUpperSpecification(Function<Root<ENTITY>, Expression<String>> metaclassFunction,
+    public Specification<ENTITY> likeUpperSpecification(Function<Root<ENTITY>, Expression<String>> metaclassFunction,
                                                            String value) {
         return (root, query, builder) -> builder.like(builder.upper(metaclassFunction.apply(root)), wrapLikeQuery(value));
     }

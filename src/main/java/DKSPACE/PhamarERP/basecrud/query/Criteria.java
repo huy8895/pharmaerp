@@ -19,9 +19,16 @@
 package DKSPACE.PhamarERP.basecrud.query;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import jakarta.persistence.metamodel.SingularAttribute;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Implementation should usually contain fields of Filter instances.
  */
 public interface Criteria<ENTITY extends BaseCRUDEntity> {
+	default List<SingularAttribute<ENTITY, String>> searchBy() {
+		return Collections.emptyList();
+	}
 }

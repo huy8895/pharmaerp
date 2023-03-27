@@ -6,6 +6,7 @@ import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
 import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
+import DKSPACE.PhamarERP.user.dto.criteria.UserCriteria;
 import jakarta.persistence.criteria.JoinType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -32,12 +33,4 @@ public class UserQueryService extends QueryService<User>
 				.build();
 	}
 	
-	@Override
-	public Specification<User> buildSearchSpecification(UserCriteria criteria) {
-		if (criteria.getSearch() == null) return Specification.where(null);
-		
-		return super.likeUpperSpecification(userRoot -> userRoot.get(User_.firstName), criteria.getSearch())
-		            .or(super.likeUpperSpecification(userRoot -> userRoot.get(User_.lastName), criteria.getSearch()))
-		            .or(super.likeUpperSpecification(userRoot -> userRoot.get(User_.username), criteria.getSearch()));
-	}
 }
