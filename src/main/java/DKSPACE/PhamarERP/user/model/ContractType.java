@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.user.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.i18n.validation.Unique;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -37,14 +38,16 @@ public class ContractType extends BaseCRUDEntity {
 	 */
 	@Size(max = 100)
 	@NotNull
+	@Unique(value = ContractType_.NAME_VI, domainClass = ContractType.class)
 	@Column(name = "name_vi", nullable = false, length = 100)
 	private String nameVi;
 	
 	/**
 	 * Tên tiếng Anh của loại hợp đồng.
 	 */
-	@Size(max = 100)
 	@NotNull
+	@Size(max = 100)
+	@Unique(value = ContractType_.NAME_EN, domainClass = ContractType.class)
 	@Column(name = "name_en", nullable = false, length = 100)
 	private String nameEn;
 	
