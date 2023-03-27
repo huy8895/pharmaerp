@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.general.service.criteria;
 
-import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
+import DKSPACE.PhamarERP.basecrud.query.BaseFilterService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.general.criteria.GenJobTitleCriteria;
 import DKSPACE.PhamarERP.general.model.GenJobTitle;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class GenJobTitleQueryService extends QueryService<GenJobTitle> implements FilterService<GenJobTitle,GenJobTitleCriteria> {
+public class GenJobTitleQueryService extends BaseFilterService<GenJobTitle,GenJobTitleCriteria> {
 	public Specification<GenJobTitle> createSpecification(GenJobTitleCriteria criteria) {
 		return SpecificationBuilder
 				.<GenJobTitle>builder()
