@@ -19,8 +19,8 @@ public class UserCoursQueryService extends FilterService<UserCours, UserCoursCri
 				.and(criteria.getUserId(), UserCours_.userId, super::buildSpecification)
 				.and(criteria.getName(), UserCours_.name, super::buildStringSpecification)
 				.and(criteria.getOrganization(), UserCours_.organization, super::buildStringSpecification)
-				.and(criteria.getStartDate(), UserCours_.startDate, super::buildStringSpecification)
-				.and(criteria.getEndDate(), UserCours_.endDate, super::buildStringSpecification)
+				.and(criteria.getStartDate(), UserCours_.startDate, super::buildRangeSpecification)
+				.and(criteria.getEndDate(), UserCours_.endDate, super::buildRangeSpecification)
 				.and(criteria.getDescribe(), UserCours_.describe, super::buildStringSpecification)
 				.and(criteria.getLink(), UserCours_.link, super::buildStringSpecification)
 				.build();
