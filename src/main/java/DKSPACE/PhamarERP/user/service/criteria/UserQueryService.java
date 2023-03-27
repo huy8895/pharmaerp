@@ -4,7 +4,6 @@ import DKSPACE.PhamarERP.auth.model.Role_;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.user.dto.criteria.UserCriteria;
 import jakarta.persistence.criteria.JoinType;
@@ -14,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class UserQueryService extends QueryService<User>
-		implements FilterService<User, UserCriteria> {
+public class UserQueryService extends FilterService<User, UserCriteria> {
 	
 	public Specification<User> createSpecification(UserCriteria criteria) {
 		return SpecificationBuilder

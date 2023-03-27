@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.crm.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.crm.criteria.CrmLeadCriteria;
 import DKSPACE.PhamarERP.crm.model.CrmLead;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class CrmLeadQueryService extends QueryService<CrmLead> implements FilterService<CrmLead,CrmLeadCriteria> {
+public class CrmLeadQueryService extends FilterService<CrmLead, CrmLeadCriteria> {
 	
 	public Specification<CrmLead> createSpecification(CrmLeadCriteria criteria) {
 		return SpecificationBuilder

@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.user.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.user.dto.criteria.UserCertificateCriteria;
 import DKSPACE.PhamarERP.user.model.UserCertificate;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class UserCertificateQueryService extends QueryService<UserCertificate> implements FilterService<UserCertificate,UserCertificateCriteria> {
+public class UserCertificateQueryService extends FilterService<UserCertificate, UserCertificateCriteria> {
 	public Specification<UserCertificate> createSpecification(UserCertificateCriteria criteria) {
 		return SpecificationBuilder
 				.<UserCertificate>builder()

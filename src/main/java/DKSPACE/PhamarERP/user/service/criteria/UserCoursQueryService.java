@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.user.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.user.dto.criteria.UserCoursCriteria;
 import DKSPACE.PhamarERP.user.model.UserCours;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 
-public class UserCoursQueryService extends QueryService<UserCours> implements FilterService<UserCours,UserCoursCriteria> {
+public class UserCoursQueryService extends FilterService<UserCours, UserCoursCriteria> {
 	public Specification<UserCours> createSpecification(UserCoursCriteria criteria) {
 		return SpecificationBuilder
 				.<UserCours>builder()
