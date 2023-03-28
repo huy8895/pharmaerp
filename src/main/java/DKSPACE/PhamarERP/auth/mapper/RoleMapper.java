@@ -4,10 +4,12 @@ import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.model.Role;
+import DKSPACE.PhamarERP.user.dto.user.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -61,4 +63,18 @@ public class RoleMapper {
                             .map(id -> Role.builder().id(id).build())
                             .collect(Collectors.toSet());
     }
+	
+	public Set<RoleDto> toDTO(Set<Role> roles) {
+		if (CollectionUtils.isEmpty(roles)) return Collections.emptySet();
+		return roles.stream().map(this::toDTOV2).collect(Collectors.toSet());
+	}
+	
+	public RoleDto toDTOV2(Role entity) {
+		return RoleDto.builder()
+		              .id(entity.getId())
+		              .describe(entity.getDescribe())
+		              .nameVi(entity.getNameVi())
+		              .nameEn(entity.getNameEn())
+		              .build();
+	}
 }

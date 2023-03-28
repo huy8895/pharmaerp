@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.general.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.general.criteria.GenDepartmentCriteria;
 import DKSPACE.PhamarERP.general.model.GenDepartment;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class GenDepartmentQueryService extends QueryService<GenDepartment> implements FilterService<GenDepartment,GenDepartmentCriteria> {
+public class GenDepartmentQueryService extends FilterService<GenDepartment, GenDepartmentCriteria> {
 	
 	public Specification<GenDepartment> createSpecification(GenDepartmentCriteria criteria) {
 		return SpecificationBuilder

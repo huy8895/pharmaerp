@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.i18n.validation.Unique;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -37,6 +38,7 @@ public class CrmCompany extends BaseCRUDEntity {
 	@NotNull
 	@Size(max = 20)
 	@Column(name = "tax_code", nullable = false, length = 20)
+	@Unique(value = CrmCompany_.TAX_CODE, domainClass = CrmCompany.class)
 	private String taxCode;
 	
 	/**

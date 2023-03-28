@@ -14,6 +14,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -58,14 +59,14 @@ public class UserCours extends BaseCRUDEntity {
 	 */
 	@Size(max = 45)
 	@Column(name = "start_date", length = 45)
-	private String startDate;
+	private LocalDate startDate;
 	
 	/**
 	 * Ngày kết thúc khóa học. Có thể để trống nếu không có thông tin.
 	 */
 	@Size(max = 45)
 	@Column(name = "end_date", length = 45)
-	private String endDate;
+	private LocalDate endDate;
 	
 	/**
 	 * Mô tả về nội dung và mục tiêu của khóa học. Có thể để trống nếu không có thông tin.

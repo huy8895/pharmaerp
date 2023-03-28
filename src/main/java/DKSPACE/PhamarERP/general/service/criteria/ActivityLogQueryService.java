@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.general.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.general.criteria.ActivityLogCriteria;
 import DKSPACE.PhamarERP.general.model.ActivityLog;
@@ -12,8 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class ActivityLogQueryService extends QueryService<ActivityLog>
-		implements FilterService<ActivityLog,ActivityLogCriteria> {
+public class ActivityLogQueryService extends FilterService<ActivityLog, ActivityLogCriteria> {
 	
 	public Specification<ActivityLog> createSpecification(ActivityLogCriteria criteria) {
 		return SpecificationBuilder

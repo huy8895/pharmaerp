@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.crm.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.crm.criteria.CrmCompanyCriteria;
 import DKSPACE.PhamarERP.crm.model.CrmCompany;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class CrmCompanyQueryService extends QueryService<CrmCompany> implements FilterService<CrmCompany,CrmCompanyCriteria> {
+public class CrmCompanyQueryService extends FilterService<CrmCompany, CrmCompanyCriteria> {
 	
 	public Specification<CrmCompany> createSpecification(CrmCompanyCriteria criteria) {
 		return SpecificationBuilder

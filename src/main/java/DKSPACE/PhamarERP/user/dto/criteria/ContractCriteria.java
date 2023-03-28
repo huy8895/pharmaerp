@@ -2,10 +2,14 @@ package DKSPACE.PhamarERP.user.dto.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.BaseCrudCriteria;
 import DKSPACE.PhamarERP.user.model.Contract;
+import DKSPACE.PhamarERP.user.model.Contract_;
 import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import jakarta.persistence.metamodel.SingularAttribute;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +30,12 @@ public class ContractCriteria extends BaseCrudCriteria<Contract> {
 	private LocalDateFilter endDate;
 	private StringFilter status;
 	private StringFilter note;
+	
+	@Override
+	public List<SingularAttribute<Contract, String>> searchBy() {
+		return List.of(Contract_.contractCode,
+		               Contract_.status,
+		               Contract_.note);
+	}
 }
+

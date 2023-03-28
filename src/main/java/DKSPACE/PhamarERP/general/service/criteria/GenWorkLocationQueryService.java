@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.general.service.criteria;
 
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.general.criteria.GenWorkLocationCriteria;
 import DKSPACE.PhamarERP.general.model.GenWorkLocation;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class GenWorkLocationQueryService extends QueryService<GenWorkLocation> implements FilterService<GenWorkLocation,GenWorkLocationCriteria> {
+public class GenWorkLocationQueryService extends FilterService<GenWorkLocation, GenWorkLocationCriteria> {
 	
 	public Specification<GenWorkLocation> createSpecification(GenWorkLocationCriteria criteria) {
 		return SpecificationBuilder

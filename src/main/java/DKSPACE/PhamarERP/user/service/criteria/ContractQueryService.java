@@ -2,7 +2,6 @@ package DKSPACE.PhamarERP.user.service.criteria;
 
 import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.basecrud.query.QueryService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.general.model.GenJobTitle_;
 import DKSPACE.PhamarERP.general.model.GenOfficerLevel_;
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class ContractQueryService extends QueryService<Contract>
-		implements FilterService<Contract, ContractCriteria> {
+public class ContractQueryService extends FilterService<Contract, ContractCriteria> {
 	
 	public Specification<Contract> createSpecification(ContractCriteria criteria) {
 		return SpecificationBuilder
