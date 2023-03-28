@@ -33,6 +33,6 @@ public class GenUnit extends BaseCRUDEntity {
 	@Column(name = "name_en", length = 100)
 	private String nameEn;
 	
-	@Column(name = "is_active")
+	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive;
 }

@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -45,7 +44,6 @@ public class FactoryLine extends BaseCRUDEntity {
     @Column(name = "`describe`")
     private String describe;
     
-    @Column(name = "is_active")
-    @ColumnDefault("true")
+    @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean isActive;
 }

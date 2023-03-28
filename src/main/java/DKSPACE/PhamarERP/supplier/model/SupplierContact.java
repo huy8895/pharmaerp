@@ -49,6 +49,6 @@ public class SupplierContact extends BaseCRUDEntity {
 	@Column(name = "designation", length = 100)
 	private String designation;
 	
-	@Column(name = "is_active")
+	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive;
 }

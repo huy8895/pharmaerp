@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -29,17 +28,16 @@ public class Factory extends BaseCRUDEntity {
     @Size(max = 255)
     @Column(name = "name_en")
     private String nameEn;
-
+    
     @NotBlank
     @Size(max = 45)
     @Column(name = "factory_code", unique = true)
     private String factoryCode;
-
+    
     @Size(max = 1000)
     @Column(name = "`describe`")
     private String describe;
-
-    @Column(name = "is_active")
-    @ColumnDefault("true")
+    
+    @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean isActive;
 }
