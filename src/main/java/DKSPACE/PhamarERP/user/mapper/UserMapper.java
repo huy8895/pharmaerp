@@ -26,6 +26,8 @@ public class UserMapper {
 	                     .createdAt(String.valueOf(user.getCreatedAt()))
 	                     .updatedAt(String.valueOf(user.getUpdatedAt()))
 	                     .deletedAt(String.valueOf(user.getDeletedAt()))
+	                     .isActive(user.getIsActive())
+	                     .roles(roleMapper.toDTO(user.getRoles()))
 	                     .build();
     }
 
