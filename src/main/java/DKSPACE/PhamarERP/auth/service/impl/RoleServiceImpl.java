@@ -1,13 +1,16 @@
 package DKSPACE.PhamarERP.auth.service.impl;
 
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleCriteria;
 import DKSPACE.PhamarERP.auth.dto.role.RoleDTO;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.mapper.RoleMapper;
 import DKSPACE.PhamarERP.auth.model.Role;
 import DKSPACE.PhamarERP.auth.repository.RoleRepository;
 import DKSPACE.PhamarERP.auth.service.RoleService;
+import DKSPACE.PhamarERP.auth.service.criteria.RoleQueryService;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
+import DKSPACE.PhamarERP.basecrud.query.FilterService;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +24,14 @@ import java.util.Collections;
 @Service
 public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepository> implements RoleService {
     private final RoleMapper roleMapper;
+    private final FilterService<Role, RoleCriteria> queryService;
 
     protected RoleServiceImpl(RoleRepository repository,
-                              RoleMapper roleMapper) {
+                              RoleMapper roleMapper,
+                              RoleQueryService queryService) {
         super(repository);
         this.roleMapper = roleMapper;
+        this.queryService = queryService;
     }
 
     @Override
@@ -37,9 +43,9 @@ public class RoleServiceImpl extends AbstractBaseCRUDService<Role, RoleRepositor
     }
 
     @Override
-    public Page<RoleDTO> listRoles(Pageable unpaged) {
-        return super.findAll(unpaged)
-                    .map(roleMapper::toDTO);
+    public Page<RoleDTO> listRoles(Pageable unpaged, RoleCriteria criteria) {
+        return queryService.findByCriteria(criteria, unpaged, repository::findAll)
+                           .map(roleMapper::toDTO);
     }
 
     @Override
