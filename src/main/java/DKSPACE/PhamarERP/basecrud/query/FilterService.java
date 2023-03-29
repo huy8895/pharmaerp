@@ -19,12 +19,9 @@ public abstract class FilterService<ENTITY extends BaseCRUDEntity, C extends Bas
 		final var entitySpecification =
 				SpecificationBuilder.from(specification)
 				                    .and(criteria.getId(), BaseCRUDEntity_.id, this::buildRangeSpecification)
-				                    .and(criteria.getCreatedAt(), BaseCRUDEntity_.createdAt,
-				                         this::buildRangeSpecification)
-				                    .and(criteria.getUpdatedAt(), BaseCRUDEntity_.updatedAt,
-				                         this::buildRangeSpecification)
-				                    .and(criteria.getDeletedAt(), BaseCRUDEntity_.deletedAt,
-				                         this::buildRangeSpecification)
+				                    .and(criteria.getCreatedAt(), BaseCRUDEntity_.createdAt, this::buildRangeSpecification)
+				                    .and(criteria.getUpdatedAt(), BaseCRUDEntity_.updatedAt, this::buildRangeSpecification)
+				                    .and(criteria.getDeletedAt(), BaseCRUDEntity_.deletedAt, this::buildRangeSpecification)
 				                    .and(criteria, this::buildSearchSpecification)
 				                    .build();
 		
