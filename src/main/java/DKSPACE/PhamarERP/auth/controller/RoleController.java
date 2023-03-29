@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.auth.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.dto.role.RoleCreateDTO;
+import DKSPACE.PhamarERP.auth.dto.role.RoleCriteria;
 import DKSPACE.PhamarERP.auth.dto.role.RoleUpdateDTO;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
 import DKSPACE.PhamarERP.auth.service.RoleService;
@@ -34,8 +35,8 @@ public class RoleController {
     @GetMapping
     @HasPermission(PermissionKeyEnum.LIST_ROLE)
     @Operation(summary = "Danh sách quyền - List Role") 
-    public Object listRoles(@ParameterObject Pageable pageable) {
-        return service.listRoles(pageable);
+    public Object listRoles(@ParameterObject Pageable pageable, @ParameterObject RoleCriteria criteria) {
+        return service.listRoles(pageable, criteria);
     }
     
     /**
