@@ -44,3 +44,7 @@ spring:
       hibernate:
         jdbc:
           time_zone: +07:00
+
+logging:
+  pattern:
+    date-format: "yyyy-MM-dd HH:mm:ss.SSS,Asia/Ho_Chi_Minh"
