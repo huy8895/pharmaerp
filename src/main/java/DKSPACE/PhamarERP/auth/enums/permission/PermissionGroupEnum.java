@@ -32,6 +32,7 @@ public enum PermissionGroupEnum implements HasI18NCode{
             "permission.group.user",
             CREATE_USER,
             UPDATE_USER,
+            DETAIL_USER,
             GET_LIST_USER,
             TOGGLE_ACTIVE_USER,
             ADD_ROLES_USER,
