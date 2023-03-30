@@ -160,4 +160,11 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
                               .toList();
         return saveList(users);
     }
+	
+	@Override
+	public Object detailUser(Long userId) {
+        final var one = this.findOne(userId);
+        final var userResDTO = userMapper.toDTO(one);
+        return userResDTO;
+	}
 }

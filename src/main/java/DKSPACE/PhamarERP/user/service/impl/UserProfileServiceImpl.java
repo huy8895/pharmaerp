@@ -29,9 +29,7 @@ public class UserProfileServiceImpl extends AbstractBaseCRUDService<UserProfile,
 	@Override
 	public UserProfile findOne(Long userID) {
 		return repository.findByUserId(userID)
-		                 .orElse(UserProfile.builder()
-		                                    .userId(userID)
-		                                    .build());
+		                 .orElseThrow();
 	}
 	
 	@Override
@@ -49,7 +47,7 @@ public class UserProfileServiceImpl extends AbstractBaseCRUDService<UserProfile,
 	
 	@Override
 	public UserProfile partialUpdate(UserProfile userProfile) {
-		return repository.findByUserId(userProfile.getUserId())
+		return repository.findByUserId(userProfile.getUser().getId())
 		                 .map(existingProfile -> {
 			                 BaseCrudUtils.update(userProfile, existingProfile);
 			                 return this.save(existingProfile);

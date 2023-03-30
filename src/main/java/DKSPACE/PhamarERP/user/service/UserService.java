@@ -27,4 +27,6 @@ public interface UserService extends BaseCRUDService<User> {
     Object exportTemplate();
     
     Object saveListUser(UserCreateListDTO dtos);
+	
+	Object detailUser(Long userId);
 }

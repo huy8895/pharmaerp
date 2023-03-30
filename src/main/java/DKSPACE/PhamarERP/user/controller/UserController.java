@@ -47,6 +47,13 @@ public class UserController {
                            @ParameterObject UserCriteria userCriteria){
         return service.listUser(userCriteria, pageable);
     }
+    
+    @GetMapping("/{userId}")
+    @HasPermission(PermissionKeyEnum.DETAIL_USER)
+    @Operation(summary = "Xem chi tiết người dùng")
+    public Object listUser(@PathVariable Long userId){
+        return service.detailUser(userId);
+    }
 
     /**
      * 2. Tạo mới user
