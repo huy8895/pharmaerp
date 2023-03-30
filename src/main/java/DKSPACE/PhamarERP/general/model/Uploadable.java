@@ -1,5 +1,7 @@
 package DKSPACE.PhamarERP.general.model;
 
+import DKSPACE.PhamarERP.general.enums.ObjectField;
+import DKSPACE.PhamarERP.general.enums.ObjectType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -25,27 +27,29 @@ public class Uploadable {
 	@EmbeddedId
 	private UploadableId id;
 	
-	/**
-	 * Đối tượng GenUpload được liên kết với bản ghi này. Chứa thông tin chi tiết về tệp tin được tải lên.
-	 */
-	@MapsId("genUploadId")
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "gen_upload_id", nullable = false)
-	private GenUpload genUpload;
+//	/**
+//	 * Đối tượng GenUpload được liên kết với bản ghi này. Chứa thông tin chi tiết về tệp tin được tải lên.
+//	 */
+//	@MapsId("genUploadId")
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "gen_upload_id", nullable = false)
+//	private GenUpload genUpload;
 	
 	/**
 	 * Tên bảng của đối tượng được tham chiếu bởi bản ghi này. Ví dụ: users, products...
 	 */
 	@Size(max = 45)
 	@Column(name = "object_type", length = 45)
-	private String objectType;
+	@Enumerated(EnumType.STRING)
+	private ObjectType objectType;
 	
 	/**
 	 * Tên trường của đối tượng được tham chiếu bởi bản ghi này. Ví dụ: logo, avatar...
 	 */
 	@Size(max = 45)
 	@Column(name = "object_field", length = 45)
-	private String objectField;
+	@Enumerated(EnumType.STRING)
+	private ObjectField objectField;
 	
 	/**
 	 * Mô tả về nội dung hoặc chức năng của tệp tin được tải lên. Có thể để trống nếu không có thông tin.
