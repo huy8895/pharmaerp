@@ -1,9 +1,12 @@
 package DKSPACE.PhamarERP.general.service.impl;
 
 import DKSPACE.PhamarERP.general.dto.upload.GenUploadDto;
+import DKSPACE.PhamarERP.general.enums.ObjectField;
+import DKSPACE.PhamarERP.general.enums.ObjectType;
 import DKSPACE.PhamarERP.general.model.GenUpload;
 import DKSPACE.PhamarERP.general.repository.GenUploadRepository;
 import DKSPACE.PhamarERP.general.service.GenUploadService;
+import DKSPACE.PhamarERP.general.service.UploadableService;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ClientException;
@@ -20,6 +23,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GenUploadServiceImpl implements GenUploadService {
     private final GenUploadRepository repository;
+    private final UploadableService uploadableService;
 
     @Override
     public GenUploadDto upload(MultipartFile file) {
@@ -72,4 +76,11 @@ public class GenUploadServiceImpl implements GenUploadService {
                                         .orElseThrow();
         return getGenUploadDto(upload, upload.getData());
     }
+	
+	@Override
+	public GenUploadDto upload(ObjectType objectType, ObjectField objectField, Long objectId, MultipartFile file) {
+        GenUploadDto upload = this.upload(file);
+        uploadableService.save(upload.getId(), objectType, objectField, objectId);
+        return upload;
+	}
 }

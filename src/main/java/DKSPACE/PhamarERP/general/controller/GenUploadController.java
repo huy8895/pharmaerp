@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.general.controller;
 
 import DKSPACE.PhamarERP.general.dto.upload.GenUploadDto;
+import DKSPACE.PhamarERP.general.enums.ObjectField;
+import DKSPACE.PhamarERP.general.enums.ObjectType;
 import DKSPACE.PhamarERP.general.service.GenUploadService;
 import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +34,17 @@ public class GenUploadController {
     public Object upload(@RequestParam("file") MultipartFile file) throws IOException {
         log.info("file : {}", file.getOriginalFilename());
         return service.upload(file);
+    }
+    
+    @PostMapping(value = "/upload/{type}/{objectId}/{field}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể")
+    public Object uploadable(@RequestParam("file") MultipartFile file,
+                         @PathVariable("type") ObjectType objectType,
+                         @PathVariable("field") ObjectField objectField,
+                         @PathVariable("objectId") Long objectId
+                         ) throws IOException {
+        log.info("file : {}", file.getOriginalFilename());
+        return service.upload(objectType, objectField, objectId, file);
     }
     
     @GetMapping("/download/{id}")
