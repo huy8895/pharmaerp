@@ -1,8 +1,9 @@
 package DKSPACE.PhamarERP.user.model;
 
-import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,9 +31,8 @@ public class UserProfile extends BaseCRUDEntity {
 	 * Mã định danh của người dùng.
 	 */
 	@NotNull
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", unique = true, nullable = false)
-	private User user;
+	@Column(name = "user_id", unique = true)
+	private Long userId;
 	
 	/**
 	 * Giới tính của người dùng. Có kiểu Short để biểu diễn 0 là nam, 1 là nữ và 2 là khác.

@@ -1,6 +1,5 @@
 package DKSPACE.PhamarERP.user.dto.user;
 
-import DKSPACE.PhamarERP.user.dto.user_profile.UserProfileResDto;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -26,6 +25,5 @@ public class UserResDTO {
     private String updatedAt;
     private String deletedAt;
     private Boolean isActive;
-    private UserProfileResDto userprofile;
     private final Set<RoleDto> roles;
 }
