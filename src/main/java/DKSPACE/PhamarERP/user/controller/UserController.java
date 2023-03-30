@@ -49,7 +49,7 @@ public class UserController {
     }
     
     @GetMapping("/{userId}")
-    @HasPermission(PermissionKeyEnum.DETAIL_USER)
+    @HasPermission(value = PermissionKeyEnum.DETAIL_USER, acceptCurrentUser = true)
     @Operation(summary = "Xem chi tiết người dùng")
     public Object listUser(@PathVariable Long userId){
         return service.detailUser(userId);
