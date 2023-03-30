@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.server.ServerWebInputException;
 
@@ -52,6 +53,13 @@ public class ApplicationExceptionHandler {
     public ApiResponse<?> handleNoValuePresent(NoSuchElementException exception) {
         log.error("handleNoValuePresent: {}", exception.getMessage());
         return ApiResponse.failed(ApiResponseInfo.NO_VALUE_PRESENT);
+    }
+    
+    @ExceptionHandler(MultipartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleMultipartException(MultipartException exception) {
+        log.error("handleMultipartException: {}", exception.getMessage());
+        return ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
