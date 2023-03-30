@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.user.controller;
 
 import DKSPACE.PhamarERP.auth.aop.HasPermission;
 import DKSPACE.PhamarERP.auth.enums.permission.PermissionKeyEnum;
+import DKSPACE.PhamarERP.i18n.response.ResponseWrapper;
 import DKSPACE.PhamarERP.user.dto.user_profile.UserProfileReqDto;
 import DKSPACE.PhamarERP.user.dto.user_profile.UserProfileResDto;
 import DKSPACE.PhamarERP.user.model.UserProfile;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "UserProfile", description = "Hồ sơ người dùng")
+@ResponseWrapper
 public class UserProfileController {
 	private final UserProfileService service;
 	
