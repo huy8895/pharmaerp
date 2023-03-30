@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.user.mapper;
 
+import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.user.dto.user_profile.UserProfileReqDto;
 import DKSPACE.PhamarERP.user.dto.user_profile.UserProfileResDto;
 import DKSPACE.PhamarERP.user.model.UserProfile;
@@ -12,7 +13,7 @@ public class UserProfileMapper {
 	
     public UserProfileResDto toDTO(UserProfile entity){
 	    return UserProfileResDto.builder()
-	                            .userId(entity.getUserId())
+	                            .userId(entity.getUser().getId())
 		                        .createdAt(entity.getCreatedAt())
 		                        .updatedAt(entity.getUpdatedAt())
 		                        .deletedAt(entity.getDeletedAt())
@@ -34,7 +35,7 @@ public class UserProfileMapper {
 
 	public UserProfile toEntity(UserProfileReqDto dto) {
 		return UserProfile.builder()
-			              .userId(dto.getUserId())
+			              .user(User.builder().id(dto.getUserId()).build())
 			              .gender(dto.getGender())
 			              .dob(dto.getDob())
 			              .nationality(dto.getNationality())

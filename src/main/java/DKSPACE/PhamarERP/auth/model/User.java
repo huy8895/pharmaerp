@@ -2,6 +2,8 @@ package DKSPACE.PhamarERP.auth.model;
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,10 +31,12 @@ public class User  extends BaseCRUDEntity{
     @NotNull
     @Column(name = "email", nullable = false, length = 100)
     private String email;
+    
     @Size(max = 255)
     @NotNull
     @Column(name = "password", nullable = false, length = 45)
     @ToString.Exclude
+    @JsonIgnore
     private String password;
 
     @Size(max = 50)
@@ -71,6 +75,7 @@ public class User  extends BaseCRUDEntity{
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
+    @JsonIgnoreProperties(value = { "permissions" }, allowSetters = true)
     private Set<Role> roles = new LinkedHashSet<>();
 
     @Size(max = 20)
