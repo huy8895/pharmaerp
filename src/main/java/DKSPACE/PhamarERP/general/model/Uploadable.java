@@ -37,15 +37,15 @@ public class Uploadable {
 	@Column(name = "object_id", nullable = false)
 	private Long objectId;
 	
-	/**
-	 * Đối tượng GenUpload được liên kết với bản ghi này. Chứa thông tin chi tiết về tệp tin được tải lên.
-	 */
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "gen_upload_id", referencedColumnName = "id"),
-			@JoinColumn(name = "object_id", referencedColumnName = "id")
-	})
-	private GenUpload genUpload;
+//	/**
+//	 * Đối tượng GenUpload được liên kết với bản ghi này. Chứa thông tin chi tiết về tệp tin được tải lên.
+//	 */
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@JoinColumns({
+//			@JoinColumn(name = "gen_upload_id", referencedColumnName = "id"),
+//			@JoinColumn(name = "object_id", referencedColumnName = "id")
+//	})
+//	private GenUpload genUpload;
 	
 	/**
 	 * Tên bảng của đối tượng được tham chiếu bởi bản ghi này. Ví dụ: users, products...
