@@ -14,3 +14,7 @@ docker exec -it postgres bash;
 psql --host=172.18.0.2 --user=user pharmaerp;
 
 pharmaerp=# \i init.sql;
+
+//clear and run
+sudo -i;
+docker rm -f app; docker image rm -f huy8895/phamar_erp; docker run -d --name app --network pharmaerp_default -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/pharmaerp -e SPRING_DATASOURCE_USERNAME=user -e SPRING_DATASOURCE_PASSWORD=password -p 8080:8080 huy8895/phamar_erp
