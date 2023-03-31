@@ -67,5 +67,5 @@ public class Supplier extends BaseCRUDEntity {
 	private LocalDate operationDay;
 	
 	@Column(name = "is_active", columnDefinition = "boolean default true")
-	private Boolean isActive;
+	private Boolean isActive = true;
 }

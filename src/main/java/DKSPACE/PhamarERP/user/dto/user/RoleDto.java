@@ -25,7 +25,7 @@ public class RoleDto implements Serializable {
 	@NotNull
 	private Boolean isDefault;
 	@NotNull
-	private Boolean isActive;
+	private Boolean isActive = true;
 	@Size(max = 100)
 	@NotNull
 	private String nameVi;

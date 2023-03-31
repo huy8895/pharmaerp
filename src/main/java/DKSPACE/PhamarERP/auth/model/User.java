@@ -67,8 +67,8 @@ public class User  extends BaseCRUDEntity{
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @Column(name = "is_active")
-    private Boolean isActive;
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean isActive = true;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

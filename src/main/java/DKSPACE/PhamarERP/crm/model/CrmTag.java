@@ -40,8 +40,8 @@ public class CrmTag extends BaseCRUDEntity {
 	 * Trạng thái hoạt động của nhãn (true: hoạt động; false: ngừng hoạt động).
 	 * Mặc định là true khi tạo mới một nhãn trong hệ thống CRM.
 	 */
-	@Column(name = "is_active")
-	private Boolean isActive;
+	@Column(name = "is_active", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
 	
 	@Override
 	public boolean equals(Object o) {

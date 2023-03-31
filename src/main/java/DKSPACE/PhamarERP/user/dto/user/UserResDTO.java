@@ -24,6 +24,6 @@ public class UserResDTO {
     private String createdAt;
     private String updatedAt;
     private String deletedAt;
-    private Boolean isActive;
+    private Boolean isActive = true;
     private final Set<RoleDto> roles;
 }

@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -28,7 +29,7 @@ import java.util.Objects;
 @Table(name = "crm_leads", indexes = {
 		@Index(name = "crm_leads_name_unique", columnList = "name", unique = true)
 })
-public class CrmLead extends BaseCRUDEntity {
+public class CrmLead extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Tên của khách hàng tiềm năng. Không được để trống.
@@ -47,8 +48,8 @@ public class CrmLead extends BaseCRUDEntity {
 	/**
 	 * Trạng thái hoạt động của khách hàng tiềm năng (true: hoạt động; false: ngừng hoạt động). Mặc định là true khi tạo mới một khách hàng tiềm năng trong hệ thống CRM.
 	 */
-	@Column(name = "is_active")
-	private Boolean isActive;
+	@Column(name = "is_active", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
 	
 	
 	@Override

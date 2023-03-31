@@ -1,7 +1,9 @@
 package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
 import DKSPACE.PhamarERP.i18n.validation.Unique;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -30,7 +32,8 @@ import java.util.Objects;
 @Table(name = "crm_companies", indexes = {
 		@Index(name = "crm_companies_tax_code_unique", columnList = "tax_code", unique = true)
 })
-public class CrmCompany extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Mã số thuế của công ty.
@@ -107,8 +110,8 @@ public class CrmCompany extends BaseCRUDEntity {
 	 * Trạng thái hoạt động của công ty (true: hoạt động; false: ngừng hoạt động). 
 	 * Mặc định là true khi tạo mới một công ty trong hệ thống CRM.
 	 */
-	@Column(name = "is_active")
-	private Boolean isActive;
+	@Column(name = "is_active", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
 	
 	
 	@Override
