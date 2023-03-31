@@ -33,8 +33,7 @@ public class ActivityLog extends BaseCRUDEntity {
 	/**
 	 * Id người dùng.
 	 */
-	@NotNull
-	@Column(name = "user_id", nullable = false )
+	@Column(name = "user_id")
 	private Long userId;
 	
 	/**
