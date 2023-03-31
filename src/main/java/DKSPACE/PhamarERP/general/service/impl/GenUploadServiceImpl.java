@@ -91,14 +91,14 @@ public class GenUploadServiceImpl implements GenUploadService {
     @Override
     public GenUploadDto upload(ObjectType objectType, ObjectField objectField, Long objectId, MultipartFile file) {
         GenUploadDto upload = this.upload(file);
-        Object save = uploadableService.save(upload.getId(), objectType, objectField, objectId);
+//        Object save = uploadableService.save(upload.getId(), objectType, objectField, objectId, genUpload);
         return upload;
     }
     
     @Override
     public Object upload(UploadableDto dto) {
         final var byIdIn = repository.findByIdIn(dto.getGenUploadId());
-        return uploadableService.save(dto.getGenUploadId(), dto.getObjectType(), dto.getObjectField(),
+        return uploadableService.save(byIdIn, dto.getObjectType(), dto.getObjectField(),
                                       dto.getObjectId());
     }
     
