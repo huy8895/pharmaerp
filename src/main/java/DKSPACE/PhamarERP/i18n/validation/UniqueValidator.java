@@ -5,16 +5,16 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 	
-	private final EntityManager em;
+	@Autowired
+	private EntityManager em;
 	private String fieldName;
 	private Class<? extends BaseCRUDEntity> entityClass;
 	
-	public UniqueValidator(EntityManager entityManager) {
-		this.em = entityManager;
-	}
+
 	
 	@Override
 	public void initialize(Unique unique) {
@@ -25,6 +25,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		if (value == null) return true;
+		if (this.em == null) return true;
 		
 		try {
 			
