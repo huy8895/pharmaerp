@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.general.service.impl;
 
 import DKSPACE.PhamarERP.general.dto.upload.GenUploadDto;
+import DKSPACE.PhamarERP.general.dto.upload.UploadableDto;
 import DKSPACE.PhamarERP.general.enums.ObjectField;
 import DKSPACE.PhamarERP.general.enums.ObjectType;
 import DKSPACE.PhamarERP.general.model.GenUpload;
@@ -76,11 +77,18 @@ public class GenUploadServiceImpl implements GenUploadService {
                                         .orElseThrow();
         return getGenUploadDto(upload, upload.getData());
     }
-	
-	@Override
+    
+    @Override
 	public GenUploadDto upload(ObjectType objectType, ObjectField objectField, Long objectId, MultipartFile file) {
         GenUploadDto upload = this.upload(file);
         uploadableService.save(upload.getId(), objectType, objectField, objectId);
         return upload;
 	}
+    
+    @Override
+    public Object upload(UploadableDto dto) {
+        final var byIdIn = repository.findByIdIn(dto.getGenUploadId());
+        
+        return null;
+    }
 }

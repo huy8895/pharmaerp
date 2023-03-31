@@ -168,7 +168,7 @@ CREATE TABLE "gen_uploads"
     "file_name"     varchar(45) COLLATE "pg_catalog"."default"  NOT NULL,
     "extension"     varchar(10) COLLATE "pg_catalog"."default"  NOT NULL,
     "content_type"  varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-    "data"          oid                                       NOT NULL,
+    "data"          bytea                                       NOT NULL,
     "size"          float4                                      NOT NULL,
     "created_at"    timestamp(6),
     "updated_at"    timestamp(6),

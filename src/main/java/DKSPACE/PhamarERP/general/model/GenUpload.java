@@ -1,7 +1,10 @@
 package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -64,7 +67,6 @@ public class GenUpload extends BaseCRUDEntity {
 	 */
 	@NotNull
 	@Column(name = "data", nullable = false)
-	@Lob
 	private byte[] data;
 	
 	/**
