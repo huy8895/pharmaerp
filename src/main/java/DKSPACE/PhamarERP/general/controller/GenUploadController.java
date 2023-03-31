@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.general.controller;
 
 import DKSPACE.PhamarERP.general.dto.upload.GenUploadDto;
+import DKSPACE.PhamarERP.general.dto.upload.UploadableDto;
 import DKSPACE.PhamarERP.general.enums.ObjectField;
 import DKSPACE.PhamarERP.general.enums.ObjectType;
 import DKSPACE.PhamarERP.general.service.GenUploadService;
@@ -23,7 +24,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/gen-uploads")
 @RequiredArgsConstructor
-@ResponseWrapper
+@ResponseWrapper(excludes = {"download"})
 @Tag(name = "GenUpload", description = "The GenUpload API")
 @SecurityRequirement(name = "bearerAuth") // indicate that all endpoints require authentication
 public class GenUploadController {
@@ -43,8 +44,15 @@ public class GenUploadController {
                          @PathVariable("field") ObjectField objectField,
                          @PathVariable("objectId") Long objectId
                          ) throws IOException {
-        log.info("file : {}", file.getOriginalFilename());
+        log.info("uploadable : {}", file.getOriginalFilename());
         return service.upload(objectType, objectField, objectId, file);
+    }
+    
+    @PostMapping(value = "/uploadable", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể")
+    public Object uploadable(@RequestBody UploadableDto dto) throws IOException {
+        log.info("uploadable : {}", dto);
+        return service.upload(dto);
     }
     
     @GetMapping("/download/{id}")
