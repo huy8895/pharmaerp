@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,10 +26,16 @@ public class UploadableServiceImpl implements UploadableService {
 		                                     .objectId(objectId)
 		                                     .build();
 		final var uploadable = Uploadable.builder()
-		                             .id(uploadableId)
-		                             .objectField(objectField)
-		                             .objectType(objectType)
-		                             .build();
+		                                 .id(uploadableId)
+		                                 .objectField(objectField)
+		                                 .objectType(objectType)
+		                                 .build();
 		return repository.save(uploadable);
+	}
+	
+	@Override
+	public Object save(Set<Long> genUploadIds, ObjectType objectType, ObjectField objectField, Long objectId) {
+		return genUploadIds.stream().map(genUploadId -> this.save(genUploadId, objectType, objectField, objectId))
+		                   .collect(Collectors.toList());
 	}
 }

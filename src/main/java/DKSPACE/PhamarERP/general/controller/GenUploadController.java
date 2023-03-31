@@ -48,9 +48,9 @@ public class GenUploadController {
         return service.upload(objectType, objectField, objectId, file);
     }
     
-    @PostMapping(value = "/uploadable", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/uploadable")
     @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể")
-    public Object uploadable(@RequestBody UploadableDto dto) throws IOException {
+    public Object uploadable(@RequestBody UploadableDto dto) {
         log.info("uploadable : {}", dto);
         return service.upload(dto);
     }
