@@ -76,7 +76,8 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     public Object toggleActive(Long id, Class<E > entityClass) {
         final var entity = this.findOne(id);
         if (entity instanceof Toggleable toggleable){
-            toggleable.setIsActive(!toggleable.getIsActive());
+            final var isActive = toggleable.getIsActive() != null && toggleable.getIsActive();
+            toggleable.setIsActive(!isActive);
             this.save(entity);
         }
         return null;
