@@ -71,4 +71,9 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
         log.info("saveAll id : {}", list);
         return repository.saveAll(list);
     }
+    
+    @Override
+    public Object toggleActive(Long id, Class<E> entityClass) {
+        return null;
+    }
 }

@@ -16,6 +16,7 @@ public enum BaseCRUDAction implements HasI18NCode {
 	LIST("base_crud.action.list"),
 	IMPORT("base_crud.action.import"),
 	EXPORT("base_crud.action.export"),
+	TOGGLE_ACTIVE("base_crud.action.toggle_active"),
 	;
 	static {
 		MAP = Arrays.stream(values()).collect(Collectors.toMap(Enum::name, p -> p));
