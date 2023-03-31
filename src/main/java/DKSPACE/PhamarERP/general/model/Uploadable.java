@@ -3,6 +3,7 @@ package DKSPACE.PhamarERP.general.model;
 import DKSPACE.PhamarERP.general.enums.ObjectField;
 import DKSPACE.PhamarERP.general.enums.ObjectType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -19,13 +20,22 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "uploadables")
+@IdClass(UploadableId.class)
 public class Uploadable {
 	
 	/**
 	 * Khóa chính của bản ghi. Bao gồm hai trường: genUploadId và objectId.
 	 */
-	@EmbeddedId
-	private UploadableId id;
+	@Id
+	@NotNull
+	@Column(name = "gen_upload_id", nullable = false)
+	private Long genUploadId;
+	
+	@Id
+	@Basic
+	@NotNull
+	@Column(name = "object_id", nullable = false)
+	private Long objectId;
 	
 	/**
 	 * Đối tượng GenUpload được liên kết với bản ghi này. Chứa thông tin chi tiết về tệp tin được tải lên.
@@ -64,11 +74,12 @@ public class Uploadable {
 		if (this == o) return true;
 		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
 		Uploadable that = (Uploadable) o;
-		return id != null && Objects.equals(id, that.id);
+		return genUploadId != null && Objects.equals(genUploadId, that.genUploadId)
+				&& objectId != null && Objects.equals(objectId, that.objectId);
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(genUploadId, objectId);
 	}
 }

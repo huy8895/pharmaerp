@@ -1,6 +1,5 @@
 package DKSPACE.PhamarERP.general.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,11 +17,9 @@ import java.util.Objects;
 public class UploadableId implements Serializable {
 	private static final long serialVersionUID = -2903488751122295749L;
 	@NotNull
-	@Column(name = "gen_upload_id", nullable = false)
 	private Long genUploadId;
 	
 	@NotNull
-	@Column(name = "object_id", nullable = false)
 	private Long objectId;
 	
 	@Override

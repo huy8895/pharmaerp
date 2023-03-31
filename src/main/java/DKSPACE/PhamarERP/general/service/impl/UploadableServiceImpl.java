@@ -23,8 +23,9 @@ public class UploadableServiceImpl implements UploadableService {
 		                                     .objectId(objectId)
 		                                     .build();
 		final var uploadable = Uploadable.builder()
-		                             .id(uploadableId)
-		                             .objectField(objectField)
+		                                 .genUploadId(genUploadId)
+		                                 .objectId(objectId)
+		                                 .objectField(objectField)
 		                             .objectType(objectType)
 		                             .build();
 		return repository.save(uploadable);

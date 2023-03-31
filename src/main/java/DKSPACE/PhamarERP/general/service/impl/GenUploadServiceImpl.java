@@ -81,7 +81,7 @@ public class GenUploadServiceImpl implements GenUploadService {
     @Override
 	public GenUploadDto upload(ObjectType objectType, ObjectField objectField, Long objectId, MultipartFile file) {
         GenUploadDto upload = this.upload(file);
-        uploadableService.save(upload.getId(), objectType, objectField, objectId);
+        Object save = uploadableService.save(upload.getId(), objectType, objectField, objectId);
         return upload;
 	}
     
