@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -25,7 +26,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "gen_work_locations")
-public class GenWorkLocation extends BaseCRUDEntity {
+public class GenWorkLocation extends BaseCRUDEntity implements Toggleable {
 	
 	
 	/**
@@ -55,7 +56,7 @@ public class GenWorkLocation extends BaseCRUDEntity {
 	 */
 	@NotNull
 	@Column(name = "is_active", nullable = false)
-	private Boolean isActive = false;
+	private Boolean isActive = true;
 	
 	@Override
 	public boolean equals(Object o) {

@@ -80,8 +80,8 @@ public class CrmContact extends BaseCRUDEntity {
 	/**
 	 * Trạng thái hoạt động của liên hệ (true: hoạt động; false: ngừng hoạt động). Mặc định là true khi tạo mới một liên hệ trong hệ thống CRM.
 	 */
-	@Column(name = "is_active")
-	private Boolean isActive;
+	@Column(name = "is_active", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
 	
 	
 	@Override

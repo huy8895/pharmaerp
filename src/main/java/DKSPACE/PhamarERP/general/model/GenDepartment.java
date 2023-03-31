@@ -58,7 +58,7 @@ public class GenDepartment extends BaseCRUDEntity {
 	 */
 	@NotNull
 	@Column(name = "is_active", nullable = false)
-	private Boolean isActive = false;
+	private Boolean isActive = true;
 	
 	@Override
 	public boolean equals(Object o) {

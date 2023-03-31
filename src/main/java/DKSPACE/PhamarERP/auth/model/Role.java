@@ -36,7 +36,7 @@ public class Role extends BaseCRUDEntity {
 
     @NotNull
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = false;
+    private Boolean isActive = true;
 
     @Size(max = 100)
     @NotNull

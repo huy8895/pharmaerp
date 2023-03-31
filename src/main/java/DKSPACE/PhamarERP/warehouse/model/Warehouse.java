@@ -62,7 +62,7 @@ public class Warehouse extends BaseCRUDEntity {
     private Long length;
     
     @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean isActive;
+    private Boolean isActive = true;
     
     @Override
     public boolean equals(Object o) {

@@ -73,7 +73,12 @@ public abstract class AbstractBaseCRUDService<E extends BaseCRUDEntity, R extend
     }
     
     @Override
-    public Object toggleActive(Long id, Class<E> entityClass) {
+    public Object toggleActive(Long id, Class<E > entityClass) {
+        final var entity = this.findOne(id);
+        if (entity instanceof Toggleable toggleable){
+            toggleable.setIsActive(!toggleable.getIsActive());
+            this.save(entity);
+        }
         return null;
     }
 }

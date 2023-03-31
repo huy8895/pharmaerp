@@ -58,5 +58,5 @@ public class Material extends BaseCRUDEntity {
 	private String describe;
 	
 	@Column(name = "is_active", columnDefinition = "boolean default true")
-	private Boolean isActive;
+	private Boolean isActive = true;
 }

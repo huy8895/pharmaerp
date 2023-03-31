@@ -63,7 +63,7 @@ public class ContractType extends BaseCRUDEntity {
 	 */
 	@NotNull
 	@Column(name = "is_active", nullable = false)
-	private Boolean isActive = false;
+	private Boolean isActive = true;
 	
 	/**
 	 * Mô tả về loại hợp đồng. Có thể để trống nếu không có thông tin.

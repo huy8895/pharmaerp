@@ -39,5 +39,5 @@ public class MaterialGroup extends BaseCRUDEntity {
 	private String type;
 	
 	@Column(name = "is_active", columnDefinition = "boolean default true")
-	private Boolean isActive;
+	private Boolean isActive = true;
 }

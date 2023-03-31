@@ -40,6 +40,6 @@ public class Document extends BaseCRUDEntity {
 	@Column(name = "describe", length = Integer.MAX_VALUE)
 	private String describe;
 	
-	@Column(name = "is_active")
-	private Boolean isActive;
+	@Column(name = "is_active", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
 }
