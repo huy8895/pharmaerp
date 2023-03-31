@@ -1,7 +1,9 @@
 package DKSPACE.PhamarERP.user.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
 import DKSPACE.PhamarERP.i18n.validation.Unique;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -30,7 +32,8 @@ import java.util.Objects;
 		@Index(name = "name_vi_unique", columnList = "name_vi", unique = true),
 		@Index(name = "name_en_unique", columnList = "name_en", unique = true)
 })
-public class ContractType extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class ContractType extends BaseCRUDEntity implements Toggleable {
 	
 	
 	/**

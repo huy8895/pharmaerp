@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.factory.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -19,12 +21,13 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 @Table(name = "factories")
-public class Factory extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class Factory extends BaseCRUDEntity implements Toggleable {
     @NotBlank
     @Size(max = 20)
     @Column(name = "name_vi")
     private String nameVi;
-
+    
     @Size(max = 255)
     @Column(name = "name_en")
     private String nameEn;

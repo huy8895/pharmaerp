@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -26,7 +28,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "tags")
-public class CrmTag extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class CrmTag extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Tên của nhãn. Không được để trống.

@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -26,6 +27,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "gen_work_locations")
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
 public class GenWorkLocation extends BaseCRUDEntity implements Toggleable {
 	
 	

@@ -1,11 +1,11 @@
 package DKSPACE.PhamarERP.auth.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
@@ -18,22 +18,22 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @SuperBuilder
-@Accessors(chain = true)
 @AllArgsConstructor
 @Entity
 @Table(name = "roles")
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
 public class Role extends BaseCRUDEntity {
-
+    
     @Column(name = "`describe`")
     private String describe;
-
+    
     /**
      * Default là 1 thì sẽ không được sửa
      */
     @NotNull
     @Column(name = "is_default", nullable = false)
     private Boolean isDefault = false;
-
+    
     @NotNull
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;

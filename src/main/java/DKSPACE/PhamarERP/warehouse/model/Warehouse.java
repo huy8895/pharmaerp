@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.warehouse.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -23,7 +25,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "warehouses")
-public class Warehouse extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class Warehouse extends BaseCRUDEntity implements Toggleable {
 	
 	@NotBlank
 	@Size(max = 20)
@@ -60,9 +63,9 @@ public class Warehouse extends BaseCRUDEntity {
     @PositiveOrZero
     @Column(name = "length")
     private Long length;
-    
-    @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean isActive = true;
+	
+	@Column(name = "is_active", columnDefinition = "boolean default true")
+	private Boolean isActive = true;
     
     @Override
     public boolean equals(Object o) {
