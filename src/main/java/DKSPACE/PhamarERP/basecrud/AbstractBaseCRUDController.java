@@ -108,6 +108,16 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
                              .body(excelHelper.writeFile(service.findAll(Pageable.unpaged())
                                                                 .getContent(), this.entity));
     }
+    
+    /**
+     4. Active/Deactive User
+     **/
+    @PutMapping("/toggle-active/{id}")
+    @HasBaseCRUDPermission(BaseCRUDAction.TOGGLE_ACTIVE)
+    @Operation(summary = "Chuyển trạng thái kích hoạt của bản ghi nếu có", description = "Thay đổi trạng thái kích hoạt của người dùng bằng id")
+    public Object toggleActiveUser(@PathVariable Long id){
+        return service.toggleActive(id, entity);
+    }
 
     private HttpHeaders getHttpHeaders(String filename) {
         HttpHeaders headers = new HttpHeaders();

@@ -60,4 +60,6 @@ public interface BaseCRUDService<E extends BaseCRUDEntity> {
     default Object findByCriteria(Pageable pageable, Criteria<E> criteria){
         return null;
     }
+    
+    Object toggleActive(Long id, Class<E> entityClass);
 }

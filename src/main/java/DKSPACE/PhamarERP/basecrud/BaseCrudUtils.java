@@ -9,12 +9,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class BaseCrudUtils {
-
+    
     private static final List<String> DONT_COPY_FIELD =
             List.of("id",
                     "createdAt",
                     "updatedAt",
-                    "deletedFlag");
+                    "deletedFlag",
+                    "isActive"
+            );
     public static Set<String> getNullPropertyNames (Object source) {
         List<Field> allField = ReflectUtils.getAllField(source.getClass());
         return allField.stream().filter(field -> {
