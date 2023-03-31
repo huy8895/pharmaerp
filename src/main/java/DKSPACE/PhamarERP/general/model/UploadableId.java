@@ -3,11 +3,15 @@ package DKSPACE.PhamarERP.general.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@Setter
 @Embeddable
 public class UploadableId implements Serializable {
 	private static final long serialVersionUID = 4285192555472042221L;
@@ -25,22 +29,6 @@ public class UploadableId implements Serializable {
 	}
 	
 	public UploadableId() {
-	}
-	
-	public Long getGenUploadId() {
-		return genUploadId;
-	}
-	
-	public void setGenUploadId(Long genUploadId) {
-		this.genUploadId = genUploadId;
-	}
-	
-	public Long getObjectId() {
-		return objectId;
-	}
-	
-	public void setObjectId(Long objectId) {
-		this.objectId = objectId;
 	}
 	
 	@Override
