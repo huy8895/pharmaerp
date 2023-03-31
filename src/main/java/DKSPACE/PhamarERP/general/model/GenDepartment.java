@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -29,7 +31,8 @@ import java.util.Objects;
 		@Index(name = "gen_officer_levels_name_en_unique", columnList = "name_en", unique = true),
 		@Index(name = "gen_officer_levels_name_vi_unique", columnList = "name_vi", unique = true)
 })
-public class GenDepartment extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class GenDepartment extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Tên tiếng Việt của phòng ban.

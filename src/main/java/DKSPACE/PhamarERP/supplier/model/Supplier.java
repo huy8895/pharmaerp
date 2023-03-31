@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.supplier.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -24,7 +26,8 @@ import java.time.LocalDate;
 @Table(name = "suppliers", indexes = {
 		@Index(name = "suppliers_tax_code_unique", columnList = "tax_code", unique = true)
 })
-public class Supplier extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class Supplier extends BaseCRUDEntity implements Toggleable {
 	
 	@Size(max = 20)
 	@NotNull

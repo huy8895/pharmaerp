@@ -2,6 +2,8 @@ package DKSPACE.PhamarERP.factory.model;
 
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,13 +21,14 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 @Table(name = "factory_lines")
-public class FactoryLine extends BaseCRUDEntity {
-
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class FactoryLine extends BaseCRUDEntity implements Toggleable {
+    
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "factory_id")
     private Factory factory;
-
+    
     @NotBlank
     @Size(max = 20)
     @Column(name = "name_vi")

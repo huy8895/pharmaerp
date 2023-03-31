@@ -2,13 +2,13 @@ package DKSPACE.PhamarERP.auth.model;
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
@@ -23,10 +23,10 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @Entity
-@Accessors(chain = true)
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")})
-public class User  extends BaseCRUDEntity{
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class User extends BaseCRUDEntity implements Toggleable {
     @Size(max = 100)
     @NotNull
     @Column(name = "email", nullable = false, length = 100)
@@ -66,7 +66,7 @@ public class User  extends BaseCRUDEntity{
     @NotNull
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
-
+    
     @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean isActive = true;
 

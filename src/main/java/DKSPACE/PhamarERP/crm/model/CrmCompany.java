@@ -107,7 +107,7 @@ public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	private LocalDate operationDay;
 	
 	/**
-	 * Trạng thái hoạt động của công ty (true: hoạt động; false: ngừng hoạt động). 
+	 * Trạng thái hoạt động của công ty (true: hoạt động; false: ngừng hoạt động).
 	 * Mặc định là true khi tạo mới một công ty trong hệ thống CRM.
 	 */
 	@Column(name = "is_active", columnDefinition = "boolean default true")

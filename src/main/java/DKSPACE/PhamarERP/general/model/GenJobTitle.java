@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -16,8 +18,8 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 /**
-  * Lớp này đại diện cho một chức danh công việc trong hệ thống.
-	*/
+ * Lớp này đại diện cho một chức danh công việc trong hệ thống.
+ */
 @Getter
 @Setter
 @SuperBuilder
@@ -25,7 +27,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "gen_job_titles")
-public class GenJobTitle extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class GenJobTitle extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Tên tiếng Việt của chức danh công việc.

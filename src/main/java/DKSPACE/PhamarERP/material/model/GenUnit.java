@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.material.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -22,7 +24,8 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "gen_units", indexes = {
 		@Index(name = "gen_units_name_vi_unique", columnList = "name_vi", unique = true)
 })
-public class GenUnit extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class GenUnit extends BaseCRUDEntity implements Toggleable {
 	
 	@Size(max = 100)
 	@NotNull

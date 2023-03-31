@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -28,7 +30,8 @@ import java.util.Objects;
 @Table(name = "crm_lead_items", indexes = {
 		@Index(name = "crm_lead_items_crm_lead_id_idx", columnList = "crm_lead_id")
 })
-public class CrmLeadItem extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class CrmLeadItem extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Khách hàng tiềm năng mà sản phẩm thuộc về. Không được để trống.

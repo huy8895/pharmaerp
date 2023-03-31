@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -29,6 +30,7 @@ import java.util.Objects;
 @Table(name = "crm_leads", indexes = {
 		@Index(name = "crm_leads_name_unique", columnList = "name", unique = true)
 })
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
 public class CrmLead extends BaseCRUDEntity implements Toggleable {
 	
 	/**

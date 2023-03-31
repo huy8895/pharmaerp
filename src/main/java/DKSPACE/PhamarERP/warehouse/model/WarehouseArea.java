@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.warehouse.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
@@ -22,7 +24,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "warehouse_areas")
-public class WarehouseArea extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class WarehouseArea extends BaseCRUDEntity implements Toggleable {
 	
 	@ManyToOne
 	@JoinColumn(name = "warehouse_id", referencedColumnName = "id")

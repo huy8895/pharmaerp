@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.supplier.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,7 +19,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 @Table(name = "supplier_contacts")
-public class SupplierContact extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class SupplierContact extends BaseCRUDEntity implements Toggleable {
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

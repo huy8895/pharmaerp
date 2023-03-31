@@ -1,6 +1,8 @@
 package DKSPACE.PhamarERP.document.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.basecrud.Toggleable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -22,7 +24,8 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "document_groups", indexes = {
 		@Index(name = "document_groups_name_vi_unique", columnList = "name_vi", unique = true)
 })
-public class DocumentGroup extends BaseCRUDEntity {
+@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+public class DocumentGroup extends BaseCRUDEntity implements Toggleable {
 	@Column(name = "parent_id")
 	private Long parentId;
 	
