@@ -3,8 +3,11 @@ package DKSPACE.PhamarERP.config;
 
 import DKSPACE.PhamarERP.midleware.HandlerInterceptorImpl;
 import DKSPACE.PhamarERP.midleware.PermissionInterceptor;
+import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,4 +21,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     registry.addInterceptor(new HandlerInterceptorImpl());
     registry.addInterceptor(this.permissionInterceptor);
   }
+  
+  @Bean
+  public Validator validator() {
+    return new LocalValidatorFactoryBean();
+  }
+  
 }

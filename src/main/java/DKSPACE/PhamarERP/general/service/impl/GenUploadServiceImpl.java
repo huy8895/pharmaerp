@@ -11,8 +11,11 @@ import DKSPACE.PhamarERP.general.service.UploadableService;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ClientException;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,15 +28,18 @@ import java.io.IOException;
 public class GenUploadServiceImpl implements GenUploadService {
     private final GenUploadRepository repository;
     private final UploadableService uploadableService;
-
+    
+    @Autowired
+    private Validator validator;
+    
     @Override
     public GenUploadDto upload(MultipartFile file) {
         final String contentType = file.getContentType();
-        if (contentType == null){
+        if (contentType == null) {
             log.error("error upload contentType == null");
             throw new ClientException(ApiResponseInfo.BAD_REQUEST);
         }
-
+        
         byte[] data = getBytes(file);
         final String originalFilename = file.getOriginalFilename();
         GenUpload upload = GenUpload.builder()
@@ -44,6 +50,10 @@ public class GenUploadServiceImpl implements GenUploadService {
                                     .size((float) data.length)
                                     .extension(StringUtils.getFilenameExtension(originalFilename))
                                     .build();
+        final var validate = validator.validate(upload);
+        if (!validate.isEmpty()) {
+            throw new ConstraintViolationException(validate);
+        }
         GenUpload saveUpload = repository.save(upload);
         return getGenUploadDto(saveUpload, new byte[]{});
     }
@@ -86,9 +96,8 @@ public class GenUploadServiceImpl implements GenUploadService {
 	}
     
     @Override
-    public Object upload(UploadableDto dto) {
+    public Object upload(ObjectType objectType, ObjectField objectField, UploadableDto dto) {
         final var byIdIn = repository.findByIdIn(dto.getGenUploadId());
-        
-        return null;
+        return uploadableService.save(dto.getGenUploadId(), objectType, objectField, dto.getObjectId());
     }
 }
