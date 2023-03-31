@@ -1,6 +1,7 @@
 package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
+import DKSPACE.PhamarERP.i18n.validation.Unique;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -34,6 +35,7 @@ public class GenUpload extends BaseCRUDEntity {
 	 * Tên gốc của tệp tin.
 	 */
 	@Size(max = 255)
+	@Unique(value = GenUpload_.ORIGINAL_NAME, domainClass = GenUpload.class)
 	@NotNull
 	@Column(name = "original_name", nullable = false)
 	private String originalName;

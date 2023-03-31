@@ -23,7 +23,7 @@ public class I18NMessageResolver {
         return this.convertMessage(hasI18NCode.getI18nCode());
     }
     
-    private String convertMessage(String code) {
+    public String convertMessage(String code) {
         if (code == null) return "";
         final var locale = LocaleContextHolder.getLocale();
         return messageSource.getMessage(code, null, locale);

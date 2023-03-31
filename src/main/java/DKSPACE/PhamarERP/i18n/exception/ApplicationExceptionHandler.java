@@ -171,7 +171,8 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getPropertyPath().toString())
-                                               .errorMessage(error.getMessage())
+                                               .errorMessage(messageResolver.convertMessage(
+                                                       error.getMessage().replaceAll("\\{|\\}", "")))
                                                .build())
                          .toList();
         
