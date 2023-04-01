@@ -3,6 +3,8 @@ package DKSPACE.PhamarERP.auth.repository;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDRepository;
+import DKSPACE.PhamarERP.general.enums.ObjectField;
+import DKSPACE.PhamarERP.general.enums.ObjectType;
 import DKSPACE.PhamarERP.general.model.Uploadable_;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
@@ -24,15 +26,15 @@ public interface UserRepository extends BaseCRUDRepository<User, Long> {
 	static Specification<User> fetchAvatar() {
 		return (root, query, criteriaBuilder) -> {
 			final var join = (Join<Object, Object>) root.fetch(User_.UPLOADABLES, JoinType.LEFT);
-			join.on(criteriaBuilder.and(criteriaBuilder.equal(join.get(Uploadable_.OBJECT_TYPE), "USER"),
-			                            criteriaBuilder.equal(join.get(Uploadable_.OBJECT_FIELD), "AVATAR")));
+			join.on(criteriaBuilder.and(criteriaBuilder.equal(join.get(Uploadable_.OBJECT_TYPE), ObjectType.USER.name()),
+			                            criteriaBuilder.equal(join.get(Uploadable_.OBJECT_FIELD), ObjectField.AVATAR.name())));
 			return query.getRestriction();
 		};
 	}
 	
 	static Specification<User> idEqual(Long userId){
 	return  (root, query, criteriaBuilder) -> criteriaBuilder.equal(
-			root.get("id"), userId);
+			root.get(User_.ID), userId);
 	};
 	
 }
