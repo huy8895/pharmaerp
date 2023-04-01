@@ -1,5 +1,6 @@
 package DKSPACE.PhamarERP.general.model;
 
+import DKSPACE.PhamarERP.auth.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -34,44 +35,7 @@ public class Uploadable {
 	@Column(name = "describe", length = Integer.MAX_VALUE)
 	private String describe;
 	
-	public UploadableId getId() {
-		return id;
-	}
-	
-	public void setId(UploadableId id) {
-		this.id = id;
-	}
-	
-	public GenUpload getGenUpload() {
-		return genUpload;
-	}
-	
-	public void setGenUpload(GenUpload genUpload) {
-		this.genUpload = genUpload;
-	}
-	
-	public String getObjectType() {
-		return objectType;
-	}
-	
-	public void setObjectType(String objectType) {
-		this.objectType = objectType;
-	}
-	
-	public String getObjectField() {
-		return objectField;
-	}
-	
-	public void setObjectField(String objectField) {
-		this.objectField = objectField;
-	}
-	
-	public String getDescribe() {
-		return describe;
-	}
-	
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
-	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "object_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private User user;
 }
