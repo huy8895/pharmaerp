@@ -25,23 +25,6 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn clean install
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: maven-target
-          path: target/
-  deploy:
-    name: Deploy to Docker Hub
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: maven-target
-          path: target
       - name: List files in  directory
         run: ls
       - name: Build and push Docker image
