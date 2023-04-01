@@ -2,12 +2,10 @@ package DKSPACE.PhamarERP.user.service.impl;
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.model.User;
-import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.general.enums.ObjectType;
-import DKSPACE.PhamarERP.general.model.Uploadable_;
+import DKSPACE.PhamarERP.general.model.Uploadable;
 import DKSPACE.PhamarERP.general.service.MailService;
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
@@ -17,6 +15,7 @@ import DKSPACE.PhamarERP.user.dto.user.*;
 import DKSPACE.PhamarERP.user.mapper.UserMapper;
 import DKSPACE.PhamarERP.user.service.UserService;
 import DKSPACE.PhamarERP.user.service.criteria.UserQueryService;
+import jakarta.persistence.criteria.Join;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -168,21 +167,23 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 	
 	@Override
 	public Object detailUser(Long userId) {
-        return getUserUsingSpecification();
+        return this.getUserUsingSpecification(userId);
     }
     
-    private Optional<User> getUserUsingSpecification() {
-        Specification<User> spec = (root, query, criteriaBuilder) -> {
-//            final var uploadableSetJoin = root.join(User_.uploadables);
-            final var objectPath = root.join(User_.uploadables).get(Uploadable_.objectType);
+    private Optional<User> getUserUsingSpecification(Long userId) {
+
+        return repository.findOne(hasUploadable(userId));
+    }
+    
+    Specification<User> hasUploadable(Long userId) {
+        return (root, query, criteriaBuilder) -> {
+            Join<User, Uploadable> uploadableJoin = root.join("uploadables");
             query.distinct(true);
-            return criteriaBuilder.equal(objectPath, ObjectType.USER.name());
+            return criteriaBuilder.and(
+                    criteriaBuilder.equal(root.get("id"), userId),
+                    criteriaBuilder.equal(uploadableJoin.get("objectType"), "USER")
+            );
         };
-        return repository.findOne(spec);
-    }
-    
-    public static Specification<User> hasId(Long id) {
-        return (root, query, cb) -> cb.equal(root.get(User_.id), id);
     }
     
 
