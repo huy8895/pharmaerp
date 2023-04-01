@@ -38,18 +38,54 @@ public class SpringdocConfig {
 
     @Bean
     public GroupedOpenApi authApi() {
-        String[] paths = {"/api/auth/**"};
+        String[] packagesToScan = {"DKSPACE.PhamarERP.auth.controller"};
+    
         return GroupedOpenApi.builder()
-                             .group("Auth")
-                             .pathsToMatch(paths)
+                             .group("AUTH")
+                             .packagesToScan(packagesToScan)
+                             .build();
+    }
+    @Bean
+    public GroupedOpenApi userApi() {
+        String[] packagesToScan = {"DKSPACE.PhamarERP.user.controller"};
+    
+        return GroupedOpenApi.builder()
+                             .group("USER")
+                             .packagesToScan(packagesToScan)
                              .build();
     }
 
     @Bean
     public GroupedOpenApi csmApi() {
-        String[] packagesToScan = {"DDKSPACE.PhamarERP.crm.controller"};
+        String[] packagesToScan = {"DKSPACE.PhamarERP.crm.controller"};
         return GroupedOpenApi.builder()
                              .group("CRM")
+                             .packagesToScan(packagesToScan)
+                             .build();
+    }
+    
+    @Bean
+    public GroupedOpenApi generalApi() {
+        String[] packagesToScan = {"DKSPACE.PhamarERP.general.controller"};
+        return GroupedOpenApi.builder()
+                             .group("GENERAL")
+                             .packagesToScan(packagesToScan)
+                             .build();
+    }
+    
+    @Bean
+    public GroupedOpenApi materialApi() {
+        String[] packagesToScan = {"DKSPACE.PhamarERP.material.controller"};
+        return GroupedOpenApi.builder()
+                             .group("MATERIAL")
+                             .packagesToScan(packagesToScan)
+                             .build();
+    }
+    @Bean
+    public GroupedOpenApi supplierApi() {
+        String[] packagesToScan = {"DKSPACE.PhamarERP.supplier.controller"};
+        return GroupedOpenApi.builder()
+                             .group("SUPPLIER")
                              .packagesToScan(packagesToScan)
                              .build();
     }
