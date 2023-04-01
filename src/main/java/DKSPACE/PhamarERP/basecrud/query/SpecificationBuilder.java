@@ -68,6 +68,13 @@ public class SpecificationBuilder<ENTITY> {
 		return this;
 	}
 	
+	public  SpecificationBuilder<ENTITY> and(Specification<ENTITY> specification) {
+		if (specification != null) {
+			this.specification.getAndUpdate(current -> current.and(specification));
+		}
+		return this;
+	}
+	
 	
 	public Specification<ENTITY> build() {
 		return this.specification.get();

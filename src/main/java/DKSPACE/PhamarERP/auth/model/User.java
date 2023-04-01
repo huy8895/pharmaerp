@@ -3,6 +3,7 @@ package DKSPACE.PhamarERP.auth.model;
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
+import DKSPACE.PhamarERP.general.model.Uploadable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -82,6 +83,10 @@ public class User extends BaseCRUDEntity implements Toggleable {
     @NotNull
     @Column(name = "staff_code", nullable = false, length = 20)
     private String staffCode;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnoreProperties({"genUpload", "user"})
+    private Set<Uploadable> uploadables = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

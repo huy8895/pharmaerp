@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.i18n.validation.Unique;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
@@ -29,6 +30,7 @@ import java.util.Objects;
 @Table(name = "gen_uploads", indexes = {
 		@Index(name = "original_name_UNIQUE", columnList = "original_name", unique = true)
 })
+@JsonIgnoreProperties({"data"})
 public class GenUpload extends BaseCRUDEntity {
 	
 	/**

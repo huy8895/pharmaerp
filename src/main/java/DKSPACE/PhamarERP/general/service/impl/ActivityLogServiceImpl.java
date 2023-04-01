@@ -47,7 +47,6 @@ public class ActivityLogServiceImpl extends AbstractBaseCRUDService<ActivityLog,
 	public void logActivity(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 		
 		final var currentUserId = SecurityUtils.getCurrentUserId();
-		if (currentUserId == null) return;
 		
 		final var requestInfo = this.getRequestInfo(request);
 		final var responseInfo = this.getResponseInfo(response);

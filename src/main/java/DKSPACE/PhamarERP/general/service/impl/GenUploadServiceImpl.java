@@ -34,6 +34,11 @@ public class GenUploadServiceImpl implements GenUploadService {
     
     @Override
     public GenUploadDto upload(MultipartFile file) {
+        final var saveUpload = this.saveUpload(file);
+        return getGenUploadDto(saveUpload, new byte[]{});
+    }
+    
+    private GenUpload saveUpload(MultipartFile file) {
         final String contentType = file.getContentType();
         if (contentType == null) {
             log.error("error upload contentType == null");
@@ -42,7 +47,7 @@ public class GenUploadServiceImpl implements GenUploadService {
         
         byte[] data = getBytes(file);
         final String originalFilename = file.getOriginalFilename();
-        GenUpload upload = GenUpload.builder()
+        final var upload = GenUpload.builder()
                                     .contentType(contentType)
                                     .data(data)
                                     .originalName(originalFilename)
@@ -54,10 +59,9 @@ public class GenUploadServiceImpl implements GenUploadService {
         if (!validate.isEmpty()) {
             throw new ConstraintViolationException(validate);
         }
-        GenUpload saveUpload = repository.save(upload);
-        return getGenUploadDto(saveUpload, new byte[]{});
+        return repository.save(upload);
     }
-
+    
     private byte[] getBytes(MultipartFile file) {
         byte[] compress = new byte[0];
         try {
@@ -90,15 +94,15 @@ public class GenUploadServiceImpl implements GenUploadService {
     
     @Override
     public GenUploadDto upload(ObjectType objectType, ObjectField objectField, Long objectId, MultipartFile file) {
-        GenUploadDto upload = this.upload(file);
-        uploadableService.save(upload.getId(), objectType, objectField, objectId);
-        return upload;
+        final var upload  = this.saveUpload(file);
+        Object save = uploadableService.save(upload.getId(), objectType, objectField, objectId, upload);
+        return getGenUploadDto(upload, new byte[]{});
     }
     
     @Override
     public Object upload(UploadableDto dto) {
         final var byIdIn = repository.findByIdIn(dto.getGenUploadId());
-        return uploadableService.save(dto.getGenUploadId(), dto.getObjectType(), dto.getObjectField(),
+        return uploadableService.save(byIdIn, dto.getObjectType(), dto.getObjectField(),
                                       dto.getObjectId());
     }
     

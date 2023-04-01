@@ -16,7 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Embeddable
 public class UploadableId implements Serializable {
-	private static final long serialVersionUID = -2903488751122295749L;
+	private static final long serialVersionUID = 4285192555472042221L;
 	@NotNull
 	@Column(name = "gen_upload_id", nullable = false)
 	private Long genUploadId;
@@ -24,6 +24,14 @@ public class UploadableId implements Serializable {
 	@NotNull
 	@Column(name = "object_id", nullable = false)
 	private Long objectId;
+	
+	public UploadableId(Long genUploadId, Long objectId) {
+		this.genUploadId = genUploadId;
+		this.objectId = objectId;
+	}
+	
+	public UploadableId() {
+	}
 	
 	@Override
 	public boolean equals(Object o) {

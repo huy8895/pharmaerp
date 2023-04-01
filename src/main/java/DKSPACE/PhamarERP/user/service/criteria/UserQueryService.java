@@ -3,6 +3,7 @@ package DKSPACE.PhamarERP.user.service.criteria;
 import DKSPACE.PhamarERP.auth.model.Role_;
 import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.model.User_;
+import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.user.dto.criteria.UserCriteria;
@@ -28,6 +29,7 @@ public class UserQueryService extends FilterService<User, UserCriteria> {
 				.and(criteria.getRoleId(), root -> root.join(User_.roles, JoinType.LEFT).get(Role_.id),
 				     super::buildRangeSpecification)
 				.and(criteria.getIsActive(), User_.isActive, super::buildSpecification)
+				.and(UserRepository.fetchAvatar())
 				.build();
 	}
 	

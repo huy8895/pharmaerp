@@ -3,6 +3,7 @@ package DKSPACE.PhamarERP.user.mapper;
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.mapper.RoleMapper;
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.general.model.Uploadable;
 import DKSPACE.PhamarERP.user.dto.user.UserAddRolesDTO;
 import DKSPACE.PhamarERP.user.dto.user.UserResDTO;
 import DKSPACE.PhamarERP.user.dto.user.UserUpdateDTO;
@@ -28,9 +29,23 @@ public class UserMapper {
 	                     .deletedAt(String.valueOf(user.getDeletedAt()))
 	                     .isActive(user.getIsActive())
 	                     .roles(roleMapper.toDTO(user.getRoles()))
+	                     .avatar(this.getAvatar(user))
 	                     .build();
     }
-
+	
+	private String getAvatar(User user) {
+		if (user == null) return null;
+		return user.getUploadables()
+		           .stream()
+		           .findFirst()
+		           .map(this::mapUpload)
+		           .orElse(null);
+	}
+	
+	private String mapUpload(Uploadable uploadable) {
+		return "/download/" + uploadable.getId().getGenUploadId();
+	}
+	
 	public User toEntity(UserAddRolesDTO dto) {
 		return User.builder()
 				   .id(dto.getId())

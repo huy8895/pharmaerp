@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.general.service.impl;
 
 import DKSPACE.PhamarERP.general.enums.ObjectField;
 import DKSPACE.PhamarERP.general.enums.ObjectType;
+import DKSPACE.PhamarERP.general.model.GenUpload;
 import DKSPACE.PhamarERP.general.model.Uploadable;
 import DKSPACE.PhamarERP.general.model.UploadableId;
 import DKSPACE.PhamarERP.general.repository.UploadableRepository;
@@ -20,22 +21,22 @@ public class UploadableServiceImpl implements UploadableService {
 	private final UploadableRepository repository;
 	
 	@Override
-	public Object save(Long genUploadId, ObjectType objectType, ObjectField objectField, Long objectId) {
-		final var uploadableId = UploadableId.builder()
-		                                     .genUploadId(genUploadId)
-		                                     .objectId(objectId)
-		                                     .build();
+	public Object save(Long genUploadId, ObjectType objectType, ObjectField objectField, Long objectId,
+	                   GenUpload genUpload) {
+		UploadableId id = new UploadableId(genUploadId, objectId);
 		final var uploadable = Uploadable.builder()
-		                                 .id(uploadableId)
-		                                 .objectField(objectField)
-		                                 .objectType(objectType)
+		                                 .id(id)
+		                                 .objectField(objectField.name())
+		                                 .objectType(objectType.name())
+		                                 .genUpload(genUpload)
 		                                 .build();
 		return repository.save(uploadable);
 	}
 	
 	@Override
-	public Object save(Set<Long> genUploadIds, ObjectType objectType, ObjectField objectField, Long objectId) {
-		return genUploadIds.stream().map(genUploadId -> this.save(genUploadId, objectType, objectField, objectId))
+	public Object save(Set<GenUpload> genUploadIds, ObjectType objectType, ObjectField objectField, Long objectId) {
+		return genUploadIds.stream().map(genUpload -> this.save(genUpload.getId(), objectType, objectField, objectId,
+		                                                          genUpload))
 		                   .collect(Collectors.toList());
 	}
 }

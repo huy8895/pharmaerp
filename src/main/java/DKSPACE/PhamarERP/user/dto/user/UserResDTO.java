@@ -26,4 +26,5 @@ public class UserResDTO {
     private String deletedAt;
     private Boolean isActive = true;
     private final Set<RoleDto> roles;
+    private final String avatar;
 }

@@ -38,7 +38,7 @@ public class GenUploadController {
     }
     
     @PostMapping(value = "/upload/{type}/{objectId}/{field}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể")
+    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể v1")
     public Object uploadable(@RequestParam("file") MultipartFile file,
                          @PathVariable("type") ObjectType objectType,
                          @PathVariable("field") ObjectField objectField,
@@ -49,7 +49,7 @@ public class GenUploadController {
     }
     
     @PostMapping(value = "/uploadable")
-    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể")
+    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể v2")
     public Object uploadable(@RequestBody UploadableDto dto) {
         log.info("uploadable : {}", dto);
         return service.upload(dto);
