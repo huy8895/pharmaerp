@@ -168,7 +168,9 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 	
 	@Override
 	public Object detailUser(Long userId) {
-        return this.getUserUsingSpecification(userId).orElseThrow();
+        return this.getUserUsingSpecification(userId)
+                   .map(userMapper::toDTO)
+                   .orElseThrow();
     }
     
     private Optional<User> getUserUsingSpecification(Long userId) {
