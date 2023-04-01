@@ -28,6 +28,7 @@ public interface UserRepository extends BaseCRUDRepository<User, Long> {
 			final var join = (Join<Object, Object>) root.fetch(User_.UPLOADABLES, JoinType.LEFT);
 			join.on(criteriaBuilder.and(criteriaBuilder.equal(join.get(Uploadable_.OBJECT_TYPE), ObjectType.USER.name()),
 			                            criteriaBuilder.equal(join.get(Uploadable_.OBJECT_FIELD), ObjectField.AVATAR.name())));
+			query.orderBy(criteriaBuilder.desc(join.get(Uploadable_.ID)));
 			return query.getRestriction();
 		};
 	}
