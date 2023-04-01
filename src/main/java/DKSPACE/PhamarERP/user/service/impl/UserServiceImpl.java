@@ -5,7 +5,6 @@ import DKSPACE.PhamarERP.auth.model.User;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
-import DKSPACE.PhamarERP.general.model.Uploadable;
 import DKSPACE.PhamarERP.general.service.MailService;
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
@@ -15,20 +14,17 @@ import DKSPACE.PhamarERP.user.dto.user.*;
 import DKSPACE.PhamarERP.user.mapper.UserMapper;
 import DKSPACE.PhamarERP.user.service.UserService;
 import DKSPACE.PhamarERP.user.service.criteria.UserQueryService;
-import jakarta.persistence.criteria.Join;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -170,20 +166,8 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
         return this.getUserUsingSpecification(userId);
     }
     
-    private Optional<User> getUserUsingSpecification(Long userId) {
-
-        return repository.findOne(hasUploadable(userId));
-    }
-    
-    Specification<User> hasUploadable(Long userId) {
-        return (root, query, criteriaBuilder) -> {
-            Join<User, Uploadable> uploadableJoin = root.join("uploadables");
-            query.distinct(true);
-            return criteriaBuilder.and(
-                    criteriaBuilder.equal(root.get("id"), userId),
-                    criteriaBuilder.equal(uploadableJoin.get("objectType"), "USER")
-            );
-        };
+    private Object getUserUsingSpecification(Long userId) {
+        return repository.findOne(UserRepository.fetchAvatar(userId));
     }
     
 
