@@ -20,13 +20,13 @@ public interface UserRepository extends BaseCRUDRepository<User, Long> {
 	@Query("SELECT u FROM User u JOIN FETCH u.uploadables ub WHERE u.id = :userId AND ub.objectType = 'USER' and ub.objectField = 'AVATAR'")
 	Optional<User> findUsersWithUploadables(@Param("userId") Long userId);
 	
+	@SuppressWarnings("unchecked")
 	static Specification<User> fetchAvatar() {
 		return (root, query, criteriaBuilder) -> {
 			final var join = (Join<Object, Object>) root.fetch(User_.UPLOADABLES, JoinType.LEFT);
-			return criteriaBuilder.and(
-					criteriaBuilder.equal(join.get(Uploadable_.OBJECT_TYPE), "USER"),
-					criteriaBuilder.equal(join.get(Uploadable_.OBJECT_FIELD), "AVATAR")
-			);
+			join.on(criteriaBuilder.and(criteriaBuilder.equal(join.get(Uploadable_.OBJECT_TYPE), "USER"),
+			                            criteriaBuilder.equal(join.get(Uploadable_.OBJECT_FIELD), "AVATAR")));
+			return query.getRestriction();
 		};
 	}
 	
