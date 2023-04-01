@@ -2,9 +2,12 @@ package DKSPACE.PhamarERP.user.service.impl;
 
 import DKSPACE.PhamarERP.auth.enums.UserType;
 import DKSPACE.PhamarERP.auth.model.User;
+import DKSPACE.PhamarERP.auth.model.User_;
 import DKSPACE.PhamarERP.auth.repository.UserRepository;
 import DKSPACE.PhamarERP.basecrud.AbstractBaseCRUDService;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
+import DKSPACE.PhamarERP.general.enums.ObjectType;
+import DKSPACE.PhamarERP.general.model.Uploadable_;
 import DKSPACE.PhamarERP.general.service.MailService;
 import DKSPACE.PhamarERP.helper.excel.ExcelHelper;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
@@ -19,12 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -163,6 +168,22 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 	
 	@Override
 	public Object detailUser(Long userId) {
-        return this.findOne(userId);
+        return getUserUsingSpecification();
     }
+    
+    private Optional<User> getUserUsingSpecification() {
+        Specification<User> spec = (root, query, criteriaBuilder) -> {
+//            final var uploadableSetJoin = root.join(User_.uploadables);
+            final var objectPath = root.join(User_.uploadables).get(Uploadable_.objectType);
+            query.distinct(true);
+            return criteriaBuilder.equal(objectPath, ObjectType.USER.name());
+        };
+        return repository.findOne(spec);
+    }
+    
+    public static Specification<User> hasId(Long id) {
+        return (root, query, cb) -> cb.equal(root.get(User_.id), id);
+    }
+    
+
 }
