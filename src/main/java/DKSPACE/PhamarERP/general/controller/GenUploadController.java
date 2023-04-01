@@ -1,7 +1,6 @@
 package DKSPACE.PhamarERP.general.controller;
 
 import DKSPACE.PhamarERP.general.dto.upload.GenUploadDto;
-import DKSPACE.PhamarERP.general.dto.upload.UploadableDto;
 import DKSPACE.PhamarERP.general.enums.ObjectField;
 import DKSPACE.PhamarERP.general.enums.ObjectType;
 import DKSPACE.PhamarERP.general.service.GenUploadService;
@@ -18,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @Slf4j
 @RestController
 @RequestMapping("/api/gen-uploads")
@@ -30,31 +27,17 @@ import java.io.IOException;
 public class GenUploadController {
     private final GenUploadService service;
     
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Tải lên một tệp tin") 
-    public Object upload(@RequestParam("file") MultipartFile file) throws IOException {
-        log.info("file : {}", file.getOriginalFilename());
-        return service.upload(file);
-    }
-    
-    @PostMapping(value = "/upload/{type}/{objectId}/{field}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/uploadable", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể v1")
     public Object uploadable(@RequestParam("file") MultipartFile file,
-                         @PathVariable("type") ObjectType objectType,
-                         @PathVariable("field") ObjectField objectField,
-                         @PathVariable("objectId") Long objectId
-                         ) throws IOException {
+                         @RequestParam("type") ObjectType objectType,
+                         @RequestParam("field") ObjectField objectField,
+                         @RequestParam("objectId") Long objectId
+                         ) {
         log.info("uploadable : {}", file.getOriginalFilename());
         return service.upload(objectType, objectField, objectId, file);
     }
-    
-    @PostMapping(value = "/uploadable")
-    @Operation(summary = "Tải lên một tệp tin cho một đối tượng cụ thể v2")
-    public Object uploadable(@RequestBody UploadableDto dto) {
-        log.info("uploadable : {}", dto);
-        return service.upload(dto);
-    }
-    
+
     @GetMapping("/download/{id}")
     @Operation(summary = "Tải xuống một tệp tin theo id") 
     public ResponseEntity<byte[]> download(@PathVariable Long id) {

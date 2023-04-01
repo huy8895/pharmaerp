@@ -11,16 +11,20 @@ import DKSPACE.PhamarERP.general.service.UploadableService;
 import DKSPACE.PhamarERP.helper.excel.FileUtils;
 import DKSPACE.PhamarERP.i18n.enums.ApiResponseInfo;
 import DKSPACE.PhamarERP.i18n.exception.ClientException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -28,6 +32,7 @@ import java.io.IOException;
 public class GenUploadServiceImpl implements GenUploadService {
     private final GenUploadRepository repository;
     private final UploadableService uploadableService;
+    private final EntityManager entityManager;
     
     @Autowired
     private Validator validator;
@@ -93,10 +98,24 @@ public class GenUploadServiceImpl implements GenUploadService {
     }
     
     @Override
+    @Transactional
     public GenUploadDto upload(ObjectType objectType, ObjectField objectField, Long objectId, MultipartFile file) {
+        if (!this.isObjectExistById(objectId, objectType)){
+            throw new NoSuchElementException(String.format("No value present for object: %s, id : %s" , objectType ,objectId));
+        }
         final var upload  = this.saveUpload(file);
         Object save = uploadableService.save(upload.getId(), objectType, objectField, objectId, upload);
         return getGenUploadDto(upload, new byte[]{});
+    }
+    
+    private boolean isObjectExistById(Long objectId, ObjectType objectType) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        final var cq = cb.createQuery(objectType.getaClass());
+        final var product = cq.from(objectType.getaClass());
+        final var codePredicate = cb.equal(product.get("id"), objectId);
+        cq.where(codePredicate);
+        final var query = entityManager.createQuery(cq);
+        return !query.getResultList().isEmpty();
     }
     
     @Override
