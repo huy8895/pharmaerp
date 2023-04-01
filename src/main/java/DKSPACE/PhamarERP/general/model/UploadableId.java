@@ -3,7 +3,8 @@ package DKSPACE.PhamarERP.general.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -11,9 +12,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Embeddable
 public class UploadableId implements Serializable {
 	private static final long serialVersionUID = 4285192555472042221L;
