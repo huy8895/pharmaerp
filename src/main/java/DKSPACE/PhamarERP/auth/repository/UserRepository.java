@@ -6,7 +6,6 @@ import DKSPACE.PhamarERP.basecrud.BaseCRUDRepository;
 import DKSPACE.PhamarERP.general.model.Uploadable_;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,17 +20,19 @@ public interface UserRepository extends BaseCRUDRepository<User, Long> {
 	@Query("SELECT u FROM User u JOIN FETCH u.uploadables ub WHERE u.id = :userId AND ub.objectType = 'USER' and ub.objectField = 'AVATAR'")
 	Optional<User> findUsersWithUploadables(@Param("userId") Long userId);
 	
-	static Specification<User> fetchAvatar(Long userId) {
+	static Specification<User> fetchAvatar() {
 		return (root, query, criteriaBuilder) -> {
 			final var join = (Join<Object, Object>) root.fetch(User_.UPLOADABLES, JoinType.LEFT);
-			query.distinct(true);
-			Predicate id = criteriaBuilder.equal(root.get("id"), userId);
 			return criteriaBuilder.and(
-					id,
 					criteriaBuilder.equal(join.get(Uploadable_.OBJECT_TYPE), "USER"),
 					criteriaBuilder.equal(join.get(Uploadable_.OBJECT_FIELD), "AVATAR")
 			);
 		};
 	}
+	
+	static Specification<User> idEqual(Long userId){
+	return  (root, query, criteriaBuilder) -> criteriaBuilder.equal(
+			root.get("id"), userId);
+	};
 	
 }

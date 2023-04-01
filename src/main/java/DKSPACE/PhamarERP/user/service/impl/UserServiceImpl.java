@@ -19,13 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static DKSPACE.PhamarERP.auth.repository.UserRepository.fetchAvatar;
+import static DKSPACE.PhamarERP.auth.repository.UserRepository.idEqual;
 
 @Slf4j
 @Service
@@ -163,11 +168,12 @@ public class UserServiceImpl extends AbstractBaseCRUDService<User, UserRepositor
 	
 	@Override
 	public Object detailUser(Long userId) {
-        return this.getUserUsingSpecification(userId);
+        return this.getUserUsingSpecification(userId).orElseThrow();
     }
     
-    private Object getUserUsingSpecification(Long userId) {
-        return repository.findOne(UserRepository.fetchAvatar(userId));
+    private Optional<User> getUserUsingSpecification(Long userId) {
+        return repository.findOne(Specification.where(idEqual(userId))
+                                                .and(fetchAvatar()));
     }
     
 
