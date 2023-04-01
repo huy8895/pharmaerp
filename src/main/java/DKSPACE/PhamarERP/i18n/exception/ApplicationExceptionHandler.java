@@ -14,6 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -73,6 +74,13 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
         log.error("handleHttpMessageNotReadableException: {}", exception.getMessage());
+        return ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(ServletRequestBindingException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleServletRequestBindingException(ServletRequestBindingException exception) {
+        log.error("handleServletRequestBindingException: {}", exception.getMessage());
         return ApiResponse.failed(ApiResponseInfo.BAD_REQUEST);
     }
 
