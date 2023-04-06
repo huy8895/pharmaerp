@@ -26,6 +26,9 @@ public class I18NMessageResolver {
     public String convertMessage(String code) {
         if (code == null) return "";
         final var locale = LocaleContextHolder.getLocale();
+        if (code.matches("^\\{.*\\}$")) {
+            return messageSource.getMessage(code.replaceAll("\\{|\\}", ""), null, locale);
+        }
         return messageSource.getMessage(code, null, locale);
     }
     

@@ -160,7 +160,7 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getField())
-                                               .errorMessage(error.getDefaultMessage())
+                                               .errorMessage(messageResolver.convertMessage(error.getDefaultMessage()))
                                                .build())
                          .toList();
 
@@ -179,8 +179,7 @@ public class ApplicationExceptionHandler {
                          .stream()
                          .map(error -> ErrorDTO.builder()
                                                .field(error.getPropertyPath().toString())
-                                               .errorMessage(messageResolver.convertMessage(
-                                                       error.getMessage().replaceAll("\\{|\\}", "")))
+                                               .errorMessage(messageResolver.convertMessage(error.getMessage()))
                                                .build())
                          .toList();
         
