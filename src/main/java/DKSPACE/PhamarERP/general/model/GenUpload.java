@@ -1,7 +1,7 @@
 package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
-import DKSPACE.PhamarERP.i18n.validation.Unique;
+import DKSPACE.PhamarERP.i18n.validation.Uniques;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,13 +31,13 @@ import java.util.Objects;
 		@Index(name = "original_name_UNIQUE", columnList = "original_name", unique = true)
 })
 @JsonIgnoreProperties({"data"})
+@Uniques(values = GenUpload_.ORIGINAL_NAME, domainClass = GenUpload.class)
 public class GenUpload extends BaseCRUDEntity {
 	
 	/**
 	 * Tên gốc của tệp tin.
 	 */
 	@Size(max = 255)
-	@Unique(value = GenUpload_.ORIGINAL_NAME, domainClass = GenUpload.class)
 	@NotNull
 	@Column(name = "original_name", nullable = false)
 	private String originalName;

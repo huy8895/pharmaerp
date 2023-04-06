@@ -7,11 +7,11 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueValidator.class)
+@Constraint(validatedBy = UniquesValidator.class)
 @Documented
-public @interface Unique {
+public @interface Uniques {
 	
 	String message() default "{custom.validation.constraints.unique.message}";
 	
@@ -19,7 +19,7 @@ public @interface Unique {
 	
 	Class<? extends Payload>[] payload() default {};
 	
-	String value();
+	String[] values();
 	
 	Class<? extends BaseCRUDEntity> domainClass();
 }

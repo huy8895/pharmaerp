@@ -70,7 +70,7 @@ public abstract class AbstractBaseCRUDController<E extends BaseCRUDEntity,
     @PutMapping
     @Operation(summary="Cập nhật")
     @HasBaseCRUDPermission(BaseCRUDAction.UPDATE)
-    public Object update(@RequestBody E entity) {
+    public Object update(@RequestBody @Valid E entity) {
         return service.partialUpdate(entity);
     }
 
