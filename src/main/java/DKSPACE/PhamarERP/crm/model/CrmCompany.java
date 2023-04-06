@@ -2,7 +2,7 @@ package DKSPACE.PhamarERP.crm.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
-import DKSPACE.PhamarERP.i18n.validation.Unique;
+import DKSPACE.PhamarERP.i18n.validation.Uniques;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +33,7 @@ import java.util.Objects;
 		@Index(name = "crm_companies_tax_code_unique", columnList = "tax_code", unique = true)
 })
 @JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@Uniques(values = {CrmCompany_.TAX_CODE, CrmCompany_.OPERATION_DAY}, domainClass = CrmCompany.class)
 public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	
 	/**
@@ -41,7 +42,6 @@ public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	@NotNull
 	@Size(max = 20)
 	@Column(name = "tax_code", nullable = false, length = 20)
-	@Unique(value = CrmCompany_.TAX_CODE, domainClass = CrmCompany.class)
 	private String taxCode;
 	
 	/**
