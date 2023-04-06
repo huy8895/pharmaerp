@@ -31,7 +31,6 @@ public class UniquesValidator implements ConstraintValidator<Uniques, BaseCRUDEn
 		Long id = value.getId();
 		final var beanWrapper = new BeanWrapperImpl(value);
 		
-		
 		return Arrays.stream(propertyNames)
 		             .allMatch(propertyName -> this.validEachField(context, id, beanWrapper, propertyName));
 	}
