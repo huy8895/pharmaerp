@@ -33,7 +33,7 @@ import java.util.Objects;
 		@Index(name = "crm_companies_tax_code_unique", columnList = "tax_code", unique = true)
 })
 @JsonIgnoreProperties(value = "isActive", allowGetters = true)
-@Uniques(values = {CrmCompany_.TAX_CODE, CrmCompany_.OPERATION_DAY}, domainClass = CrmCompany.class)
+@Uniques(values = {CrmCompany_.TAX_CODE}, domainClass = CrmCompany.class)
 public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	
 	/**

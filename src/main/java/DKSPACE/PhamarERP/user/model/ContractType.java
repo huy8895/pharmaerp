@@ -2,7 +2,8 @@ package DKSPACE.PhamarERP.user.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
-import DKSPACE.PhamarERP.i18n.validation.Unique;
+import DKSPACE.PhamarERP.general.model.GenUpload;
+import DKSPACE.PhamarERP.i18n.validation.Uniques;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,7 @@ import java.util.Objects;
 		@Index(name = "name_en_unique", columnList = "name_en", unique = true)
 })
 @JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@Uniques(values = {ContractType_.NAME_VI, ContractType_.NAME_EN}, domainClass = GenUpload.class)
 public class ContractType extends BaseCRUDEntity implements Toggleable {
 	
 	
@@ -41,7 +43,6 @@ public class ContractType extends BaseCRUDEntity implements Toggleable {
 	 */
 	@Size(max = 100)
 	@NotNull
-	@Unique(value = ContractType_.NAME_VI, domainClass = ContractType.class)
 	@Column(name = "name_vi", nullable = false, length = 100)
 	private String nameVi;
 	
@@ -50,7 +51,6 @@ public class ContractType extends BaseCRUDEntity implements Toggleable {
 	 */
 	@NotNull
 	@Size(max = 100)
-	@Unique(value = ContractType_.NAME_EN, domainClass = ContractType.class)
 	@Column(name = "name_en", nullable = false, length = 100)
 	private String nameEn;
 	
