@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.general.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
+import DKSPACE.PhamarERP.i18n.validation.Uniques;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +33,7 @@ import java.util.Objects;
 		@Index(name = "gen_officer_levels_name_vi_unique", columnList = "name_vi", unique = true)
 })
 @JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@Uniques(values = {GenDepartment_.NAME_VI, GenDepartment_.NAME_EN}, domainClass = GenDepartment.class)
 public class GenDepartment extends BaseCRUDEntity implements Toggleable {
 	
 	/**

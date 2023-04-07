@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.factory.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
+import DKSPACE.PhamarERP.i18n.validation.Uniques;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "factories")
 @JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@Uniques(values = Factory_.FACTORY_CODE, domainClass = Factory.class)
 public class Factory extends BaseCRUDEntity implements Toggleable {
     @NotBlank
     @Size(max = 20)
