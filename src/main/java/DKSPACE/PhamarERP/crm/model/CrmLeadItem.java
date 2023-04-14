@@ -3,10 +3,7 @@ package DKSPACE.PhamarERP.crm.model;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,15 +27,16 @@ import java.util.Objects;
 @Table(name = "crm_lead_items", indexes = {
 		@Index(name = "crm_lead_items_crm_lead_id_idx", columnList = "crm_lead_id")
 })
-@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@JsonIgnoreProperties(value = {"isActive", "crmLead"}, allowGetters = true)
 public class CrmLeadItem extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Khách hàng tiềm năng mà sản phẩm thuộc về. Không được để trống.
 	 */
 	@NotNull
-	@Column(name = "crm_lead_id")
-	private Long crmLeadId;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "crm_lead_id", referencedColumnName = "id")
+	private CrmLead crmLead;
 	
 	/**
 	 * Tên của sản phẩm. Không được để trống.
@@ -67,6 +65,12 @@ public class CrmLeadItem extends BaseCRUDEntity implements Toggleable {
 	 */
 	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive = true;
+	
+	public void setCrmLeadId(Long crmLeadId) {
+		this.crmLead = CrmLead.builder()
+		                      .id(crmLeadId)
+		                      .build();
+	}
 	
 	@Override
 	public boolean equals(Object o) {

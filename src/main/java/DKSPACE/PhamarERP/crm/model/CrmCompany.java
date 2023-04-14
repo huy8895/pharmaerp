@@ -113,8 +113,8 @@ public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive = true;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
 	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
 	private Set<CrmContact> contacts = new LinkedHashSet<>();
 	
 	@Override
