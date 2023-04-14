@@ -3,9 +3,7 @@ package DKSPACE.PhamarERP.crm.model;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -33,9 +31,14 @@ public class CrmContact extends BaseCRUDEntity implements Toggleable {
 	/**
 	 * Công ty mà liên hệ thuộc về. Không được để trống.
 	 */
+//	@NotNull
+//	@Column(name = "crm_company_id", nullable = false)
+//	private Long crmCompanyId;
+	
 	@NotNull
-	@Column(name = "crm_company_id", nullable = false)
-	private Long crmCompanyId;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "crm_company_id", referencedColumnName = "id")
+	private CrmCompany company;
 	
 	/**
 	 * Email của liên hệ. Không được để trống.

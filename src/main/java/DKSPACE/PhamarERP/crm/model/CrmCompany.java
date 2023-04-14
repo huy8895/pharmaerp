@@ -3,11 +3,9 @@ package DKSPACE.PhamarERP.crm.model;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
 import DKSPACE.PhamarERP.i18n.validation.Uniques;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,7 +16,9 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * đại diện cho một công ty trong hệ thống CRM.
@@ -113,6 +113,9 @@ public class CrmCompany extends BaseCRUDEntity implements Toggleable {
 	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive = true;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+	@JsonIgnore
+	private Set<CrmContact> contacts = new LinkedHashSet<>();
 	
 	@Override
 	public boolean equals(Object o) {
