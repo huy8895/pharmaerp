@@ -2,6 +2,7 @@ package DKSPACE.PhamarERP.material.model;
 
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
+import DKSPACE.PhamarERP.i18n.validation.Uniques;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 		@Index(name = "materials_name_vi_unique", columnList = "name_vi", unique = true)
 })
 @JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@Uniques(values = {Material_.NAME_VI}, domainClass = Material.class)
 public class Material extends BaseCRUDEntity implements Toggleable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

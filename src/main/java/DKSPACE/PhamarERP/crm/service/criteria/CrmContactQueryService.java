@@ -3,8 +3,10 @@ package DKSPACE.PhamarERP.crm.service.criteria;
 import DKSPACE.PhamarERP.basecrud.query.FilterService;
 import DKSPACE.PhamarERP.basecrud.query.SpecificationBuilder;
 import DKSPACE.PhamarERP.crm.criteria.CrmContactCriteria;
+import DKSPACE.PhamarERP.crm.model.CrmCompany_;
 import DKSPACE.PhamarERP.crm.model.CrmContact;
 import DKSPACE.PhamarERP.crm.model.CrmContact_;
+import jakarta.persistence.criteria.JoinType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,9 @@ public class CrmContactQueryService extends FilterService<CrmContact, CrmContact
 	public Specification<CrmContact> createSpecification(CrmContactCriteria criteria) {
 		return SpecificationBuilder
 				.<CrmContact>builder()
-				.and(criteria.getCrmCompanyId(), CrmContact_.crmCompanyId, super::buildSpecification)
+				.and(criteria.getCrmCompanyId(), root -> root.join(CrmContact_.company, JoinType.LEFT)
+				                                             .get(CrmCompany_.id),
+				     super::buildSpecification)
 				.and(criteria.getEmail(), CrmContact_.email, super::buildStringSpecification)
 				.and(criteria.getTel(), CrmContact_.tel, super::buildStringSpecification)
 				.and(criteria.getFirstName(), CrmContact_.firstName, super::buildStringSpecification)
