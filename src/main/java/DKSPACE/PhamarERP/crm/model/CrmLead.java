@@ -3,11 +3,9 @@ package DKSPACE.PhamarERP.crm.model;
 import DKSPACE.PhamarERP.basecrud.BaseCRUDEntity;
 import DKSPACE.PhamarERP.basecrud.Toggleable;
 import DKSPACE.PhamarERP.i18n.validation.Uniques;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -17,7 +15,9 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Lớp CrmLead kế thừa từ lớp BaseCRUDEntity. Lớp này đại diện cho một khách hàng tiềm năng trong hệ thống CRM.
@@ -55,6 +55,9 @@ public class CrmLead extends BaseCRUDEntity implements Toggleable {
 	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive = true;
 	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "crmLead")
+	private Set<CrmLeadItem> crmLeadItems = new LinkedHashSet<>();
 	
 	@Override
 	public boolean equals(Object o) {

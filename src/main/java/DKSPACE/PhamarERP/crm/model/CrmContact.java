@@ -25,15 +25,12 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "crm_contacts")
-@JsonIgnoreProperties(value = "isActive", allowGetters = true)
+@JsonIgnoreProperties(value = {"isActive", "company"}, allowGetters = true)
 public class CrmContact extends BaseCRUDEntity implements Toggleable {
 	
 	/**
 	 * Công ty mà liên hệ thuộc về. Không được để trống.
 	 */
-//	@NotNull
-//	@Column(name = "crm_company_id", nullable = false)
-//	private Long crmCompanyId;
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -88,6 +85,12 @@ public class CrmContact extends BaseCRUDEntity implements Toggleable {
 	 */
 	@Column(name = "is_active", columnDefinition = "boolean default true")
 	private Boolean isActive = true;
+	
+	public void setCompanyId(Long companyId) {
+		this.company = CrmCompany.builder()
+		                         .id(companyId)
+		                         .build();
+	}
 	
 	
 	@Override
